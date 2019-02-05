@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:background="@color/color_primary"
+        android:gravity="left"
+        android:id="@+id/ll1"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/HomeText"
+                style="@style/Base.TextAppearance.AppCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/HomeButton"
+                android:padding="10dp"
+                android:text="@string/app_name"
+                android:textColor="@color/sweet_dialog_bg_color"
+                android:textSize="20sp"
+                android:fontFamily="sans-serif"
+                android:textStyle="bold"
+
+                />
+        </LinearLayout>
+        <!--
+        <Button
+        android:id="@+id/HmeBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/homebtn"
+        android:padding="10dp" />
+        -->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_below="@+id/ll1"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/EditTextACC"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/selector_edittext"
+            android:hint="Enter Account No."
+            android:fontFamily="sans-serif"
+            android:padding="10dp" />
+
+
+            <Button
+                android:id="@+id/dialogButtonACCOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image"
+                android:layout_margin="10dp"
+                android:background="@drawable/button_cancel"
+                android:gravity="center"
+                android:fontFamily="sans-serif"
+
+                android:text=" Ok " />
+
+
+    </LinearLayout>
+</RelativeLayout>

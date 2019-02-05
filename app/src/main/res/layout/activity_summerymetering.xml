@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnDSR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_marginBottom="5dp"
+
+                android:text="@string/dl_sumarry_rpt" />
+
+            <HorizontalScrollView
+                android:id="@+id/title_horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnDSR"
+                android:layout_margin="1dp"
+                android:layout_weight="1.09"
+                android:fillViewport="false"
+                android:scrollbars="none">
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/layout_grid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <GridView
+
+                            android:id="@+id/gridView_DS_Header"
+                            android:layout_width="650dp"
+                            android:layout_height="50dp"
+                            android:fontFamily="sans-serif"
+                            android:background="@color/color_primary"
+                            android:columnWidth="2dp"
+                            android:numColumns="5"
+                            android:stretchMode="columnWidth"
+                            android:textColor="#cccccc" />
+
+                        <GridView
+                            android:fontFamily="sans-serif"
+                            android:id="@+id/gridView1"
+                            android:layout_width="650dp"
+                            android:layout_height="170dp"
+                            android:cacheColorHint="#000000"
+                            android:columnWidth="2dp"
+                            android:numColumns="5"
+                            android:stretchMode="columnWidth"
+                            android:textColor="#cccccc" />
+
+                    </LinearLayout>
+                </ScrollView>
+            </HorizontalScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnCR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginBottom="5dp"
+
+                android:text="@string/cumm_rpt" />
+
+            <HorizontalScrollView
+                android:id="@+id/title_horizontal1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnCR"
+                android:layout_margin="1dp"
+                android:layout_weight="1.09"
+                android:fillViewport="false"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:id="@+id/layout_grid1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <GridView
+                        android:id="@+id/gridView2"
+                        android:layout_width="650dp"
+                        android:layout_height="50dp"
+
+                        android:background="@color/color_primary"
+                        android:columnWidth="2dp"
+                        android:numColumns="5"
+                        android:stretchMode="columnWidth"
+                        android:textColor="#cccccc" />
+
+                    <GridView
+
+                        android:id="@+id/gridView3"
+                        android:layout_width="650dp"
+                        android:layout_height="150dp"
+                        android:cacheColorHint="#000000"
+                        android:columnWidth="2dp"
+                        android:numColumns="5"
+                        android:stretchMode="columnWidth"
+                        android:textColor="#cccccc" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+        </RelativeLayout>
+    </LinearLayout>

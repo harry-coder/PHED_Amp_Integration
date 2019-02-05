@@ -1,0 +1,642 @@
+<resources>
+    <string name="app_name">SMARTPHED</string>
+    <string name="action_settings">Settings</string>
+    <string name="device_type_dumo">Duplex mode Bluetooth</string>
+    <string name="btn_ok">OK</string>
+    <string name="dialog_title_sys_err">系统错误</string>
+    <string name="actMain_link_device_info_title">Selected Device :</string>
+    <string name="actMain_device_info">%1$s</string>
+    <string name="actMain_btn_pair">Pair</string>
+    <string name="actMain_btn_comm">Connect</string>
+    <string name="actMain_tv_hint_service_uuid_not_bond">Please pair with the Device.</string>
+    <string name="actMain_msg_does_not_support_uuid_service">Application BT version does not support this Mobile.</string>
+    <string name="actMain_msg_bluetooth_Bonding">pairing&#8230;</string>
+    <string name="actMain_msg_device_connecting">Connecting device&#8230;</string>
+    <string name="actMain_msg_device_connect_fail">communication failure</string>
+    <string name="actMain_msg_bluetooth_Bond_Success">Pairing successful</string>
+    <string name="actMain_msg_bluetooth_Bond_fail">Pairing failed</string>
+    <string name="actMain_msg_pair_pwd_error">Pairing password must be 4 digits</string>
+    <string name="actMain_menu_rescan">Rescan</string>
+    <string name="actDiscovery_msg_select_device">Select the device you need to connect</string>
+    <string name="actDiscovery_msg_not_find_device">Devices not found</string>
+    <string name="actDiscovery_msg_scaning_device">Searching for Blutooth devices,please wait&#8230;</string>
+    <string name="actDiscovery_msg_starting_device">Bluetooth is turned on&#8230;</string>
+    <string name="actDiscovery_msg_start_bluetooth_fail">Bluetooth turn on failed</string>
+    <string name="actDiscovery_msg_bluetooth_not_start">Bluetooth is not enabled</string>
+    <string name="actDiscovery_menu_scan">Scan</string>
+    <string name="actDiscovery_bond_bonded">Bonded</string>
+    <string name="actDiscovery_bond_nothing">Nothing</string>
+    <string name="actByteStream_btn_send_desc">Send button</string>
+    <string name="actByteStream_tv_receive_text">Data receive</string>
+    <string name="protocol">General Protocol</string>
+    <string name="escprotocol">Esc Sequence Protocol</string>
+    <string name="device_type_bredr">BR/EDR Bluetooth</string>
+    <string name="device_type_ble">Bluetooth Energy is Low</string>
+    <string name="msg_msg_bt_connect_lost">Bluetooth device connection is lost, try to reconnect</string>
+    <string name="Connect">Connect</string>
+    <string name="not_connected">Mobile is not connected with device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Exiting Application.</string>
+    <string name="title_connecting">connecting...</string>
+    <string name="title_not_connected">not connected</string>
+    <string name="exit">Exit</string>
+    <string name="log_in">Log In</string>
+    <string name="password">Password</string>
+    <string name="meter_read">ETER READING</string>
+    <string name="billing">ILLING</string>
+    <string name="collection">OLLECTION</string>
+    <string name="survey">URVEY</string>
+    <string name="replacement">EPLACEMENT</string>
+
+    <!-- Billing   -->
+    <string name="bill"> Billing</string>
+    <string name="upload_download">Download Master</string>
+    <string name="reports">Reports</string>
+    <string name="summary">Summary</string>
+
+    <!-- BillingtypesActivity  -->
+    <string name="accno">Customer No.</string>
+    <string name="ivrsno">Old Customer NO.</string>
+    <string name="mtrno">Meter no.</string>
+    <string name="name">Name</string>
+    <string name="address">Address</string>
+    <string name="bulkupload">Bulk upload</string>
+    <string name="fullupload">Full upload</string>
+    <string name="test">Test</string>
+    <string name="end_session">End Session</string>
+
+    <!-- BillingviewActivity  -->
+    <string name="billreceipt">Bill receipt</string>
+    <string name="con_no">Customer No.</string>
+    <string name="bill_no">Bill No.</string>
+    <string name="reading_date">Reading Date</string>
+    <string name="pay_by">Pay By</string>
+    <string name="bill_date">Bill Date</string>
+    <string name="amount_payable">Amount Payable</string>
+    <string name="aft_due_date">After Due Date</string>
+    <string name="amount">Amount</string>
+    <string name="amt_due_date">Amount Due date</string>
+    <string name="view_name">NAME:</string>
+    <string name="view_address">ADDRESS:</string>
+    <string name="view_Rahul_Jeth">Rahul Jeth</string>
+    <string name="tariff_category">Tariff Category</string>
+    <string name="load">Load -</string>
+    <string name="phase">Phase</string>
+    <string name="arrears">Arrears (Rs.)</string>
+    <string name="der_mtr_sts">Der Mtr Sts</string>
+    <string name="consumed_units">Consumed Units</string>
+    <string name="arrear">Arrear</string>
+    <string name="der_mtr_sta">derived mtr sta</string>
+    <string name="Units">Units</string>
+    <string name="cur_bill">Current Bill</string>
+    <string name="current">Current</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="total">Total</string>
+    <string name="amt_due">Amount Due</string>
+    <string name="bill_month">Bill Month</string>
+    <string name="view_next">NEXT</string>
+
+    <!--CameraActivity-->
+    <string name="acc_id">Customer ID</string>
+    <string name="acc_no">Customer No. :</string>
+    <string name="ivrs_no">OLd Cust NO.</string>
+    <string name="con_name">Customer Name </string>
+    <string name="mtr_number">Meter Number </string>
+    <string name="traiff_code">Tariff Code </string>
+    <string name="cam_load">load </string>
+    <string name="cam_continue">Continue </string>
+    <string name="last_reciept_print"> Last Receipt Print</string>
+
+    <!--CollectionView-->
+    <string name="coll_recp">Customer Info</string>
+    <string name="rebate_date">Rebate Date</string>
+    <string name="Con_type">Customer Type</string>
+    <string name="Arrear">Arrear</string>
+    <string name="Amt">Outstanding Amount</string>
+    <string name="previous_amt_date">Date</string>
+    <string name="amt_pay_before_re_dt">Amount Payable before Rebate Date</string>
+    <string name="amt_pay_after_re_dt">Amount Payable After Rebate date</string>
+    <string name="amt_re_dt">Amount Rebate date</string>
+    <string name="pre_amt_re_dt">Amount  date</string>
+    <string name="session">METER No :</string>
+    <string name="session1">METER No.</string>
+    <string name="division">DIVISION :</string>
+    <string name="IBC">IBC :</string>
+    <string name="sub_division">SUB-DIVISION :</string>
+    <string name="dc">DC : </string>
+    <string name="BCS">BSC: </string>
+    <string name="ivrs">PHONE No : </string>
+    <string name="add">ADDRESS : </string>
+    <string name="type">FACTORTYPE : </string>
+    <string name="fact_amt">FACTORAMOUNT : </string>
+    <string name="factor_type">FACTORTYPE </string>
+    <string name="factor_tamt">FACTORAMT </string>
+    <string name="div">division </string>
+    <string name="sub_div">subdivision </string>
+    <string name="receipt_no">Receipt No. </string>
+
+    <!--ConsumerSearchByAddressActivity -->
+    <string name="search_by_addr">Search By Address </string>
+    <string name="consumer_name">Customer Name </string>
+    <string name="search">Search</string>
+    <string name="search_by_name">Search By Name</string>
+    <string name="ent_acc_no">Enter Account No.</string>
+    <string name="ent_mtr_no">Enter Meter No.</string>
+    <string name="ok"> Ok </string>
+
+    <!--MeterChangeReportActivity-->
+    <string name="mtr_change_con">Meter Change Customers</string>
+    <string name="total_cons">Total Cust:</string>
+    <string name="new_cons">New Cust:</string>
+    <string name="typ_remark">Type a remark, if any</string>
+    <string name="nsc_consumers">NSC Customers</string>
+    <string name="ch_pay_type">Choose Payment Method</string>
+    <string name="cash">CASH</string>
+    <string name="PRE">PREPAID</string>
+    <string name="chq">CHEQUE</string>
+    <string name="POS">POSTPAID</string>
+    <string name="ddd">DD</string>
+    <string name="dd">POS</string>
+    <string name="ent_amount">Enter Amount</string>
+    <string name="ent_chq_no">Enter Cheque Number</string>
+    <string name="ent_dd_no">Enter DD Number</string>
+    <string name="pos_no">Enter POS Receipt Number</string>
+    <string name="ent_bank_name">Enter Bank Name</string>
+    <string name="incident">Incident</string>
+    <string name="ent_mob_no">Enter Mobile No.</string>
+    <string name="ent_date">Enter Date</string>
+    <string name="dt">Date</string>
+    <string name="print">Accept Payment</string>
+    <string name="printer_setting">Printer Setting</string>
+    <string name="language_setting">Language Setting</string>
+    <string name="choose_lang">Choose Language</string>
+    <string name="impact_print">Impact printing</string>
+    <string name="hindi">Hindi</string>
+    <string name="eng">English</string>
+    <string name="amigos">Amigos</string>
+    <string name="rego">Rego</string>
+    <string name="softland">Softland</string>
+    <string name="print_roll">Printing Roll</string>
+    <string name="thr_print">Thermal printing</string>
+    <string name="evolute">Evolute</string>
+    <string name="analogics">Analogics</string>
+    <string name="nm">Name</string>
+    <string name="pr_mtr_status">Pres. Meter Status</string>
+    <string name="curr_reading">Curr. Reading</string>
+    <string name="max_demand">Max Demand</string>
+    <string name="mtr_no">Meter Number</string>
+    <string name="max_demand_un">Max Demand Unit</string>
+    <string name="pr_factor">Power Factor</string>
+    <string name="pr_factor_un">Pow. Factor Unit :</string>
+    <string name="md_value">*MD value should be taken in KW</string>
+    <string name="pr_reading">Probe Reading</string>
+    <string name="snd_to_server">Send Log To Server</string>
+
+    <!--ReasonActivity-->
+    <string name="add_reason">Add Reason</string>
+    <string name="rd_on_meter">Reading on meter :</string>
+    <string name="ent_reading">Enter Reading</string>
+    <string name="slt_reason">Select Reason :</string>
+    <string name="rpt">Reports</string>
+
+    <!--ReporttypesActivity-->
+    <string name="nw_con_lt">New Customer List</string>
+    <string name="mtr_change_lt">Meter Change List</string>
+    <string name="nt_rd_con_lt">Not Read Customer List</string>
+    <string name="syn_MD">MD Customer List</string>
+    <string name="syn_UNMD">Non MD Customer List</string>
+    <string name="syn_bill_con">Sync Billed Customer</string>
+
+    <!--SDActivity-->
+
+    <string name="download">Download</string>
+    <string name="mr_download">NSC/MR Download</string>
+    <string name="upload">Upload</string>
+    <string name="frm_gallery">From gallery</string>
+    <string name="tk_pic">Take picture</string>
+    <string name="clr">CLEAR</string>
+    <string name="smt">SUBMIT</string>
+    <string name="pl_sign_bw">Please Sign below ...</string>
+    <string name="dl_sumarry_rpt">Daily Summary Report</string>
+    <string name="cumm_rpt">Cummulative Report</string>
+    <string name="nt_rd_con">Not Read Customers</string>
+    <string name="nt_rd_con_rep">Replaced Customers</string>
+    <string name="un_col_con_rpt">Un-Collected Customer Report</string>
+    <string name="voltage">Voltage</string>
+    <string name="mtr">Meter</string>
+    <string name="tng">Tongue</string>
+    <string name="r_phase">R Phase :</string>
+    <string name="y_phase">Y Phase :</string>
+    <string name="b_phase">B Phase :</string>
+    <string name="cur_vol">Current / Voltage </string>
+    <string name="mtr_chg_con">Meter Change Customers</string>
+    <string name="cp_img">Capture Image </string>
+    <string name="tk_pict">Take Picture </string>
+    <string name="bill_kwh_img">Billing KWh Image </string>
+    <string name="bill_md_img">Billing MD Image </string>
+    <string name="mtr_read">Meter Reading</string>
+    <string name="mtr_name">Name :</string>
+    <string name="mtr_status">Meter Status :</string>
+    <string name="kwh_cur">KWh(Cur Read):</string>
+    <string name="kvah">KVAh :</string>
+    <string name="kvarh">KVARh :</string>
+    <string name="md">MD :</string>
+    <string name="mdunit">MDUnit :</string>
+    <string name="ofpeak_kwh">OffPeak KWh :</string>
+    <string name="ofpeak_md">OffPeak MD :</string>
+    <string name="ofpeak_md_un">OffPeak MD Unit :</string>
+    <string name="cum_md">Cum MD  :</string>
+    <string name="pw_factor">Pow. Factor :</string>
+    <string name="mtr_read_in">Meter Reading Input</string>
+    <string name="od_accno">Oldaccount no.</string>
+    <string name="nw_con">New Consumer</string>
+    <string name="mob">Mobile No</string>
+    <string name="rt_sequence">Route Sequence</string>
+    <string name="mtr_st_status">Meter Status</string>
+    <string name="remark">Remarks</string>
+    <string name="st_remark_here">State Your Remark Here...</string>
+    <string name="seal_dt">Seal Details</string>
+    <string name="od_seal">Old Seal</string>
+    <string name="ou_box_seal">Outer Box Seal :</string>
+    <string name="in_box_seal">Inner Box Seal :</string>
+    <string name="opt_seal">Optical Seal :</string>
+    <string name="md_btn_re_seal">MD Button Reset Seal :</string>
+    <string name="nw_seal">New Seal</string>
+    <string name="bk">Back</string>
+    <string name="mtr_img">Meter Image</string>
+    <string name="clk_cap">Click to Capture</string>
+    <string name="pr_img">Premises Image</string>
+    <string name="lat">Latitude.</string>
+    <string name="lon">Longitude.</string>
+    <string name="accuracy">Accuracy.</string>
+    <string name="save">SAVE</string>
+    <string name="save_upload">Save and Upload</string>
+    <string name="con_search">Customer Search</string>
+    <string name="cons_no">Customer No</string>
+    <string name="meterno">Meter no</string>
+    <string name="old_acc_no">Old Account No</string>
+
+    <string name="con_survey">Customer   SURVEY</string>
+    <string name="geo">Geographical</string>
+    <string name="divi">Division :</string>
+    <string name="ele">Electrical :</string>
+    <string name="sub_st">33 / 11kV Sub Station :</string>
+    <string name="st_typ">Start typing..</string>
+    <string name="feeder11">11kV Feeder :</string>
+    <string name="dtr">DTR :</string>
+    <string name="pole">Pole :</string>
+    <string name="consumer">Customer</string>
+    <string name="con_ivrs">Customer Number :</string>
+    <string name="addh_no">ADHAR Number :</string>
+    <string name="consumer_nm">Customer Name :</string>
+    <string name="cons_type">Customer Type : </string>
+    <string name="conn_type">Connection Type : </string>
+    <string name="san_load">Sanction Load(in HP) :</string>
+    <string name="con_caste">Customer Caste :</string>
+    <string name="con_address">Customer Address :</string>
+    <string name="ngh_mtr_no">Neighbour Meter Number : </string>
+    <string name="mobile_no">Mobile Number :</string>
+    <string name="email">E-Mail :</string>
+    <string name="prem_type">Premises Type :</string>
+    <string name="ld_suvery">Load Survey</string>
+    <string name="no_rooms">No Of Rooms :</string>
+    <string name="no_ac">No Of Air Conditioners :</string>
+    <string name="no_coolers">No Of Coolers :</string>
+    <string name="water_pump">Water Pump Available :</string>
+    <string name="no">No</string>
+    <string name="survey_meter">Meter</string>
+    <string name="survey_mtr_no">Meter Number :</string>
+    <string name="mtr_com_port">Meter Com Port :</string>
+    <string name="irda">IRDA</string>
+    <string name="opt">OPTICAL</string>
+    <string name="lpr">LPR</string>
+    <string name="na">NA</string>
+    <string name="mtr_reading">Meter Reading :</string>
+    <string name="mtr_phase">Meter Phase :</string>
+    <string name="ph">1-PH</string>
+    <string name="meter_type">Meter Type :</string>
+    <string name="mtr_capacity">Meter Capacity :</string>
+    <string name="mtr_loc">Meter Location :</string>
+    <string name="mtr_cond">Meter Condition :</string>
+    <string name="mtr_box_status">Meter Box Status :</string>
+    <string name="mtr_box_sl_status">Meter Box Seal Status :</string>
+    <string name="open">Open</string>
+    <string name="service_cb_st">Service Cable Status :</string>
+    <string name="action_required">Action Required on Meter :</string>
+    <string name="observation">Observations</string>
+    <string name="ngh_cons_no">Neighbour Cons No :</string>
+    <string name="rmk">Remarks :</string>
+    <string name="cmt">Comments :</string>
+    <string name="dtr_survey">DTR SURVEY</string>
+    <string name="dtr_no">DTR Number :</string>
+    <string name="dtr_capacity">DTR Capacity :</string>
+    <string name="dtr_name">DTR Name :</string>
+    <string name="dtr_status">DTR Status :</string>
+    <string name="theft_prone">Theft Prone :</string>
+    <string name="yes">yes</string>
+    <string name="no_lt_cts">No of  LT  Circuits :</string>
+    <string name="ht_consumer">HT Customers :</string>
+    <string name="amr">AMR</string>
+    <string name="mtr_make">Meter Make :</string>
+    <string name="ent_rmk">Enter Remark</string>
+    <string name="feed_sur">11kV  FEEDER  SURVEY</string>
+    <string name="add_feed_name">Add 11 kV Feeder Name :</string>
+    <string name="tap_point">Tap Point :</string>
+    <string name="feed_loc">Feeder Location :</string>
+    <string name="mf">MF :</string>
+    <string name="ctr">CTR  :</string>
+    <string name="ptr">PTR :</string>
+    <string name="rk">Remark :</string>
+    <string name="dtr_no_name">DTR Number / Name :</string>
+    <string name="pole_no">Pole Number :</string>
+    <string name="pre_pole">Pre Pole :</string>
+    <string name="composite_pole">Composite Pole :</string>
+    <string name="cut_point_pole">Cut Point in Pole :</string>
+    <string name="Conductor">Conductor :</string>
+    <string name="OH_Line">OH Line</string>
+    <string name="Pole_Location">Pole Location : </string>
+    <string name="Pole_Type">Pole Type : </string>
+    <string name="No_Consumers_Attached">No of Customers Attached :</string>
+    <string name="ADD_Consumer">ADD Customer</string>
+    <string name="feeder_survey_rpt11">11kV Feeder Survey Report</string>
+    <string name="consumer_suv_rpt">Customer  Survey  Report</string>
+    <string name="DTR_Survey_Report">DTR  Survey  Report</string>
+    <string name="Pole_Survey_Report">Pole  Survey  Report</string>
+    <string name="Sur">Survey</string>
+    <string name="Reports"> Reports</string>
+    <string name="KV_Feeder_Survey11">11 KV Feeder Survey</string>
+    <string name="DTR_Survey">DTR Survey</string>
+    <string name="Pole_Survey">Pole Survey</string>
+    <string name="Consumer_Survey">Customer Survey</string>
+    <string name="Survey_Reports">Survey  Reports</string>
+    <string name="kV_Feeder_List11">11kV  Feeder  List</string>
+    <string name="DTR_List">DTR   List</string>
+    <string name="Pole_List">Pole  List</string>
+    <string name="Consumer_List">Customer  List</string>
+    <string name="Quantum_Aeon">Quantum Aeon</string>
+    <string name="Start_BT">Start BT</string>
+    <string name="Scan">Scan</string>
+    <string name="Disconnect">Disconnect</string>
+    <string name="Detected_printer_ID">Detected printer ID :</string>
+    <string name="here_shows_logs">here shows the log information..</string>
+    <string name="Please_Select_Device">Please Select Device</string>
+    <string name="I_R">I.R:</string>
+    <string name="Meter_Body_Seal">Meter Body Seal:</string>
+    <string name="Meter_Seal">Meter Seal:</string>
+    <string name="MTC_Seal">MTC Seal:</string>
+    <string name="F_R">F.R:</string>
+    <string name="New_Meter">New Meter</string>
+    <string name="OLD_Meter">OLD Meter </string>
+
+
+    <!-- DeviceListActivity -->
+    <string name="scanning">Scanning for devices...</string>
+    <string name="select_device">Select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+    <string name="note">Note</string>
+    <!-- Options Menu -->
+    <string name="information">This application has been designed to work with Evolute Systems Pride thermal printer.\n\nProwess Pride SDK is available from Evolute Systems as per your request.</string>
+    <string name="version">Version: V1.10</string>
+    <string name="btn_display">Continue</string>
+    <string name="md_unit">Choose md unit</string>
+    <string name="user_id">User ID</string>
+    <string name="wallet">wallet:</string>
+    <string name="walletamount">amount</string>
+    <string name="session_id">Session ID</string>
+
+    <string-array name="md_unit_array">
+        <item>KVA</item>
+        <item>KW</item>
+    </string-array>
+    <string-array name="list_3phMS_array">
+        <item>OK METER</item>
+        <item>HOUSE LOCK</item>
+        <item>DEFECTIVE METER</item>
+        <item>NO METER</item>
+    </string-array>
+    <string-array name="threeph_cycle">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+    </string-array>
+    <string-array name="division_array">
+        <item>Division One</item>
+        <item>Division Two</item>
+    </string-array>
+    <string-array name="subdivision_array">
+        <item>SubDivision One</item>
+        <item>SubDivision Two</item>
+    </string-array>
+    <string-array name="feeder_array_33kv">
+        <item>Feeder One</item>
+        <item>Feeder Two</item>
+    </string-array>
+    <string-array name="meter_reading_array">
+        <item>Reading One</item>
+        <item>Reading Two</item>
+    </string-array>
+    <string-array name="meter_com_port_array">
+        <item>IRDA</item>
+        <item>OPTICAL</item>
+        <item>LPR</item>
+    </string-array>
+    <string-array name="meter_status_array">
+        <item>OK</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>DEFECTIVE METER</item>
+        <item>NO METER</item>
+        <item>METER ON HEIGHT</item>
+        <item>METER BOXED</item>
+    </string-array>
+    <string-array name="meter_make_array">
+        <item>Make One</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>Make Two</item>
+        <item>Make Three</item>
+    </string-array>
+    <string-array name="servicecable_status_array">
+        <item>OK</item>
+        <item>Armoured</item>
+        <item>Unarmoured</item>
+        <item>Replacement Required</item>
+
+    </string-array>
+    <string-array name="actionreq_on_meter_array">
+        <item>NO Action</item>
+        <item>New Meter</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>Meter Replacement</item>
+        <item>Shifting to Call-Bell Location</item>
+    </string-array>
+    <string-array name="consumer_conn_type">
+        <item>TC</item>
+        <item>PC</item>
+        <item>OYT</item>
+    </string-array>
+    <string-array name="consumer_type">
+        <item>Domestic</item>
+        <item>Agriculture</item>
+        <item>Industrial</item>
+        <item>Commercial</item>
+    </string-array>
+
+    <string-array name="remarks">
+        <item>OK</item>
+        <item>Multiple Supplies</item>
+        <item>Bill not Provided</item>
+        <item>Premises Locked</item>
+        <item>Disconnection</item>
+    </string-array>
+    <string-array name="dtr_capacity_array">
+        <item>10 KVA (1PH)</item>
+        <item>10 KVA (3PH)</item>
+        <item>16 KVA (1PH)</item>
+        <item>16 KVA (3PH)</item>
+        <item>25 KVA</item>
+        <item>50 KVA</item>
+        <item>63 KVA</item>
+        <item>100 KVA</item>
+        <item>150 KVA</item>
+        <item>200 KVA</item>
+        <item>250 KVA</item>
+        <item>315 KVA</item>
+        <item>500 KVA</item>
+        <item>750 KVA</item>
+        <item>1000 KVA</item>
+        <item>1500 KVA</item>
+        <item>2000 KVA</item>
+        <item>2500 KVA</item>
+    </string-array>
+    <string-array name="no_of_lt_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="pole_type_array">
+        <item>PCC</item>
+        <item>RAIL</item>
+        <item>RSJ</item>
+        <item>WALL</item>
+        <item>STEEL</item>
+        <item>WOODEN</item>
+        <item>TOWER</item>
+
+    </string-array>
+
+    <string-array name="box_status">
+        <item>Select Box Status</item>
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+    <string-array name="premises_type">
+        <item>Select Premises Type</item>
+        <item>Single</item>
+        <item>Multistored</item>
+        <item>Apartment</item>
+        <item>Hut</item>
+    </string-array>
+    <string-array name="no_of_airconditioners">
+        <item>Select No Of AC</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>more than 3</item>
+    </string-array>
+    <string-array name="no_of_rooms">
+        <item>Select No Of Rooms</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>more than 3</item>
+    </string-array>
+    <string-array name="dtr_status">
+        <item>Select DTR Status</item>
+        <item>Connected</item>
+        <item>Dis-Connected</item>
+        <item>Removed</item>
+    </string-array>
+    <string-array name="units">
+        <item>KW</item>
+    </string-array>
+
+    <string-array name="meter_typ">
+        <item>Select Meter Type</item>
+        <item>Mechanical</item>
+        <item>Electromechanical</item>
+        <item>Electronic</item>
+
+    </string-array>
+    <string-array name="meter_capacity">
+        <item>Select Meter Capacity</item>
+        <item>5-30A</item>
+        <item>10-40A</item>
+        <item>10-60A</item>
+
+    </string-array>
+
+    <string-array name="meter_location">
+        <item>Select Meter Location</item>
+        <item>Inside</item>
+        <item>Outside</item>
+        <item>Call-Bell Location</item>
+
+    </string-array>
+
+    <string-array name="pole_location">
+        <item>Select Pole Location</item>
+        <item>Start</item>
+        <item>Mid Span</item>
+        <item>End</item>
+        <item>Tapping</item>
+
+    </string-array>
+    <string-array name="consumer_caste">
+        <item>Select Customer Caste</item>
+        <item>General</item>
+        <item>SC</item>
+        <item>ST</item>
+        <item>OBC</item>
+
+    </string-array>
+
+    <string-array name="meter_mfg">
+        <item>Select Meter Manufacturer</item>
+        <item>AVON IRDA</item>
+        <item>AVON OPT</item>
+        <item>AVON_3PH</item>
+        <item>ALLOYED_OPT</item>
+        <item>GENUS OPT</item>
+        <item>LNT OPT</item>
+        <item>LNT_DLMS</item>
+        <item>GENUS_DLMS</item>
+        <item>EMCO_DLMS</item>
+        <item>AVON_DLMS</item>
+        <item>VISIONTEK_DLMS</item>
+        <item>HPL_DLMS</item>
+        <item>SECURE OPT</item>
+        <item>MONTEL IRDA</item>
+        <item>PALMOHAN IRDA</item>
+        <item>VISIONTEK IRDA</item>
+        <item>BENTEK</item>
+
+    </string-array>
+    <string-array name="meter_ph">
+        <item>Select Meter Phase</item>
+        <item>1-phase</item>
+        <item>3-phase</item>
+
+    </string-array>
+
+</resources>

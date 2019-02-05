@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Footer"
+        style="@style/header_thm">
+
+        <TextView
+            android:id="@+id/TextViewHe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center|right"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:text="@string/dtr_survey"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|right"
+                android:background="@drawable/back_selector"
+                android:paddingLeft="10dp"
+                android:text="@string/bk"
+                android:textColor="#FFF"
+                android:textSize="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relButton"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="10dp">
+
+            <Button
+                android:id="@+id/ButtonContreading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|left"
+                android:background="@drawable/forward_selector"
+                android:paddingRight="10dp"
+                android:text="@string/view_next"
+                android:textColor="#FFF"
+                android:textSize="10dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/Footer"
+
+        >
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/login_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/geo"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_division"
+                        style="@style/textview_gen"
+                        android:text="@string/divi"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_division"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/dc_row"
+                    style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dc"
+                        style="@style/textview_gen"
+                        android:text="@string/dc"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spin_dc"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/ele"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_33_11kv_substation"
+                        style="@style/textview_gen"
+                        android:text="@string/sub_st"
+
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <AutoCompleteTextView
+                        android:id="@+id/spin_33_11kv_substation"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:hint="@string/st_typ"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_11kv_feedername"
+                        style="@style/textview_gen"
+                        android:text="@string/feeder11"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <Spinner
+                        android:id="@+id/spr_11kv_feedername"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        style="@style/linear_fieldset"
+                        android:layout_weight="12"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_dtr_number"
+                            style="@style/textview_gen"
+                            android:text="@string/dtr_no"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:id="@+id/tv_dtr_number1"
+                            style="@style/edittext_gen_stl"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="10"
+                            android:background="@drawable/edit_text"
+                            android:gravity="left|center"
+                            android:hint="Auto Generated DTR No."
+                            android:inputType="text"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spin_dtr_number"
+                            style="@style/edittext_gen_stl"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edit_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/linear_fieldset"
+                        android:layout_width="wrap_content"
+
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_new"
+                            android:layout_width="50dp"
+                            android:layout_height="47dp"
+                            android:text="N" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dtr_capacity"
+                        style="@style/textview_gen"
+                        android:text="@string/dtr_capacity"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_dtr_capacity"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/dtr_capacity_array" />
+                </LinearLayout>
+
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dtr_location"
+                        style="@style/textview_gen"
+                        android:text="@string/dtr_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <EditText
+                        android:id="@+id/et_dtr_location"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:inputType="text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dtrStatus"
+                        style="@style/textview_gen"
+                        android:text="@string/dtr_status"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_dtrStatus"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/dtr_status" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dtr_status"
+                        style="@style/textview_gen"
+                        android:text="@string/theft_prone"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <LinearLayout style="@style/linear_fieldset">
+
+                        <RadioGroup
+                            android:id="@+id/mainRadio"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="8">
+
+                            <RadioButton
+                                android:id="@+id/radio_no"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:checked="true"
+                                android:text="@string/no" />
+
+                            <RadioButton
+                                android:id="@+id/radio_yes"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:layout_weight="2"
+                                android:text="@string/yes" />
+                        </RadioGroup>
+                    </LinearLayout>
+
+                    <!--<Spinner
+                        android:id="@+id/spr_dtr_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:entries="@array/actionreq_on_meter_array"
+                        android:fontFamily="sans-serif"
+                        android:padding="10dp"
+                        android:textSize="12dp"
+                        android:typeface="normal" />-->
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_lt_circuits"
+                        style="@style/textview_gen"
+                        android:text="@string/no_lt_cts"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_no_of_lt"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/no_of_lt_array" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:id="@+id/tv_HT_circuits"
+                        style="@style/textview_gen"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="4"
+                        android:text="@string/ht_consumer"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Switch
+                        android:id="@+id/cb_no_of_ht"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/survey_meter"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_meter_condition"
+                        style="@style/textview_gen"
+                        android:text="@string/mtr_cond"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_meter_condition"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/meter_status_array" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_meter_number"
+                        style="@style/textview_gen"
+                        android:text="@string/survey_mtr_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <!--<Spinner-->
+                    <!--android:id="@+id/spr_meter_reading"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:entries="@array/meter_reading_array"-->
+                    <!--android:padding="10dp" />-->
+                    <EditText
+                        android:id="@+id/et_meter_number"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:inputType="text"
+                        android:maxLength="12"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+
+                    <LinearLayout
+                        style="@style/linear_fieldset"
+                        android:orientation="horizontal"
+                        android:weightSum="5">
+
+                        <TextView
+                            android:id="@+id/tv_meter_com_port"
+                            style="@style/textview_gen"
+                            android:layout_weight="4"
+                            android:text="@string/mtr_com_port"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Switch
+                            android:id="@+id/cb_com_port"
+                            style="@style/edittext_gen_stl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_weight="1" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+                        <CheckBox
+                            android:id="@+id/chk_AMR"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/amr"
+                            android:textSize="9dp" />
+
+                        <CheckBox
+                            android:id="@+id/chk_irda"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/irda"
+                            android:textSize="9dp" />
+
+                        <CheckBox
+                            android:id="@+id/chk_optical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/opt"
+                            android:textSize="9dp" />
+
+                        <CheckBox
+                            android:id="@+id/chk_lpr"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/lpr"
+                            android:textSize="9dp" />
+
+                        <CheckBox
+                            android:id="@+id/chk_na"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="@string/na"
+                            android:textSize="9dp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <!--<Spinner
+                        android:id="@+id/spr_meter_com_port"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:typeface="normal"
+                        android:fontFamily="sans-serif"
+                        android:textSize="12dp"
+                        android:entries="@array/meter_com_port_array"
+                        android:padding="10dp" />-->
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_meter_reading"
+                        style="@style/textview_gen"
+                        android:text="@string/mtr_reading"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <EditText
+                        android:id="@+id/et_meter_reading"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:inputType="number"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_meter_box_status"
+                        style="@style/textview_gen"
+                        android:text="@string/mtr_box_status"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_box_status"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/box_status"
+                        android:paddingLeft="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/llSealstatus"
+                    style="@style/linear_fieldset">
+
+
+                    <RelativeLayout
+                        android:id="@+id/linearLayout12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:layout_weight="9"
+                        android:orientation="horizontal"
+                        android:paddingRight="10dp"
+                        android:paddingTop="10dp">
+
+                        <TextView
+                            android:id="@+id/tv_box_seal_text"
+                            style="@style/textview_gen"
+                            android:text="@string/mtr_box_sl_status"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:id="@+id/tv_box_seal_status"
+                            style="@style/textview_gen"
+                            android:layout_width="wrap_content"
+                            android:layout_toLeftOf="@+id/chk_seal"
+                            android:layout_toStartOf="@+id/chk_seal"
+                            android:text="@string/open"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Switch
+                            android:id="@+id/chk_seal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/tv_box_seal_txt"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="right"
+                            android:padding="5dp"
+                            android:textSize="9dp" />
+
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_meter_make"
+                        style="@style/textview_gen"
+                        android:text="@string/mtr_make"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_meter_make"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/observation"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_remark"
+                        style="@style/textview_gen"
+                        android:text="@string/remark"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <EditText
+                        android:id="@+id/et_remark"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="100dp"
+                        android:background="@drawable/edit_text"
+                        android:gravity="top"
+                        android:hint="@string/ent_rmk"
+                        android:inputType="text"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

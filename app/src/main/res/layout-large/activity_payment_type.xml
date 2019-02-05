@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.fedco.mbc.activity.PaymentType">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/choose_pay"
+        android:orientation="vertical">
+    <TextView
+        android:id="@+id/TVptype"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ch_pay_type"
+        android:textSize="26dp" />
+
+    <RadioGroup
+        android:id="@+id/RGType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/TVptype"
+        android:layout_marginTop="10dp">
+
+        <RadioButton
+            android:id="@+id/RBCash"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:checked="true"
+            android:text="@string/cash" />
+
+        <RadioButton
+            android:id="@+id/RBChe"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/chq" />
+
+        <RadioButton
+            android:id="@+id/RBDD"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="@string/dd" />
+        <RadioButton
+            android:id="@+id/RBDemanddraft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ddd" />
+    </RadioGroup>
+        <TextView
+            android:id="@+id/tvPaytype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose Payment Type"
+            android:textSize="20dp" />
+        <Spinner
+            android:id="@+id/indcident"
+            style="@style/spinner_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ETChNo"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:hint="@string/incident"
+            android:padding="10dp"
+            android:singleLine="true" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lloptional"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/RGType"
+        android:layout_marginTop="290dp"
+        android:background="@color/color_primary"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <Spinner
+            android:id="@+id/indcident"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ETChNo"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:hint="@string/incident"
+            android:padding="10dp"
+            android:singleLine="true"
+            android:visibility="gone"/>
+
+        <EditText
+            android:id="@+id/ETAmount"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/RGType"
+            android:hint="@string/ent_amount"
+            android:inputType="number"
+            android:maxLength="6"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/ETChNo"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@+id/ETAmount"
+            android:digits="0123456789"
+            android:hint="@string/ent_chq_no"
+            android:inputType="number"
+            android:maxLength="15"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/ETDDNo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/ETAmount"
+            android:digits="0123456789"
+            android:hint="@string/pos_no"
+            android:inputType="number"
+            android:maxLength="30"
+            android:padding="10dp"
+            android:singleLine="true" />
+        <EditText
+            android:id="@+id/ETDemadraftNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ETAmount"
+            android:digits="0123456789"
+            android:hint="@string/ent_dd_no"
+            android:inputType="number"
+            android:maxLength="30"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+
+        <Spinner
+            android:id="@+id/SPINNERBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ETChNo"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:hint="@string/ent_bank_name"
+            android:padding="10dp"
+            android:singleLine="true"
+            />
+
+        <EditText
+            android:id="@+id/ETBank"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/SPINNERBank"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:hint="@string/ent_bank_name"
+            android:padding="10dp"
+            android:singleLine="true"
+           />
+
+        <EditText
+            android:id="@+id/ETMobile"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@+id/ETChNo"
+            android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+            android:fontFamily="sans-serif"
+            android:hint="@string/ent_mob_no"
+            android:inputType="number"
+            android:maxLength="11"
+            android:padding="10dp"
+            android:singleLine="true" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_below="@+id/ETBank">
+
+            <TextView
+                android:id="@+id/ETDate"
+                android:layout_width="220dp"
+                android:layout_height="50dp"
+                android:hint="@string/ent_date"
+                android:padding="10dp" />
+
+            <Button
+                android:id="@+id/BTNDATE"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:textSize="20dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_toEndOf="@+id/ETDate"
+                android:text="@string/dt" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/BTNPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:textSize="22dp"
+        android:layout_below="@+id/lloptional"
+        android:text="@string/print" />
+</RelativeLayout>

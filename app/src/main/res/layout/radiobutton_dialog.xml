@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+
+
+        <RadioGroup
+            android:id="@+id/RBTherType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/TVTHer"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RadioButton
+                android:id="@+id/RBTEvolute"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:padding="5dp"
+                android:text="Evolute " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dp"
+                android:layout_marginRight="10dp"
+                android:padding="2dp"
+                android:text="Evolute Thermal Printer" />
+
+            <RadioButton
+                android:id="@+id/RBTAnalogics"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:padding="5dp"
+                android:text="Analogics " />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="52dp"
+                android:layout_marginRight="10dp"
+                android:padding="2dp"
+                android:text="Analogics Thermal Printer" />
+
+        </RadioGroup>
+
+
+
+
+    <Button
+        android:id="@+id/dialogButtonOK"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_cancel"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text=" Ok "
+        android:layout_alignTop="@+id/dialogButtonCancel"
+        android:layout_alignStart="@+id/RBTherType"
+        android:layout_marginStart="25dp" />
+    <Button
+        android:id="@+id/dialogButtonCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/button_cancel"
+        android:gravity="center"
+        android:padding="7dp"
+        android:text="CANCEL "
+        android:layout_below="@+id/RBTherType"
+        android:layout_alignEnd="@+id/RBTherType" />
+
+</RelativeLayout>

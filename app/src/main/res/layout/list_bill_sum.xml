@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details2"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:shrinkColumns="*"
+    android:stretchColumns="*">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+
+        >
+        <TextView
+            android:id="@+id/tvLIDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_span="1"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/tvLIBillCon"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="Billed Consurmers" />
+
+        <TextView
+            android:id="@+id/tvLIBillUnits"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="Billed Units" />
+
+
+        <TextView
+            android:id="@+id/tvLIBillAmnt"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:gravity="center"
+            android:fontFamily="sans-serif"
+            android:text="Billed Amount" />
+
+    </TableRow>
+</TableLayout>
+

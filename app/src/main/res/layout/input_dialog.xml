@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res/android"
+    ads:background="@drawable/serialdata_shape"
+    ads:layout_height="match_parent"
+    ads:layout_width="match_parent"
+    ads:minWidth="340dp"
+    ads:orientation="vertical">
+
+    <TextView
+        ads:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        ads:id="@+id/textView1"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.2"
+        ads:layout_width="match_parent"
+        ads:text="Input options"
+
+        ads:textColor="#ffffff" />
+
+    <RadioGroup
+        ads:id="@+id/radioGroup1"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.4"
+        ads:layout_width="match_parent">
+
+        <RadioButton
+            ads:checked="true"
+            ads:id="@+id/radio0"
+            ads:layout_height="wrap_content"
+            ads:layout_weight="0.33"
+            ads:layout_width="match_parent"
+            ads:text="LF"
+            ads:textColor="#ffffff" />
+
+        <RadioButton
+            ads:id="@+id/radio1"
+            ads:layout_height="wrap_content"
+            ads:layout_weight="0.33"
+            ads:layout_width="match_parent"
+            ads:text="CR"
+            ads:textColor="#ffffff" />
+
+        <RadioButton
+            ads:id="@+id/radio2"
+            ads:layout_height="wrap_content"
+            ads:layout_weight="0.33"
+            ads:layout_width="match_parent"
+            ads:text="LF-CR"
+            ads:textColor="#ffffff" />
+    </RadioGroup>
+
+    <Button
+        ads:id="@+id/buttonSaveInput"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.2"
+        ads:layout_width="match_parent"
+        ads:text="Save configuration"
+        ads:textColor="#ffffff" />
+
+</LinearLayout>

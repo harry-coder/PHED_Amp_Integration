@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bgscreen"
+
+    tools:context="com.fedco.mbc.activity.MeterState">
+    <RelativeLayout
+        android:id="@+id/HEADER"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_primary">
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_continue">
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/back"
+                android:padding="7dp"
+                android:textColor="@drawable/button_login_textcolor"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/mtr_st_status"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/color_transparent"
+        android:layout_below="@+id/HEADER"
+        android:paddingLeft="16dp"
+        android:fontFamily="sans-serif"
+        android:paddingRight="16dp"
+        android:layout_marginTop="20dp"
+        android:dividerHeight="5dp"></ListView>
+</RelativeLayout>

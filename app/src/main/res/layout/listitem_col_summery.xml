@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:shrinkColumns="*"
+    android:stretchColumns="*">
+
+    <TableRow
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp">
+        <TextView
+            android:id="@+id/tvLIDate"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:layout_span="1"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="23-09-1029" />
+
+        <TextView
+            android:id="@+id/tvLICashNo"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="no" />
+
+        <TextView
+            android:id="@+id/tvLICashAmnt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+
+            android:gravity="center"
+            android:text="amnt" />
+
+
+        <TextView
+            android:id="@+id/tvLICheqNo"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="no" />
+
+        <TextView
+            android:id="@+id/tvLICheqAmnt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="9"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="amnt" />
+
+        <TextView
+            android:id="@+id/tvLITotNo"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="9"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="no" />
+
+        <TextView
+            android:id="@+id/tvLITotAmnt"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/cell_shape_bottom"
+            android:ems="10"
+            android:fontFamily="sans-serif"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="amnt" />
+
+    </TableRow>
+</TableLayout>
+

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/tab1_rel1"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/tab1_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/tab1_relatives"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+                <!--  Screen Design for Food tab -->
+                <TextView
+                    android:id="@+id/tv_metered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="5dp"
+                    android:text="Metered :          "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_metered"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/tv_metered"/>
+
+                <TextView
+                    android:id="@+id/tv_typeOfMeter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_metered"
+                    android:paddingLeft="5dp"
+                    android:text="Type Of Meter :  "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_typeOfMeter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/spr_metered"
+                    android:layout_toRightOf="@+id/tv_typeOfMeter"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+                <TextView
+                    android:id="@+id/tv_meterMake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/section"
+                    android:layout_below="@+id/tv_typeOfMeter"
+                    android:paddingLeft="5dp"
+                    android:text="Meter Make:        "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <EditText
+                    android:id="@+id/et_meterMake"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextbg"
+                    android:layout_toRightOf="@+id/tv_meterMake"
+                    android:layout_below="@+id/spr_typeOfMeter" />
+
+                <TextView
+                    android:id="@+id/tv_meterSealingStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_meterMake"
+                    android:layout_marginTop="6dp"
+                    android:paddingLeft="5dp"
+                    android:text="Meter Sealing Status :  "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_meterSealingStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/et_meterMake"
+                    android:layout_toRightOf="@+id/tv_meterSealingStatus"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/tv_meterWorkingStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_meterSealingStatus"
+                    android:layout_marginTop="4dp"
+                    android:paddingLeft="5dp"
+                    android:text="Meter Working Status :  "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_meterWorkingStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/spr_meterSealingStatus"
+                    android:layout_toRightOf="@+id/tv_meterSealingStatus"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/tv_meterLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_meterWorkingStatus"
+                    android:layout_marginTop="4dp"
+                    android:paddingLeft="5dp"
+                    android:text="Meter Location :  "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_meterLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:layout_below="@+id/spr_meterWorkingStatus"
+                    android:layout_toRightOf="@+id/tv_meterSealingStatus"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/tv_currentReading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/section"
+                    android:layout_below="@+id/tv_meterLocation"
+                    android:paddingLeft="5dp"
+                    android:text="Current Reading:        "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <EditText
+                    android:id="@+id/et_currentReading"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edittextbg"
+                    android:layout_toRightOf="@+id/tv_meterMake"
+                    android:layout_below="@+id/spr_meterLocation" />
+
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

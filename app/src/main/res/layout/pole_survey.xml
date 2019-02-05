@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Footer">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/login_tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="7dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/geo"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_division"
+                        style="@style/textview_gen"
+                        android:selectAllOnFocus="true"
+                        android:text="@string/divi"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <Spinner
+                        android:id="@+id/spr_division"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@android:drawable/picture_frame"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:paddingBottom="20dp">
+
+                <TextView
+
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:shadowDx="1"
+                    android:shadowDy="1"
+                    android:shadowRadius="1"
+                    android:text="@string/ele"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="14sp" />
+
+                <LinearLayout style="@style/linear_fieldset">
+                    <TextView
+                        android:id="@+id/tv_33_11kv_substation"
+                        style="@style/textview_gen"
+                        android:text="@string/sub_st"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                    <AutoCompleteTextView
+                        android:id="@+id/spin_33_11kv_substation"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:hint="@string/st_typ"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_11KV"
+                        style="@style/textview_gen"
+                        android:text="@string/feeder11"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <Spinner
+                        android:id="@+id/spr_feeder"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_dtr"
+                        style="@style/textview_gen"
+
+                        android:text="@string/dtr_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                    <Spinner
+                        android:id="@+id/spr_dtr"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_dtr_number_name"
+                        style="@style/textview_gen"
+                        android:text="@string/dtr_no_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <EditText
+                        android:id="@+id/et_dtr_number_name"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:inputType="text|number"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="10">
+
+                    <LinearLayout
+                        style="@style/linear_fieldset"
+                        android:layout_weight="12"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_pole_number"
+                            style="@style/textview_gen"
+                            android:text="@string/pole_no"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <TextView
+                            android:id="@+id/tv_polenumber"
+                            style="@style/edittext_gen_stl"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edit_text"
+                            android:gravity="left|center"
+                            android:hint="Auto Generated DTR No."
+                            android:inputType="text"
+                            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                        <Spinner
+                            android:id="@+id/spin_pole_num"
+                            style="@style/edittext_gen_stl"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/edit_text" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        style="@style/linear_fieldset"
+                        android:layout_width="wrap_content"
+
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btn_new"
+                            android:layout_width="50dp"
+                            android:layout_height="47dp"
+                            android:text="N" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_pre_pole"
+                        style="@style/textview_gen"
+                        android:text="@string/pre_pole"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Spinner
+                        android:id="@+id/spr_pre_pole"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:id="@+id/tv_comp_pole"
+                        style="@style/textview_gen"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="4"
+                        android:text="@string/composite_pole"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Switch
+                        android:id="@+id/cb_com_pole"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:id="@+id/tv_cut_pole"
+                        style="@style/textview_gen"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="4"
+                        android:text="@string/cut_point_pole"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Switch
+                        android:id="@+id/cb_cut_pole"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                    android:orientation="horizontal"
+                    android:weightSum="5">
+
+                    <TextView
+                        android:id="@+id/tv_pole_Conductor"
+                        style="@style/textview_gen"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="4"
+                        android:text="@string/Conductor"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/tv_pole_conductor_status"
+                        style="@style/textview_gen"
+                        android:layout_width="wrap_content"
+                        android:layout_toLeftOf="@+id/chk_seal"
+                        android:layout_toStartOf="@+id/chk_seal"
+                        android:text="@string/OH_Line"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <Switch
+                        android:id="@+id/cb_pole_Conductor"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_pole_location"
+                        style="@style/textview_gen"
+                        android:text="@string/Pole_Location" />
+
+                    <Spinner
+                        android:id="@+id/spr_pole_location"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/pole_location" />
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/linear_fieldset">
+
+                    <TextView
+                        android:id="@+id/tv_pole_type"
+                        style="@style/textview_gen"
+                        android:text="@string/Pole_Type" />
+
+                    <Spinner
+                        android:id="@+id/spr_poletype"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:entries="@array/pole_type_array" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/linear_fieldset"
+                   >
+
+                    <TextView
+                        android:id="@+id/tv_lt_number_con"
+                        style="@style/textview_gen"
+                        android:text="@string/No_Consumers_Attached"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <EditText
+                        android:id="@+id/et_lt_number_con"
+                        style="@style/edittext_gen_stl"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/edit_text"
+                        android:inputType="text|number"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.13"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_save"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="2dp"
+                    android:background="@drawable/survey_button_cancel"
+                    android:fontFamily="sans-serif"
+                    android:minWidth="100dp"
+                    android:text="@string/save"
+                    android:textColor="@drawable/survey_button_cancel_textcolor"
+                    android:textSize="12dp" />
+
+                <Button
+                    android:id="@+id/btn_Pole_add_con"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="2dp"
+                    android:background="@drawable/survey_button_login"
+                    android:fontFamily="sans-serif"
+                    android:paddingLeft="20dp"
+
+                    android:paddingRight="20dp"
+                    android:text="@string/ADD_Consumer"
+                    android:textColor="@drawable/survey_button_login_textcolor"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Footer"
+        style="@style/header_thm">
+
+        <TextView
+            android:id="@+id/TextViewHe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center|right"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:text="POLE SURVEY"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/back_new">
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center|right"
+                android:background="@drawable/back_selector"
+                android:paddingLeft="10dp"
+                android:text="Back"
+                android:textColor="#FFF"
+                android:textSize="10dp" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
+

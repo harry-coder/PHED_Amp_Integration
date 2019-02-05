@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <RelativeLayout
+        android:id="@+id/relative_Settings"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF"
+        android:visibility="visible">
+        <TextView
+            android:layout_height="5dp"
+            android:layout_width="fill_parent"
+            android:background="#2A4492"
+            android:layout_alignParentTop="true"/>
+        <TextView
+            android:layout_height="5dp"
+            android:layout_width="fill_parent"
+            android:background="#2A4492"
+            android:layout_alignParentBottom="true"/>
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_width="5dp"
+            android:background="#2A4492"
+            android:layout_alignParentLeft="true"/>
+        <TextView
+            android:layout_height="fill_parent"
+            android:layout_width="5dp"
+            android:background="#2A4492"
+            android:layout_alignParentRight="true"/>
+
+        <Button
+            android:id="@+id/btn_SetFont"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:layout_toRightOf="@+id/btn_back"
+            android:text="Setfont"
+            android:textColor="#2A4492"
+            android:textSize="20dp"
+            android:typeface="serif"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeFor_SettingFonts"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_SetFont">
+            <TableRow
+                android:id="@+id/tablerow1_optionsforFonts"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="20dp">
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RadioGroup
+                        android:id="@+id/radiodGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <RadioButton
+                            android:id="@+id/rdBtn_NormalFont"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Normal Font"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_DoubleWidth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Double Width"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_DoubleHeight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Double Height"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_Double"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Double"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_LandScape"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="LandScape"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_Arabic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Arabic"
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_BarCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Bar Code"
+
+                            android:textColor="#2A4492"/>
+                        <RadioButton
+                            android:id="@+id/rdBtn_Image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Image"
+
+                            android:textColor="#2A4492"/>
+                    </RadioGroup>
+                </ScrollView>
+            </TableRow>
+            <!-- <TableRow
+                 android:id="@+id/tablerow2_optionsforFonts"
+                 android:layout_width="100dp"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentRight="true"
+                 android:layout_marginRight="20dp">
+             <RadioGroup
+                 android:id="@+id/radiodGroup"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+                 <RadioButton
+                     android:id="@+id/rdBtn_DoubleHeight"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Double Height"
+                     android:textColor="#7A0000"/>
+                  <RadioButton
+                     android:id="@+id/rdBtn_Double"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:text="Double"
+                     android:textColor="#7A0000"/>
+             </RadioGroup>
+            </TableRow> -->
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btn_back"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_margin="5dp"
+            android:background="@drawable/back"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

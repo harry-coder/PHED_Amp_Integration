@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/tab1_rel1"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/tab1_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/tab1_relatives"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+                <!--  Screen Design for Food tab -->
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:paddingLeft="5dp"
+                    android:text="Division Name :          "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_division"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="2dp"
+                    android:layout_toRightOf="@+id/textView"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_subdivision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/et_sub_division"
+                    android:layout_below="@+id/et_division"
+                    android:layout_toLeftOf="@+id/et_sub_division"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:text="Sub-Division Name :      "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_sub_division"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_division"
+                    android:layout_alignRight="@+id/et_division"
+                    android:layout_below="@+id/et_division"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/et_section"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/et_section"
+                    android:layout_toLeftOf="@+id/et_section"
+                    android:paddingLeft="5dp"
+                    android:text="Section Name:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_section"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_sub_division"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_Route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_section"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="2dp"
+                    android:text="Route:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_route"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_section"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_substation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:layout_below="@+id/tv_Route"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Sub Station:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_substation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_route"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_consName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/tv_substation"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Consumer Name:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_consName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_substation"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_consAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/tv_consName"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+
+                    android:text="Address:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_consAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="26dp"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_consName"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_consType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/tv_consAddress"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Consumer Type:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_consType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_consAddress"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_supplyType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_consType"
+                    android:paddingLeft="5dp"
+                    android:text="Supply Type:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Spinner
+                    android:id="@+id/spr_supplyType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/spr_consType"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tv_load"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/tv_supplyType"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Sanctioned Load:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_load"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/spr_supplyType"
+                    android:layout_marginTop="2dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_oldAccNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32sp"
+                    android:layout_below="@+id/tv_load"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Old Account No:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_oldAccNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_load"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/edittextbg" />
+
+                <TextView
+                    android:id="@+id/tv_feederName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:layout_below="@+id/tv_oldAccNo"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="6dp"
+                    android:text="Feeder Name:                     "
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <EditText
+                    android:id="@+id/et_feederName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/et_sub_division"
+                    android:layout_alignRight="@+id/et_sub_division"
+                    android:layout_below="@+id/et_oldAccNo"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/edittextbg" />
+            </RelativeLayout>
+        </ScrollView>
+    </RelativeLayout>
+
+</RelativeLayout>

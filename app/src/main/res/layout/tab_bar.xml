@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relatives"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <!--  Screen Design for Food tab -->
+    <TextView android:text="Ticket No."
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:visibility="gone"/>
+    <EditText
+        android:id="@+id/editticket"
+        android:layout_marginTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="1234567890"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/search"
+        android:visibility="gone"/>
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  search  "
+        android:visibility="gone"
+        android:layout_above="@android:id/tabhost"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_below="@+id/editticket"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"/>
+        </LinearLayout>
+    </TabHost>
+</RelativeLayout>

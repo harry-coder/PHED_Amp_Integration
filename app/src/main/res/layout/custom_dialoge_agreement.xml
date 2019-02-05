@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/grey"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="10dp"
+        android:fontFamily="sans-serif"
+        android:text="By Clicking Continue, I hereby:\n
+        1. I agree that all my entered data is valid\n
+        2. I have not forged or done any unethical entry\n
+        3. lorem ipsum set dolar amet\n
+        4. lorem ipsum set dolar amet\n
+        5. lorem ipsum set dolar amet\n
+        6. lorem ipsum set dolar amet"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/dialogButtonSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_margin="10dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/button_cancel"
+            android:gravity="center"
+            android:text="Decline" />
+
+        <Button
+            android:id="@+id/dialogButtonContinue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_margin="10dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/button_login"
+            android:gravity="center"
+            android:text=" I Agree " />
+
+
+    </LinearLayout>
+</LinearLayout>

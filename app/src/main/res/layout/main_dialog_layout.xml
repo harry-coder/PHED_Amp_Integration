@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res/android"
+    ads:background="@drawable/serialdata_shape"
+    ads:layout_height="match_parent"
+    ads:layout_width="match_parent"
+    ads:minWidth="340dp"
+    ads:orientation="vertical">
+
+    <Button
+        ads:id="@+id/button_usb"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.5"
+        ads:layout_width="match_parent"
+        ads:text="USB Virtual Serial Port"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:id="@+id/button_viewer"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.5"
+        ads:layout_width="match_parent"
+        ads:text="USB Viewer"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:id="@+id/button_log_viewer"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.5"
+        ads:layout_width="match_parent"
+        ads:text="Log Viewer"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:id="@+id/button_droidterm_pro"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.5"
+        ads:layout_width="match_parent"
+        ads:text="Get DroidTerm PRO!"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:id="@+id/button_about"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.5"
+        ads:layout_width="match_parent"
+        ads:text="About"
+        ads:textColor="#ffffff" />
+
+</LinearLayout>

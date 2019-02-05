@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/bgscreen"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"    />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"    />
+    <TextView
+        android:id="@+id/bluetoothstate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bluetooth Address"  />
+
+    <TextView
+        android:id="@+id/btaddTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        />
+    <EditText
+        android:id="@+id/bluetoothAds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:inputType="textMultiLine" >
+
+
+    </EditText>
+    <Button
+        android:id="@+id/scandevice"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Scan Bluetooth Devices"
+
+        />
+    <Button
+        android:id="@+id/backBtnSET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:text="   BACK   " />
+    <Button
+        android:id="@+id/printBtnSET"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+
+        android:text="   Print   " />
+
+    <ListView
+        android:id="@+id/devicesfound"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        ></ListView>"
+
+</LinearLayout>

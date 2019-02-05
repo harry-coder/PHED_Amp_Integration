@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res/android"
+
+    ads:layout_height="match_parent"
+    ads:layout_width="match_parent"
+    ads:minWidth="340dp"
+    ads:orientation="vertical"
+    ads:paddingTop="6dp">
+
+
+    <TextView
+        ads:background="@drawable/device_shape"
+        ads:id="@+id/usb_device_text"
+        ads:layout_height="wrap_content"
+        ads:layout_width="match_parent"
+        ads:paddingLeft="12dp"
+        ads:paddingRight="12dp"
+        ads:text=" FMBCApp "
+
+
+        ads:textColor="#000"
+        ads:textAlignment="center"
+        ads:fontFamily="sans-serif"
+        ads:layout_gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|clip_vertical|clip_horizontal|start|end" />
+
+
+</LinearLayout>

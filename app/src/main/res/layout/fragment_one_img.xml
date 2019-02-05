@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:id="@+id/scrollone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/Header">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_labno"
+                    style="@style/textview_gen"
+                    android:text="@string/mtrno"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/et_meter_no"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_make"
+                    style="@style/textview_gen"
+                    android:text="@string/mtr_make"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/spin_meter_make_value"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:entries="@array/meter_mfg"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_type"
+                    style="@style/textview_gen"
+                    android:text="@string/meter_type"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/spin_meter_type"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:entries="@array/meter_typ"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_phase"
+                    style="@style/textview_gen"
+                    android:text="@string/mtr_phase"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/spin_meter_phase"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:entries="@array/meter_ph"
+                    android:background="@drawable/edit_text"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_batchno"
+                    style="@style/textview_gen"
+                    android:text="@string/mtr_capacity"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <Spinner
+                    android:id="@+id/spin_meter_capacity"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:entries="@array/meter_capacity"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_ir"
+                    style="@style/textview_gen"
+                    android:text="@string/I_R"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/et_ir"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="number"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/OSOBS"
+                    style="@style/textview_gen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
+
+                    android:padding="10dp"
+                    android:text="@string/ou_box_seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/OSOBSValues"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+
+                <TextView
+                    android:id="@+id/OSIBS"
+                    style="@style/textview_gen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
+                    android:padding="10dp"
+                    android:text="@string/in_box_seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                <EditText
+                    android:id="@+id/OSIBSValue"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/OSOS"
+                    style="@style/textview_gen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
+                    android:padding="10dp"
+                    android:text="@string/opt_seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                <EditText
+                    android:id="@+id/OSOSValue"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/OSMBRS"
+                    style="@style/textview_gen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif"
+                    android:padding="10dp"
+                    android:text="@string/md_btn_re_seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+                <EditText
+                    android:id="@+id/OSMBRSValue"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_body_seal"
+                    style="@style/textview_gen"
+                    android:text="@string/Meter_Body_Seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/et_meter_body_seal"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_meter_seal"
+                    style="@style/textview_gen"
+                    android:text="@string/Meter_Seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/et_meter_seal"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/linear_fieldset">
+
+                <TextView
+                    android:id="@+id/tv_mtcseal"
+                    style="@style/textview_gen"
+                    android:text="@string/MTC_Seal"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                <EditText
+                    android:id="@+id/et_mtcseal"
+                    style="@style/edittext_gen_stl"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/edit_text"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </LinearLayout>
+
+            <!--<LinearLayout style="@style/linear_fieldset">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tv_brand"-->
+            <!--style="@style/textview_gen"-->
+            <!--android:text="Meter Brand:"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+            <!--<Spinner-->
+            <!--android:id="@+id/spin_metre_brand"-->
+            <!--style="@style/edittext_gen_stl"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:background="@drawable/edit_text"-->
+            <!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+            <!--</LinearLayout>-->
+
+
+            <!--<RelativeLayout style="@style/linear_fieldset">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/ETDate"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="10dp"-->
+            <!--android:text="MeterInstall Date" />-->
+
+            <!--<Button-->
+            <!--android:id="@+id/BTNDATE"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_gravity="center_horizontal"-->
+            <!--android:layout_toEndOf="@+id/ETDate"-->
+            <!--android:text="Date" />-->
+            <!--</RelativeLayout>-->
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

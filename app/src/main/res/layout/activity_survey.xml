@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgscreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonSurvey"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/blue_button"
+                android:drawableLeft="@drawable/survey"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/Sur"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonSurveyUD"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/blue_button"
+                android:drawableLeft="@drawable/updown"
+                android:fontFamily="sans-serif"
+                android:drawablePadding="10dp"
+                android:text="@string/upload_download"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonSurveyReport"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/blue_button"
+                android:drawableLeft="@drawable/reportsurvey"
+                android:fontFamily="sans-serif"
+                android:drawablePadding="10dp"
+                android:text="@string/Reports"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonSurveySummery"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/blue_button"
+                android:drawableLeft="@drawable/name"
+                android:fontFamily="sans-serif"
+                android:drawablePadding="10dp"
+                android:text="@string/summary"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="gone"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMSurveyBU"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:layout_gravity="start"
+                android:background="@drawable/blue_button"
+                android:drawableLeft="@drawable/accno"
+                android:fontFamily="sans-serif"
+                android:text="    Bulk upload"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

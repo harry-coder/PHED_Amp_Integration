@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res/android"
+    ads:background="@drawable/serialdata_shape"
+    ads:layout_height="match_parent"
+    ads:layout_width="match_parent"
+    ads:minWidth="340dp"
+    ads:orientation="vertical">
+
+    <Button
+        ads:id="@+id/no_usb_message"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="5.0"
+        ads:layout_width="match_parent"
+        ads:textColor="#ffffff" />
+
+</LinearLayout>

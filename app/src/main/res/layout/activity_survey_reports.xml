@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/bgscreen"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/HEADER"
+        style="@style/header_thm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+
+                android:background="@drawable/back_selector"
+                android:padding="7dp"
+
+                android:paddingLeft="10dp"
+                android:text="@string/bk"
+                android:textColor="#FFF"
+                android:textSize="10dp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif"
+            android:text="@string/Survey_Reports"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/BODY"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:padding="10dp">
+
+        <Button
+            android:id="@+id/btn_11kv_feederlist"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="2dp"
+            android:background="@drawable/green_button"
+            android:drawableLeft="@drawable/feeder"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center"
+            android:drawablePadding="10dp"
+            android:text="@string/kV_Feeder_List11" />
+
+        <Button
+            android:id="@+id/btn_dtr_list"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/btn_11kv_feederlist"
+            android:layout_margin="2dp"
+            android:background="@drawable/green_button"
+            android:drawableLeft="@drawable/dtr"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center"
+            android:drawablePadding="10dp"
+            android:text="@string/DTR_List" />
+
+        <Button
+            android:id="@+id/btn_pole_list"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/btn_dtr_list"
+            android:layout_margin="2dp"
+            android:background="@drawable/green_button"
+            android:drawableLeft="@drawable/pole_survey"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center"
+            android:drawablePadding="10dp"
+            android:text="@string/Pole_List" />
+
+        <Button
+            android:id="@+id/btn_consumer_list"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/btn_pole_list"
+            android:layout_margin="2dp"
+            android:background="@drawable/green_button"
+            android:drawableLeft="@drawable/consumer_survey"
+            android:fontFamily="sans-serif"
+            android:gravity="left|center"
+            android:drawablePadding="10dp"
+            android:text="@string/Consumer_List" />
+
+    </RelativeLayout>
+
+
+    <HorizontalScrollView
+        android:id="@+id/title_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtTxtConName"
+        android:layout_margin="1dp"
+        android:layout_weight="1.09"
+        android:fillViewport="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/gridView"
+                android:layout_width="900dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="4dp"
+                android:background="@color/color_primary"
+                android:columnWidth="100dp"
+                android:fontFamily="sans-serif"
+                android:numColumns="9"
+                android:stretchMode="none"
+                android:textColor="#cccccc" />
+
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="900dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="4dp"
+                android:columnWidth="100dp"
+                android:fontFamily="sans-serif"
+                android:numColumns="9"
+
+                android:stretchMode="none"
+                android:textColor="#cccccc" />
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>
+

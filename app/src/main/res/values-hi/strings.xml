@@ -1,0 +1,315 @@
+<resources>
+    <string name="app_name">एमपीएमबीसी ऐप</string>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="device_type_dumo">द्वैध मोड ब्लूटूथ</string>
+    <string name="btn_ok">ठीक</string>
+    <string name="dialog_title_sys_err">系统错误</string>
+    <string name="actMain_link_device_info_title">चयनित डिवाइस:</string>
+    <string name="meter_reading_text">मीटर अध्ययन</string>
+    <string name="actMain_device_info">%1$s</string>
+    <string name="actMain_btn_pair">Pair</string>
+    <string name="actMain_btn_comm">Connect</string>
+    <string name="actMain_tv_hint_service_uuid_not_bond">Please pair with the Device.</string>
+    <string name="actMain_msg_does_not_support_uuid_service">Application BT version does not support this Mobile.</string>
+    <string name="actMain_msg_bluetooth_Bonding">pairing&#8230;</string>
+    <string name="actMain_msg_device_connecting">Connecting device&#8230;</string>
+    <string name="actMain_msg_device_connect_fail">communication failure</string>
+    <string name="actMain_msg_bluetooth_Bond_Success">Pairing successful</string>
+    <string name="actMain_msg_bluetooth_Bond_fail">Pairing failed</string>
+    <string name="actMain_msg_pair_pwd_error">Pairing password must be 4 digits</string>
+    <string name="actMain_menu_rescan">Rescan</string>
+    <string name="actDiscovery_msg_select_device">Select the device you need to connect</string>
+    <string name="actDiscovery_msg_not_find_device">Devices not found</string>
+    <string name="actDiscovery_msg_scaning_device">Searching for Blutooth devices,please wait&#8230;</string>
+    <string name="actDiscovery_msg_starting_device">Bluetooth is turned on&#8230;</string>
+    <string name="actDiscovery_msg_start_bluetooth_fail">Bluetooth turn on failed</string>
+    <string name="actDiscovery_msg_bluetooth_not_start">Bluetooth is not enabled</string>
+    <string name="actDiscovery_menu_scan">Scan</string>
+    <string name="actDiscovery_bond_bonded">Bonded</string>
+    <string name="actDiscovery_bond_nothing">Nothing</string>
+    <string name="actByteStream_btn_send_desc">Send button</string>
+    <string name="actByteStream_tv_receive_text">Data receive</string>
+    <string name="protocol">General Protocol</string>
+    <string name="escprotocol">Esc Sequence Protocol</string>
+    <string name="device_type_bredr">BR/EDR Bluetooth</string>
+    <string name="device_type_ble">Bluetooth Energy is Low</string>
+    <string name="msg_msg_bt_connect_lost">Bluetooth device connection is lost, try to reconnect</string>
+    <string name="Connect">Connect</string>
+    <string name="not_connected">Mobile is not connected with device</string>
+    <string name="bt_not_enabled_leaving">Bluetooth was not enabled. Exiting Application.</string>
+    <string name="title_connecting">connecting...</string>
+    <string name="title_not_connected">not connected</string>
+    <string name="hello_world">Hello</string>
+    <!-- DeviceListActivity -->
+    <string name="scanning">Scanning for devices...</string>
+    <string name="select_device">Select a device to connect</string>
+    <string name="none_paired">No devices have been paired</string>
+    <string name="none_found">No devices found</string>
+    <string name="title_paired_devices">Paired Devices</string>
+    <string name="title_other_devices">Available Devices</string>
+    <string name="button_scan">Scan for devices</string>
+    <string name="note">Note</string>
+    <!-- Options Menu -->
+    <string name="information">This application has been designed to work with Evolute Systems Pride thermal printer.\n\nProwess Pride SDK is available from Evolute Systems as per your request.</string>
+    <string name="version">Version: V1.10</string>
+    <string name="btn_display">Continue</string>
+    <string name="md_unit">Choose md unit</string>
+    <string name="user_id">यूज़र आईडी</string>
+    <string name="password">पारण शब्द</string>
+    <string name="log_in">लॉग इन</string>
+    <string name="exit">बाहर जाएं</string>
+    <string name="billing">बिलिंग</string>
+    <string name="collection">संग्रह</string>
+    <string name="survey">सर्वेक्षण</string>
+    <string name="replacement">प्रतिस्थापन</string>
+    <string name="billing_ui">बिलिंग</string>
+    <string name="upload_download">अपलोड / डाउनलोड</string>
+    <string name="reports">रिपोर्ट</string>
+    <string name="summary">सारांश</string>
+    <string name="account_no">खाता संख्या</string>
+    <string name="ivrs_no">आईवीआरएस संख्या</string>
+    <string name="meter_no">मीटर संख्या</string>
+    <string name="name">नाम</string>
+    <string name="address">पता</string>
+    <string name="bulk_upload">सामूहिक अपलोड</string>
+    <string name="full_upload">पूर्ण अपलोड</string>
+    <string name="test">परीक्षा</string>
+    <string name="enter_account_no">खाता संख्या दर्ज करें</string>
+    <string name="please_enter_account_no">कृपया खाता संख्या दर्ज करें</string>
+    <string name="account_no_not_found">खाता संख्या नहीं मिला</string>
+    <string name="enter_ivrs_no">आईवीआरएस नंबर दर्ज करें</string>
+    <string name="please_enter_ivrs_no">कृपया आईवीआरएस नंबर दर्ज करें</string>
+    <string name="ivrs_no_not_found">आईवीआरएस नंबर नहीं मिला</string>
+    <string name="no_data_found">डेटा नहीं मिला</string>
+    <string name="internally_stored">कोई संपर्क करने के कारण आंतरिक रूप से संग्रहीत</string>
+    <string name="search_consumer">उपभोक्ता खोजें</string>
+    <string name="consumer_search">उपभोक्ता खोज</string>
+    <string name="configure_printer">प्रिंटर कॉन्फ़िगर करें</string>
+    <string name="logout">लोग आउट</string>
+    <string name="list">सूची</string>
+    <string name="configure_language">भाषा को कॉन्फ़िगर करें</string>
+    <string name="loading">लोड हो रहा है</string>
+    <string name="unable_to_upload">लोड हो रहा है</string>
+    <string-array name="md_unit_array">
+        <item>KVA</item>
+        <item>KW</item>
+    </string-array>
+    <string-array name="list_3phMS_array">
+        <item>OK METER</item>
+        <item>HOUSE LOCK</item>
+        <item>DEFECTIVE METER</item>
+        <item>NO METER</item>
+    </string-array>
+    <string-array name="threeph_cycle">
+        <item>01</item>
+        <item>02</item>
+        <item>03</item>
+        <item>04</item>
+    </string-array>
+    <string-array name="division_array">
+        <item>Division One</item>
+        <item>Division Two</item>
+    </string-array>
+    <string-array name="subdivision_array">
+        <item>SubDivision One</item>
+        <item>SubDivision Two</item>
+    </string-array>
+    <string-array name="feeder_array_33kv">
+        <item>Feeder One</item>
+        <item>Feeder Two</item>
+    </string-array>
+    <string-array name="meter_reading_array">
+        <item>Reading One</item>
+        <item>Reading Two</item>
+    </string-array>
+    <string-array name="meter_com_port_array">
+        <item>IRDA</item>
+        <item>OPTICAL</item>
+        <item>LPR</item>
+    </string-array>
+    <string-array name="meter_status_array">
+        <item>OK</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>DEFECTIVE METER</item>
+        <item>NO METER</item>
+        <item>METER ON HEIGHT</item>
+        <item>METER BOXED</item>
+    </string-array>
+    <string-array name="meter_make_array">
+        <item>Make One</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>Make Two</item>
+        <item>Make Three</item>
+    </string-array>
+    <string-array name="servicecable_status_array">
+        <item>OK</item>
+        <item>Armoured</item>
+        <item>Unarmoured</item>
+        <item>Replacement Required</item>
+
+    </string-array>
+    <string-array name="actionreq_on_meter_array">
+        <item>NO Action</item>
+        <item>New Meter</item>
+        <!--<item>HOUSE LOCK</item>-->
+        <item>Meter Replacement</item>
+        <item>Shifting to Call-Bell Location</item>
+    </string-array>
+    <string-array name="consumer_conn_type">
+        <item>TC</item>
+        <item>PC</item>
+        <item>OYT</item>
+    </string-array>
+    <string-array name="consumer_type">
+        <item>Domestic</item>
+        <item>Agriculture</item>
+        <item>Industrial</item>
+        <item>Commercial</item>
+    </string-array>
+
+    <string-array name="remarks">
+        <item>OK</item>
+        <item>Multiple Supplies</item>
+        <item>Bill not Provided</item>
+        <item>Premises Locked</item>
+        <item>Disconnection</item>
+    </string-array>
+    <string-array name="dtr_capacity_array">
+        <item>10 KVA (1PH)</item>
+        <item>10 KVA (3PH)</item>
+        <item>16 KVA (1PH)</item>
+        <item>16 KVA (3PH)</item>
+        <item>25 KVA</item>
+        <item>50 KVA</item>
+        <item>63 KVA</item>
+        <item>100 KVA</item>
+        <item>150 KVA</item>
+        <item>200 KVA</item>
+        <item>250 KVA</item>
+        <item>315 KVA</item>
+        <item>500 KVA</item>
+        <item>750 KVA</item>
+        <item>1000 KVA</item>
+        <item>1500 KVA</item>
+        <item>2000 KVA</item>
+        <item>2500 KVA</item>
+    </string-array>
+    <string-array name="no_of_lt_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+    <string-array name="pole_type_array">
+        <item>PCC</item>
+        <item>RAIL</item>
+        <item>RSJ</item>
+        <item>WALL</item>
+        <item>STEEL</item>
+        <item>WOODEN</item>
+        <item>TOWER</item>
+
+    </string-array>
+
+    <string-array name="box_status">
+        <item>Select Box Status</item>
+        <item>Yes</item>
+        <item>No</item>
+
+    </string-array>
+
+    <string-array name="premises_type">
+        <item>Select Premises Type</item>
+        <item>Single</item>
+        <item>Multistored</item>
+        <item>Apartment</item>
+        <item>Hut</item>
+    </string-array>
+    <string-array name="no_of_airconditioners">
+        <item>Select No Of AC</item>
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>more than 3</item>
+    </string-array>
+    <string-array name="no_of_rooms">
+        <item>Select No Of Rooms</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>more than 3</item>
+    </string-array>
+    <string-array name="dtr_status">
+        <item>Select DTR Status</item>
+        <item>Connected</item>
+        <item>Dis-Connected</item>
+        <item>Removed</item>
+    </string-array>
+    <string-array name="units">
+        <item>KW</item>
+    </string-array>
+
+    <string-array name="meter_typ">
+        <item>Select Meter Type</item>
+        <item>Mechanical</item>
+        <item>Electromechanical</item>
+        <item>Electronic</item>
+
+    </string-array>
+    <string-array name="meter_capacity">
+        <item>Select Meter Capacity</item>
+        <item>5-30A</item>
+        <item>10-40A</item>
+        <item>10-60A</item>
+
+    </string-array>
+
+    <string-array name="meter_location">
+        <item>Select Meter Location</item>
+        <item>Inside</item>
+        <item>Outside</item>
+        <item>Call-Bell Location</item>
+
+    </string-array>
+
+    <string-array name="pole_location">
+        <item>Select Pole Location</item>
+        <item>Start</item>
+        <item>Mid Span</item>
+        <item>End</item>
+        <item>Tapping</item>
+
+    </string-array>
+    <string-array name="consumer_caste">
+        <item>Select Consumer Caste</item>
+        <item>General</item>
+        <item>SC</item>
+        <item>ST</item>
+        <item>OBC</item>
+
+    </string-array>
+
+    <string-array name="meter_mfg">
+        <item>Select Meter Manufacturer</item>
+        <item>AVON IRDA</item>
+        <item>GENUS OPT</item>
+        <item>LNT OPT</item>
+        <item>SECURE OPT</item>
+        <item>MONTEL IRDA</item>
+        <item>PALMOHAN IRDA</item>
+        <item>VISIONTEK IRDA</item>
+        <item>BENTEK IRDA</item>
+    </string-array>
+    <string-array name="meter_ph">
+        <item>Select Meter Phase</item>
+        <item>1-phase</item>
+        <item>3-phase</item>
+
+    </string-array>
+
+</resources>

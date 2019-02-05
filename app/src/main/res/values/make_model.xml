@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="make_name">
+        <item>GENUS</item>
+        <item>AVON</item>
+        <item>VISIONTEK</item>
+        <item>MONTEL</item>
+        <item>BENTEK</item>
+        <item>LNG</item>
+        <item>LNT</item>
+        <item>SECURE</item>
+        <item>HPL</item>
+        <item>EMCO</item>
+    </string-array>
+    <integer-array name="make_images">
+        <item>@drawable/logo_genus</item>
+        <item>@drawable/logo_avon</item>
+        <item>@drawable/logo_visiontek</item>
+        <item>@drawable/logo_montel</item>
+        <item>@drawable/logo_bentec</item>
+        <item>@drawable/logo_landis_gyr</item>
+        <item>@drawable/logo_l_n_t</item>
+        <item>@drawable/logo_secure</item>
+        <item>@drawable/logo_hpl</item>
+        <item>@drawable/logo_emco</item>
+    </integer-array>
+    <string-array name="model_allied">
+        <item>OPTICAL</item>
+        <item>IR</item>
+    </string-array>
+
+    <string-array name="model_avon">
+        <item>OPTICAL</item>
+        <item>3PH</item>
+        <item>IRDA</item>
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_bentek">
+        <item>OPTICAL</item>
+    </string-array>
+
+    <string-array name="model_emco">
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_genus">
+        <item>OPTICAL</item>
+        <item>6LOWPAN</item>
+        <item>IRDA</item>
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_hpl">
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_lnt">
+        <item>3PH OPTICAL</item>
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_montel">
+        <item>OPTICAL</item>
+        <item>IRDA</item>
+    </string-array>
+
+    <string-array name="model_lng">
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_secure">
+        <item>OPTICAL</item>
+        <item>DLMS</item>
+    </string-array>
+
+    <string-array name="model_vision_tek">
+        <item>IRDA</item>
+        <item>DLMS</item>
+        <item>6LOWPAN</item>
+    </string-array>
+
+</resources>

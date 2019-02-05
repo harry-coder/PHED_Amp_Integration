@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text=" You are not Authorized to Use this Application . Please contact your admin with the imei no."
+        android:textSize="15dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="50dp"
+        android:padding="5dp"
+        android:text="Your IMEI Number is  "
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/EditTextOTP"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_edittext"
+        android:enabled="false"
+        android:padding="10dp"
+        />
+    <!-- <Button
+         android:id="@+id/dialogButtonOK"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:text=" Ok "
+         android:background="@drawable/button_cancel"
+         android:gravity="center"
+         android:layout_margin="10dp"
+         android:layout_below="@+id/image"
+         />-->
+
+</LinearLayout>

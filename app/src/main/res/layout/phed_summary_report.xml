@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:gravity="left|center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            style="@style/header_thm"
+            >
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="30dp"
+                android:layout_marginTop="8dp"
+                android:layout_height="25dp"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/back"
+                android:gravity="center|left"
+                />
+
+            <TextView
+                android:id="@+id/HomeText"
+                android:layout_width="wrap_content"
+                android:textSize="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="90dp"
+                android:textColor="@color/sweet_dialog_bg_color"
+                android:text="Summary "
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/LL1"
+        android:layout_height="wrap_content">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                 android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtrecpt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:text="Today Receipt"
+                    android:textColor="@color/_white" />
+
+
+                <TextView
+                    android:id="@+id/txtamt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:text="Total Amount"
+                    android:textColor="@color/_white" />
+
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/txtrept"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/cell_shape_top"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:ems="10"
+                    android:textColor="@color/_white"
+                    android:gravity="center"
+                    android:text="ReceptNo"/>
+
+
+                <TextView
+                    android:id="@+id/tktamt1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:textColor="@color/_white"
+                    android:text="todayamount" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/LL2"
+        android:layout_height="wrap_content">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/txtrecpt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:text="Monthly Receipt"
+                    android:textColor="@color/_white" />
+
+
+                <TextView
+                    android:id="@+id/txtamt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:text="Monthly Amount"
+                    android:textColor="@color/_white" />
+
+
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp">
+
+                <TextView
+                    android:id="@+id/txtrecpt3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:textColor="@color/_white"
+                    android:gravity="center"
+                    android:text="Monthlyrecpt" />
+
+
+                <TextView
+                    android:id="@+id/txtamt4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/cell_shape_top"
+                    android:ems="10"
+                    android:textColor="@color/_white"
+                    android:gravity="center"
+                    android:text="MonthlyAmont" />
+
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date Filter"
+                android:textColor="@drawable/button_cancel_textcolor"
+                android:background="@drawable/button_cancel"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@+id/LL1"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/_white"
+        android:orientation="vertical"
+        >
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="600dp"
+            android:layout_height="40dp"
+            android:background="@color/color_primary"
+            android:columnWidth="120dp"
+            android:numColumns="5"
+            android:stretchMode="none"
+            android:fontFamily="sans-serif"
+            android:textColor="#cccccc" />
+
+        <GridView
+            android:id="@+id/gridView1"
+            android:layout_width="600dp"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="#000000"
+            android:columnWidth="120dp"
+            android:fontFamily="sans-serif"
+            android:numColumns="5"
+            android:stretchMode="none"
+            android:textColor="#cccccc" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtvalue"
+            android:layout_marginLeft="120dp"
+            android:layout_marginTop="50dp"/>
+    </LinearLayout>
+    </HorizontalScrollView>
+
+         </LinearLayout>
+
+</LinearLayout>
+

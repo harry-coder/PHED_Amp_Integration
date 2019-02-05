@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:gravity="left|center"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            style="@style/header_thm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/HomeButton"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/back"
+                android:gravity="center|left"
+                android:padding="10dp" />
+
+            <TextView
+                android:id="@+id/HomeText"
+                style="@style/Base.TextAppearance.AppCompat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignRight="@+id/HomeButton"
+                android:fontFamily="sans-serif"
+                android:padding="10dp"
+                android:text="Search Customer"
+                android:textColor="@color/sweet_dialog_bg_color"
+                android:textSize="20sp"
+                android:textStyle="normal"
+
+                />
+        </LinearLayout>
+        <!--
+        <Button
+        android:id="@+id/HmeBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/homebtn"
+        android:padding="10dp" />
+        -->
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/EditTextACC"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/selector_edittext"
+            android:fontFamily="sans-serif"
+            android:hint="Enter Account No."
+
+            android:padding="10dp" />
+
+        <Button
+            android:id="@+id/dialogButtonACCOK"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/image"
+            android:layout_margin="10dp"
+            android:background="@drawable/button_cancel"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text=" Ok " />
+    </LinearLayout>
+</RelativeLayout>

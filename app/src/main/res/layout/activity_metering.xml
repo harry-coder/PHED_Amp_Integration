@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgscreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMetering1"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/oldaccno"
+                android:drawablePadding="10dp"
+                android:text="@string/mtr_read"
+                android:layout_gravity="start"
+                android:fontFamily="sans-serif"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+            <!--    <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Billing"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMetering2"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/routeno"
+                android:drawablePadding="10dp"
+                android:text="@string/upload_download"
+                android:layout_gravity="start"
+                android:fontFamily="sans-serif"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+            <!-- <TextView
+                 android:layout_width="170dp"
+                 android:layout_height="wrap_content"
+                 android:textSize="20dp"
+                 android:textStyle="bold"
+                 android:text="Upload/Download"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMetering3"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/dupbill"
+                android:drawablePadding="10dp"
+                android:text="@string/rpt"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+                android:fontFamily="sans-serif"
+                android:textSize="15dp" />
+            <!--   <TextView
+                   android:layout_width="170dp"
+                   android:layout_height="wrap_content"
+                   android:textSize="20dp"
+                   android:textStyle="bold"
+                   android:text="Report"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMetering4"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="10dp"
+                android:text="@string/summary"
+                android:layout_gravity="start"
+                android:fontFamily="sans-serif"
+                android:textAlignment="viewStart"
+                android:textSize="15dp" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonMetering5"
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/accno"
+                android:drawablePadding="10dp"
+                android:text="@string/bulkupload"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="start"
+                android:textAlignment="viewStart"
+
+                android:textSize="15dp" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

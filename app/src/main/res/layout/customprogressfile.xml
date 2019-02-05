@@ -1,0 +1,99 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!-- Layout for custom dialog -->
+
+<LinearLayout
+
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:id="@+id/linear_layout"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:layout_gravity = "center"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft = "60dp"
+    android:layout_marginRight = "60dp"
+    android:background="@drawable/dialogbg"
+    android:orientation = "vertical" >
+
+    <TextView
+
+        android:id = "@+id/dialog_message"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:gravity = "center"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+
+        android:padding = "10dp"
+        android:text="Downloading files..."
+        android:textColor="@android:color/white"
+        android:textSize = "20sp" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/CustomProgressBar"
+        android:progress="0"
+        android:background="@android:color/darker_gray"
+        android:layout_margin="10dp"
+        />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/progress_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text=""
+            android:padding="5dp"
+          />
+        <TextView
+            android:id="@+id/centerText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="5dp"
+            android:text="continuing"
+
+           />
+
+        <TextView
+            android:id="@+id/file_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="5dp"
+
+            android:text="4.4M"
+            />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id = "@+id/dialog_button_positive"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_weight="1"
+            android:layout_margin = "10dp"
+            android:background="@drawable/btnbg"
+            android:gravity = "center"
+            android:padding = "10dp"
+            android:text = "Ok"/>
+        <Button
+            android:id = "@+id/dialog_button_negative"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_weight="1"
+            android:layout_margin = "10dp"
+            android:background="@drawable/btnbg"
+            android:gravity = "center"
+            android:padding = "10dp"
+            android:text = "Cancel"/>
+    </LinearLayout>
+</LinearLayout>

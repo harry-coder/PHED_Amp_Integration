@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bgscreen">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/Linear_wallet"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:background="@drawable/linearborder">
+
+            <TextView
+                android:id="@+id/user_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="7dp"
+                android:text="@string/wallet"
+                android:textSize="25dp" />
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="7dp"
+                android:textSize="25dp"
+                android:text="@string/walletamount"
+               />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:weightSum="2"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="42dp"
+            android:layout_marginRight="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/session_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textSize="22dp"
+                android:padding="7dp"
+                android:text="@string/session_id"
+                android:visibility="invisible"/>
+            <TextView
+                android:id="@+id/tv_session_id"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:gravity="left"
+                android:padding="7dp"
+                android:textSize="22dp"
+                android:text="@string/session"
+                android:visibility="invisible"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling1"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/oldaccno"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/bill"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+                android:textStyle="normal" />
+            <!--    <TextView
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Billing"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling2"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/routeno"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/upload_download"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+               />
+            <!-- <TextView
+                 android:layout_width="170dp"
+                 android:layout_height="wrap_content"
+                 android:textSize="20dp"
+                 android:textStyle="bold"
+                 android:text="Upload/Download"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling3"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/dupbill"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/reports"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+                android:visibility="gone"/>
+            <!--   <TextView
+                   android:layout_width="170dp"
+                   android:layout_height="wrap_content"
+                   android:textSize="20dp"
+                   android:textStyle="bold"
+                   android:text="Report"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling4"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/summary"
+                android:textAlignment="viewStart"
+                android:textSize="22dp" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling5"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/last_reciept_print"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+                android:visibility="gone" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonSession"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/name"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/end_session"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+                android:visibility="gone" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonBilling6"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="@drawable/green_button"
+                android:drawableLeft="@drawable/dupbill"
+                android:drawablePadding="10dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/bulkupload"
+                android:textAlignment="viewStart"
+                android:textSize="22dp"
+                android:visibility="gone" />
+            <!--  <TextView
+                  android:layout_width="170dp"
+                  android:layout_height="wrap_content"
+                  android:textSize="20dp"
+                  android:textStyle="bold"
+                  android:text="Summery"/>-->
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res-auto"
+    xmlns:ads="http://schemas.android.com/apk/res/android"
+    ads:background="@drawable/serialdata_shape"
+    ads:layout_height="match_parent"
+    ads:layout_width="match_parent"
+    ads:minWidth="340dp"
+    ads:orientation="vertical">
+
+    <EditText
+        ads:ems="10"
+        ads:id="@+id/editTextSend"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.4"
+        ads:layout_width="match_parent"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        ads:id="@+id/button_send_bulk"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.2"
+        ads:layout_width="match_parent"
+        ads:text="Send"
+        ads:textColor="#ffffff" />
+
+    <Button
+        ads:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+        ads:id="@+id/button_backMenu_terminal"
+        ads:layout_height="wrap_content"
+        ads:layout_weight="0.2"
+        ads:layout_width="match_parent"
+        ads:text="Back"
+        ads:textColor="#ffffff" />
+
+</LinearLayout>
+

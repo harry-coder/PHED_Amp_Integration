@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btnSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Settings"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <TextView
+        android:id="@+id/txtTop"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/btnDisConnect"
+        android:layout_toRightOf="@+id/btnSettings"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="Enter Your Text Here..."
+        android:textColor="#CC0000"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+
+    <Button
+        android:id="@+id/btnimagepath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnSettings"
+        android:layout_margin="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Browse"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <!-- <TextView
+        android:id="@+id/imagepath"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/SD Card/IMG/twitter.jpg"
+        android:layout_margin="10dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnSettings"
+        android:textStyle="bold"
+        android:paddingLeft="1dp"
+        android:paddingRight="20dp"
+        android:typeface="serif"
+        android:textSize="12dp"
+    /> -->
+
+    <Button
+        android:id="@+id/btnPrint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtTop"
+        android:layout_margin="10dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Print"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:typeface="serif" />
+
+    <EditText
+        android:id="@+id/edtText"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/btnPrint"
+        android:gravity="center"
+        android:hint="Enter Your Text Here...."
+        android:inputType="textMultiLine" />
+
+</RelativeLayout>

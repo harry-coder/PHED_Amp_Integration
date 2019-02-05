@@ -1,0 +1,133 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!-- Layout for custom dialog -->
+
+<LinearLayout
+
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:layout_gravity = "center"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft = "60dp"
+    android:layout_marginRight = "60dp"
+    android:background="@drawable/dialogbg"
+    android:orientation = "vertical" >
+        <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+            <TextView
+
+                android:id = "@+id/dialog_message"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:gravity = "center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:padding = "10dp"
+                android:text="Downloading files..."
+                android:textColor="@android:color/white"
+                android:textSize = "20sp" />
+
+            <ProgressBar
+
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CustomProgressBar"
+                android:progress="1"
+                android:layout_margin="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+
+                    android:id="@+id/progress_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text=""
+                    android:textColor="@color/zxing_status_text"
+                    android:padding="5dp"/>
+
+                <TextView
+
+                    android:id="@+id/centerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:padding="5dp"
+                    android:layout_below="@+id/progress_txt"
+                    android:textColor="@color/zxing_status_text"
+                    android:text="Files Transferred"/>
+
+
+                <TextView
+                    android:id="@+id/file_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="20dp">
+
+            <ProgressBar
+
+                android:id="@+id/progress_bar2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/CustomProgressBar"
+                android:progress="0"
+                android:indeterminateDuration="900"
+                android:layout_margin="10dp"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/progress_txt2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text=""
+                    android:textColor="@color/zxing_status_text"
+                    android:padding="5dp"
+                    />
+                <TextView
+                    android:id="@+id/centerText2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/progress_txt2"
+                    android:padding="5dp"
+                    android:textColor="@color/zxing_status_text"
+                    android:text="Lines Read"
+
+                    />
+
+                <TextView
+                    android:id="@+id/file_size2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:padding="5dp"
+                    />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+</LinearLayout>

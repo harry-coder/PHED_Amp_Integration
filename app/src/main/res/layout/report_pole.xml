@@ -1,0 +1,99 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="top"
+    android:gravity="center"
+
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/HEADER"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/header_thm">
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+           >
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/back_selector"
+                android:paddingLeft="10dp"
+                android:text="@string/bk"
+                android:textSize="9dp"
+                android:textColor="@drawable/button_login_textcolor"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:fontFamily="sans-serif"
+            android:text="@string/Pole_Survey_Report"
+            android:textColor="#FFFFFF"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+
+
+    <HorizontalScrollView
+        android:id="@+id/title_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edtTxtConName"
+        android:layout_margin="1dp"
+        android:layout_weight="1.09"
+        android:fillViewport="false"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#B2DFDB"
+            android:orientation="vertical">
+
+            <GridView
+
+                android:id="@+id/gridView"
+                android:layout_width="500dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="@color/color_primary"
+                android:columnWidth="100dp"
+                android:fontFamily="sans-serif"
+                android:numColumns="5"
+                android:stretchMode="none"
+                android:textColor="#cccccc" />
+            <GridView
+                android:id="@+id/gridView1"
+                android:layout_width="500dp"
+                android:layout_height="match_parent"
+                android:cacheColorHint="#000000"
+                android:columnWidth="100dp"
+                android:fontFamily="sans-serif"
+                android:numColumns="5"
+                android:stretchMode="none"
+                android:textColor="#cccccc" />
+        </LinearLayout>
+    </HorizontalScrollView>
+</LinearLayout>

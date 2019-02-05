@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical"
+
+    tools:context="com.fedco.mbc.activity.Readinginput">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Footer">
+
+        <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/login_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/mtr_name"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/TextViewRINameValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="11dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:layout_marginTop="2dp"
+                android:layout_marginBottom="2dp"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIPs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/mtr_status"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <TextView
+                    android:id="@+id/TextViewRIPsValues"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="11dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRICr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/kwh_cur"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRICrValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:fontFamily="sans-serif"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIKVAH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/kvah"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIPKAHVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIKVARH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/kvarh"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIPKARHVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIMd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/md"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIMdValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:layout_marginBottom="2dp"
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIMDUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/mdunit"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <Spinner
+                    android:id="@+id/TextViewRIMDUnitVal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:entries="@array/md_unit_array"
+                    android:padding="10dp" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="2dp"
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIOFFKWH"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/ofpeak_kwh"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIOFFKWHVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIOFFMD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/ofpeak_md"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIOFFMDVal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:fontFamily="sans-serif"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIOFFMDUnit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/ofpeak_md_un"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <Spinner
+                    android:id="@+id/TextViewRIOFFMDUnitVal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif"
+                    android:entries="@array/md_unit_array"
+                    android:padding="10dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRICMD"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/cum_md"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRICMDValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:fontFamily="sans-serif"
+                    android:selectAllOnFocus="true"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="2dp"
+                android:background="@color/color_primary"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/TextViewRIPf"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:padding="10dp"
+                    android:text="@string/pw_factor"
+                    android:fontFamily="sans-serif"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#cccccc"
+                    android:visibility="gone"
+                    android:textSize="11dp" />
+
+                <EditText
+                    android:id="@+id/TextViewRIPfValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:inputType="numberDecimal"
+                    android:maxLength="6"
+                    android:padding="10dp"
+                    android:selectAllOnFocus="true"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:text="0"
+                    android:visibility="gone"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#ffffff"
+                    android:textSize="14dp" />
+            </TableRow>
+
+        </TableLayout>
+    </ScrollView>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/Footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/color_primary">
+
+        <TextView
+            android:id="@+id/TextViewHe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center|right"
+            android:layout_margin="5dp"
+            android:fontFamily="sans-serif"
+            android:padding="10dp"
+            android:text="@string/mtr_read_in"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:id="@+id/relback"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@drawable/button_continue">
+
+            <Button
+                android:id="@+id/Buttonback"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center|right"
+                android:layout_marginLeft="13dp"
+                android:layout_marginStart="13dp"
+                android:background="@drawable/back"
+                android:padding="7dp"
+                android:textColor="@drawable/button_login_textcolor"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relButton"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_continue">
+
+            <Button
+                android:id="@+id/ButtonContreading"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:fontFamily="sans-serif"
+                android:layout_gravity="center|right"
+                android:layout_marginRight="13dp"
+                android:background="@drawable/forward"
+
+                android:padding="7dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

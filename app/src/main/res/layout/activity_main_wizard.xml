@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/LLconsumerdet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="top"
+
+            android:orientation="vertical">
+
+            <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/login_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+
+                android:stretchColumns="*">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/TextViewACC"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="0"
+                        android:padding="3dp"
+                        android:text="@string/acc_id"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:id="@+id/TextViewACCValue"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="1"
+                        android:padding="3dp"
+                        android:text="@string/acc_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp"
+                        android:typeface="sans" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/TextViewIVRS"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="0"
+                        android:padding="3dp"
+                        android:text="@string/ivrs_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:id="@+id/TextViewIVRSValue"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="1"
+                        android:padding="3dp"
+                        android:text="@string/acc_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp"
+                        android:typeface="sans" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/TextViewOCN"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="0"
+                        android:padding="3dp"
+                        android:text="@string/ivrsno"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:id="@+id/TextViewOCNValue"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="1"
+                        android:padding="3dp"
+                        android:text="@string/acc_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp"
+                        android:typeface="sans" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/TextViewName"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="0"
+                        android:padding="3dp"
+                        android:text="@string/con_name"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:id="@+id/TextViewNameValue"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="1"
+                        android:padding="3dp"
+                        android:text="@string/acc_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp"
+                    android:weightSum="1">
+
+                    <TextView
+                        android:id="@+id/TextViewMN"
+                        style="@style/textview_gen"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_column="0"
+                        android:padding="3dp"
+                        android:text="@string/mtr_number"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+
+                    <TextView
+                        android:id="@+id/TextViewMNValue"
+                        style="@style/textview_gen"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:padding="3dp"
+                        android:text="@string/acc_no"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textSize="11dp" />
+                </TableRow>
+
+
+            </TableLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vpPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <!--android:layout_below="@id/LLconsumerdet"-->
+
+
+                <android.support.v4.view.PagerTabStrip
+                    android:id="@+id/pager_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+        <!--   <LinearLayout
+
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+
+               android:foregroundGravity="bottom"
+               android:gravity="bottom"
+               android:orientation="vertical">
+
+               <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:id="@+id/Footer"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentBottom="true"
+                   android:background="@color/color_primary">
+
+                   <TextView
+                       android:id="@+id/TextViewHe"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_centerHorizontal="true"
+                       android:layout_centerVertical="true"
+                       android:layout_gravity="center|right"
+                       android:layout_margin="5dp"
+                       android:fontFamily="sans-serif"
+                       android:padding="10dp"
+                       android:text="Meter Reading Input"
+                       android:textColor="#ffffff"
+                       android:textStyle="bold" />
+
+                   <RelativeLayout
+                       android:id="@+id/relback"
+                       android:layout_width="60dp"
+                       android:layout_height="50dp"
+                       android:layout_alignParentLeft="true"
+                       android:layout_alignParentStart="true"
+                       android:background="@drawable/button_continue">
+
+                       <Button
+                           android:id="@+id/Buttonback"
+                           android:layout_width="15dp"
+                           android:layout_height="15dp"
+                           android:layout_alignParentLeft="true"
+                           android:layout_alignParentStart="true"
+                           android:layout_centerVertical="true"
+                           android:layout_gravity="center|right"
+                           android:layout_marginLeft="13dp"
+                           android:layout_marginStart="13dp"
+                           android:background="@drawable/back"
+                           android:fontFamily="sans-serif"
+                           android:padding="7dp"
+                           android:textColor="@drawable/button_login_textcolor"
+                           android:textStyle="bold" />
+                   </RelativeLayout>
+
+                   <RelativeLayout
+                       android:id="@+id/relButton"
+                       android:layout_width="60dp"
+                       android:layout_height="50dp"
+                       android:layout_alignParentEnd="true"
+                       android:layout_alignParentRight="true"
+                       android:background="@drawable/button_continue">
+
+                       <Button
+                           android:id="@+id/ButtonContreading"
+                           android:layout_width="15dp"
+                           android:layout_height="15dp"
+                           android:layout_alignParentEnd="true"
+                           android:layout_alignParentRight="true"
+                           android:layout_centerVertical="true"
+                           android:layout_gravity="center|right"
+                           android:layout_marginRight="13dp"
+                           android:background="@drawable/forward"
+                           android:fontFamily="sans-serif"
+
+                           android:padding="7dp" />
+                   </RelativeLayout>
+               </RelativeLayout>
+
+           </LinearLayout>-->
+    </LinearLayout>
+
+
+</RelativeLayout>
+

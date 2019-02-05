@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.fedco.mbc">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-feature
+        android:name="android.hardware.bluetooth"
+        android:required="true" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="true" />
+
+    <application
+        android:name=".bluetoothprinting.GlobalPool"
+        android:allowBackup="true"
+        android:icon="@mipmap/logo_mp"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
+        tools:replace="android:icon">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.fedco.mbc.phed.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".activitymetering.Metering"
+            android:parentActivityName=".activity.Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fedco.mbc.activity.Home" />
+        </activity>
+        <activity
+            android:name=".activitymetering.MeterStateMtr"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.MeteringReadinginput"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.DeviceDefault.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.Meteringtypes"
+            android:parentActivityName=".activitymetering.Metering"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fedco.mbc.activitymetering.Metering" />
+        </activity>
+        <activity
+            android:name=".activitymetering.CameraMeter"
+            android:parentActivityName=".activitymetering.Meteringtypes"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activitymetering.Meteringtypes" />
+        </activity>
+        <activity
+            android:name=".activitymetering.MtrConsSrcByName"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.MtrConsSrcByAddress"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurveyMain" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activity.Billing"
+            android:parentActivityName=".activity.Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fedco.mbc.activity.Home" />
+        </activity>
+        <activity
+            android:name=".activity.BillingtypesActivity"
+            android:parentActivityName=".activity.Billing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fedco.mbc.activity.Billing" />
+        </activity>
+        <activity
+            android:name=".activity.CameraActivity"
+            android:parentActivityName=".activity.BillingtypesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.fedco.mbc.activity.BillingtypesActivity" />
+        </activity>
+        <!-- <activity android:name="eu.janmuller.android.simplecropimage.CropImage" /> -->
+        <activity
+            android:name=".activity.SDActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ShootAndCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.MeterState"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity
+            android:name=".activity.Readinginput"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.PrintingMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.BTDiscovery"
+            android:configChanges="keyboardHidden|navigation|orientation|screenSize"
+            android:launchMode="standard"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.GeneralPrinterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscTextDataActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscBMPPrintActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscPaperFeedActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscFontPropertesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscBarcodeHeightActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <!--
+            <activity
+            android:name="com.fedco.mbc.bluetoothprinting.EscSetModeActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"></activity>
+        -->
+        <activity
+            android:name=".bluetoothprinting.EscChangeFontActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".bluetoothprinting.EscHorizontalActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
+        <activity
+            android:name=".activity.RootActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.BillingViewActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ConsumerSearchByName_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ConsumerSearchByAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.ReporttypesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.NewConsumerReportActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.MeterChangeReportActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.UnbilledConsumerReportActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Signature_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".activity.DuplicateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.SLPrintingMainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.DuplicateBillPrint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.Collection"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.CollectionView"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PaymentType"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.CollPrintActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.Summery"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PrintSelection"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.PasswordReset"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".bluetoothprinting.DuplicateCollPrint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.UnCollectedConsumerReportActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.ConsumerSearchByMeterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activity.MeterReading"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitymetering.MeterCameraView"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.CurVoltageDetails"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitymetering.SealDetails"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitymetering.Remarks"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitymetering.Report"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.NSCReport"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.MCReport"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.UnMeterReport"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activitymetering.MeterSummery"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitymetering.SummeryFilter"
+            android:theme="@android:style/Theme.Holo.Light" />
+        <activity
+            android:name=".activitymetering.NMActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.Survey"
+            android:parentActivityName=".activity.Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.ConsumerSearch"
+            android:parentActivityName=".activitysurvey.Survey"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.FeederSurvey_11kV"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.DTR_Survey"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.SurveyDetails"
+            android:parentActivityName=".activitysurvey.Survey"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.PoleSurvey"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.ConsumerSurvey"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.CameraView"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.CameraViewOne"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.CameraViewDTR"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.CameraViewFeeder"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.Report_11kV_FeederList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.Report_DTR"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.Report_Pole"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.Report_Consumer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.SurveyReports"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activitysurvey.SurveySummary"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".activitysurvey.CameraViewConsumer"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <!--
+            ATTENTION: This was auto-generated to add Google Play services to your project for
+            App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+
+        <service android:name=".service.CaptureService" />
+        <service android:name=".service.BackgroundService" />
+        <service android:name=".service.FullUploadService" />
+        <service android:name=".service.BulkUpload" />
+        <service android:name=".service.UploadService" />
+        <service android:name=".service.SyncService" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <receiver android:name=".service.MyBroadcastReceiver" />
+
+        <activity
+            android:name=".amigos.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity
+            android:name=".amigos.DuplicateAmigoPrinting"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSurvey" />
+        <activity android:name=".testing.TestMainActivity" />
+        <activity
+            android:name=".activity.ReasonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".collection.CollectiontypesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".amigos.MainActivityCollectionPrint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".amigos.MainActivityReceiptPrint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".amigos.DuplicateCollectionPrint"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".felhr.droidterm.MainActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait" />
+
+        <service
+            android:name=".felhr.connectivityservices.UsbService"
+            android:enabled="true" />
+
+        <activity
+            android:name=".hasnain.BlutoothPrinterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme.Printer" />
+        <activity
+            android:name=".hasnain.DeviceListActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppBaseTheme.Printer" />
+        <activity
+            android:name=".replacement.MainActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".replacement.Replacement"
+            android:parentActivityName=".activity.Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+
+        </activity>
+        <activity
+            android:name=".replacement.MeterView"
+            android:theme="@style/AppTheme"></activity>
+        <activity
+            android:name=".replacement.ReplacementtypesActivity"
+            android:parentActivityName=".activity.Billing"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme">
+
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+
+        </activity>
+        <activity
+            android:name=".replacement.SearchByName_Activity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".replacement.SearchByAddressActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".replacement.SearchByMeterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".replacement.ReplacementReportsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".replacement.AllReplacedReport"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".replacement.UnreplacedConsumerReport"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.Phed_summary_report"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activity.SearchCustByBookId"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+
+
+        </activity>
+    </application>
+
+</manifest>
