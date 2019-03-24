@@ -338,6 +338,35 @@
         android:layout_alignEnd="@+id/LLconsumerdet"
         android:layout_alignRight="@+id/LLconsumerdet"
         android:layout_below="@+id/LLconsumerdet"
-        android:background="@drawable/tootltip" />
+        android:background="@drawable/tootltip"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/EditTextmobno"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/LLconsumerdet"
+        android:layout_margin="10dp"
+
+        android:background="@drawable/selector_edittext"
+        android:digits="1234567890"
+        android:fontFamily="sans-serif"
+        android:hint="Enter Mobile No."
+        android:inputType="number"
+        android:maxLength="10"
+        android:padding="10dp"
+        android:paddingStart="15dp" />
+
+    <EditText
+        android:id="@+id/EditTextemail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/EditTextmobno"
+        android:layout_margin="10dp"
+        android:background="@drawable/selector_edittext"
+        android:fontFamily="sans-serif"
+        android:hint="Enter Email id"
+        android:inputType="textEmailAddress"
+        android:padding="10dp" />
 
 </RelativeLayout>

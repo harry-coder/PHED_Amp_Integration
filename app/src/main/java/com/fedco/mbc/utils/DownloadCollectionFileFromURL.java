@@ -1,5 +1,6 @@
 package com.fedco.mbc.utils;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -22,7 +23,7 @@ import java.net.URL;
 
 
     // Progress Dialog
-    private CustomDialogFile pDialog;
+  // private CustomDialogFile pDialog;
     private boolean isDownloadCanceled;
     HttpURLConnection conn = null;
     InputStream input;
@@ -58,9 +59,14 @@ import java.net.URL;
     private static final String LOCAL_PATH = "/MBC";
     private static final int BUFFER_SIZE = 4096;
 
-    public DownloadCollectionFileFromURL(String zipFilename , String imeinum ){
+    Context context;
+
+    public DownloadCollectionFileFromURL(String zipFilename , String imeinum,Context context ){
         this.name=zipFilename;
+
         this.IMEInum=imeinum;
+
+        this.context=context;
     }
     /**
      * Before starting background thread
@@ -69,9 +75,9 @@ import java.net.URL;
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        pDialog = showDialog(this);
+       // pDialog = showDialog(this);
         Log.d("TAG", " is cancelled " + isCancelled());
-        notifyProgressFoDownload();
+     //   notifyProgressFoDownload();
     }
 
     /**
@@ -151,7 +157,7 @@ import java.net.URL;
      */
     protected void onProgressUpdate(String... progress) {
         // setting progress percentage
-        pDialog.setProgress(mProgress);
+      //  pDialog.setProgress(mProgress);
 //        Log.d("TAG ", "Progress Value == " + mProgress);
     }
 
@@ -162,15 +168,18 @@ import java.net.URL;
     @Override
     protected void onPostExecute(String file_url) {
         // dismiss the dialog after the file was downloaded
-        pDialog.dismiss();
+    //    pDialog.dismiss();
         if(!isDownloadCanceled) {
             if (mProgress == PROGRESS_COMPLETED) {
-                new UnzippingCollectionFile().execute();
-                Toast.makeText(SDActivity.getsActivity(), DOWNLOAD_COMPLETED, Toast.LENGTH_SHORT)
+                new UnzippingCollectionFile(context).execute();
+                Toast.makeText(context, DOWNLOAD_COMPLETED, Toast.LENGTH_SHORT)
                      .show();
+
             } else {
-                Toast.makeText(SDActivity.getsActivity(), DOWNLOAD_FAILED, Toast.LENGTH_SHORT)
+
+                Toast.makeText(context, DOWNLOAD_FAILED, Toast.LENGTH_SHORT)
                      .show();
+
             }
         }else{
             File downloadFile = new File(Environment.getExternalStorageDirectory()
@@ -180,6 +189,8 @@ import java.net.URL;
             }
         }
         mProgress = 0;
+
+
     }
 
     CountDownTimer timer;
@@ -199,10 +210,10 @@ import java.net.URL;
                 if (mProgress == PROGRESS_FAILED) {
                     publishProgress(null);
                     timer.cancel();
-                    pDialog.dismiss();
+                   // pDialog.dismiss();
                 }else if(mProgress == PROGRESS_COMPLETED) {
                     publishProgress(null);
-                    pDialog.dismiss();
+                  //  pDialog.dismiss();
                     timer.cancel();
                 } else{
                     mProgress = TOTAL_PROGRESS - (int) timeFinished / TIME_OF_PROGRESS;
@@ -213,7 +224,7 @@ import java.net.URL;
             @Override
             public void onFinish() {
                 publishProgress(null);
-                pDialog.dismiss();
+              //  pDialog.dismiss();
                 onPostExecute(null);
             }
         };
@@ -225,7 +236,7 @@ import java.net.URL;
         if(!isPositiveButtonClick){
             if(util != null){
                 try {
-                    pDialog.dismiss();
+                  //  pDialog.dismiss();
 //                    util.disconnect();
                     timer.cancel();
                     timer = null;

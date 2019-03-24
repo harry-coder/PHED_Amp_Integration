@@ -96,6 +96,19 @@
             android:drawablePadding="10dp"
             android:text="@string/nt_rd_con_lt" />
         <Button
+            android:id="@+id/bt_meteredList"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_below="@+id/ButtonUnbuildC"
+            android:layout_margin="2dp"
+            android:fontFamily="sans-serif"
+            android:background="@drawable/green_button"
+            android:drawableLeft="@drawable/metered_icon"
+            android:gravity="left|center"
+            android:drawablePadding="10dp"
+            android:text="Metered Customer List" />
+
+        <Button
             android:id="@+id/ButtonSync"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -112,7 +125,7 @@
             android:id="@+id/ButtonMD"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_below="@+id/ButtonSync"
+            android:layout_below="@+id/bt_meteredList"
             android:layout_margin="2dp"
             android:fontFamily="sans-serif"
             android:background="@drawable/green_button"
@@ -120,6 +133,8 @@
             android:gravity="left|center"
             android:drawablePadding="10dp"
             android:text="@string/syn_MD" />
+
+
         <Button
             android:id="@+id/ButtonUNMD"
             android:layout_width="match_parent"

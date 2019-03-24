@@ -75,7 +75,7 @@ public class DuplicateActivity extends AppCompatActivity {
                 //String ret = "SELECT Consumer_Number FROM TBL_CONSMAST WHERE Name='SAPHALA PARIDA'";
                 Cursor curconsmasData = SD.rawQuery(ret, null);
 
-                /****GETTING DATA FROM CURSOR WHEN CURSOR IS NOT NULL AND ON THE FORST INDEX****/
+                /****GETTING DATA FROM CURSOR WHEN CURSOR IS NOT NULL AND ON THE FiRST INDEX****/
                 if (curconsmasData != null && curconsmasData.moveToFirst()) {
 
                     uac = new UtilAppCommon();

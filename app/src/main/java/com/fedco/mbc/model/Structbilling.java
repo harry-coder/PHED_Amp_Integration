@@ -53,6 +53,8 @@ public class Structbilling {
     public static String 	User_Lat                ;
     public static String 	User_Sig_Img            ;
     public static String 	User_Mtr_Img            ;
+    public static String 	User_MtrBox_Img         ;
+    public static String 	User_MtrRead_Img        ;
     public static String 	Derived_mtr_status      ;
     public static String 	DCNumber                ;
     public static String 	BAT_STATE               ;
@@ -241,6 +243,9 @@ public class Structbilling {
     public static String    EMAIL_ID      ;
     public static String    MTR_NO      ;
     public static double    saral_current_demand;
+
+    public static String    IBC      ;
+    public static String    BSC      ;
 
 
 }

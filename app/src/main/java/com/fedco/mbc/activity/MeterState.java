@@ -49,6 +49,7 @@ public class MeterState extends ListActivity implements LogoutListaner {
     Logger Log;
     EditText et_Remark;
     private static MeterState sActivity;
+   public static String selectedValue;
     public static MeterState getsActivity() {
         return sActivity;
     }
@@ -181,6 +182,11 @@ public class MeterState extends ListActivity implements LogoutListaner {
                         String status = c.getString(c.getColumnIndex("STATUS"));
                         Log.e(getApplicationContext(), "MeterStateAct", "STATSUS IS " + status);
 //                        int age = c.getInt(c.getColumnIndex("Age"));
+
+                        System.out.println ("This is status "+status );
+                        if(status.equalsIgnoreCase ( "overflow" )){
+                            status="ROLLOVER";
+                        }
                         results.add(status);
                     } while (c.moveToNext());
                 }
@@ -204,11 +210,8 @@ public class MeterState extends ListActivity implements LogoutListaner {
         int itemPosition = position;
 
         // ListView Clicked item value
-        String itemValue = (String) l.getItemAtPosition(position);
+         selectedValue = (String) l.getItemAtPosition(position);
 
-        Log.e(getApplicationContext(), "MeterStatAct", "POSION OF VALUE ::" + itemValue);
-        Log.e(getApplicationContext(), "MeterStatAct", "POSION OF VALUE ::" + position);
-        Log.e(getApplicationContext(), "MeterStatAct", "POSION OF VALUE ::" + Structconsmas.Prev_Meter_Status);
         //actual
         boolean normal = Structconsmas.Prev_Meter_Status.equals(new String("1"));
         boolean estimate = Structconsmas.Prev_Meter_Status.equals(new String("2"));
@@ -230,6 +233,8 @@ public class MeterState extends ListActivity implements LogoutListaner {
         switch (itemPosition) {
             case 0://NORAML ACT(1)//MP NOARMAL
 
+
+
                 if (et_Remark.getText().toString().matches("")){
                     Structbilling.Remarks="";
                 }else{
@@ -239,7 +244,7 @@ public class MeterState extends ListActivity implements LogoutListaner {
 
                 Structbilling.Reasons="";
                 Intent intentnormal = new Intent(getApplicationContext(), Readinginput.class);
-                intentnormal.putExtra("Value", itemValue);
+                intentnormal.putExtra("Value", selectedValue);
                 //intent.putExtra("Position", 1);
                 GSBilling.getInstance().setCurmeter(1);
                 startActivity(intentnormal);
@@ -267,6 +272,8 @@ public class MeterState extends ListActivity implements LogoutListaner {
                 calBill = new CBillling();
                 Long dateDuration = null;
                 int calculatedunit = 0;
+
+
 
                 Date varDate = null;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -362,7 +369,7 @@ public class MeterState extends ListActivity implements LogoutListaner {
 
                 Structbilling.Reasons="";
                 Intent intentoverflow = new Intent(getApplicationContext(), Readinginput.class);
-                intentoverflow.putExtra("Value", itemValue);
+                intentoverflow.putExtra("Value", selectedValue);
                 //intent.putExtra("Position", 1);
                 GSBilling.getInstance().setCurmeter(1);
                 startActivity(intentoverflow);
@@ -687,7 +694,7 @@ public class MeterState extends ListActivity implements LogoutListaner {
 
         }
 
-        Log.e(getApplicationContext(), "MeterStatAct", "Click : \n  Position :" + itemPosition + "  \n  ListItem : " + itemValue);
+        //Log.e(getApplicationContext(), "MeterStatAct", "Click : \n  Position :" + itemPosition + "  \n  ListItem : " + itemValue);
 
 
     }

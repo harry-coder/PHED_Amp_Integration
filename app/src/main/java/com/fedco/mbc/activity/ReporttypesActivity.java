@@ -41,6 +41,7 @@ public class ReporttypesActivity extends Activity {
         return sActivity;
     }
 
+    Button bt_meteredList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +58,21 @@ public class ReporttypesActivity extends Activity {
         btn_MDCustomer = (Button) findViewById(R.id.ButtonMD);
         btn_NonMDCustomer = (Button) findViewById(R.id.ButtonUNMD);
         btnBack = (Button) findViewById(R.id.Buttonback);
-        btn_UnbuildConsumer.setText("  Un Billed Customer List");
+        bt_meteredList=findViewById ( R.id.bt_meteredList );
+
+        if(Home.isMeter){
+
+            btn_UnbuildConsumer.setText("  Reading Not Taken Customers");
+            bt_meteredList.setText ( "Reading Taken Customers" );
+
+        }
+        else {
+            btn_UnbuildConsumer.setText("  UnMetered Customer");
+
+            bt_meteredList.setText ( "Metered Customer" );
+        }
+
+
         /****BUTTON  ACTION   EVENTS****/
 
         btn_NewConsumer.setOnClickListener(new View.OnClickListener() {
@@ -95,6 +110,17 @@ public class ReporttypesActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UnbilledConsumerReportActivity.class);
                 intent.putExtra("ReportFlag","MDCustomer");
+                startActivity(intent);
+                overridePendingTransition(R.anim.anim_slide_in_left,
+                        R.anim.anim_slide_out_left);
+            }
+        });
+        bt_meteredList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), UnbilledConsumerReportActivity.class);
+//                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.putExtra("ReportFlag","MeteredCustomer");
                 startActivity(intent);
                 overridePendingTransition(R.anim.anim_slide_in_left,
                         R.anim.anim_slide_out_left);

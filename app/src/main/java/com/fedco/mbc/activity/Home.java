@@ -2,6 +2,7 @@ package com.fedco.mbc.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -54,6 +55,7 @@ public class Home extends Activity implements OnMenuItemClickListener,LogoutList
     int bill_Pending,col_Pending,met_Pending,consumer_Pending,dtr_Pending,feeder_Pending,pole_Pending,conmas_Value;
     private Boolean exit = false;
 
+   public static boolean isMeter=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -214,6 +216,7 @@ public class Home extends Activity implements OnMenuItemClickListener,LogoutList
             @Override
             public void onClick(View v) {
 
+                isMeter=true;
                 Mflag ="Y";
                 Intent intent = new Intent(getApplicationContext(), Billing.class);
                 // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -228,6 +231,7 @@ public class Home extends Activity implements OnMenuItemClickListener,LogoutList
             @Override
             public void onClick(View v) {
 
+                isMeter=false;
                 Intent intent = new Intent(getApplicationContext(), Billing.class);
                 // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);

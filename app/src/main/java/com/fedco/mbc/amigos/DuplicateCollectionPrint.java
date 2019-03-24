@@ -39,10 +39,12 @@ import android.widget.Toast;
 
 import com.android.print.sdk.Barcode;
 import com.android.print.sdk.PrinterConstants;
+import com.fedco.mbc.CustomClasses.DuplicateReceiptPrint;
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.BillingtypesActivity;
 import com.fedco.mbc.activity.Collection;
 import com.fedco.mbc.activity.GSBilling;
+import com.fedco.mbc.activity.MainActivity;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.collection.CollectiontypesActivity;
 import com.fedco.mbc.logging.Logger;
@@ -125,6 +127,8 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
 
     private ProgressDialog progress;
     ArrayList<String> mylistimagename = new ArrayList<String>();
+
+    String tokenNo,receiptNo,paymentType,incidentType;
 
     //    String imgSrcPath        = Environment.getExternalStorageDirectory()
     //            + File.separator + "/MBC/Images/" + GSBilling.getInstance().getKEYNAME() + "_" + Structconsmas.Consumer_Number + "_mtr.jpg";
@@ -261,7 +265,23 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
         Cursor paymentcursor= SD.rawQuery(paymentquery,null);
         String innerstate="";
 
-        if (typePay.equalsIgnoreCase("Prepaid")) {
+        Structcolmas.MR_NAME = session.retMRName ( );
+//........................................................................................//
+      //  typePay="Prepaid";
+
+        System.out.println ("This is the connection Type "+DuplicateReceiptPrint.conType );
+
+        typePay=DuplicateReceiptPrint.conType;
+        tokenNo=DuplicateReceiptPrint.token;
+        receiptNo=DuplicateReceiptPrint.eReceipt;
+        paymentType=DuplicateReceiptPrint.lPaymentType;
+        incidentType=DuplicateReceiptPrint.incidentType;
+
+        System.out.println ("This is the payment type "+paymentType );
+        if (DuplicateReceiptPrint.conType.equalsIgnoreCase("Prepaid")) {
+
+        //if (typePay.equalsIgnoreCase("Prepaid")) {
+
 //                    test = " " + "    MADHYA PRADESH    " + "\n" +
 //                            " " + "    M.P.M.K.V.V.C.L   " + "\n" +
 //                            " " + "**********************" + "\n" +
@@ -328,42 +348,49 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
                     "Payment Receipt(Duplicate)  " +  "\n" +
                     "-------------------------------  " + "\n" +
 //                            "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                    "" + (String.format("%1$6s", Structcolmas.COL_DATE + " " + Structcolmas.COL_TIME)) + "\n" +
-                    "Account:"+(String.format("%1$6s", Structcolmas. CON_NO )) + "\n" +
-                    "Meter No:"+(String.format("%1$6s",  Structcolmas.METER_NO)) + "\n" +
-                    "Name:"+(String.format("%1$6s",  Structcolmas.CONS_NAME.trim())) + "\n" +
-                    "Address:"+(String.format("%1$6s", Structcolmas.ADDRESS.trim())) + "\n" +
-                    "Tariff Code:"+(String.format("%1$6s", Structcolmas.TARIFFCODE)) + "\n" +
-                    "Tariff Rate:"+(String.format("%1$6s", Structcolmas.TARIFF_RATE)) + "\n" +
-                    "Tariff Index:"+(String.format("%1$6s", Structcolmas.TARIFF_INDEX)) + "\n" +
+                    "" + (String.format("%1$6s", DuplicateReceiptPrint.dateTime)) + "\n" +
+                    "Account:"+(String.format("%1$6s", DuplicateReceiptPrint.account )) + "\n" +
+                    "Meter No:"+(String.format("%1$6s",  DuplicateReceiptPrint.meterNo)) + "\n" +
+                    "Name:"+(String.format("%1$6s",  DuplicateReceiptPrint.customerName)) + "\n" +
+                    "Address:"+(String.format("%1$6s", DuplicateReceiptPrint.address.trim())) + "\n" +
+                    "IBC:"+(String.format("%1$6s", DuplicateReceiptPrint.ibc.trim())) + "\n" +
+                    "BSC:"+(String.format("%1$6s", DuplicateReceiptPrint.bsc.trim())) + "\n" +
+                    "Tariff Code:"+(String.format("%1$6s", DuplicateReceiptPrint.tariffCode)) + "\n" +
+                    "Tariff Rate:"+(String.format("%1$6s", DuplicateReceiptPrint.tariffRate)) + "\n" +
+                    "Tariff Index:"+(String.format("%1$6s", DuplicateReceiptPrint.tariffIndex)) + "\n" +
                     //  "Address:"+(String.format("%1$6s", address.trim())) + "\n" +
 //                            "Account Type: Prepaid"  + "\n" +
                     "TRANSACTION DETAILS"  + "\n" +
-                    "Account Type: "+(String.format("%1$6s", Structcolmas.CON_TYPE ))+ "\n" +
-                    "Payment Type:" + typeMode + "\n" ;
-            if(Structcolmas.PYMNT_MODE.equalsIgnoreCase("Q")) {
-                test  = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
+                    "Account Type: "+(String.format("%1$6s",  DuplicateReceiptPrint.conType ))+ "\n" +
+                    "Payment Type:" + paymentType + "\n" ;
+            //if(Structcolmas.PYMNT_MODE.equalsIgnoreCase("Q")) {
+            if(paymentType.equalsIgnoreCase ("cheque")) {
+               /* test  = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
                         "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
                         "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
                         "SUBJECT TO CLEARANCE"  + "\n" ;
-            }
-            test  =test +  "Amount (NGN):" + (String.format("%1$6s", Structcolmas.AMOUNT )) + "\n" ;
-            if(paymentcursor.getCount()>0){
-                paymentcursor.moveToNext();
-                while (!paymentcursor.isAfterLast()){
+*/
+                test  = test + "Cheque Date :" + DuplicateReceiptPrint.chequeDate + "\n" +
+                        "Cheque No.  :" + DuplicateReceiptPrint.chequeNo + "\n" +
+                        "Bank Name   :" + DuplicateReceiptPrint.bankName + "\n" +
+                        "SUBJECT TO CLEARANCE"  + "\n" ;
 
-                    String header =paymentcursor.getString(0);
-                    String amount =paymentcursor.getString(1);
-                    innerstate =innerstate+(String.format("%1$6s",  header +": "+amount)) + "\n" ;
+            }
+            test  =test +  "Amount (NGN):" + (String.format("%1$6s",MainActivityCollectionPrint.internationAnotation(DuplicateReceiptPrint.lastReceiptAmount)  )) + "\n" ;
+                for (int i=0;i<DuplicateReceiptPrint.itemList.size ();i++){
+
+                    String header =DuplicateReceiptPrint.itemList.get ( i ).getHead ();
+                    String amount =DuplicateReceiptPrint.itemList.get ( i ).getAmount ();
+                    innerstate =innerstate+(String.format("%1$6s",  header +": "+MainActivityCollectionPrint.internationAnotation (amount))) + "\n" ;
 
                     paymentcursor.moveToNext();
                 }
                 test +=innerstate;
-            }
-            test = test+    "Units: " + (String.format("%1$6s", Structcolmas.UNITSACTAL)) + "\n" +
-                    "Token: " +(String.format("%1$6s", Structcolmas.TOKEN_NO)) + "\n" +
-                    "eReceipt: " + (String.format("%1$6s",Structcolmas.RECEIPT_NO)) + "\n" +
-                    "Handled by :"+(String.format("%1$4s", Structcolmas.MR_NAME)) +  "\n"+
+
+            test = test+    "Units: " + (String.format("%1$6s", DuplicateReceiptPrint.units)) + "\n" +
+                    "Token: " +(String.format("%1$6s", DuplicateReceiptPrint.token)) + "\n" +
+                    "eReceipt: " + (String.format("%1$6s",DuplicateReceiptPrint.eReceipt)) + "\n" +
+                    "Handled by :"+(String.format("%1$4s", MainActivity.MRNME)) +  "\n"+
                     "Customer Care : 070022557433" +  "\n" ;
 
 //        } else if (typePay.equalsIgnoreCase("CHEQUE")) {
@@ -417,31 +444,42 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
                     "Payment Receipt(Duplicate)  " +  "\n" +
                     "-------------------------------  " + "\n" +
 //                            "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                    "" + (String.format("%1$6s", Structcolmas.COL_DATE + " " + Structcolmas.COL_TIME)) + "\n" +
-                    "Account:"+(String.format("%1$6s", Structcolmas. CON_NO )) + "\n" +
-                    "Meter No:"+(String.format("%1$6s",  Structcolmas.METER_NO)) + "\n" +
-                    "Name:"+(String.format("%1$6s", Structcolmas.CONS_NAME.trim())) + "\n" +
-                    "Address:"+(String.format("%1$6s", Structcolmas.ADDRESS.trim())) + "\n" +
-                    "Tariff Code:"+(String.format("%1$6s", Structcolmas.TARIFFCODE)) + "\n" +
-                    "Tariff Rate:"+(String.format("%1$6s", Structcolmas.TARIFF_RATE)) + "\n" +
+                    "" + (String.format("%1$6s", DuplicateReceiptPrint.dateTime)) + "\n" +
+                    "Account:"+(String.format("%1$6s", DuplicateReceiptPrint.account )) + "\n" +
+                    "Meter No:"+(String.format("%1$6s",  DuplicateReceiptPrint.meterNo)) + "\n" +
+                    "Name:"+(String.format("%1$6s", DuplicateReceiptPrint.customerName)) + "\n" +
+                    "Address:"+(String.format("%1$6s", DuplicateReceiptPrint.address)) + "\n" +
+                    "IBC:"+(String.format("%1$6s", DuplicateReceiptPrint.ibc.trim ())) + "\n" +
+                    "BSC:"+(String.format("%1$6s", DuplicateReceiptPrint.bsc.trim())) + "\n" +
+                    "Tariff Code:"+(String.format("%1$6s", DuplicateReceiptPrint.tariffCode)) + "\n" +
+                    "Tariff Rate:"+(String.format("%1$6s", DuplicateReceiptPrint.tariffRate)) + "\n" +
                     "TRANSACTION DETAILS"  + "\n" +
-                    "Account Type:" + (String.format("%1$6s",  Structcolmas.CON_TYPE )) + "\n" +
-                    "Payment Type:" + typeMode + "\n"+
-                    "Paid Against:" + (String.format("%1$6s",  Structcolmas.INCIDENT_TYPE )) + "\n";
-            if(Structcolmas.PYMNT_MODE.equalsIgnoreCase("Q")) {
-                test  = test +"Cheque Date :" + Structcolmas.CH_DATE + "\n" +
+                    "Account Type:" + (String.format("%1$6s",  DuplicateReceiptPrint.conType )) + "\n" +
+                    "Payment Type:" + paymentType + "\n"+
+                    "Paid Against:" + (String.format("%1$6s",  incidentType )) + "\n";
+           /// if(Structcolmas.PYMNT_MODE.equalsIgnoreCase("Q")) {
+            if(paymentType.equalsIgnoreCase("cheque")) {
+
+          /*      test  = test +"Cheque Date :" + Structcolmas.CH_DATE + "\n" +
                         "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
                         "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
                         "SUBJECT TO CLEARANCE"  + "\n" ;
+          */
+                test  = test + "Cheque Date :" + DuplicateReceiptPrint.chequeDate + "\n" +
+                        "Cheque No.  :" + DuplicateReceiptPrint.chequeNo + "\n" +
+                        "Bank Name   :" + DuplicateReceiptPrint.bankName + "\n" +
+                        "SUBJECT TO CLEARANCE"  + "\n" ;
             }
-            test  =test +"Amount (NGN):" + (String.format("%1$6s", Structcolmas.AMOUNT )) + "\n" +
+            test  =test +"Amount (NGN):" + (String.format("%1$6s", MainActivityCollectionPrint.internationAnotation((DuplicateReceiptPrint.lastReceiptAmount)) )) + "\n" +
 //                    "Units:" + (String.format("%1$6s", Structcolmas.UNITSACTAL)) +  "\n" +
-                    "eReceipt: " + (String.format("%1$6s",Structcolmas.RECEIPT_NO)) + "\n" +
+                    "eReceipt: " + (String.format("%1$6s",DuplicateReceiptPrint.eReceipt)) + "\n" +
                     "Status: Successful"  + "\n" +
-                    "Handled by :"+(String.format("%1$4s", Structcolmas.MR_NAME)) + "\n"+
+                    "Handled by :"+(String.format("%1$4s", MainActivity.MRNME)) + "\n"+
                     "Customer Care : 070022557433" +  "\n" ;
         }
         test2 = "    " + "\n" ;
+
+
 
 //        switch (Structconsmas.PICK_REGION) {
 //            case "10"://bhopal
@@ -451,7 +489,7 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
 //                            " " + "**********************" + "\n" +
 //                            " " + "RECEIPT(CONSUMER COPY)" + "\n" +
 //                            " " + "**********************" + "\n" +
-//                            " " + "     " + "\n" +
+//                            " " + "     " + "\n" +q
 //                            "MONTH  :" + strBillMonth + "\n" +
 //                            "MR NO. :" + " " + "\n" +
 //                            " " + Structcolmas.RECEIPT_NO + "\n" +
@@ -1473,6 +1511,36 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
 //        }
     }
 
+
+    public void nullifyDuplicateModel(){
+
+        DuplicateReceiptPrint.account="";
+        DuplicateReceiptPrint.customerName="";
+        DuplicateReceiptPrint.incidentType="";
+        DuplicateReceiptPrint.bankName="";
+        DuplicateReceiptPrint.chequeNo="";
+        DuplicateReceiptPrint.chequeDate="";
+        DuplicateReceiptPrint.lPaymentType="";
+        DuplicateReceiptPrint.conType="";
+        DuplicateReceiptPrint.bsc="";
+        DuplicateReceiptPrint.accountType="";
+        DuplicateReceiptPrint.ibc="";
+        DuplicateReceiptPrint.address="";
+        DuplicateReceiptPrint.dateTime="";
+        DuplicateReceiptPrint.eReceipt="";
+        DuplicateReceiptPrint.handledBy="";
+        DuplicateReceiptPrint.lastReceiptAmount="";
+        DuplicateReceiptPrint.meterNo="";
+        DuplicateReceiptPrint.tariffCode="";
+        DuplicateReceiptPrint.tariffIndex="";
+        DuplicateReceiptPrint.tariffRate="";
+        DuplicateReceiptPrint.token="";
+        DuplicateReceiptPrint.units="";
+
+        DuplicateReceiptPrint.itemList.clear ();
+
+
+    }
     private String dotSeparate(String value) {
 
         if (value.contains(".")) {
@@ -1518,6 +1586,9 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
         });
         dialog.create().show();
     }
+
+
+
 
     @Override
     protected void onStart() {
@@ -2034,21 +2105,30 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
 
         @Override
         protected void onPostExecute(String result) {
+
+
+            //if (typePay.equalsIgnoreCase("Prepaid")){
             if (typePay.equalsIgnoreCase("Prepaid")){
+
+                nullifyDuplicateModel ();
+
                 sDialog = new SweetAlertDialog(DuplicateCollectionPrint.this, SweetAlertDialog.SUCCESS_TYPE);
                 sDialog.setTitleText("Token No");
-                sDialog.setContentText(Structcolmas.TOKEN_NO);
+              //  sDialog.setContentText(Structcolmas.TOKEN_NO);
+                sDialog.setContentText(tokenNo);
+
                 sDialog.show();
+                sDialog.setCancelable ( false );
 //            sDialog.getWindow().setLayout(600,400);
                 sDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
 
-                        UtilAppCommon ucom = new UtilAppCommon();
+                    /*    UtilAppCommon ucom = new UtilAppCommon();
                         ucom.nullyfimodelCon();
                         ucom.nullyfimodelBill();
-
+*/
 //                    if (isMobileDataEnabled()) {
 //
 //                        new TextFileClass(DuplicateCollectionPrint.this).execute();
@@ -2067,9 +2147,15 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
                     }
                 });
             }else{
+                nullifyDuplicateModel ();
                 sDialog = new SweetAlertDialog(DuplicateCollectionPrint.this, SweetAlertDialog.SUCCESS_TYPE);
                 sDialog.setTitleText("Receipt No");
-                sDialog.setContentText( Structcolmas. RECEIPT_NO );
+
+                sDialog.setContentText( receiptNo );
+
+                sDialog.setCancelable ( false );
+              //  sDialog.setContentText( Structcolmas. RECEIPT_NO );
+
                 sDialog.show();
 //                sDialog.getWindow().setLayout(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
                 sDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -2077,10 +2163,12 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
 
-                        UtilAppCommon ucom = new UtilAppCommon();
+
+
+                      /*  UtilAppCommon ucom = new UtilAppCommon();
                         ucom.nullyfimodelCon();
                         ucom.nullyfimodelBill();
-
+*/
 //                    if (isMobileDataEnabled()) {
 //
 //                        new TextFileClass(DuplicateCollectionPrint.this).execute();
@@ -2462,6 +2550,7 @@ public class DuplicateCollectionPrint extends Activity implements View.OnClickLi
         // TODO Auto-generated method stub
         dismissProgressDialog();
         Debug.stopMethodTracing();
+        DuplicateReceiptPrint.itemList.clear ();
         super.onDestroy();
     }
 

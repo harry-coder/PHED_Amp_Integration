@@ -450,6 +450,7 @@ public class SplashActivity extends Activity {
             telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             codeIMEI = telephonyManager.getDeviceId();
 
+            System.out.println ("This is the code imei "+codeIMEI );
             GSBilling.getInstance().setIMEI(codeIMEI);
 
             try {
@@ -478,11 +479,13 @@ public class SplashActivity extends Activity {
                 }
 
                 forecastJsonStr = buffer.toString();
-                JSONArray myListsAll = new JSONArray(forecastJsonStr);
+                System.out.println ("This is the object "+ forecastJsonStr);
 
+                JSONArray myListsAll = new JSONArray(forecastJsonStr);
 
                 for (int i = 0; i < myListsAll.length(); i++) {
                     JSONObject jsonobject = (JSONObject) myListsAll.get(i);
+
 
                     wrap.uniqCode = jsonobject.optString("MR_LICENSE_KEY");
                     wrap.passCode = jsonobject.optString("MR_PASSWORD");
@@ -520,6 +523,7 @@ public class SplashActivity extends Activity {
         protected void onPostExecute(Wrapper s) {
             super.onPostExecute(s);
 
+            System.out.println ( "This is the wrapper "+s);
             if (s.uniqCode != null && !s.uniqCode.isEmpty()) {
 
                 PackageInfo pInfo = null;
@@ -703,7 +707,7 @@ public class SplashActivity extends Activity {
             pDialog.dismiss();
             Log.e(context, "MainAct", "PostResult : " + s);
 
-            JSONArray ja = null;
+           /* JSONArray ja = null;
             try {
                 ja = new JSONArray(s);
                 for (int i = 0; i < ja.length(); i++) {
@@ -719,7 +723,7 @@ public class SplashActivity extends Activity {
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             if (s.toString().trim().equals("0")) {
 

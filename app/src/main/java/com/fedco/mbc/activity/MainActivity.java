@@ -64,6 +64,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import io.paperdb.Paper;
 
 public class MainActivity extends RootActivity  {
 
@@ -93,6 +94,8 @@ public class MainActivity extends RootActivity  {
     Activity mcontext;
     final static int REQUEST_LOCATION = 199;
 
+
+  public static  String MRNME, MRID;
 
     Activity mContext;
     StartLocationAlert startLocationAlert;
@@ -139,13 +142,14 @@ public class MainActivity extends RootActivity  {
         Structmeterupload.VER_CODE = version;
         appversionCode = pInfo.versionCode;
 
+        System.out.println ("This is the version code "+appversionCode );
         try {
             currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
 
-//        new GetVersionCode().execute();
+
 
         //------------------------------
         btnExit.setOnClickListener(new View.OnClickListener() {
@@ -216,6 +220,13 @@ public class MainActivity extends RootActivity  {
 
 
     @Override
+    protected void onStart() {
+        super.onStart ( );
+
+       new GetVersionCode().execute();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.e(context, "RESULT CODE :" + requestCode, " REQUEST :" + resultCode);
@@ -237,7 +248,6 @@ public class MainActivity extends RootActivity  {
     private class onlineAuthenticate extends AsyncTask<String, String, String> {
         SweetAlertDialog pDialog;
         JSONObject jsonSection;
-        String MRNME, MRID;
 
         @Override
         protected void onPreExecute() {
@@ -328,6 +338,8 @@ public class MainActivity extends RootActivity  {
             dismissProgressDialog();
             Log.e(context, "MainAct", "PostString " + s);
 
+            System.out.println ("This is response "+s );
+
             if (s != null && !s.isEmpty()&& !s.equals(" ")) {
 
                 JSONArray ja = null;
@@ -342,8 +354,24 @@ public class MainActivity extends RootActivity  {
 
                         MRNME = jsonSection.getString("MR_NAME");
                         MRID = jsonSection.getString("METER_READER_ID");
+
+                        if(!Paper.book (  ).exist ( "userId" )){
+                            Paper.book (  ).write ( "userId",MRID );
+                        }
+                        else {
+
+                            System.out.println ("User Id exists" );
+                        }
+
                         GSBilling.getInstance().Agent = jsonSection.getString("AGENTFLAG");
                         GSBilling.getInstance().Wallet = jsonSection.getString("WALLETBALANCE");
+
+                       /* Intent intent = new Intent(getApplicationContext(), Home.class);
+                        // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.anim_slide_in_left,
+                                R.anim.anim_slide_out_left);
+                        finish();*/
 //                        MR_id = jsonSection.getString("METER_READER_ID");
 
                     }
@@ -351,9 +379,12 @@ public class MainActivity extends RootActivity  {
                     e.printStackTrace();
                 }
 
-                if (s.toString().trim().equals("0")) {
+                if (s.trim().equals("0")) {
 
-                    Toast.makeText(MainActivity.this, "You Are Not Authenticated To Use This Application", Toast.LENGTH_SHORT).show();
+
+                 showAuthenticateDialog ();
+
+                   // Toast.makeText(MainActivity.this, "You Are Not Authenticated To Use This Application", Toast.LENGTH_SHORT).show();
 
                 } else if (s.toString().trim().equals("123")) {
 
@@ -369,6 +400,7 @@ public class MainActivity extends RootActivity  {
 //                    session.storeMRName(MRNME);
 //                    session.storeMRID(MRID);
 
+
                     Intent intent = new Intent(getApplicationContext(), Home.class);
                     // intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
@@ -380,7 +412,9 @@ public class MainActivity extends RootActivity  {
                 Log.e(getApplicationContext(), "json", s);
 
             } else {
-                new offlineAuthenticate().execute(uId, uPass);
+                Toast.makeText ( context, "Something went wrong try again!!", Toast.LENGTH_SHORT ).show ( );
+               // System.out.println ("This is inside offline" );
+               // new offlineAuthenticate().execute(uId, uPass);
             }
 
         }
@@ -563,6 +597,8 @@ public class MainActivity extends RootActivity  {
         dbHelper.insertSession(l, MR_ID, start_date, end_date);
     }
 
+
+
     private class GetVersionCode extends AsyncTask<Void, String, String> {
         int CURVERSION,STABLEVERSION;
 
@@ -604,7 +640,8 @@ public class MainActivity extends RootActivity  {
 
             try {
                 PackageInfo pinfo = new PackageInfo();
-                String Strurl=URLS.VersionCode.versioncode+ pinfo.versionCode+"";
+               // String Strurl=URLS.VersionCode.versioncode+ pinfo.versionCode+"";
+                String Strurl=URLS.VersionCode.versioncode+ appversionCode+"";
                 URL url = new URL(Strurl);
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -674,9 +711,11 @@ public class MainActivity extends RootActivity  {
             bDialog = new SweetAlertDialog(MainActivity.this,SweetAlertDialog.WARNING_TYPE);
 
             try {
-                if(onlineVersion!=null && onlineVersion.length()==43) {
+                if(onlineVersion!=null ) {
                     JSONArray jsonArray = new JSONArray(onlineVersion);
                     JSONObject jsnobject = jsonArray.getJSONObject(0);
+
+                    System.out.println ("This is theversion getting "+jsnobject );
                     CURVERSION = jsnobject.getInt("CURVERSION");
                     STABLEVERSION = jsnobject.getInt("STABLEVERSION");
                     if (appversionCode!=CURVERSION) {
@@ -684,8 +723,9 @@ public class MainActivity extends RootActivity  {
                         if(appversionCode<STABLEVERSION)
                         {
                             bDialog
-                                    .setTitleText("Updated app available!")
-                                    .setContentText("you need to update app")
+                                    .setTitleText("Updated App available!")
+                                    .setContentText("Please Update Your App to Continue")
+                                    .setConfirmText ( "Update" )
                                     .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                         @Override
                                         public void onClick(SweetAlertDialog sDialog) {
@@ -701,6 +741,9 @@ public class MainActivity extends RootActivity  {
                                         }
                                     })
                                     .show();
+
+                            bDialog.setCancelable ( false );
+
                             bDialog.setOnKeyListener(new Dialog.OnKeyListener() {
 
                                 @Override
@@ -728,5 +771,22 @@ public class MainActivity extends RootActivity  {
 
 
         }
+    }
+
+
+    public void showAuthenticateDialog(){
+
+        sDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE);
+        sDialog.setTitleText("You Are Not Authenticated To Use This App");
+        sDialog.setConfirmText ( "OK" ).setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                sweetAlertDialog.dismissWithAnimation ();
+
+            }
+        } );
+        sDialog.setCancelable(false);
+        sDialog.show();
     }
 }

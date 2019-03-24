@@ -75,7 +75,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
 public class MainActivity extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, QABTPAccessory {
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = MainActivity.class.getSimpleName ( );
     //    @InjectView(R.id.log_txt)
     TextView mLogTxt, tv_Print;
     //    EditText etText;
@@ -84,7 +84,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //    Button mScanBtn, mConnectBtn, mStartBT, mPrintSmallHeight, mLinefedBtn, Enter;
     //    @InjectView(R.id.communication)
     Spinner devListSpinner;
-    ArrayAdapter<String> spinAdapter;
+    ArrayAdapter <String> spinAdapter;
     private static final int REQUEST_CAMERA = 1;
     private static final int SELECT_FILE = 2;
     BluetoothManager btpObject;
@@ -110,10 +110,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     SQLiteDatabase SD, SD2, SD3, SD4;
     DB dbHelper, dbHelper2, dbHelper3, dbHelper4;
     UtilAppCommon appcomUtil;
-    String printerName=null;
+    String printerName = null;
 
     private ProgressDialog progress;
-    ArrayList<String> mylistimagename = new ArrayList<String>();
+    ArrayList <String> mylistimagename = new ArrayList <String> ( );
 
     //    String imgSrcPath        = Environment.getExternalStorageDirectory()
     //            + File.separator + "/MBC/Images/" + GSBilling.getInstance().getKEYNAME() + "_" + Structconsmas.Consumer_Number + "_mtr.jpg";
@@ -126,10 +126,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     //    String signaturePathDes  = Environment.getExternalStorageDirectory() + "/MBC" + "/" + GSBilling.getInstance().getKEYNAME() + "_" + Structconsmas.Consumer_Number + "_sig.jpg";
     //    String photoPathDes      = Environment.getExternalStorageDirectory() + "/MBC/" + GSBilling.getInstance().getKEYNAME() + "_" + Structconsmas.Consumer_Number + "_mtr.jpg";
 
-    String ZipSourcePath = Environment.getExternalStorageDirectory() + "/MBC/Images/";
-    String ZipCopyPath = Environment.getExternalStorageDirectory() + "/MBC/Downloadsingular/";
-    String ZipDeletPath2 = Environment.getExternalStorageDirectory() + "/MBC/Downloadsingular/";
-    String Zip = Environment.getExternalStorageDirectory() + "/Notes/billing.csv";
+    String ZipSourcePath = Environment.getExternalStorageDirectory ( ) + "/MBC/Images/";
+    String ZipCopyPath = Environment.getExternalStorageDirectory ( ) + "/MBC/Downloadsingular/";
+    String ZipDeletPath2 = Environment.getExternalStorageDirectory ( ) + "/MBC/Downloadsingular/";
+    String Zip = Environment.getExternalStorageDirectory ( ) + "/Notes/billing.csv";
     String ZipDesPathdup;
     String signaturePathDes;
     String photoPathDes;
@@ -145,7 +145,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     String mdValue = null, billTime;
     String pfValue;
     Float miscValue;
-    StringBuffer stringBuffer = new StringBuffer();
+    StringBuffer stringBuffer = new StringBuffer ( );
     public final int singleVarLinefeed = 1;
     public final int doubleVarlinefeed = 2;
     public final int tripleVarlinefeed = 3;
@@ -159,27 +159,28 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     int Prev_Meter_Reading;
     String Bill_Basis;
     String Reading_type_code;
+    String test2;
 
     public String fixedLengthString(String str, int leng) {
-        for (int i = str.length(); i <= leng; i++)
+        for (int i = str.length ( ); i <= leng; i++)
             str += " ";
         return str;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_amigo);
+        super.onCreate ( savedInstanceState );
+        setContentView ( R.layout.activity_main_amigo );
 //        tv_Print = (TextView)findViewById(R.id.tv_print);
-        btpObject = BluetoothManager.getInstance(this, MainActivity.this);
-        sharedPreferences = this.getSharedPreferences("QABTprefs", 0);
-        Mac = sharedPreferences.getString("BTDeviceMac", "NA");
+        btpObject = BluetoothManager.getInstance ( this, MainActivity.this );
+        sharedPreferences = this.getSharedPreferences ( "QABTprefs", 0 );
+        Mac = sharedPreferences.getString ( "BTDeviceMac", "NA" );
 //        mStartBT = (Button) findViewById(R.id.bt1);
 //        mScanBtn = (Button) findViewById(R.id.bt2);
 //        mConnectBtn = (Button) findViewById(R.id.bt3);
 //        mPrintSmallHeight = (Button) findViewById(R.id.bt5);
 //        mLinefedBtn = (Button) findViewById(R.id.bt9);
-        mLogTxt = (TextView) findViewById(R.id.log_txt);
+        mLogTxt = (TextView) findViewById ( R.id.log_txt );
 //        etText = (EditText) findViewById(R.id.edittext1);
 //        Enter = (Button) findViewById(R.id.bt4);
 //        Enter.setOnClickListener(this);
@@ -188,26 +189,26 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //        mConnectBtn.setOnClickListener(this);
 //        mPrintSmallHeight.setOnClickListener(this);
 //        mLinefedBtn.setOnClickListener(this);
-        devListSpinner = (Spinner) findViewById(R.id.device_listspinner);
-        devListSpinner.setOnItemSelectedListener(this);
-        spinAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        spinAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        devListSpinner.setAdapter(spinAdapter);
+        devListSpinner = (Spinner) findViewById ( R.id.device_listspinner );
+        devListSpinner.setOnItemSelectedListener ( this );
+        spinAdapter = new ArrayAdapter <String> ( this, android.R.layout.simple_spinner_item );
+        spinAdapter.setDropDownViewResource ( android.R.layout.simple_spinner_dropdown_item );
+        devListSpinner.setAdapter ( spinAdapter );
 //        spinAdapter.add("Click to connect BTP");
-        spinAdapter.notifyDataSetChanged();
+        spinAdapter.notifyDataSetChanged ( );
 //        mConnectBtn.setText("connect");
 //        checkBTP_Permissions();
 //        btpObject.startDiscovery();
 //        checkBTP_Permissions();
 //        btpObject.scanAllBluetoothDevice();
-        checkBTP_Permissions();
-        setLogText("===> Start Scanning devices..");
+        checkBTP_Permissions ( );
+        setLogText ( "===> Start Scanning devices.." );
         /* btpObject.startDiscovery();*/
-        btpObject.scanAllBluetoothDevice();
+        btpObject.scanAllBluetoothDevice ( );
 
 
         if (Structbilling.MDI != null) {
-            mdValue = String.valueOf(Structbilling.MDI) + " " + GSBilling.getInstance().getUnitMaxDemand();
+            mdValue = String.valueOf ( Structbilling.MDI ) + " " + GSBilling.getInstance ( ).getUnitMaxDemand ( );
             ;
         } else {
             mdValue = "0";
@@ -221,42 +222,42 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         //---------------------
 //        dbHelper = new DB(getApplicationContext());
 //        SD = dbHelper.getWritableDatabase();
-        appcomUtil = new UtilAppCommon();
-        Calendar c = Calendar.getInstance();
+        appcomUtil = new UtilAppCommon ( );
+        Calendar c = Calendar.getInstance ( );
 
         //-------------not used
         Structconsmas.Meter_Type = "00";
         Structconsmas.Meter_Ownership = "A";
         //----------
 
-        imgSrcPath = Environment.getExternalStorageDirectory()
-                + File.separator + "/MBC/Images/" + appcomUtil.UniqueCode(getApplicationContext()) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" +appcomUtil.billMonthConvert(Structconsmas.Bill_Mon) +  "_mtr.jpg";
-        imgSrcPathDes = Environment.getExternalStorageDirectory()
-                + File.separator + "/MBC/Images/" + appcomUtil.UniqueCode(getApplicationContext()) + "_mtr.bmp";
-        ZipDesPath = Environment.getExternalStorageDirectory() + "/MBC/" + appcomUtil.UniqueCode(getApplicationContext()) + GSBilling.getInstance().captureDatetime() + ".zip";
-        ZipDesPathdup = "/MBC/" + appcomUtil.UniqueCode(getApplicationContext()) + GSBilling.getInstance().captureDatetime();
-        signaturePathDes = Environment.getExternalStorageDirectory() + "/MBC" + "/" + appcomUtil.UniqueCode(getApplicationContext()) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" +appcomUtil.billMonthConvert(Structconsmas.Bill_Mon) +  "_sig.jpg";
-        photoPathDes = Environment.getExternalStorageDirectory() + "/MBC/" + appcomUtil.UniqueCode(getApplicationContext()) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" +appcomUtil.billMonthConvert(Structconsmas.Bill_Mon) +  "_mtr.jpg";
+        imgSrcPath = Environment.getExternalStorageDirectory ( )
+                + File.separator + "/MBC/Images/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + appcomUtil.billMonthConvert ( Structconsmas.Bill_Mon ) + "_mtr.jpg";
+        imgSrcPathDes = Environment.getExternalStorageDirectory ( )
+                + File.separator + "/MBC/Images/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + "_mtr.bmp";
+        ZipDesPath = Environment.getExternalStorageDirectory ( ) + "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( ) + ".zip";
+        ZipDesPathdup = "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( );
+        signaturePathDes = Environment.getExternalStorageDirectory ( ) + "/MBC" + "/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + appcomUtil.billMonthConvert ( Structconsmas.Bill_Mon ) + "_sig.jpg";
+        photoPathDes = Environment.getExternalStorageDirectory ( ) + "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + appcomUtil.billMonthConvert ( Structconsmas.Bill_Mon ) + "_mtr.jpg";
 
-        File dir2 = new File(ZipDeletPath2);
-        DeleteRecursive(dir2);
+        File dir2 = new File ( ZipDeletPath2 );
+        DeleteRecursive ( dir2 );
 
-        SimpleDateFormat fds = new SimpleDateFormat("kk:mm");
-        strtime = fds.format(c.getTime());
+        SimpleDateFormat fds = new SimpleDateFormat ( "kk:mm" );
+        strtime = fds.format ( c.getTime ( ) );
 
-        session = new SessionManager(getApplicationContext());
-        HashMap<String, String> user = session.getUserDetails();
+        session = new SessionManager ( getApplicationContext ( ) );
+        HashMap <String, String> user = session.getUserDetails ( );
 //        key = session.retLicence();
-        key = appcomUtil.UniqueCode(getApplicationContext());
+        key = appcomUtil.UniqueCode ( getApplicationContext ( ) );
 
         Structbilling.SBM_No = key;
-        Structbilling.Meter_Reader_Name = session.retMRName();
-        Structbilling.Meter_Reader_ID = session.retMRID();
+        Structbilling.Meter_Reader_Name = session.retMRName ( );
+        Structbilling.Meter_Reader_ID = session.retMRID ( );
 
         try {
-            AndroidBmpUtil.convertJpeg2Bmp(getApplicationContext(), imgSrcPath, imgSrcPathDes);
+            AndroidBmpUtil.convertJpeg2Bmp ( getApplicationContext ( ), imgSrcPath, imgSrcPathDes );
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
 //------------------
 //        actualDate = Structbilling.Bill_Month;
@@ -272,9 +273,9 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //            e.printStackTrace();
 //        }
 //        ------------------------
-        HOURS = c.get(Calendar.HOUR);
-        MIN = c.get(Calendar.MINUTE);
-        AP = c.get(Calendar.AM_PM);
+        HOURS = c.get ( Calendar.HOUR );
+        MIN = c.get ( Calendar.MINUTE );
+        AP = c.get ( Calendar.AM_PM );
 
         if (HOURS < 10) {
             Hour = "0" + HOURS;
@@ -283,58 +284,58 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             Minute = "0" + MIN;
         }
 
-        print_type = GSBilling.getInstance().getPrinttype();
-        Calendar c1 = Calendar.getInstance();
-        SimpleDateFormat fds2 = new SimpleDateFormat("kk:mm");
-        billTime = fds2.format(c1.getTime());
-        switch (Structconsmas.Meter_Type.trim()) {
+        print_type = GSBilling.getInstance ( ).getPrinttype ( );
+        Calendar c1 = Calendar.getInstance ( );
+        SimpleDateFormat fds2 = new SimpleDateFormat ( "kk:mm" );
+        billTime = fds2.format ( c1.getTime ( ) );
+        switch (Structconsmas.Meter_Type.trim ( )) {
             case "03":
-                System.out.println("in if3" + strMeterMake);
+                System.out.println ( "in if3" + strMeterMake );
                 this.strMeterMake = "1ph Static";
                 break;
             case "01":
-                System.out.println("in if1" + strMeterMake);
+                System.out.println ( "in if1" + strMeterMake );
                 this.strMeterMake = "1ph EM";
                 break;
             case "28":
-                System.out.println("in if28" + strMeterMake);
+                System.out.println ( "in if28" + strMeterMake );
                 this.strMeterMake = "LT 1 Ph AMR/AMI";
                 break;
             default:
-                System.out.println("in ELSE" + strMeterMake);
-                System.out.println("in default" + Structconsmas.Meter_Type);
+                System.out.println ( "in ELSE" + strMeterMake );
+                System.out.println ( "in default" + Structconsmas.Meter_Type );
                 this.strMeterMake = "";
                 break;
         }
 
         switch (Structconsmas.Meter_Ownership) {
             case "D":
-                System.out.println("in if3" + strMeterOwner);
+                System.out.println ( "in if3" + strMeterOwner );
                 this.strMeterOwner = "DF";
                 break;
             case "G":
-                System.out.println("in if1" + strMeterOwner);
+                System.out.println ( "in if1" + strMeterOwner );
                 this.strMeterOwner = "CESU";
                 break;
             case "C":
-                System.out.println("in if28" + strMeterMake);
+                System.out.println ( "in if28" + strMeterMake );
                 this.strMeterOwner = "CONSUMER";
                 break;
             default:
-                System.out.println("in ELSE" + strMeterMake);
+                System.out.println ( "in ELSE" + strMeterMake );
                 this.strMeterOwner = "";
                 break;
         }
 
 //      EnterTextAsyc asynctask = new En Prev_Meter_Reading =Structconsmas.Prev_Meter_Reading;
-        Prev_Meter_Reading =Structconsmas.Prev_Meter_Reading;
-        Cur_Meter_Reading  = Structbilling.Cur_Meter_Reading;
+        Prev_Meter_Reading = Structconsmas.Prev_Meter_Reading;
+        Cur_Meter_Reading = Structbilling.Cur_Meter_Reading;
         Bill_Basis = Structbilling.Bill_Basis;
-        Reading_type_code = RDG_TYP_CD_Print();
+        Reading_type_code = RDG_TYP_CD_Print ( );
 
-        if(Structbilling.Reasons != null && !Structbilling.Reasons .isEmpty()){
+        if (Structbilling.Reasons != null && !Structbilling.Reasons.isEmpty ( )) {
 
-            if(Structbilling.Reasons.equalsIgnoreCase("Previous reading is higher than Current reading")){
+            if (Structbilling.Reasons.equalsIgnoreCase ( "Previous reading is higher than Current reading" )) {
                 Prev_Meter_Reading = Structconsmas.Prev_Meter_Reading;
                 Cur_Meter_Reading = Structconsmas.Prev_Meter_Reading;
                 Bill_Basis = "ACT";
@@ -344,7 +345,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //        asynctask.execute(0);
 
         //
-        String printtariif = (Structconsmas.Tariff_Code + "-" + (((Structconsmas.URBAN_FLG.equalsIgnoreCase("U")) ? Structtariff.MMFC_URBAN_RATE_1 : Structtariff.MMFC_RURAL_RATE_1) * Structtariff.Overdrawl_Rate2));
+        String printtariif = (Structconsmas.Tariff_Code + "-" + (((Structconsmas.URBAN_FLG.equalsIgnoreCase ( "U" )) ? Structtariff.MMFC_URBAN_RATE_1 : Structtariff.MMFC_RURAL_RATE_1) * Structtariff.Overdrawl_Rate2));
 //        test = "     MADHYA PRADESH" + "\n" +
 //                "     M.P.P.K.V.V.C.L" + "\n" +
 //                "    ELECTRICITY BILL" + "\n" +
@@ -454,34 +455,34 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //                "" + " " + "\n" +
 //                "" + " " + "\n" +
 //                "" + " " + "\n";
-        String meterReaderName = Structbilling.Meter_Reader_Name;
-        if (Structbilling.Meter_Reader_Name.length() < 20) {
+       /* String meterReaderName = Structbilling.Meter_Reader_Name;
+        if (Structbilling.Meter_Reader_Name.length ( ) < 20) {
             meterReaderName = Structbilling.Meter_Reader_Name;
         } else {
-            meterReaderName = Structbilling.Meter_Reader_Name.substring(0, 18);
+            meterReaderName = Structbilling.Meter_Reader_Name.substring ( 0, 18 );
         }
-
+*/
         String consumerName = Structconsmas.Name;
-        if (Structconsmas.Name.length() < 22) {
+        if (Structconsmas.Name.length ( ) < 22) {
             //   consumerName = Structconsmas.Name + "\n";
-            consumerName = fixedLengthString(consumerName, 44);// + "\n";
+            consumerName = fixedLengthString ( consumerName, 44 );// + "\n";
         } else {
-            consumerName = fixedLengthString(Structconsmas.Name, 44);
-            consumerName = consumerName.substring(0, 44);
+            consumerName = fixedLengthString ( Structconsmas.Name, 44 );
+            consumerName = consumerName.substring ( 0, 44 );
         }
         Structconsmas.Name = consumerName;
         String jblConsName = Structconsmas.Name;
-        if (Structconsmas.Name.length() < 22) {
+        if (Structconsmas.Name.length ( ) < 22) {
             jblConsName = Structconsmas.Name;
         } else {
-            jblConsName = Structconsmas.Name.substring(0, 21);
+            jblConsName = Structconsmas.Name.substring ( 0, 21 );
         }
 
         String feederDesc = Structconsmas.FDR_SHRT_DESC;
-        if (Structconsmas.FDR_SHRT_DESC.length() < 13) {
+        if (Structconsmas.FDR_SHRT_DESC.length ( ) < 13) {
             feederDesc = Structconsmas.FDR_SHRT_DESC;
         } else {
-            feederDesc = Structconsmas.FDR_SHRT_DESC.substring(0, 12);
+            feederDesc = Structconsmas.FDR_SHRT_DESC.substring ( 0, 12 );
         }
 
         String address = Structconsmas.address1 + Structconsmas.address2 + Structconsmas.MOH;
@@ -489,26 +490,26 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         String subadd2;
         String PrinDate;
 
-        PrinDate = Structbilling.Cur_Meter_Reading_Date.substring(0, 6) + "-" + Structbilling.Cur_Meter_Reading_Date.substring(9);
-        if (address.length() < 22) {
-            address = fixedLengthString(Structconsmas.address1 + Structconsmas.address2+ Structconsmas.MOH, 43);// + "\n";
+        PrinDate = Structbilling.Cur_Meter_Reading_Date.substring ( 0, 6 ) + "-" + Structbilling.Cur_Meter_Reading_Date.substring ( 9 );
+        if (address.length ( ) < 22) {
+            address = fixedLengthString ( Structconsmas.address1 + Structconsmas.address2 + Structconsmas.MOH, 43 );// + "\n";
         } else {
-            if (address.length() >= 45) {
-                subadd1 = address.substring(0, 43);
+            if (address.length ( ) >= 45) {
+                subadd1 = address.substring ( 0, 43 );
             } else {
                 subadd1 = address;
             }
 
-            address = fixedLengthString(subadd1, 43);
+            address = fixedLengthString ( subadd1, 43 );
         }
         String sectionName = Structconsmas.Section_Name;
-        if (sectionName.length() >= 19){
-            sectionName = Structconsmas.Section_Name.substring(0,19);
-        }else{
+        if (sectionName.length ( ) >= 19) {
+            sectionName = Structconsmas.Section_Name.substring ( 0, 19 );
+        } else {
             sectionName = Structconsmas.Section_Name;
         }
 
-        appcomUtil = new UtilAppCommon();
+        appcomUtil = new UtilAppCommon ( );
 //            if (print_type.equals("1")) {
 //                sendMessage("<0x9>CON CODE :" + Structbilling.Cons_Number + "\n" +
 //                        "<0x9>B. ID    : 0001 " + "\n" +
@@ -580,16 +581,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 // else {
 //            actualDate = curconmas.getString(51).trim();
         actualDate = Structconsmas.Bill_Mon;
-        simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        simpleDateFormat = new SimpleDateFormat ( "yyyyMMdd" );
         Date date = null;
         String newDate = null;
 
         try {
-            date = simpleDateFormat.parse(actualDate);
-            SimpleDateFormat postFormater = new SimpleDateFormat("dd-MMM-yyyy");
-            newDate = postFormater.format(date).trim().substring(3);
+            date = simpleDateFormat.parse ( actualDate );
+            SimpleDateFormat postFormater = new SimpleDateFormat ( "dd-MMM-yyyy" );
+            newDate = postFormater.format ( date ).trim ( ).substring ( 3 );
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
 
 //            float Arr = Structconsmas.Pre_Financial_Yr_Arr + Structconsmas.Cur_Fiancial_Yr_Arr;
@@ -597,18 +598,18 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
 //            Structbilling.DSIG_STATE = "50";
 
-        billseq = appcomUtil.findSequence(getApplicationContext(), "BillNumber");
+        billseq = appcomUtil.findSequence ( getApplicationContext ( ), "BillNumber" );
 
-        UtilAppCommon uc = new UtilAppCommon();
-        uc.print_Bill();
-        uc.princonmas();
+        UtilAppCommon uc = new UtilAppCommon ( );
+        uc.print_Bill ( );
+        uc.princonmas ( );
 
 //            double totAMount = (Math.ceil(Structbilling.Amnt_bPaid_on_Rbt_Date - Structbilling.House_Lck_Adju_Amnt - Structconsmas.SD_Interest_chngto_SD_AVAIL));
 
         //      if (Arr > 5000 && totAMount > 5000) {
 
-        dcSeq = appcomUtil.findSequence(getApplicationContext(), "DCNumber");
-        strdcSeq = String.format("%05d", dcSeq);
+        dcSeq = appcomUtil.findSequence ( getApplicationContext ( ), "DCNumber" );
+        strdcSeq = String.format ( "%05d", dcSeq );
         Structbilling.DCNumber = key + "/DN" + dcSeq;
 
 //                sendMessage("<0x09>" + " " + "\n" +
@@ -733,16 +734,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //            -----------------------Commented for Parallal Billing
 //*****************************************************************************//
         /// paral billing
-        if (Structbilling.md_input != null && !Structbilling.md_input.isEmpty()) {
-            mdValue = Structbilling.md_input + " " + GSBilling.getInstance().getUnitMaxDemand();
+        if (Structbilling.md_input != null && !Structbilling.md_input.isEmpty ( )) {
+            mdValue = Structbilling.md_input + " " + GSBilling.getInstance ( ).getUnitMaxDemand ( );
         } else {
-            mdValue = "0" + " " + GSBilling.getInstance().getUnitMaxDemand();
+            mdValue = "0" + " " + GSBilling.getInstance ( ).getUnitMaxDemand ( );
         }
 
-        if (GSBilling.getInstance().getPowerFactor() == 0) {
+        if (GSBilling.getInstance ( ).getPowerFactor ( ) == 0) {
             pfValue = "0";
         } else {
-            pfValue = String.valueOf(GSBilling.getInstance().getPowerFactor());
+            pfValue = String.valueOf ( GSBilling.getInstance ( ).getPowerFactor ( ) );
         }
 
         if (Structconsmas.misc_charges != null) {
@@ -751,51 +752,66 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             miscValue = 0.0f;
         }
 
-        dbHelper4 = new DB(getApplicationContext());
-        SD4 = dbHelper4.getWritableDatabase();
-        dbHelper4.insertSequence("DCNumber", dcSeq);
+        dbHelper4 = new DB ( getApplicationContext ( ) );
+        SD4 = dbHelper4.getWritableDatabase ( );
+        dbHelper4.insertSequence ( "DCNumber", dcSeq );
         //  dbHelper4.insertIntoBillingTable();
-        dbHelper4.insertIntoMPBillingTable();
-        dbHelper4.insertSequence("BillNumber", billseq);
+        dbHelper4.insertIntoMPBillingTable ( );
+        dbHelper4.insertSequence ( "BillNumber", billseq );
 
-        test =  " " + "\n" +
+
+        System.out.println ("This is Cashier Name "+Structbilling.Meter_Reader_Name );
+        test = " " + "\n" +
                 "  ELECTRICITY BILL     " + "\n" +
                 "----------------------" + "\n" +
 //                    "DC NAME:"+(String.format("%1$6s",(Structconsmas.Zone_Code))) + "\n" +
-                "VERSION:" +(String.format("%1$6s",Structbilling.VER_CODE))+ "\n" +
-                "ACC.NO. :"+(String.format("%1$6s",Structbilling.Cons_Number)) + "\n" +
-                "DATE: " +(String.format("%1$6s",Structbilling.Bill_Date))+(String.format("%1$6s",Structbilling.Bill_Time)) + "\n" +
+                "VERSION:" + (String.format ( "%1$6s", Structbilling.VER_CODE )) + "\n" +
+                "ACC.NO. :" + (String.format ( "%1$6s", Structbilling.Cons_Number )) + "\n" +
+                "DATE: " + (String.format ( "%1$6s", Structbilling.Bill_Date )) + (String.format ( "%1$6s", Structbilling.Bill_Time )) + "\n" +
 //                    "MRU/GROUP:"+(String.format("%1$6s",Structconsmas.MRU)) + "\n" +
 //                    "BP NO:"+(String.format("%1$6s",Structbilling.Cons_Number)) + "\n" +
 //                   p "LNO:"+(String.format("%1$6s",Structconsmas.Old_Consmumer_Number))+ "\n" +
 //                    "L.PAY.DATE:"+(String.format("%1$6s",formatDate(Structconsmas.Last_Payment_Date))) + "\n" +
                 "---------------------" + "\n" +
                 "NAME  &  SUPPLY ADDRESS:       " + "\n" +
-                ""+String.format("%1$6s", Structconsmas.Name ) + "\n" +
-                ""+String.format("%1$8s", Structconsmas.address1) + "\n" +
-                ""+String.format("%1$4s", Structconsmas.address2)+ "\n" +
+                "" + String.format ( "%1$6s", Structconsmas.Name ) + "\n" +
+                "" + String.format ( "%1$8s", Structconsmas.address1 )  +
+                "" + String.format ( "%1$4s", Structconsmas.address2 ) + "\n" +
 //                    ""+String.format("%1$4s", Structconsmas.Addrress3 ) + "\n" +
 //                    "OFF.PH NO:"+String.format("%1$6s",Structconsmas.Office_Phone) + "\n" +
 //                    "CIN:"+(String.format("%1$6s",Structconsmas.Consumer_Index_Number)) + "\n" +
 //                    "TARIF:"+String.format("%1$6s",Structconsmas.rate_category_for_analogic_use) + "\n" +
 //                    "USAGE:"+(String.format("%1$6s",Structconsmas.Purpose)) + "\n" +
-                "SAN LOAD :"+String.format("%1$6s", Structconsmas.Load) + "\n" +
+                //  "SAN LOAD :"+String.format("%1$6s", Structconsmas.Load) + "\n" +
+
+                "IBC:" + String.format ( "%1$6s", Structconsmas.Section_Name ) + "\n" +
+                "BSC:" + String.format ( "%1$6s", Structconsmas.MOH ) + "\n" +
+
+                "TARIF Code:" + String.format ( "%1$6s", Structconsmas.Tariff_Code ) + "\n" +
+
+                "SAN LOAD  :" + "\n" +
+
 //                    "S.D.HELD :"+(String.format("%1$6s",Structconsmas.SD_Held)) + "\n" +
 //                    "MTR NO   :"+String.format("%1$6s", Structconsmas.Meter_S_No) + "\n" +
 //                    "AVG UNIT:"+String.format("%1$4s",Structconsmas.Average_Unit_for_Defective)+" MF:"+String.format("%1$4s",Structconsmas.KWH_MF) + "\n" +
                 "---------------------" + "\n" +
-                "CUR :" + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat + "\n" +
-                "PRV :" + Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status +"\n" +
+                "CUR    :" + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat + "\n" +
+                "PRV    :" + Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status + "\n" +
 
 //                    "CUR:"+String.format("%1$4s",Structbilling.Cur_Meter_Reading+" /"+ appcomUtil.getBillMonth(Structconsmas.Bill_Mon)+"-"+getBillYear(Structconsmas.Bill_Year)+" /"+Structbilling.RDG_TYP_CD) + "\n" +
 //                    "PRV:"+String.format("%1$4s",Structconsmas.Meter_Reading_Previous_KWH+" /"+Structconsmas.Bill_Mon+"-" +Structconsmas.Bill_Year+" /"+Structconsmas.Meter_Status) +"\n" +
-                "UNITS:"+Structbilling.Units_Consumed + "\n" +
+
+                // "UNITS:"+Structbilling.Units_Consumed + "\n" +
+                "UNITS  :" + Structbilling.Units_Consumed + " KWH" + "\n" +
+
 //                    "P FACT:"+(String.format("%1$4s",Structbilling.Avrg_PF))+" R.M.D:"+(String.format("%1$4s",Structbilling.MDI))+ "\n" +
-                "BILL BASIS:     "+Structbilling.Bill_Basis + "\n" +
+                "BILL BASIS:     " + Structbilling.Bill_Basis + "\n" +
                 "---------------------" + "\n" +
 //                    "FIXED CHG    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Total_Energy_Charg))) + "\n" +
-                "ENERGY CHG   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Total_Energy_Charg))) + "\n" +
-                "VAT         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Electricity_Duty_Charges))) + "\n" +
+                "ENERGY CHG       :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Total_Energy_Charg ) ) ) ) + "\n" +
+                // "VAT         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Electricity_Duty_Charges))) + "\n" +
+                "VAT(5%)          :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Electricity_Duty_Charges ) ) ) ) + "\n" +
+
 //                    "CESS         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.CESS))) + "\n" +
 //                    "M.RENT       :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.Meter_Rent))) + "\n" +
 //                    "LT/WT S.CHG  :"+String.format("%1$8s",String.format("%.2f",Double.valueOf((Structbilling.LTCS_Charge + Structbilling.WTCS_Surcharge))))+"\n" +
@@ -808,55 +824,66 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //                    "VCA CHARGES  :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.VCA_Charge ))) + "\n" +
 //                    "TOTAL BILL   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.O_Current_Demand))) + "\n" +
 //                    "SD ARREAR    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.SD_Arrear))) + "\n" +
-                "PREV.ARREARS :"+String.format("%1$8s",String.format("%.2f",Float.valueOf(Structbilling.O_Arrear_Demand))) + "\n" +
+                "PREV.ARREARS     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.O_Arrear_Demand ) ) ) ) + "\n" +
 //                    "SCBG.ARREARS :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.Sucharge_Arrears ))) + "\n" +
 //                    "ADJ.AMOUNT   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Round_Off_amount)) ) + "\n" +
                 "-----------------------" + "\n" +
-                "TOTAL AMOUNT   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Amnt_Paidafter_Rbt_Date))) + "\n" +
+                //"TOTAL AMOUNT      :"+String.format("%1$8s",String.format("%.2f",MainActivityCollectionPrint.internationAnotation(String.valueOf(Structbilling.Amnt_Paidafter_Rbt_Date)))) + "\n" +
+                "TOTAL AMOUNT     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) ) ) ) + "\n" +
+
                 "---------------------" + "\n" +
 //                            "PAY TOTAL DUE NOW    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Cur_Bill_Total))) + "\n" +
 //                    "DUE DT BY CHQ:"+String.format("%1$8s", Structbilling.cheque_due_date ) + "\n" +
-                "LAST PAY DATE  :" +String.format("%1$8s",(Structconsmas.LAST_ACT_BILL_MON)) + "\n" +
-                "LAST PAID AMOUNT  :"+String.format("%1$8s",String.format("%.2f",Float.valueOf(Structconsmas.LAST_MONTH_AV)))  + "\n" +
+                "LAST PAY DATE    :" + String.format ( "%1$8s", (Structconsmas.LAST_ACT_BILL_MON) ) + "\n" +
+                "LAST PAID AMOUNT :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structconsmas.LAST_MONTH_AV ) ) ) ) + "\n" +
 //                    "DUE DT BY CASH:"+String.format("%1$5s", Structbilling.cash_due_date) + "\n" +
-                "READER NAME:"+String.format("%1$6s",Structbilling.Meter_Reader_Name) + "\n" +
-                "---------------------" + "\n"  ;
+                "READER NAME      :" + String.format ( "%1$6s", com.fedco.mbc.activity.MainActivity.MRNME ) + "\n" +
 
 
-        Log.e(getApplicationContext(),"Find"," ME "+test);
+
+                //  "READER NAME       :"+String.format("%1$6s",Structbilling.Meter_Reader_Name) + "\n" +
+
+                "Customer Care    :" + "070022557433" + "\n" +
+
+                "---------------------" + "\n";
+
+        test2 = "    " + "\n" +
+                "    " + "\n";
+
+        Log.e ( getApplicationContext ( ), "Find", " ME " + test );
     }
 
     private String printables(String PTR) {
         String consumerName = Structconsmas.Name;
-        Log.e(getApplicationContext(), TAG, "" + consumerName);
-        Log.e(getApplicationContext(), TAG, "" + consumerName.length());
-        if (Structconsmas.Name.length() < 19) {
+        Log.e ( getApplicationContext ( ), TAG, "" + consumerName );
+        Log.e ( getApplicationContext ( ), TAG, "" + consumerName.length ( ) );
+        if (Structconsmas.Name.length ( ) < 19) {
             consumerName = Structconsmas.Name;
         } else {
-            consumerName = Structconsmas.Name.substring(0, 19);
+            consumerName = Structconsmas.Name.substring ( 0, 19 );
         }
         String meterReaderName = Structbilling.Meter_Reader_Name;
-        if (Structbilling.Meter_Reader_Name.length() < 20) {
+        if (Structbilling.Meter_Reader_Name.length ( ) < 20) {
             meterReaderName = Structbilling.Meter_Reader_Name;
         } else {
-            meterReaderName = Structbilling.Meter_Reader_Name.substring(0, 18);
+            meterReaderName = Structbilling.Meter_Reader_Name.substring ( 0, 18 );
         }
         String feederDesc = Structconsmas.FDR_SHRT_DESC;
-        if (Structconsmas.FDR_SHRT_DESC.length() < 13) {
+        if (Structconsmas.FDR_SHRT_DESC.length ( ) < 13) {
             feederDesc = Structconsmas.FDR_SHRT_DESC;
         } else {
-            feederDesc = Structconsmas.FDR_SHRT_DESC.substring(0, 12);
+            feederDesc = Structconsmas.FDR_SHRT_DESC.substring ( 0, 12 );
         }
         String address = Structconsmas.address1 + Structconsmas.address2;
-        if (address.length() < 24) {
+        if (address.length ( ) < 24) {
             address = Structconsmas.address1 + Structconsmas.address2 + "\n";
         } else {
             address = Structconsmas.address1 + Structconsmas.address2;
         }
         String sectionName = Structconsmas.Section_Name;
-        if (sectionName.length() >= 19){
-            sectionName = Structconsmas.Section_Name.substring(0,19);
-        }else{
+        if (sectionName.length ( ) >= 19) {
+            sectionName = Structconsmas.Section_Name.substring ( 0, 19 );
+        } else {
             sectionName = Structconsmas.Section_Name;
         }
 
@@ -865,68 +892,68 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 PTR + "    " + "\n" +
                 PTR + "    " + "\n" +
                 PTR + "    " + "\n" +
-                PTR + "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                PTR + "     " + (String.format("%1$6s", Structconsmas.BILL_ISSUE_DATE)) + "  " + billTime + "\n" +
-                PTR + "     " + (String.format("%1$6s", Structbilling.Bill_No)) + "    " + Structbilling.VER_CODE + "\n" +
-                PTR + "  " + (String.format("%1$6s", Structbilling.Bill_Period)) + "\n" +
+                PTR + "     " + (String.format ( "%1$6s", getBillMonth ( Structconsmas.Bill_Mon ) )) + "\n" + //201706
+                PTR + "     " + (String.format ( "%1$6s", Structconsmas.BILL_ISSUE_DATE )) + "  " + billTime + "\n" +
+                PTR + "     " + (String.format ( "%1$6s", Structbilling.Bill_No )) + "    " + Structbilling.VER_CODE + "\n" +
+                PTR + "  " + (String.format ( "%1$6s", Structbilling.Bill_Period )) + "\n" +
                 PTR + "  " + "\n" +
-                PTR + "    " + (String.format("%1$6s", Structconsmas.DIV_NAME)) + "\n" +
-                PTR + "   " + (String.format("%1$6s", sectionName)) + "\n" +
-                PTR + "      " + (String.format("%1$8s", Structconsmas.Cycle)) + "/" + Structconsmas.Route_Number + "\n" +
-                PTR + "     " + (String.format("%1$6s", feederDesc)) + "\n" +
-                PTR + "        " + (String.format("%1$9s", Structconsmas.POLE_ID)) + "\n" +
-                PTR + "      " + (String.format("%1$9s", Structconsmas.Consumer_Number)) + "\n" +
+                PTR + "    " + (String.format ( "%1$6s", Structconsmas.DIV_NAME )) + "\n" +
+                PTR + "   " + (String.format ( "%1$6s", sectionName )) + "\n" +
+                PTR + "      " + (String.format ( "%1$8s", Structconsmas.Cycle )) + "/" + Structconsmas.Route_Number + "\n" +
+                PTR + "     " + (String.format ( "%1$6s", feederDesc )) + "\n" +
+                PTR + "        " + (String.format ( "%1$9s", Structconsmas.POLE_ID )) + "\n" +
+                PTR + "      " + (String.format ( "%1$9s", Structconsmas.Consumer_Number )) + "\n" +
 //  PTR +                 "         " + (String.format("%1$8s", Structconsmas.LOC_CD + "-" + Structconsmas.Consumer_Number)) + "\n" +
-                PTR + "       " + (String.format("%1$8s", appcomUtil.IVRS_NO_PRINT())) + "\n" +
+                PTR + "       " + (String.format ( "%1$8s", appcomUtil.IVRS_NO_PRINT ( ) )) + "\n" +
 //  PTR +                 "  " + (String.format("%1$6s", Structconsmas.Name)) + "\n" +
-                PTR + "  " + (String.format("%1$6s", consumerName)) + "\n" +
-                PTR + " " + (String.format("%1$6s", address)) + "\n" +
-                PTR + "   " + (String.format("%1$8s", printtariif())) + "\n" +
-                PTR + "     " + (String.format("%1$8s", Structconsmas.Load)) + getLoadType() + "\n" +
-                PTR + "      " + (String.format("%1$8s", Structconsmas.TOT_SD_HELD)) + "\n" +
-                PTR + "       " + (String.format("%1$8s", Structconsmas.Meter_S_No)) + "\n" +
-                PTR + "    " + (String.format("%1$8s", Structconsmas.MF)) + " / " + Structconsmas.PHASE_CD + "\n" +
+                PTR + "  " + (String.format ( "%1$6s", consumerName )) + "\n" +
+                PTR + " " + (String.format ( "%1$6s", address )) + "\n" +
+                PTR + "   " + (String.format ( "%1$8s", printtariif ( ) )) + "\n" +
+                PTR + "     " + (String.format ( "%1$8s", Structconsmas.Load )) + getLoadType ( ) + "\n" +
+                PTR + "      " + (String.format ( "%1$8s", Structconsmas.TOT_SD_HELD )) + "\n" +
+                PTR + "       " + (String.format ( "%1$8s", Structconsmas.Meter_S_No )) + "\n" +
+                PTR + "    " + (String.format ( "%1$8s", Structconsmas.MF )) + " / " + Structconsmas.PHASE_CD + "\n" +
 //  PTR +                 " " + (String.format("%1$8s", Structconsmas.PHASE_CD)) + "\n" +
-                PTR + "            " + (String.format("%1$4s", Structbilling.Cur_Meter_Reading_Date)) + "\n" +
-                PTR + "   " + (String.format("%1$8s", Reading_type_code)) + "\n" +
-                PTR + "               " + (String.format("%1$8s", Cur_Meter_Reading)) + "\n" +
-                PTR + "               " + (String.format("%1$8s", Prev_Meter_Reading)) + "\n" +
-                PTR + "     " + (String.format("%1$8s", mdValue)) + "      " + Structbilling.Avrg_PF + "\n" +
+                PTR + "            " + (String.format ( "%1$4s", Structbilling.Cur_Meter_Reading_Date )) + "\n" +
+                PTR + "   " + (String.format ( "%1$8s", Reading_type_code )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", Cur_Meter_Reading )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", Prev_Meter_Reading )) + "\n" +
+                PTR + "     " + (String.format ( "%1$8s", mdValue )) + "      " + Structbilling.Avrg_PF + "\n" +
 //   PTR +                " " + (String.format("%1$8s", Structbilling.Avrg_PF)) + "\n" +
 //   PTR +                "              " + (String.format("%1$8s", Structbilling.MTR_CONSMP)) + "\n" +
-                PTR + "            " + (String.format("%1$8s", Integer.getInteger(Structbilling.Billed_Units) + " / " + Integer.getInteger(Structbilling.O_BilledUnit_Actual))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", Bill_Basis)) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.MIN_CHRG))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.FIXED_CHARGE))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Total_Energy_Charg)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_FCA))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Electricity_Duty_Charges)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Meter_Rent)))) + "\n" +
-                PTR + "              " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.Sundry_Allow_EC))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_OverdrwalPenalty))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_PFPenalty))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_welding_charges))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(UtilAppCommon.doublecheck(Structconsmas.SD_BILLED)))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(0))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.SD_INSTT_AMT) * -1f)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_LockCreditAmount) * -1f)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Employee_Incentive) * -1f)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Total_Incentives) * -1f)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Total_Subsidy) * -1f)))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Total_Bill) - Float.valueOf(Structbilling.O_Arrear_Demand) + Float.valueOf(Structconsmas.Sundry_Allow_EC))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.Cur_Fiancial_Yr_Arr))))) + "\n" +
+                PTR + "            " + (String.format ( "%1$8s", Integer.getInteger ( Structbilling.Billed_Units ) + " / " + Integer.getInteger ( Structbilling.O_BilledUnit_Actual ) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", Bill_Basis )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.MIN_CHRG ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.FIXED_CHARGE ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Structbilling.Total_Energy_Charg )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_FCA ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Structbilling.Electricity_Duty_Charges )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Structbilling.Meter_Rent )) )) + "\n" +
+                PTR + "              " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structconsmas.Sundry_Allow_EC ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_OverdrwalPenalty ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_PFPenalty ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_welding_charges ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( UtilAppCommon.doublecheck ( Structconsmas.SD_BILLED ) ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( 0 ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structconsmas.SD_INSTT_AMT ) * -1f )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_LockCreditAmount ) * -1f )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_Employee_Incentive ) * -1f )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_Total_Incentives ) * -1f )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_Total_Subsidy ) * -1f )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structbilling.O_Total_Bill ) - Float.valueOf ( Structbilling.O_Arrear_Demand ) + Float.valueOf ( Structconsmas.Sundry_Allow_EC ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( Structconsmas.Cur_Fiancial_Yr_Arr ) )) )) + "\n" +
 //  PTR +                 "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.SURCHARGE_ARREARS))))) + "\n" +
-                PTR + "               " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(printSurcharge()))))) + "\n" +
+                PTR + "               " + (String.format ( "%1$8s", (String.format ( "%.2f", Float.valueOf ( printSurcharge ( ) ) )) )) + "\n" +
 //   PTR +               ik,  "               " + (String.format("%1$8s", "0.00")) + "\n" +                // No diff Amount
 //   PTR +                "               " + (String.format("%1$8s", Structbilling.Round_Amnt)) + "\n" +
-                PTR + "               " + (String.format("%1$6s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" +
-                PTR + "               " + (String.format("%1$6s", Structbilling.O_Surcharge)) + "\n" +
-                PTR + "               " + (String.format("%1$6s", (String.format("%.2f", (float) Math.round((float) (Math.round(Double.valueOf(Structbilling.O_Total_Bill)) + Double.valueOf(Structbilling.O_Surcharge))))))) + "\n" +  // doubt
+                PTR + "               " + (String.format ( "%1$6s", (String.format ( "%.2f", Float.valueOf ( Math.round ( Double.valueOf ( Structbilling.O_Total_Bill ) ) ) )) )) + "\n" +
+                PTR + "               " + (String.format ( "%1$6s", Structbilling.O_Surcharge )) + "\n" +
+                PTR + "               " + (String.format ( "%1$6s", (String.format ( "%.2f", (float) Math.round ( (float) (Math.round ( Double.valueOf ( Structbilling.O_Total_Bill ) ) + Double.valueOf ( Structbilling.O_Surcharge )) ) )) )) + "\n" +  // doubt
                 PTR + " " + "\n" +
-                PTR + "              " + (String.format("%1$6s", Structconsmas.FIRST_CHQ_DUE_DATE)) + "\n" +
-                PTR + "              " + (String.format("%1$6s", Structconsmas.FIRST_CASH_DUE_DATE)) + "\n" +
+                PTR + "              " + (String.format ( "%1$6s", Structconsmas.FIRST_CHQ_DUE_DATE )) + "\n" +
+                PTR + "              " + (String.format ( "%1$6s", Structconsmas.FIRST_CASH_DUE_DATE )) + "\n" +
                 PTR + " " + "\n" +
-                PTR + "         " + (String.format("%1$4s", meterReaderName)) + " " + (String.format("%1$6s", Structbilling.SBM_No)) + "\n" +
+                PTR + "         " + (String.format ( "%1$4s", meterReaderName )) + " " + (String.format ( "%1$6s", Structbilling.SBM_No )) + "\n" +
 //  PTR +                 "         " + (String.format("%1$6s", Structbilling.SBM_No)) + "\n" +
 //  PTR +                 "       " + (String.format("%1$4s", Structbilling.Meter_Reader_ID)) + "\n" +
                 PTR + " " + "\n" +
@@ -935,19 +962,19 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
                 PTR + " " + "\n" +
                 PTR + " " + "\n" +
 //                PTR + " " + "\n" +
-                PTR + "             " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" +
+                PTR + "             " + (String.format ( "%1$6s", getBillMonth ( Structconsmas.Bill_Mon ) )) + "\n" +
 //  PTR +                 "           " + (String.format("%1$6s", Structbilling.Bill_Date)) + "\n" +
 //  PTR +                 "           " + (String.format("%1$6s", Structbilling.Bill_No)) + "\n" +
-                PTR + "        " + (String.format("%1$6s", Structconsmas.DIV_NAME)) + "\n" +
-                PTR + "      " + (String.format("%1$6s", Structconsmas.DC_NAME)) + "\n" +
-                PTR + "        " + (String.format("%1$8s", Structconsmas.Cycle)) + "/" + Structconsmas.Route_Number + "\n" +
-                PTR + "        " + (String.format("%1$9s", Structconsmas.Consumer_Number)) + "\n" +
+                PTR + "        " + (String.format ( "%1$6s", Structconsmas.DIV_NAME )) + "\n" +
+                PTR + "      " + (String.format ( "%1$6s", Structconsmas.DC_NAME )) + "\n" +
+                PTR + "        " + (String.format ( "%1$8s", Structconsmas.Cycle )) + "/" + Structconsmas.Route_Number + "\n" +
+                PTR + "        " + (String.format ( "%1$9s", Structconsmas.Consumer_Number )) + "\n" +
 //  PTR +                 "          " + (String.format("%1$8s", Structconsmas.LOC_CD + "-" + Structconsmas.Consumer_Number)) + "\n" +
-                PTR + "        " + (String.format("%1$8s", appcomUtil.IVRS_NO_PRINT())) + "\n" +
+                PTR + "        " + (String.format ( "%1$8s", appcomUtil.IVRS_NO_PRINT ( ) )) + "\n" +
                 PTR + " " + "\n" +
-                PTR + "   " + (String.format("%1$6s", consumerName)) + "\n" +
-                PTR + "               " + (String.format("%1$6s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" + " " + "\n" +
-                PTR + "               " + (String.format("%1$6s", (String.format("%.2f", (float) Math.round((float) (Math.round(Double.valueOf(Structbilling.O_Total_Bill)) + Double.valueOf(Structbilling.O_Surcharge))))))) + "\n" + // doubt
+                PTR + "   " + (String.format ( "%1$6s", consumerName )) + "\n" +
+                PTR + "               " + (String.format ( "%1$6s", (String.format ( "%.2f", Float.valueOf ( Math.round ( Double.valueOf ( Structbilling.O_Total_Bill ) ) ) )) )) + "\n" + " " + "\n" +
+                PTR + "               " + (String.format ( "%1$6s", (String.format ( "%.2f", (float) Math.round ( (float) (Math.round ( Double.valueOf ( Structbilling.O_Total_Bill ) ) + Double.valueOf ( Structbilling.O_Surcharge )) ) )) )) + "\n" + // doubt
                 PTR + " " + " " + "\n" +
                 PTR + " " + " " + "\n" +
                 PTR + " " + " " + "\n" +
@@ -964,7 +991,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     private String printSurcharge() {
 
-        if (Structconsmas.SYSTEM_FLAG.equalsIgnoreCase("S")) {
+        if (Structconsmas.SYSTEM_FLAG.equalsIgnoreCase ( "S" )) {
             return "0";
         } else {
             return Structconsmas.SURCHARGE_ARREARS;
@@ -974,8 +1001,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     private String dotSeparate(String value) {
 
-        if (value.contains(".")) {
-            String[] parts = value.split("\\."); // escape .
+        if (value.contains ( "." )) {
+            String[] parts = value.split ( "\\." ); // escape .
             String part1 = parts[0];
             return part1;
         }
@@ -984,16 +1011,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     private String RDG_TYP_CD_Print() {
 
-        dbHelper = new DB(MainActivity.this);
-        SD = dbHelper.getWritableDatabase();
+        dbHelper = new DB ( MainActivity.this );
+        SD = dbHelper.getWritableDatabase ( );
 
         String strPref = "SELECT STATUS FROM TBL_METERSTATUSCODE_MP WHERE BILL_BASIS='" + Structbilling.Bill_Basis + "'";
 
-        Cursor getPref = SD.rawQuery(strPref, null);
+        Cursor getPref = SD.rawQuery ( strPref, null );
 
-        if (getPref != null && getPref.moveToFirst()) {
+        if (getPref != null && getPref.moveToFirst ( )) {
 
-            return getPref.getString(0);
+            return getPref.getString ( 0 );
 
         } else {
             return "NO METER";
@@ -1004,7 +1031,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     private String printtariif() {
         String st1 = null;
         String printtariif = null;
-        if (Structconsmas.URBAN_FLG.equalsIgnoreCase("U")) {
+        if (Structconsmas.URBAN_FLG.equalsIgnoreCase ( "U" )) {
             st1 = Structtariff.Tariff_URBAN;
         } else {
             st1 = Structtariff.Tariff_RURAL;
@@ -1016,45 +1043,45 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            onBackPressed();
+            onBackPressed ( );
         }
         return true;
     }
 
     @Override
     public void onBackPressed() {
-        final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("");
-        dialog.setMessage("Are You Sure To Exit?");
-        dialog.setCancelable(false);
-        dialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+        final AlertDialog.Builder dialog = new AlertDialog.Builder ( this );
+        dialog.setTitle ( "" );
+        dialog.setMessage ( "Are You Sure To Exit?" );
+        dialog.setCancelable ( false );
+        dialog.setPositiveButton ( "YES", new DialogInterface.OnClickListener ( ) {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
+                dialogInterface.cancel ( );
 //                btpObject.stopBluetoothService();
 
-                UtilAppCommon ucom =new UtilAppCommon();
-                ucom.nullyfimodelBill();
-                ucom.nullyfimodelCon();
-                Intent intent = new Intent();
-                intent.setComponent(new ComponentName(getApplicationContext(), BillingtypesActivity.class));
-                startActivity(intent);
-                overridePendingTransition(R.anim.anim_slide_in_left,
-                        R.anim.anim_slide_out_left);
+                UtilAppCommon ucom = new UtilAppCommon ( );
+                ucom.nullyfimodelBill ( );
+                ucom.nullyfimodelCon ( );
+                Intent intent = new Intent ( );
+                intent.setComponent ( new ComponentName ( getApplicationContext ( ), BillingtypesActivity.class ) );
+                startActivity ( intent );
+                overridePendingTransition ( R.anim.anim_slide_in_left,
+                        R.anim.anim_slide_out_left );
             }
-        });
-        dialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+        } );
+        dialog.setNegativeButton ( "NO", new DialogInterface.OnClickListener ( ) {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
+                dialogInterface.cancel ( );
             }
-        });
-        dialog.create().show();
+        } );
+        dialog.create ( ).show ( );
     }
 
     @Override
     protected void onStart() {
-        super.onStart();
+        super.onStart ( );
     }
 
     @Override
@@ -1066,11 +1093,11 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     public void checkBTP_Permissions() {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
             int permissionCheck = 0;
-            permissionCheck = this.checkSelfPermission("Manifest.permission.ACCESS_FINE_LOCATION");
-            permissionCheck += this.checkSelfPermission("Manifest.permission.ACCESS_COARSE_LOCATION");
+            permissionCheck = this.checkSelfPermission ( "Manifest.permission.ACCESS_FINE_LOCATION" );
+            permissionCheck += this.checkSelfPermission ( "Manifest.permission.ACCESS_COARSE_LOCATION" );
             if (permissionCheck != 0) {
 
-                this.requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001); //Any number
+                this.requestPermissions ( new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1001 ); //Any number
             }
         } else {
             // Log.d(TAG, "checkBTPermissions: No need to check permissions. SDK version < LOLLIPOP.");
@@ -1097,26 +1124,26 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     @Override
     public void onBluetoothDeviceFound(BluetoothDevice device) {
         int i = 0;
-        printerName = device.getName();
-        if (device.getName() != null && ((device.getName().contains("QA"))||(device.getName().contains("ESBAA0050"))||(device.getName().contains("MHT-P5801"))||(device.getName().contains("TM-P20_001644"))|| (device.getName().contains("SP120E"))|| (device.getName().contains("SP120"))|| (device.getName().contains("XL-1880")) || (device.getName().contains("Dual-SPP")) ||(device.getName().contains("QSPrinter")) ||(device.getName().contains("QSprinter"))|| (device.getName().contains("QuantumAeon")))) {
-            String dev_name = device.getName().trim();
-            String dev_adrs = device.getAddress().trim();
-            if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
-                if (spinAdapter.getCount() == 0) {
-                    spinAdapter.add(dev_adrs);
-                    spinAdapter.notifyDataSetChanged();
-                    setLogText("===> Device detected : " + device.getAddress());
+        printerName = device.getName ( );
+        if (device.getName ( ) != null && ((device.getName ( ).contains ( "QA" )) || (device.getName ( ).contains ( "ESBAA0050" )) || (device.getName ( ).contains ( "MHT-P5801" )) || (device.getName ( ).contains ( "TM-P20_001644" )) || (device.getName ( ).contains ( "SP120E" )) || (device.getName ( ).contains ( "SP120" )) || (device.getName ( ).contains ( "XL-1880" )) || (device.getName ( ).contains ( "Dual-SPP" )) || (device.getName ( ).contains ( "QSPrinter" )) || (device.getName ( ).contains ( "QSprinter" )) || (device.getName ( ).contains ( "QuantumAeon" )))) {
+            String dev_name = device.getName ( ).trim ( );
+            String dev_adrs = device.getAddress ( ).trim ( );
+            if (device.getBondState ( ) == BluetoothDevice.BOND_BONDED) {
+                if (spinAdapter.getCount ( ) == 0) {
+                    spinAdapter.add ( dev_adrs );
+                    spinAdapter.notifyDataSetChanged ( );
+                    setLogText ( "===> Device detected : " + device.getAddress ( ) );
                 }
-                for (int x = 0; x < spinAdapter.getCount(); x++) {
-                    String tmp = spinAdapter.getItem(x).toString();
-                    if (tmp.equalsIgnoreCase(dev_adrs)) {
+                for (int x = 0; x < spinAdapter.getCount ( ); x++) {
+                    String tmp = spinAdapter.getItem ( x ).toString ( );
+                    if (tmp.equalsIgnoreCase ( dev_adrs )) {
                         i++;
                     }
                 }
                 if (i == 0) {
-                    spinAdapter.add(dev_adrs);
-                    spinAdapter.notifyDataSetChanged();
-                    setLogText("===> Device detected : " + device.getAddress());
+                    spinAdapter.add ( dev_adrs );
+                    spinAdapter.notifyDataSetChanged ( );
+                    setLogText ( "===> Device detected : " + device.getAddress ( ) );
 //                    mConnectBtn.setEnabled(true);
                 } else {
                     i = 0;
@@ -1127,17 +1154,17 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     public void save_mac_address(String mac) {
-        if (!mac.equals("")) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.putString("BTDeviceMac", mac);
-            editor.commit();
+        if (!mac.equals ( "" )) {
+            SharedPreferences.Editor editor = sharedPreferences.edit ( );
+            editor.clear ( );
+            editor.putString ( "BTDeviceMac", mac );
+            editor.commit ( );
         }
     }
 
     @Override
     public void onClientConnectionSuccess() {
-        setLogText("===> Client Connection success !");
+        setLogText ( "===> Client Connection success !" );
 
     }
 
@@ -1162,12 +1189,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //    }
     @Override
     public void onClientConnecting() {
-        setLogText("===> Connecting..");
+        setLogText ( "===> Connecting.." );
     }
 
     @Override
     public void onBluetoothNotAvailable() {
-        setLogText("===> Bluetooth not available on this device");
+        setLogText ( "===> Bluetooth not available on this device" );
 //        mStartBT.setEnabled(false);
     }
 
@@ -1187,47 +1214,49 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     public void setLogText(String text) {
-        mLogTxt.setText(mLogTxt.getText() + "\n" + text);
-        mLogTxt.setText(text + "\n");
+        mLogTxt.setText ( mLogTxt.getText ( ) + "\n" + text );
+        mLogTxt.setText ( text + "\n" );
     }
+
     private static byte charToByte(char c) {
-        return (byte) "0123456789abcdef".indexOf(c);
+        return (byte) "0123456789abcdef".indexOf ( c );
     }
 
     public void printPhoto() {
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(),R.drawable.phedlogo);
-        if(bmp!=null){
-            byte[] command = Utils.decodeBitmap(bmp);
+        Bitmap bmp = BitmapFactory.decodeResource ( getResources ( ), R.drawable.phedlogo );
+        if (bmp != null) {
+            byte[] command = Utils.decodeBitmap ( bmp );
 
-            btpObject.sendMessage(PrinterCommands.ESC_ALIGN_LEFT);
-            btpObject.sendMessage(command);
-        }else{
+            btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_LEFT );
+            btpObject.sendMessage ( command );
+        } else {
             // Log.e("Print Photo error", "the file doesn't exists");
         }
     }
+
     public static StringBuffer bytesToString(byte[] bytes) {
-        StringBuffer sBuffer = new StringBuffer();
+        StringBuffer sBuffer = new StringBuffer ( );
         for (byte b : bytes) {
-            String s = Integer.toHexString(b & MotionEventCompat.ACTION_MASK);
-            if (s.length() < 2) {
-                sBuffer.append('0');
+            String s = Integer.toHexString ( b & MotionEventCompat.ACTION_MASK );
+            if (s.length ( ) < 2) {
+                sBuffer.append ( '0' );
             }
-            sBuffer.append(new StringBuilder(String.valueOf(s)).append(" ").toString());
+            sBuffer.append ( new StringBuilder ( String.valueOf ( s ) ).append ( " " ).toString ( ) );
         }
         return sBuffer;
     }
 
-    public void printQrcode(){
+    public void printQrcode() {
         byte[] btdata = null;
         try {
-            btpObject.sendMessage(PrinterCommands.ESC_ALIGN_CENTER);
-            btdata = Structbilling.Cons_Number.getBytes("ASCII");
+            btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_CENTER );
+            btdata = Structbilling.Cons_Number.getBytes ( "ASCII" );
 //            btdata = "12345".toString().getBytes("ASCII");
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
-        String strdata = this.bytesToString(btdata).toString();
-        short datalen = (short) (strdata.length() + 3);
+        String strdata = this.bytesToString ( btdata ).toString ( );
+        short datalen = (short) (strdata.length ( ) + 3);
         byte pL = (byte) (datalen & MotionEventCompat.ACTION_MASK);
         byte pH = (byte) (datalen >> 8);
         //  BtService btService = MainActivity.pl;
@@ -1249,12 +1278,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         bArr[5] = (byte) 49;
         bArr[6] = (byte) 69;
         bArr[7] = (byte) 5;
-        btpObject.sendMessage(bArr);
+        btpObject.sendMessage ( bArr );
         byte[] qrHead = new byte[]{(byte) 29, (byte) 40, (byte) 107, pL, pH, (byte) 49, (byte) 80, (byte) 48};
         byte[] qrData = new byte[(qrHead.length + datalen)];
-        System.arraycopy(qrHead, 0, qrData, 0, qrHead.length);
-        System.arraycopy(btdata, 0, qrData, qrHead.length, btdata.length);
-        btpObject.sendMessage(qrData);
+        System.arraycopy ( qrHead, 0, qrData, 0, qrHead.length );
+        System.arraycopy ( btdata, 0, qrData, qrHead.length, btdata.length );
+        btpObject.sendMessage ( qrData );
         // btService = MainActivity.pl;
         bArr = new byte[8];
         bArr[0] = (byte) 29;
@@ -1264,21 +1293,22 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         bArr[5] = (byte) 49;
         bArr[6] = (byte) 81;
         bArr[7] = (byte) 48;
-        btpObject.sendMessage(bArr);
+        btpObject.sendMessage ( bArr );
     }
-    public void printQrcodeSP(){
+
+    public void printQrcodeSP() {
         byte[] btdata = null;
         try {
-            btpObject.sendMessage(PrinterCommands.ESC_ALIGN_CENTER);
+            btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_CENTER );
 //            btdata = GSBilling.getInstance().ConsumerNO.getBytes("ASCII");
-            btdata = (GSBilling.getInstance().ConsumerNO + "," + GSBilling.getInstance().MeterNo + ","+ Structcolmas.AMOUNT + "," + GSBilling.getInstance().RecieptNo ).getBytes("ASCII");
+            btdata = (GSBilling.getInstance ( ).ConsumerNO + "," + GSBilling.getInstance ( ).MeterNo + "," + Structcolmas.AMOUNT + "," + GSBilling.getInstance ( ).RecieptNo).getBytes ( "ASCII" );
 //            btdata = "12345".toString().getBytes("ASCII");
 
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
-        String strdata = this.bytesToString(btdata).toString();
-        short datalen = (short) (strdata.length() + 3);
+        String strdata = this.bytesToString ( btdata ).toString ( );
+        short datalen = (short) (strdata.length ( ) + 3);
         byte pL = (byte) (datalen & MotionEventCompat.ACTION_MASK);
         byte pH = (byte) (datalen >> 8);
         //  BtService btService = MainActivity.pl;
@@ -1300,12 +1330,12 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         bArr[5] = (byte) 49;
         bArr[6] = (byte) 69;
         bArr[7] = (byte) 5;
-        btpObject.sendMessage(bArr);
+        btpObject.sendMessage ( bArr );
         byte[] qrHead = new byte[]{(byte) 29, (byte) 40, (byte) 107, pL, pH, (byte) 49, (byte) 80, (byte) 48};
         byte[] qrData = new byte[(qrHead.length + datalen)];
-        System.arraycopy(qrHead, 0, qrData, 0, qrHead.length);
-        System.arraycopy(btdata, 0, qrData, qrHead.length, btdata.length);
-        btpObject.sendMessage(qrData);
+        System.arraycopy ( qrHead, 0, qrData, 0, qrHead.length );
+        System.arraycopy ( btdata, 0, qrData, qrHead.length, btdata.length );
+        btpObject.sendMessage ( qrData );
         // btService = MainActivity.pl;
         bArr = new byte[8];
         bArr[0] = (byte) 29;
@@ -1315,16 +1345,16 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         bArr[5] = (byte) 49;
         bArr[6] = (byte) 81;
         bArr[7] = (byte) 48;
-        btpObject.sendMessage(bArr);
+        btpObject.sendMessage ( bArr );
     }
 
     private Bitmap textToImage(String text, int width, int height) throws WriterException, NullPointerException {
         BitMatrix bitMatrix;
         Bitmap bitmap = null;
         try {
-            bitMatrix = new MultiFormatWriter().encode(text, BarcodeFormat.DATA_MATRIX.QR_CODE, width, height, null);
-            int bitMatrixWidth = bitMatrix.getWidth();
-            int bitMatrixHeight = bitMatrix.getHeight();
+            bitMatrix = new MultiFormatWriter ( ).encode ( text, BarcodeFormat.DATA_MATRIX.QR_CODE, width, height, null );
+            int bitMatrixWidth = bitMatrix.getWidth ( );
+            int bitMatrixHeight = bitMatrix.getHeight ( );
             int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
 
             int colorWhite = 0xFFFFFFFF;
@@ -1333,16 +1363,15 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             for (int y = 0; y < bitMatrixHeight; y++) {
                 int offset = y * bitMatrixWidth;
                 for (int x = 0; x < bitMatrixWidth; x++) {
-                    pixels[offset + x] = bitMatrix.get(x, y) ? colorBlack : colorWhite;
+                    pixels[offset + x] = bitMatrix.get ( x, y ) ? colorBlack : colorWhite;
                 }
             }
-            bitmap = Bitmap.createBitmap(bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444);
-            bitmap.setPixels(pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight);
+            bitmap = Bitmap.createBitmap ( bitMatrixWidth, bitMatrixHeight, Bitmap.Config.ARGB_4444 );
+            bitmap.setPixels ( pixels, 0, width, 0, 0, bitMatrixWidth, bitMatrixHeight );
 
             return bitmap;
-        }catch (Exception ex)
-        {
-            Toast.makeText(getApplicationContext(),ex.getMessage(),Toast.LENGTH_LONG).show();
+        } catch (Exception ex) {
+            Toast.makeText ( getApplicationContext ( ), ex.getMessage ( ), Toast.LENGTH_LONG ).show ( );
         }
         return bitmap;
     }
@@ -1632,39 +1661,39 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //            }
 //        }
 //    }
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String item = adapterView.getItemAtPosition(i).toString();
-        Toast.makeText(MainActivity.this, item + "asfdasdasd", Toast.LENGTH_LONG).show();
-        checkBTP_Permissions();
+    public void onItemSelected(AdapterView <?> adapterView, View view, int i, long l) {
+        String item = adapterView.getItemAtPosition ( i ).toString ( );
+        Toast.makeText ( MainActivity.this, item + "asfdasdasd", Toast.LENGTH_LONG ).show ( );
+        checkBTP_Permissions ( );
 
-        if (item.contains("Click to connect BTP")) {
+        if (item.contains ( "Click to connect BTP" )) {
         } else {
-            setLogText("===> Start client connection on device : " + item);
+            setLogText ( "===> Start client connection on device : " + item );
             try {
-                Thread.sleep(2000);
+                Thread.sleep ( 2000 );
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace ( );
             }
-            btpObject.createClient(item);
+            btpObject.createClient ( item );
             try {
-                Thread.sleep(3000);
+                Thread.sleep ( 3000 );
 //                String testString[] = test.split("\n");
-                if (test.length()>100) {
-                    printPhoto();
-                    btpObject.sendMessage(test);
-                    if(printerName.equalsIgnoreCase("SP120E")) {
-                        String strl = (GSBilling.getInstance().ConsumerNO + "," + GSBilling.getInstance().MeterNo + ","+ Structcolmas.AMOUNT + "," + GSBilling.getInstance().RecieptNo );
-                        Bitmap btt=textToImage(strl, 500, 500);
-                        byte[] command = Utils.decodeBitmap(Bitmap.createScaledBitmap(btt, 200, 200, false));
-                        btpObject.sendMessage(PrinterCommands.ESC_ALIGN_CENTER);
-                        btpObject.sendMessage(command);
-                        btpObject.sendMessage("\n");
+                if (test.length ( ) > 100) {
+                    printPhoto ( );
+                    btpObject.sendMessage ( test );
+                    if (printerName.equalsIgnoreCase ( "SP120E" )) {
+                        String strl = (GSBilling.getInstance ( ).ConsumerNO + "," + GSBilling.getInstance ( ).MeterNo + "," + Structcolmas.AMOUNT + "," + GSBilling.getInstance ( ).RecieptNo);
+                        Bitmap btt = textToImage ( strl, 500, 500 );
+                        byte[] command = Utils.decodeBitmap ( Bitmap.createScaledBitmap ( btt, 200, 200, false ) );
+                        btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_CENTER );
+                        btpObject.sendMessage ( command );
+                        btpObject.sendMessage ( "\n" );
                         //   btpObject.sendMessage("\n ");
                         //  printQrcode();
-                    }else{
-                        printQrcodeSP();
+                    } else {
+                        printQrcodeSP ( );
                     }
-//                    btpObject.sendMessage(test2);
+                    btpObject.sendMessage(test2);
                 }
 //                for (int j = 0; j < testString.length; j++) {
 //                    btpObject.sendMessage(testString[j]);
@@ -1672,31 +1701,32 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //                 //   btpObject.varblankdotlinespace(singleVarLinefeed);
 //                }
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep ( 2000 );
                 } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }if(printerName.equalsIgnoreCase("SP120E")){
+                    e.printStackTrace ( );
+                }
+                if (printerName.equalsIgnoreCase ( "SP120E" )) {
 
-                }else {
-                    btpObject.closeConnection();
+                } else {
+                    btpObject.closeConnection ( );
                 }
 //                btpObject.closeConnection();
-                new MainActivity.PrintProcess().execute();
+                new MainActivity.PrintProcess ( ).execute ( );
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                e.printStackTrace ( );
             } catch (WriterException e) {
-                e.printStackTrace();
+                e.printStackTrace ( );
             }
         }
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
+    public void onNothingSelected(AdapterView <?> adapterView) {
 
     }
 
     /*--------------------- Billing Masters Download Initiation ----------------------------------*/
-    private class PrintProcess extends AsyncTask<String, Void, String> {
+    private class PrintProcess extends AsyncTask <String, Void, String> {
         /* displays the progress dialog until background task is completed*/
         private SimpleDateFormat simpleDateFormat;
 
@@ -1712,36 +1742,36 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
         @Override
         protected void onPostExecute(String result) {
-            sDialog = new SweetAlertDialog(MainActivity.this, SweetAlertDialog.SUCCESS_TYPE);
-            sDialog.setTitleText("Bluetooth Printer");
-            sDialog.setContentText("Successfully Printed");
-            sDialog.show();
-            sDialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+            sDialog = new SweetAlertDialog ( MainActivity.this, SweetAlertDialog.SUCCESS_TYPE );
+            sDialog.setTitleText ( "Bluetooth Printer" );
+            sDialog.setContentText ( "Successfully Printed" );
+            sDialog.show ( );
+            sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
                 @Override
                 public void onClick(SweetAlertDialog sDialog) {
-                    sDialog.dismissWithAnimation();
+                    sDialog.dismissWithAnimation ( );
 
-                    UtilAppCommon ucom = new UtilAppCommon();
-                    ucom.nullyfimodelCon();
-                    ucom.nullyfimodelBill();
+                    UtilAppCommon ucom = new UtilAppCommon ( );
+                    ucom.nullyfimodelCon ( );
+                    ucom.nullyfimodelBill ( );
 
-                    if (isMobileDataEnabled()) {
+                    if (isMobileDataEnabled ( )) {
 
-                        new TextFileClass(MainActivity.this).execute();
+                        new TextFileClass ( MainActivity.this ).execute ( );
 
                     } else {
 
-                        Toast.makeText(MainActivity.this, "Internally stored due to no connectivity", Toast.LENGTH_SHORT).show();
+                        Toast.makeText ( MainActivity.this, "Internally stored due to no connectivity", Toast.LENGTH_SHORT ).show ( );
 
-                        Intent intent = new Intent(MainActivity.this, BillingtypesActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        intent.putExtra("printtype", print_type);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.anim_slide_in_left,
-                                R.anim.anim_slide_out_left);
+                        Intent intent = new Intent ( MainActivity.this, BillingtypesActivity.class );
+                        intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                        intent.putExtra ( "printtype", print_type );
+                        startActivity ( intent );
+                        overridePendingTransition ( R.anim.anim_slide_in_left,
+                                R.anim.anim_slide_out_left );
                     }
                 }
-            });
+            } );
 
 
 //            sDialog.dismiss();
@@ -1756,7 +1786,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
     }
 
-    private class TextFileClass extends AsyncTask<String, Void, Void> {
+    private class TextFileClass extends AsyncTask <String, Void, Void> {
 
         private final Context context;
 
@@ -1768,168 +1798,168 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
 
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Please Wait..");
-            progress.show();
+            progress = new ProgressDialog ( this.context );
+            progress.setMessage ( "Please Wait.." );
+            progress.show ( );
         }
 
         @Override
         protected Void doInBackground(String... params) {
             try {
 
-                dbHelper2 = new DB(getApplicationContext());
-                SD2 = dbHelper2.getWritableDatabase();
+                dbHelper2 = new DB ( getApplicationContext ( ) );
+                SD2 = dbHelper2.getWritableDatabase ( );
 
                 String selquer = "SELECT * FROM TBL_BILLING WHERE Upload_Flag='N' ";//WHERE Upload_Flag='N'
-                Cursor curBillselect = SD2.rawQuery(selquer, null);
+                Cursor curBillselect = SD2.rawQuery ( selquer, null );
                 String arrStr[] = null;
-                ArrayList<String> mylist = new ArrayList<String>();
-                ArrayList<String> mylist1 = new ArrayList<String>();
+                ArrayList <String> mylist = new ArrayList <String> ( );
+                ArrayList <String> mylist1 = new ArrayList <String> ( );
 
 
-                if (curBillselect != null && curBillselect.moveToFirst()) {
+                if (curBillselect != null && curBillselect.moveToFirst ( )) {
                     int i = 0;
 
-                    Log.e(getApplicationContext(), "SLPrintAct", "UpdateFLag to N : " + curBillselect.getString(0));
+                    Log.e ( getApplicationContext ( ), "SLPrintAct", "UpdateFLag to N : " + curBillselect.getString ( 0 ) );
 
-                    while (curBillselect.isAfterLast() == false) {
-                        Calendar c = Calendar.getInstance();
-                        System.out.println("Current time => " + c.getTime());
+                    while (curBillselect.isAfterLast ( ) == false) {
+                        Calendar c = Calendar.getInstance ( );
+                        System.out.println ( "Current time => " + c.getTime ( ) );
                         i = i + 1;
-                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yy");
-                        String formattedDate = df.format(c.getTime());
-                        String column_24 = String.valueOf(Double.valueOf(curBillselect.getString(24)) + Double.valueOf(curBillselect.getString(31)));
+                        SimpleDateFormat df = new SimpleDateFormat ( "dd-MMM-yy" );
+                        String formattedDate = df.format ( c.getTime ( ) );
+                        String column_24 = String.valueOf ( Double.valueOf ( curBillselect.getString ( 24 ) ) + Double.valueOf ( curBillselect.getString ( 31 ) ) );
 
 
-                        mylist.add(curBillselect.getString(0) + "}" + curBillselect.getString(1) + "}" + curBillselect.getString(2) + "}" +
-                                curBillselect.getString(3) + "}" + curBillselect.getString(4) + "}" + curBillselect.getString(5) + "}" +
-                                curBillselect.getString(6) + "}" + curBillselect.getString(7) + "}" + curBillselect.getString(8) + "}" +
-                                curBillselect.getString(9) + "}" + curBillselect.getString(10) + "}" + curBillselect.getString(11) + "}" +
-                                curBillselect.getString(12) + "}" + curBillselect.getString(13) + "}" + curBillselect.getString(14) + "}" +
-                                curBillselect.getString(15) + "}" + curBillselect.getString(16) + "}" + curBillselect.getString(17) + "}" +
-                                curBillselect.getString(18) + "}" + curBillselect.getString(19) + "}" + curBillselect.getString(20) + "}" +
-                                curBillselect.getString(21) + "}" + curBillselect.getString(22) + "}" + curBillselect.getString(23) + "}" +
-                                curBillselect.getString(24) + "}" + curBillselect.getString(25) + "}" + curBillselect.getString(26) + "}" +
-                                curBillselect.getString(27) + "}" + curBillselect.getString(28) + "}" + curBillselect.getString(29) + "}" +
-                                curBillselect.getString(30) + "}" + curBillselect.getString(31) + "}" + curBillselect.getString(32) + "}" +
-                                curBillselect.getString(33) + "}" + curBillselect.getString(34) + "}" + curBillselect.getString(35) + "}" +
-                                curBillselect.getString(36) + "}" + curBillselect.getString(37) + "}" + curBillselect.getString(38) + "}" +
-                                curBillselect.getString(39) + "}" + curBillselect.getString(40) + "}" + curBillselect.getString(41) + "}" +
-                                curBillselect.getString(42) + "}" + curBillselect.getString(43) + "}" + curBillselect.getString(44) + "}" +
-                                curBillselect.getString(45) + "}" + curBillselect.getString(46) + "}" + curBillselect.getString(47) + "}" +
-                                curBillselect.getString(48) + "}" + curBillselect.getString(49) + "}" + curBillselect.getString(50) + "}" +
-                                curBillselect.getString(51) + "}" + curBillselect.getString(52) + "}" + curBillselect.getString(53) + "}" +
-                                curBillselect.getString(54) + "}" + curBillselect.getString(55) + "}" + curBillselect.getString(56) + "}" +
-                                curBillselect.getString(57) + "}" + curBillselect.getString(58) + "}" + curBillselect.getString(59) + "}" +
-                                curBillselect.getString(60) + "}" + curBillselect.getString(61) + "}" + curBillselect.getString(62) + "}" +
-                                curBillselect.getString(63) + "}" + curBillselect.getString(64) + "}" + curBillselect.getString(65) + "}" +
-                                curBillselect.getString(66) + "}" + curBillselect.getString(67) + "}" + curBillselect.getString(68) + "}" +
-                                curBillselect.getString(69) + "}" + curBillselect.getString(70) + "}" + curBillselect.getString(71) + "}" +
-                                curBillselect.getString(72) + "}" + curBillselect.getString(73) + "}" + curBillselect.getString(74) + "}" +
-                                curBillselect.getString(75) + "}" + curBillselect.getString(76) + "}" + curBillselect.getString(77) + "}" +
-                                curBillselect.getString(78) + "}" + curBillselect.getString(79) + "}" + curBillselect.getString(80) + "}" +
-                                curBillselect.getString(81) + "}" + curBillselect.getString(82) + "}" + curBillselect.getString(83) + "}" +
-                                curBillselect.getString(84) + "}" + curBillselect.getString(85) + "}" + curBillselect.getString(86) + "}" +
-                                curBillselect.getString(87) + "}" + curBillselect.getString(88) + "}" + curBillselect.getString(89) + "}" +
-                                curBillselect.getString(90) + "}" + curBillselect.getString(91) + "}" + curBillselect.getString(92) + "}" +
-                                curBillselect.getString(93) + "}" + curBillselect.getString(94) + "}" + curBillselect.getString(95) + "}" +
-                                curBillselect.getString(96) + "}" + curBillselect.getString(97) + "}" + curBillselect.getString(98) + "}" +
-                                curBillselect.getString(99) + "}" + curBillselect.getString(100) + "}" + curBillselect.getString(101) + "}" +
-                                curBillselect.getString(102) + "}" + curBillselect.getString(103) + "}" + curBillselect.getString(104) + "}" +
-                                curBillselect.getString(105) + "}" + curBillselect.getString(106) + "}" + curBillselect.getString(107) + "}" +
-                                curBillselect.getString(108) + "}" + curBillselect.getString(109) + "}" + curBillselect.getString(110) + "}" +
-                                curBillselect.getString(111) + "}" + curBillselect.getString(112) + "}" + curBillselect.getString(113) + "}" +
-                                curBillselect.getString(114) + "}" + curBillselect.getString(115) + "}" + curBillselect.getString(116) + "}" +
-                                curBillselect.getString(117) + "}" + curBillselect.getString(118) + "}" + curBillselect.getString(119) + "}" +
-                                curBillselect.getString(120) + "}" + curBillselect.getString(121) + "}" + curBillselect.getString(122) + "}" +
-                                curBillselect.getString(123) + "}" + curBillselect.getString(124) + "}" + curBillselect.getString(125) + "}" +
-                                curBillselect.getString(126) + "}" + curBillselect.getString(127) + "}" + curBillselect.getString(128) + "}" +
-                                curBillselect.getString(129) + "}" + curBillselect.getString(130) + "}" + curBillselect.getString(131) + "}" +
-                                curBillselect.getString(132) + "}" + curBillselect.getString(133) + "}" + curBillselect.getString(134) + "}" +
-                                curBillselect.getString(135) + "}" + curBillselect.getString(136) + "}" + curBillselect.getString(137) + "}" +
-                                curBillselect.getString(138) + "}" + curBillselect.getString(139) + "}" + curBillselect.getString(140) + "}" +
-                                curBillselect.getString(141) + "}" + curBillselect.getString(142) + "}" + curBillselect.getString(143) + "}" +
-                                curBillselect.getString(144) + "}" + curBillselect.getString(145) + "}" + curBillselect.getString(146) + "}" +
-                                curBillselect.getString(147) + "}" + curBillselect.getString(148) + "}" + curBillselect.getString(149) + "}" +
-                                curBillselect.getString(150) + "}" + curBillselect.getString(151) + "}" + curBillselect.getString(152) + "}" +
-                                curBillselect.getString(153) + "}" + curBillselect.getString(154) + "}" + curBillselect.getString(155) + "}" +
-                                curBillselect.getString(156) + "}" + curBillselect.getString(157) + "}" + curBillselect.getString(158) + "}" +
-                                curBillselect.getString(159) + "}" + curBillselect.getString(160) + "}" + curBillselect.getString(161) + "}" +
-                                curBillselect.getString(162) + "}" + curBillselect.getString(163) + "}" + curBillselect.getString(164) + "}" +
-                                curBillselect.getString(165) + "}" + curBillselect.getString(166) + "}" + curBillselect.getString(167) + "}" +
-                                curBillselect.getString(168) + "}" + curBillselect.getString(169) + "}" + curBillselect.getString(170) + "}" +
-                                curBillselect.getString(171) + "}" + curBillselect.getString(172) + "}" + curBillselect.getString(173) + "}" +
-                                curBillselect.getString(174) + "}" + curBillselect.getString(175) + "}" + curBillselect.getString(176) + "}" +
-                                curBillselect.getString(177) + "}" + curBillselect.getString(178) + "}" + curBillselect.getString(179) + "}" +
-                                curBillselect.getString(180) + "}" + curBillselect.getString(181) + "}" + curBillselect.getString(182) + "}" +
-                                curBillselect.getString(183) + "}" + curBillselect.getString(184) + "}" + curBillselect.getString(185) + "}" +
-                                curBillselect.getString(186) + "}" + curBillselect.getString(187) + "}" + curBillselect.getString(188) + "}" +
-                                curBillselect.getString(189) + "}" + curBillselect.getString(190) + "}" + curBillselect.getString(191) + "}" +
-                                curBillselect.getString(192) + "}" + curBillselect.getString(193) + "}" + curBillselect.getString(194) + "}" +
-                                curBillselect.getString(195) + "}" + curBillselect.getString(196) + "}" + curBillselect.getString(197) + "}" +
-                                curBillselect.getString(198) + "}" + curBillselect.getString(199) + "}" + curBillselect.getString(200) + "}" +
-                                curBillselect.getString(201) + "}" + curBillselect.getString(202) + "}" + curBillselect.getString(203) + "}" +
-                                curBillselect.getString(204) + "}" + curBillselect.getString(205) + "}" + curBillselect.getString(206) + "}" +
-                                curBillselect.getString(207) + "}" + curBillselect.getString(208) + "}" + curBillselect.getString(209) + "}" +
-                                curBillselect.getString(210) + "}" + curBillselect.getString(211)+ "}" + curBillselect.getString(212)+ "}" +
-                                curBillselect.getString(213)+ "}" + curBillselect.getString(214)+ "}" + curBillselect.getString(215)+ "}"+
-                                curBillselect.getString(216));
+                        mylist.add ( curBillselect.getString ( 0 ) + "}" + curBillselect.getString ( 1 ) + "}" + curBillselect.getString ( 2 ) + "}" +
+                                curBillselect.getString ( 3 ) + "}" + curBillselect.getString ( 4 ) + "}" + curBillselect.getString ( 5 ) + "}" +
+                                curBillselect.getString ( 6 ) + "}" + curBillselect.getString ( 7 ) + "}" + curBillselect.getString ( 8 ) + "}" +
+                                curBillselect.getString ( 9 ) + "}" + curBillselect.getString ( 10 ) + "}" + curBillselect.getString ( 11 ) + "}" +
+                                curBillselect.getString ( 12 ) + "}" + curBillselect.getString ( 13 ) + "}" + curBillselect.getString ( 14 ) + "}" +
+                                curBillselect.getString ( 15 ) + "}" + curBillselect.getString ( 16 ) + "}" + curBillselect.getString ( 17 ) + "}" +
+                                curBillselect.getString ( 18 ) + "}" + curBillselect.getString ( 19 ) + "}" + curBillselect.getString ( 20 ) + "}" +
+                                curBillselect.getString ( 21 ) + "}" + curBillselect.getString ( 22 ) + "}" + curBillselect.getString ( 23 ) + "}" +
+                                curBillselect.getString ( 24 ) + "}" + curBillselect.getString ( 25 ) + "}" + curBillselect.getString ( 26 ) + "}" +
+                                curBillselect.getString ( 27 ) + "}" + curBillselect.getString ( 28 ) + "}" + curBillselect.getString ( 29 ) + "}" +
+                                curBillselect.getString ( 30 ) + "}" + curBillselect.getString ( 31 ) + "}" + curBillselect.getString ( 32 ) + "}" +
+                                curBillselect.getString ( 33 ) + "}" + curBillselect.getString ( 34 ) + "}" + curBillselect.getString ( 35 ) + "}" +
+                                curBillselect.getString ( 36 ) + "}" + curBillselect.getString ( 37 ) + "}" + curBillselect.getString ( 38 ) + "}" +
+                                curBillselect.getString ( 39 ) + "}" + curBillselect.getString ( 40 ) + "}" + curBillselect.getString ( 41 ) + "}" +
+                                curBillselect.getString ( 42 ) + "}" + curBillselect.getString ( 43 ) + "}" + curBillselect.getString ( 44 ) + "}" +
+                                curBillselect.getString ( 45 ) + "}" + curBillselect.getString ( 46 ) + "}" + curBillselect.getString ( 47 ) + "}" +
+                                curBillselect.getString ( 48 ) + "}" + curBillselect.getString ( 49 ) + "}" + curBillselect.getString ( 50 ) + "}" +
+                                curBillselect.getString ( 51 ) + "}" + curBillselect.getString ( 52 ) + "}" + curBillselect.getString ( 53 ) + "}" +
+                                curBillselect.getString ( 54 ) + "}" + curBillselect.getString ( 55 ) + "}" + curBillselect.getString ( 56 ) + "}" +
+                                curBillselect.getString ( 57 ) + "}" + curBillselect.getString ( 58 ) + "}" + curBillselect.getString ( 59 ) + "}" +
+                                curBillselect.getString ( 60 ) + "}" + curBillselect.getString ( 61 ) + "}" + curBillselect.getString ( 62 ) + "}" +
+                                curBillselect.getString ( 63 ) + "}" + curBillselect.getString ( 64 ) + "}" + curBillselect.getString ( 65 ) + "}" +
+                                curBillselect.getString ( 66 ) + "}" + curBillselect.getString ( 67 ) + "}" + curBillselect.getString ( 68 ) + "}" +
+                                curBillselect.getString ( 69 ) + "}" + curBillselect.getString ( 70 ) + "}" + curBillselect.getString ( 71 ) + "}" +
+                                curBillselect.getString ( 72 ) + "}" + curBillselect.getString ( 73 ) + "}" + curBillselect.getString ( 74 ) + "}" +
+                                curBillselect.getString ( 75 ) + "}" + curBillselect.getString ( 76 ) + "}" + curBillselect.getString ( 77 ) + "}" +
+                                curBillselect.getString ( 78 ) + "}" + curBillselect.getString ( 79 ) + "}" + curBillselect.getString ( 80 ) + "}" +
+                                curBillselect.getString ( 81 ) + "}" + curBillselect.getString ( 82 ) + "}" + curBillselect.getString ( 83 ) + "}" +
+                                curBillselect.getString ( 84 ) + "}" + curBillselect.getString ( 85 ) + "}" + curBillselect.getString ( 86 ) + "}" +
+                                curBillselect.getString ( 87 ) + "}" + curBillselect.getString ( 88 ) + "}" + curBillselect.getString ( 89 ) + "}" +
+                                curBillselect.getString ( 90 ) + "}" + curBillselect.getString ( 91 ) + "}" + curBillselect.getString ( 92 ) + "}" +
+                                curBillselect.getString ( 93 ) + "}" + curBillselect.getString ( 94 ) + "}" + curBillselect.getString ( 95 ) + "}" +
+                                curBillselect.getString ( 96 ) + "}" + curBillselect.getString ( 97 ) + "}" + curBillselect.getString ( 98 ) + "}" +
+                                curBillselect.getString ( 99 ) + "}" + curBillselect.getString ( 100 ) + "}" + curBillselect.getString ( 101 ) + "}" +
+                                curBillselect.getString ( 102 ) + "}" + curBillselect.getString ( 103 ) + "}" + curBillselect.getString ( 104 ) + "}" +
+                                curBillselect.getString ( 105 ) + "}" + curBillselect.getString ( 106 ) + "}" + curBillselect.getString ( 107 ) + "}" +
+                                curBillselect.getString ( 108 ) + "}" + curBillselect.getString ( 109 ) + "}" + curBillselect.getString ( 110 ) + "}" +
+                                curBillselect.getString ( 111 ) + "}" + curBillselect.getString ( 112 ) + "}" + curBillselect.getString ( 113 ) + "}" +
+                                curBillselect.getString ( 114 ) + "}" + curBillselect.getString ( 115 ) + "}" + curBillselect.getString ( 116 ) + "}" +
+                                curBillselect.getString ( 117 ) + "}" + curBillselect.getString ( 118 ) + "}" + curBillselect.getString ( 119 ) + "}" +
+                                curBillselect.getString ( 120 ) + "}" + curBillselect.getString ( 121 ) + "}" + curBillselect.getString ( 122 ) + "}" +
+                                curBillselect.getString ( 123 ) + "}" + curBillselect.getString ( 124 ) + "}" + curBillselect.getString ( 125 ) + "}" +
+                                curBillselect.getString ( 126 ) + "}" + curBillselect.getString ( 127 ) + "}" + curBillselect.getString ( 128 ) + "}" +
+                                curBillselect.getString ( 129 ) + "}" + curBillselect.getString ( 130 ) + "}" + curBillselect.getString ( 131 ) + "}" +
+                                curBillselect.getString ( 132 ) + "}" + curBillselect.getString ( 133 ) + "}" + curBillselect.getString ( 134 ) + "}" +
+                                curBillselect.getString ( 135 ) + "}" + curBillselect.getString ( 136 ) + "}" + curBillselect.getString ( 137 ) + "}" +
+                                curBillselect.getString ( 138 ) + "}" + curBillselect.getString ( 139 ) + "}" + curBillselect.getString ( 140 ) + "}" +
+                                curBillselect.getString ( 141 ) + "}" + curBillselect.getString ( 142 ) + "}" + curBillselect.getString ( 143 ) + "}" +
+                                curBillselect.getString ( 144 ) + "}" + curBillselect.getString ( 145 ) + "}" + curBillselect.getString ( 146 ) + "}" +
+                                curBillselect.getString ( 147 ) + "}" + curBillselect.getString ( 148 ) + "}" + curBillselect.getString ( 149 ) + "}" +
+                                curBillselect.getString ( 150 ) + "}" + curBillselect.getString ( 151 ) + "}" + curBillselect.getString ( 152 ) + "}" +
+                                curBillselect.getString ( 153 ) + "}" + curBillselect.getString ( 154 ) + "}" + curBillselect.getString ( 155 ) + "}" +
+                                curBillselect.getString ( 156 ) + "}" + curBillselect.getString ( 157 ) + "}" + curBillselect.getString ( 158 ) + "}" +
+                                curBillselect.getString ( 159 ) + "}" + curBillselect.getString ( 160 ) + "}" + curBillselect.getString ( 161 ) + "}" +
+                                curBillselect.getString ( 162 ) + "}" + curBillselect.getString ( 163 ) + "}" + curBillselect.getString ( 164 ) + "}" +
+                                curBillselect.getString ( 165 ) + "}" + curBillselect.getString ( 166 ) + "}" + curBillselect.getString ( 167 ) + "}" +
+                                curBillselect.getString ( 168 ) + "}" + curBillselect.getString ( 169 ) + "}" + curBillselect.getString ( 170 ) + "}" +
+                                curBillselect.getString ( 171 ) + "}" + curBillselect.getString ( 172 ) + "}" + curBillselect.getString ( 173 ) + "}" +
+                                curBillselect.getString ( 174 ) + "}" + curBillselect.getString ( 175 ) + "}" + curBillselect.getString ( 176 ) + "}" +
+                                curBillselect.getString ( 177 ) + "}" + curBillselect.getString ( 178 ) + "}" + curBillselect.getString ( 179 ) + "}" +
+                                curBillselect.getString ( 180 ) + "}" + curBillselect.getString ( 181 ) + "}" + curBillselect.getString ( 182 ) + "}" +
+                                curBillselect.getString ( 183 ) + "}" + curBillselect.getString ( 184 ) + "}" + curBillselect.getString ( 185 ) + "}" +
+                                curBillselect.getString ( 186 ) + "}" + curBillselect.getString ( 187 ) + "}" + curBillselect.getString ( 188 ) + "}" +
+                                curBillselect.getString ( 189 ) + "}" + curBillselect.getString ( 190 ) + "}" + curBillselect.getString ( 191 ) + "}" +
+                                curBillselect.getString ( 192 ) + "}" + curBillselect.getString ( 193 ) + "}" + curBillselect.getString ( 194 ) + "}" +
+                                curBillselect.getString ( 195 ) + "}" + curBillselect.getString ( 196 ) + "}" + curBillselect.getString ( 197 ) + "}" +
+                                curBillselect.getString ( 198 ) + "}" + curBillselect.getString ( 199 ) + "}" + curBillselect.getString ( 200 ) + "}" +
+                                curBillselect.getString ( 201 ) + "}" + curBillselect.getString ( 202 ) + "}" + curBillselect.getString ( 203 ) + "}" +
+                                curBillselect.getString ( 204 ) + "}" + curBillselect.getString ( 205 ) + "}" + curBillselect.getString ( 206 ) + "}" +
+                                curBillselect.getString ( 207 ) + "}" + curBillselect.getString ( 208 ) + "}" + curBillselect.getString ( 209 ) + "}" +
+                                curBillselect.getString ( 210 ) + "}" + curBillselect.getString ( 211 ) + "}" + curBillselect.getString ( 212 ) + "}" +
+                                curBillselect.getString ( 213 ) + "}" + curBillselect.getString ( 214 ) + "}" + curBillselect.getString ( 215 ) + "}" +
+                                curBillselect.getString ( 216 ) );
 
 
-                        mylist1.add(curBillselect.getString(60) + "$" + curBillselect.getString(0) + "$" + curBillselect.getString(5) + "$" +
-                                curBillselect.getString(61) + "$" + curBillselect.getString(11) + "$" + curBillselect.getString(62) + "$" +
-                                curBillselect.getString(2) + "$" + i + "$" + curBillselect.getString(7) + "$" +
-                                curBillselect.getString(212) + "$" + curBillselect.getString(1) + "$" + formattedDate + "$" +
-                                curBillselect.getString(63) + "$" + curBillselect.getString(8) + "$" + curBillselect.getString(64) + "$" +
-                                curBillselect.getString(65) + "$" + curBillselect.getString(66) + "$" + curBillselect.getString(39) + "$" +
-                                curBillselect.getString(10) + "$" + curBillselect.getString(67) + "$" + curBillselect.getString(68) + "$" +
-                                curBillselect.getString(69) + "$" + curBillselect.getString(70) + "$" + curBillselect.getString(71) + "$" +
-                                curBillselect.getString(182) + "$" + curBillselect.getString(72) + "$" + curBillselect.getString(73) + "$" +
-                                column_24 + "$" + curBillselect.getString(74) + "$" + "0" + "$" + curBillselect.getString(75) + "$" +
-                                curBillselect.getString(76) + "$" + curBillselect.getString(27) + "$" + curBillselect.getString(77) + "$" +
-                                curBillselect.getString(26) + "$" + curBillselect.getString(78) + "$" + curBillselect.getString(79) + "$" +
-                                curBillselect.getString(80) + "$" + curBillselect.getString(81) + "$" + curBillselect.getString(82) + "$" +
-                                curBillselect.getString(201) + "$" + curBillselect.getString(83) + "$" + curBillselect.getString(179) + "$" +
-                                curBillselect.getString(85) + "$" + curBillselect.getString(86) + "$" + curBillselect.getString(169) + "$" +
-                                curBillselect.getString(87) + "$" + curBillselect.getString(88) + "$" + curBillselect.getString(89) + "$" +
-                                curBillselect.getString(90) + "$" + curBillselect.getString(91) + "$" + curBillselect.getString(92) + "$" +
-                                curBillselect.getString(93) + "$" + curBillselect.getString(94) + "$" + curBillselect.getString(95) + "$" +
-                                curBillselect.getString(96) + "$" + curBillselect.getString(97) + "$" + curBillselect.getString(98) + "$" +
-                                curBillselect.getString(99) + "$" + curBillselect.getString(178) + "$0$");
+                        mylist1.add ( curBillselect.getString ( 60 ) + "$" + curBillselect.getString ( 0 ) + "$" + curBillselect.getString ( 5 ) + "$" +
+                                curBillselect.getString ( 61 ) + "$" + curBillselect.getString ( 11 ) + "$" + curBillselect.getString ( 62 ) + "$" +
+                                curBillselect.getString ( 2 ) + "$" + i + "$" + curBillselect.getString ( 7 ) + "$" +
+                                curBillselect.getString ( 212 ) + "$" + curBillselect.getString ( 1 ) + "$" + formattedDate + "$" +
+                                curBillselect.getString ( 63 ) + "$" + curBillselect.getString ( 8 ) + "$" + curBillselect.getString ( 64 ) + "$" +
+                                curBillselect.getString ( 65 ) + "$" + curBillselect.getString ( 66 ) + "$" + curBillselect.getString ( 39 ) + "$" +
+                                curBillselect.getString ( 10 ) + "$" + curBillselect.getString ( 67 ) + "$" + curBillselect.getString ( 68 ) + "$" +
+                                curBillselect.getString ( 69 ) + "$" + curBillselect.getString ( 70 ) + "$" + curBillselect.getString ( 71 ) + "$" +
+                                curBillselect.getString ( 182 ) + "$" + curBillselect.getString ( 72 ) + "$" + curBillselect.getString ( 73 ) + "$" +
+                                column_24 + "$" + curBillselect.getString ( 74 ) + "$" + "0" + "$" + curBillselect.getString ( 75 ) + "$" +
+                                curBillselect.getString ( 76 ) + "$" + curBillselect.getString ( 27 ) + "$" + curBillselect.getString ( 77 ) + "$" +
+                                curBillselect.getString ( 26 ) + "$" + curBillselect.getString ( 78 ) + "$" + curBillselect.getString ( 79 ) + "$" +
+                                curBillselect.getString ( 80 ) + "$" + curBillselect.getString ( 81 ) + "$" + curBillselect.getString ( 82 ) + "$" +
+                                curBillselect.getString ( 201 ) + "$" + curBillselect.getString ( 83 ) + "$" + curBillselect.getString ( 179 ) + "$" +
+                                curBillselect.getString ( 85 ) + "$" + curBillselect.getString ( 86 ) + "$" + curBillselect.getString ( 169 ) + "$" +
+                                curBillselect.getString ( 87 ) + "$" + curBillselect.getString ( 88 ) + "$" + curBillselect.getString ( 89 ) + "$" +
+                                curBillselect.getString ( 90 ) + "$" + curBillselect.getString ( 91 ) + "$" + curBillselect.getString ( 92 ) + "$" +
+                                curBillselect.getString ( 93 ) + "$" + curBillselect.getString ( 94 ) + "$" + curBillselect.getString ( 95 ) + "$" +
+                                curBillselect.getString ( 96 ) + "$" + curBillselect.getString ( 97 ) + "$" + curBillselect.getString ( 98 ) + "$" +
+                                curBillselect.getString ( 99 ) + "$" + curBillselect.getString ( 178 ) + "$0$" );
 
 //                        mylistbck.add(curBillselect.getString(44)+ "|" +curBillselect.getString(50) );
 
-                        moveFile(ZipSourcePath, curBillselect.getString(48), ZipCopyPath);
-                        moveFile(ZipSourcePath, curBillselect.getString(49), ZipCopyPath);
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 48 ), ZipCopyPath );
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 49 ), ZipCopyPath );
 
-                        curBillselect.moveToNext();
+                        curBillselect.moveToNext ( );
                     }
 
-                    generateNoteOnSD(getApplicationContext(), "billing.csv", mylist);
-                    generateNoteOnSD(getApplicationContext(), "billing1.csv", mylist1);
+                    generateNoteOnSD ( getApplicationContext ( ), "billing.csv", mylist );
+                    generateNoteOnSD ( getApplicationContext ( ), "billing1.csv", mylist1 );
 //                    generatebackupNoteOnSD(getApplicationContext(), "mbc_Ob.csv", mylist);
 
                 }
 
-                MainActivity.this.runOnUiThread(new Runnable() {
+                MainActivity.this.runOnUiThread ( new Runnable ( ) {
 
                     @Override
                     public void run() {
-                        progress.dismiss();
-                        new PostClass(MainActivity.this).execute();
+                        progress.dismiss ( );
+                        new PostClass ( MainActivity.this ).execute ( );
                     }
-                });
+                } );
 
 
             } catch (NullPointerException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                e.printStackTrace ( );
             }
             return null;
         }
 
         protected void onPostExecute() {
-            progress.dismiss();
+            progress.dismiss ( );
 //            new PostClass(SDActivity.this).execute();
         }
 
@@ -1942,26 +1972,26 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         try {
 
             //create output directory if it doesn't exist
-            File dir = new File(outputPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            File dir = new File ( outputPath );
+            if (!dir.exists ( )) {
+                dir.mkdirs ( );
             }
 
 
-            in = new FileInputStream(inputPath + inputFile);
-            out = new FileOutputStream(outputPath + inputFile);
+            in = new FileInputStream ( inputPath + inputFile );
+            out = new FileOutputStream ( outputPath + inputFile );
 
             byte[] buffer = new byte[1024];
             int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
+            while ((read = in.read ( buffer )) != -1) {
+                out.write ( buffer, 0, read );
             }
-            in.close();
+            in.close ( );
             in = null;
 
             // write the output file
-            out.flush();
-            out.close();
+            out.flush ( );
+            out.close ( );
             out = null;
 
 ////             delete the original file
@@ -1969,100 +1999,100 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 
     private void deleteFile(String inputPath, String inputFile) {
         try {
             // delete the original file
-            new File(inputPath + inputFile).delete();
+            new File ( inputPath + inputFile ).delete ( );
 
 
         } catch (Exception e) {
-            Log.e(getApplicationContext(), "SLPrintAct", "tag" + e.getMessage());
+            Log.e ( getApplicationContext ( ), "SLPrintAct", "tag" + e.getMessage ( ) );
         }
     }
 
     public void generateLastREC(Context context, String sFileName, ArrayList sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "mrcn/last/");
-            if (!root.exists()) {
-                root.mkdirs();
+            File root = new File ( Environment.getExternalStorageDirectory ( ), "mrcn/last/" );
+            if (!root.exists ( )) {
+                root.mkdirs ( );
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            int length = sBody.size();
+            File gpxfile = new File ( root, sFileName );
+            FileWriter writer = new FileWriter ( gpxfile );
+            int length = sBody.size ( );
             for (int i = 0; i < length; i++) {
 //                System.out.println("selqwer1234 " + sBody.get(i));
 
-                writer.append(sBody.get(i).toString());
-                writer.append("\n");
+                writer.append ( sBody.get ( i ).toString ( ) );
+                writer.append ( "\n" );
             }
 
-            writer.flush();
-            writer.close();
-            System.out.println("success file");
+            writer.flush ( );
+            writer.close ( );
+            System.out.println ( "success file" );
 
 //                Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 
     public void generateNoteOnSD(Context context, String sFileName, ArrayList sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "MBC/Downloadsingular/");
-            if (!root.exists()) {
-                root.mkdirs();
+            File root = new File ( Environment.getExternalStorageDirectory ( ), "MBC/Downloadsingular/" );
+            if (!root.exists ( )) {
+                root.mkdirs ( );
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            int length = sBody.size();
+            File gpxfile = new File ( root, sFileName );
+            FileWriter writer = new FileWriter ( gpxfile );
+            int length = sBody.size ( );
             for (int i = 0; i < length; i++) {
-                System.out.println("selqwer1234 " + sBody.get(i));
+                System.out.println ( "selqwer1234 " + sBody.get ( i ) );
 
-                writer.append(sBody.get(i).toString());
-                writer.append("\n");
+                writer.append ( sBody.get ( i ).toString ( ) );
+                writer.append ( "\n" );
             }
 
-            writer.flush();
-            writer.close();
+            writer.flush ( );
+            writer.close ( );
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 
     public void generatebackupNoteOnSD(Context context, String sFileName, ArrayList sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "MBC/");
-            if (!root.exists()) {
-                root.mkdirs();
+            File root = new File ( Environment.getExternalStorageDirectory ( ), "MBC/" );
+            if (!root.exists ( )) {
+                root.mkdirs ( );
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            int length = sBody.size();
+            File gpxfile = new File ( root, sFileName );
+            FileWriter writer = new FileWriter ( gpxfile );
+            int length = sBody.size ( );
             for (int i = 0; i < length; i++) {
-                System.out.println("selqwer1234 " + sBody.get(i));
-                BufferedWriter writerbuf = new BufferedWriter(new FileWriter(gpxfile, true));
-                writerbuf.write(sBody.get(i).toString());
-                writerbuf.close();
+                System.out.println ( "selqwer1234 " + sBody.get ( i ) );
+                BufferedWriter writerbuf = new BufferedWriter ( new FileWriter ( gpxfile, true ) );
+                writerbuf.write ( sBody.get ( i ).toString ( ) );
+                writerbuf.close ( );
 //                writer.append(sBody.get(i).toString());
 //                writer.append("\n");
             }
 
-            writer.flush();
-            writer.close();
+            writer.flush ( );
+            writer.close ( );
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 
-    private class PostClass extends AsyncTask<String, Void, Boolean> {
+    private class PostClass extends AsyncTask <String, Void, Boolean> {
 
         private final Context context;
         public String succsess = null;
@@ -2074,36 +2104,36 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
 
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Sending Data...");
-            progress.show();
+            progress = new ProgressDialog ( this.context );
+            progress.setMessage ( "Sending Data..." );
+            progress.show ( );
 
-            dbHelper3 = new DB(getApplicationContext());
-            SD3 = dbHelper3.getWritableDatabase();
+            dbHelper3 = new DB ( getApplicationContext ( ) );
+            SD3 = dbHelper3.getWritableDatabase ( );
             String frt[] = new String[0];
 
             String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING WHERE Upload_Flag='N'";
-            Cursor curBillImg = SD3.rawQuery(serImgQwer, null);
-            if (curBillImg != null && curBillImg.moveToFirst()) {
+            Cursor curBillImg = SD3.rawQuery ( serImgQwer, null );
+            if (curBillImg != null && curBillImg.moveToFirst ( )) {
 
-                Log.e(getApplicationContext(), "SLPrintAct", "Update Success");
+                Log.e ( getApplicationContext ( ), "SLPrintAct", "Update Success" );
 
 
-                mylistimagename.add(curBillImg.getString(0));
-                mylistimagename.add(curBillImg.getString(1));
-                Log.e(getApplicationContext(), "SLPrintAct", "mtr_img" + curBillImg.getString(0) + "sig_img" + curBillImg.getString(1));
+                mylistimagename.add ( curBillImg.getString ( 0 ) );
+                mylistimagename.add ( curBillImg.getString ( 1 ) );
+                Log.e ( getApplicationContext ( ), "SLPrintAct", "mtr_img" + curBillImg.getString ( 0 ) + "sig_img" + curBillImg.getString ( 1 ) );
             }
 
-            ArrayList<String> stringArrayList = new ArrayList<String>();
-            for (int j = 0; j < mylistimagename.size(); j++) {
+            ArrayList <String> stringArrayList = new ArrayList <String> ( );
+            for (int j = 0; j < mylistimagename.size ( ); j++) {
 
-                stringArrayList.add(Environment.getExternalStorageDirectory() + "/MBC/" + mylistimagename.get(j)); //add to arraylist
+                stringArrayList.add ( Environment.getExternalStorageDirectory ( ) + "/MBC/" + mylistimagename.get ( j ) ); //add to arraylist
             }
-            String[] files = stringArrayList.toArray(new String[stringArrayList.size()]);
+            String[] files = stringArrayList.toArray ( new String[stringArrayList.size ( )] );
             String[] file = {Zip, signaturePathDes, photoPathDes};
 
-            zipFolder(ZipCopyPath, ZipDesPath);
-            GSBilling.getInstance().setFinalZipName(ZipDesPathdup);
+            zipFolder ( ZipCopyPath, ZipDesPath );
+            GSBilling.getInstance ( ).setFinalZipName ( ZipDesPathdup );
 
         }
 
@@ -2112,65 +2142,65 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             try {
                 // Set your file path here
 //                System.out.println("FILENAME IS1 "+GSBilling.getInstance().getFinalZipName());
-                FileInputStream fstrm = new FileInputStream(Environment.getExternalStorageDirectory().toString() + GSBilling.getInstance().getFinalZipName() + ".zip");
-                Log.e(getApplicationContext(), "SLPrintAct", "FILENAME IS12 " + fstrm);
+                FileInputStream fstrm = new FileInputStream ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
+                Log.e ( getApplicationContext ( ), "SLPrintAct", "FILENAME IS12 " + fstrm );
 
                 // Set your server page url (and the file title/description)
 
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi_Testing/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
-                HttpFileUpload hfu = new HttpFileUpload(URLS.DataComm.billUpload, "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+                HttpFileUpload hfu = new HttpFileUpload ( URLS.DataComm.billUpload, "" + GSBilling.getInstance ( ).getFinalZipName ( ), ".zip" );
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 
                 // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
-                Log.e(getApplicationContext(), "SLPrintAct", "going out " + GSBilling.getInstance().getFinalZipName() + ".zip");
-                int status = hfu.Send_Now(fstrm);
+                Log.e ( getApplicationContext ( ), "SLPrintAct", "going out " + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
+                int status = hfu.Send_Now ( fstrm );
                 if (status != 200) {
 //                    succsess = "1";
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    MainActivity.this.runOnUiThread ( new Runnable ( ) {
 
                         @Override
                         public void run() {
-                            progress.dismiss();
-                            Toast.makeText(MainActivity.this, "Internaly Stored Due to No Connectivity", Toast.LENGTH_LONG).show();
+                            progress.dismiss ( );
+                            Toast.makeText ( MainActivity.this, "Internaly Stored Due to No Connectivity", Toast.LENGTH_LONG ).show ( );
 
-                            Intent intent = new Intent(MainActivity.this, BillingtypesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra("printtype", print_type);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.anim_slide_in_left,
-                                    R.anim.anim_slide_out_left);
+                            Intent intent = new Intent ( MainActivity.this, BillingtypesActivity.class );
+                            intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                            intent.putExtra ( "printtype", print_type );
+                            startActivity ( intent );
+                            overridePendingTransition ( R.anim.anim_slide_in_left,
+                                    R.anim.anim_slide_out_left );
 
                         }
-                    });
+                    } );
 
                 } else {
 //                    succsess = "0";
-                    dbHelper2 = new DB(getApplicationContext());
-                    SD2 = dbHelper2.getWritableDatabase();
+                    dbHelper2 = new DB ( getApplicationContext ( ) );
+                    SD2 = dbHelper2.getWritableDatabase ( );
 
 //                        String updatequer = "UPDATE  TBL_BILLING  SET Upload_Flag = 'Y' WHERE  Cons_Number = '" + curBillselect.getString(0) + "' and  Bill_Month='" + curBillselect.getString(5) + "'";
                     String updatequer = "UPDATE  TBL_BILLING  SET Upload_Flag = 'Y'";
-                    Cursor curBillupdate = SD2.rawQuery(updatequer, null);
-                    if (curBillupdate != null && curBillupdate.moveToFirst()) {
-                        Log.e(getApplicationContext(), "SLPrintAct", "Update Success");
+                    Cursor curBillupdate = SD2.rawQuery ( updatequer, null );
+                    if (curBillupdate != null && curBillupdate.moveToFirst ( )) {
+                        Log.e ( getApplicationContext ( ), "SLPrintAct", "Update Success" );
                     }
 
-                    MainActivity.this.runOnUiThread(new Runnable() {
+                    MainActivity.this.runOnUiThread ( new Runnable ( ) {
 
                         @Override
                         public void run() {
-                            progress.dismiss();
-                            Toast.makeText(MainActivity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(MainActivity.this, BillingtypesActivity.class);
+                            progress.dismiss ( );
+                            Toast.makeText ( MainActivity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG ).show ( );
+                            Intent intent = new Intent ( MainActivity.this, BillingtypesActivity.class );
                             //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //  intent.putExtra("printtype", print_type);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.anim_slide_in_left,
-                                    R.anim.anim_slide_out_left);
+                            startActivity ( intent );
+                            finish ( );
+                            overridePendingTransition ( R.anim.anim_slide_in_left,
+                                    R.anim.anim_slide_out_left );
 
                         }
-                    });
+                    } );
                 }
 
 //                return true;
@@ -2178,7 +2208,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
             } catch (Exception e) {
                 // Error: File not found
                 succsess = "0";
-                e.printStackTrace();
+                e.printStackTrace ( );
 //                return  false;
             }
 
@@ -2187,109 +2217,109 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         }
 
         protected void onPostExecute() {
-            progress.dismiss();
+            progress.dismiss ( );
 
 
-            new File(Environment.getExternalStorageDirectory().toString() + GSBilling.getInstance().getFinalZipName() + ".zip").delete();
-            Intent intent = new Intent(MainActivity.this, BillingtypesActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            intent.putExtra("printtype", print_type);
-            startActivity(intent);
-            overridePendingTransition(R.anim.anim_slide_in_left,
-                    R.anim.anim_slide_out_left);
+            new File ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" ).delete ( );
+            Intent intent = new Intent ( MainActivity.this, BillingtypesActivity.class );
+            intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+            intent.putExtra ( "printtype", print_type );
+            startActivity ( intent );
+            overridePendingTransition ( R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left );
 
         }
     }
 
     private void dismissProgressDialog() {
-        if (sDialog != null && sDialog.isShowing()) {
-            sDialog.dismiss();
+        if (sDialog != null && sDialog.isShowing ( )) {
+            sDialog.dismiss ( );
         }
     }
 
     @Override
     protected void onDestroy() {
         // TODO Auto-generated method stub
-        dismissProgressDialog();
-        Debug.stopMethodTracing();
-        super.onDestroy();
+        dismissProgressDialog ( );
+        Debug.stopMethodTracing ( );
+        super.onDestroy ( );
     }
 
     void DeleteRecursive(File dir) {
-        Log.e(getApplicationContext(), "SLPrintAct", "DeleteRecursive DELETEPREVIOUS TOP" + dir.getPath());
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
+        Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETEPREVIOUS TOP" + dir.getPath ( ) );
+        if (dir.isDirectory ( )) {
+            String[] children = dir.list ( );
             for (int i = 0; i < children.length; i++) {
-                File temp = new File(dir, children[i]);
-                if (temp.isDirectory()) {
-                    Log.e(getApplicationContext(), "SLPrintAct", "DeleteRecursive Recursive Call" + temp.getPath());
-                    DeleteRecursive(temp);
+                File temp = new File ( dir, children[i] );
+                if (temp.isDirectory ( )) {
+                    Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Recursive Call" + temp.getPath ( ) );
+                    DeleteRecursive ( temp );
                 } else {
-                    Log.e(getApplicationContext(), "SLPrintAct", "DeleteRecursive Delete File" + temp.getPath());
-                    boolean b = temp.delete();
+                    Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Delete File" + temp.getPath ( ) );
+                    boolean b = temp.delete ( );
                     if (b == false) {
-                        Log.e(getApplicationContext(), "SLPrintAct", "DeleteRecursive DELETE FAIL");
+                        Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETE FAIL" );
                     }
                 }
             }
         }
-        dir.delete();
+        dir.delete ( );
     }
 
     public static void zipFolder(String inputFolderPath, String outZipPath) {
         try {
-            FileOutputStream fos = new FileOutputStream(outZipPath);
+            FileOutputStream fos = new FileOutputStream ( outZipPath );
 //            GSBilling.getInstance().setFinalZipName();
-            ZipOutputStream zos = new ZipOutputStream(fos);
-            File srcFile = new File(inputFolderPath);
-            File[] files = srcFile.listFiles();
-            android.util.Log.d("", "Zip directory: " + srcFile.getName());
+            ZipOutputStream zos = new ZipOutputStream ( fos );
+            File srcFile = new File ( inputFolderPath );
+            File[] files = srcFile.listFiles ( );
+            android.util.Log.d ( "", "Zip directory: " + srcFile.getName ( ) );
             for (int i = 0; i < files.length; i++) {
-                android.util.Log.d("", "Adding file: " + files[i].getName());
+                android.util.Log.d ( "", "Adding file: " + files[i].getName ( ) );
                 byte[] buffer = new byte[1024];
-                FileInputStream fis = new FileInputStream(files[i]);
-                zos.putNextEntry(new ZipEntry(files[i].getName()));
+                FileInputStream fis = new FileInputStream ( files[i] );
+                zos.putNextEntry ( new ZipEntry ( files[i].getName ( ) ) );
                 int length;
-                while ((length = fis.read(buffer)) > 0) {
-                    zos.write(buffer, 0, length);
+                while ((length = fis.read ( buffer )) > 0) {
+                    zos.write ( buffer, 0, length );
                 }
-                zos.closeEntry();
-                fis.close();
+                zos.closeEntry ( );
+                fis.close ( );
             }
-            System.out.println("helloooo" + srcFile.delete());
-            zos.close();
+            System.out.println ( "helloooo" + srcFile.delete ( ) );
+            zos.close ( );
         } catch (IOException ioe) {
-            android.util.Log.e("", ioe.getMessage());
+            android.util.Log.e ( "", ioe.getMessage ( ) );
         }
     }
 
     private String getBillMonth(String month) {
 
-        switch (month.substring(4, 6)) {
+        switch (month.substring ( 4, 6 )) {
             case "01":
-                return "Jan-" + month.substring(2, 4);
+                return "Jan-" + month.substring ( 2, 4 );
             case "02":
-                return "Feb-" + month.substring(2, 4);
+                return "Feb-" + month.substring ( 2, 4 );
             case "03":
-                return "Mar-" + month.substring(2, 4);
+                return "Mar-" + month.substring ( 2, 4 );
             case "04":
-                return "Apr-" + month.substring(2, 4);
+                return "Apr-" + month.substring ( 2, 4 );
             case "05":
-                return "May-" + month.substring(2, 4);
+                return "May-" + month.substring ( 2, 4 );
             case "06":
-                return "Jun-" + month.substring(2, 4);
+                return "Jun-" + month.substring ( 2, 4 );
             case "07":
-                return "Jul-" + month.substring(2, 4);
+                return "Jul-" + month.substring ( 2, 4 );
             case "08":
-                return "Aug-" + month.substring(2, 4);
+                return "Aug-" + month.substring ( 2, 4 );
             case "09":
-                return "Sep-" + month.substring(2, 4);
+                return "Sep-" + month.substring ( 2, 4 );
             case "10":
-                return "Oct-" + month.substring(2, 4);
+                return "Oct-" + month.substring ( 2, 4 );
             case "11":
-                return "Nov-" + month.substring(2, 4);
+                return "Nov-" + month.substring ( 2, 4 );
             case "12":
-                return "Dec-" + month.substring(2, 4);
+                return "Dec-" + month.substring ( 2, 4 );
         }
         return month;
     }
@@ -2319,24 +2349,24 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     }
 
     public void connect_device() {
-        checkBTP_Permissions();
-        btpObject.startDiscovery();    //getting Bluetooth object
-        checkBTP_Permissions();    // just to check the Permissions
-        btpObject.startDiscovery();
-        btpObject.createClient(Mac);
+        checkBTP_Permissions ( );
+        btpObject.startDiscovery ( );    //getting Bluetooth object
+        checkBTP_Permissions ( );    // just to check the Permissions
+        btpObject.startDiscovery ( );
+        btpObject.createClient ( Mac );
     }
 
     public Boolean isMobileDataEnabled() {
-        Object connectivityService = getSystemService(CONNECTIVITY_SERVICE);
+        Object connectivityService = getSystemService ( CONNECTIVITY_SERVICE );
         ConnectivityManager cm = (ConnectivityManager) connectivityService;
 
         try {
-            Class<?> c = Class.forName(cm.getClass().getName());
-            Method m = c.getDeclaredMethod("getMobileDataEnabled");
-            m.setAccessible(true);
-            return (Boolean) m.invoke(cm);
+            Class <?> c = Class.forName ( cm.getClass ( ).getName ( ) );
+            Method m = c.getDeclaredMethod ( "getMobileDataEnabled" );
+            m.setAccessible ( true );
+            return (Boolean) m.invoke ( cm );
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
             return null;
         }
     }

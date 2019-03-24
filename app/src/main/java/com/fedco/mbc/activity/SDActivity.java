@@ -170,17 +170,17 @@ public class SDActivity extends Activity implements LogoutListaner {
         this.ZipDesColPathdup = "/MBC/" + name + "_col_" + GSBilling.getInstance().captureDatetime();
         this.ZipDesColPath = Environment.getExternalStorageDirectory() + "/MBC/" + name + "_col_" + GSBilling.getInstance().captureDatetime() + ".zip";
 
-        pend = (TextView) findViewById(R.id.tvPend);
-        colPend = (TextView) findViewById(R.id.tvColPend);
-        metPend = (TextView) findViewById(R.id.tvMetPend);
-        csPend = (TextView) findViewById(R.id.tvCSPend);
-        feedPend = (TextView) findViewById(R.id.tvFEEDPend);
-        dtrPend = (TextView) findViewById(R.id.tvDTRPend);
-        polePend = (TextView) findViewById(R.id.tvPOLEPend);
-        repalcePend = (TextView) findViewById(R.id.tvReplacePend);
+        pend = findViewById(R.id.tvPend);
+        colPend = findViewById(R.id.tvColPend);
+        metPend = findViewById(R.id.tvMetPend);
+        csPend = findViewById(R.id.tvCSPend);
+        feedPend = findViewById(R.id.tvFEEDPend);
+        dtrPend = findViewById(R.id.tvDTRPend);
+        polePend = findViewById(R.id.tvPOLEPend);
+        repalcePend = findViewById(R.id.tvReplacePend);
 
-        btnShowProgress = (Button) findViewById(R.id.btnProgressBar);
-        btnNSCMRDownload = (Button) findViewById(R.id.btnNSCMR);
+        btnShowProgress = findViewById(R.id.btnProgressBar);
+        btnNSCMRDownload = findViewById(R.id.btnNSCMR);
         btnNSCMRDownload.setVisibility(View.GONE);
 
         if (keymap.equals("metering")) {
@@ -192,7 +192,7 @@ public class SDActivity extends Activity implements LogoutListaner {
         dbHelper4 = new DB(getApplicationContext());
         SD3 = dbHelper4.getWritableDatabase();
 
-        btnUpload = (Button) findViewById(R.id.btnProgressBarupload);
+        btnUpload = findViewById(R.id.btnProgressBarupload);
         btnUpload.setVisibility(View.GONE);
 
         checkPendingRecord();
@@ -608,6 +608,8 @@ public class SDActivity extends Activity implements LogoutListaner {
 
 
     }/*--------------------- Billing Masters Download Initiation ----------------------------------*/
+
+
     private class LongOperationReplace extends AsyncTask<String, Void, String> {
 
         @Override
@@ -675,11 +677,14 @@ public class SDActivity extends Activity implements LogoutListaner {
 
     }
     /* -------------------- Collection Masters Download Initiation------------------------ */
-    private class LongOperationCol extends AsyncTask<String, Void, String> {
+    public  class LongOperationCol extends AsyncTask<String, Void, String> {
 
         @Override
         protected String doInBackground(String... params) {
-            dbHelper4 = new DB(getApplicationContext());
+
+           // dbHelper4 = new DB(getApplicationContext());
+            dbHelper4 = new DB(SDActivity.this);
+
             SD3 = dbHelper4.getWritableDatabase();
 
             String delPrev = "DELETE FROM TBL_COLLECTION";
@@ -710,7 +715,7 @@ public class SDActivity extends Activity implements LogoutListaner {
         protected void onPostExecute(String result) {
 
             sDialog.dismiss();
-            new DownloadCollectionFileFromURL(name, codeIMEI).execute();
+            new DownloadCollectionFileFromURL(name, codeIMEI,SDActivity.this).execute();
             // might want to change "executed" for the returned string passed
             // into onPostExecute() but that is upto you
         }
@@ -727,6 +732,7 @@ public class SDActivity extends Activity implements LogoutListaner {
 
 
     }
+
 
     /*--------------------- Metering Masters Download Initiation ----------------------------*/
     private class LongOperationCoMetering extends AsyncTask<String, Void, String> {

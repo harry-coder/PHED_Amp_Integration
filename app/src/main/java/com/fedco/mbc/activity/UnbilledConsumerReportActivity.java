@@ -37,6 +37,8 @@ public class UnbilledConsumerReportActivity extends Activity {
     UtilAppCommon uac;
     String ReportFlag="";
 
+    TextView tv_heading;
+    public static int readCustomer, notReadCustomer;
     static final String[] letters = new String[]{
 
             "Customer No","Old Customer No", "Name", "Meter No", "Address", "Book No", "IBC", "BSC"};
@@ -47,6 +49,7 @@ public class UnbilledConsumerReportActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.unbilled_consumer_report);
+
 
         //GridView
         gridView = (GridView) findViewById(R.id.gridView1);
@@ -66,6 +69,7 @@ public class UnbilledConsumerReportActivity extends Activity {
         dbHelper = new DB(getApplicationContext());
         SD = dbHelper.getWritableDatabase();
 
+        tv_heading=findViewById ( R.id.tv_heading );
         // for showing header value
         grid = (GridView) findViewById(R.id.gridView);
         ArrayAdapter adapter1 = new ArrayAdapter(this, R.layout.grid_view_header, letters);
@@ -129,12 +133,48 @@ public class UnbilledConsumerReportActivity extends Activity {
             Cursor cursor_total = SD.rawQuery(total_c, null);
             Toast.makeText(getApplicationContext(), "Total Consumer:" + cursor_total.getCount(), Toast.LENGTH_LONG).show();
             t_count.setText("Total Consumer is: " + cursor_total.getCount());
+
             if (ReportFlag.equals("MDCustomer")) {
+                tv_heading.setText ( "MD Customer List" );
                 ret = "SELECT * FROM TBL_CONSMAST WHERE XMER_RENT='1'";
                 curSearchdata = SD.rawQuery(ret, null);
                 c_count.setText("MD Consumer is: " + curSearchdata.getCount());
             }
+
+
+          //read  taken customer..
+            else if (ReportFlag.equals("MeteredCustomer")) {
+                tv_heading.setText ( "Read Customers" );
+
+               // ret = "SELECT * FROM TBL_CONSMAST WHERE  EN_AUDIT_NO_1104='1'";
+                ret = "SELECT * FROM TBL_BILLING WHERE  Upload_Flag='Y'";
+
+
+
+                curSearchdata = SD.rawQuery(ret, null);
+
+                readCustomer=curSearchdata.getCount();
+                System.out.println ("This is the metered count "+ curSearchdata.getCount());
+                c_count.setText("Metered Customer is: " + curSearchdata.getCount());
+            }
+
+            //read not taken customer..
+            else if (ReportFlag.equals("UNBILLED")) {
+
+                tv_heading.setText ( "Not Read Customers" );
+               // ret = "SELECT * FROM TBL_CONSMAST WHERE  EN_AUDIT_NO_1104='0'";
+
+                ret = "SELECT * FROM TBL_CONSMAST WHERE Consumer_Number NOT IN(SELECT Cons_Number  FROM TBL_BILLING) AND BILLED_FLAG='N'";
+
+                curSearchdata = SD.rawQuery(ret, null);
+                System.out.println ("This is the non metered count "+ curSearchdata.getCount());
+
+                notReadCustomer=curSearchdata.getCount();
+                c_count.setText("UnMetered Customer is: " + curSearchdata.getCount());
+
+            }
             else if (ReportFlag.equals("NONMDCustomer")) {
+                tv_heading.setText ( "NonMD Customer List" );
                 ret = "SELECT * FROM TBL_CONSMAST WHERE  XMER_RENT='0'";
                 curSearchdata = SD.rawQuery(ret, null);
                 c_count.setText("Non MD Consumer is: " + curSearchdata.getCount());
@@ -142,8 +182,10 @@ public class UnbilledConsumerReportActivity extends Activity {
             else {
                 ret = "SELECT * FROM TBL_CONSMAST WHERE Consumer_Number NOT IN(SELECT Cons_Number  FROM TBL_BILLING) AND BILLED_FLAG='N'";
                 curSearchdata = SD.rawQuery(ret, null);
-                c_count.setText("Unbilled Consumer is: " + curSearchdata.getCount());
+                c_count.setText("Unbilled Customer is: " + curSearchdata.getCount());
             }
+
+
             if (curSearchdata != null && curSearchdata.moveToFirst()) {
 
                 do {
@@ -160,6 +202,17 @@ public class UnbilledConsumerReportActivity extends Activity {
 //                    subdivision = curSearchdata.getString(71);
 ////                    section     = cursor_total.getString(10);
 
+
+
+                    System.out.println ("This is cnumber "+cnumber );
+                    System.out.println ("This is section "+section );
+                    System.out.println ("This is name "+name );
+                    System.out.println ("This is meter "+meter );
+                    System.out.println ("This is address "+address );
+                    System.out.println ("This is cycle "+cycle );
+                    System.out.println ("This is route "+route );
+                    System.out.println ("This is division "+division );
+
                     //add in to array list
                     list.add(cnumber);
                     list.add(section);
@@ -169,6 +222,7 @@ public class UnbilledConsumerReportActivity extends Activity {
                     list.add(cycle);
                     list.add(route);
                     list.add(division);
+
 //                    list.add(subdivision);
 //                    list.add("dummy");
                 } while (curSearchdata.moveToNext());

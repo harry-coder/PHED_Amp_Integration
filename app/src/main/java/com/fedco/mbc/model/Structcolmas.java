@@ -63,6 +63,9 @@ public class Structcolmas {
     public static String  TARIFF_RATE ;
     public static String  TARIFF_INDEX ;
     public static String  INCIDENT_TYPE ;
+    public static String  IBC ;
+    public static String  BSC ;
+
 
 
 }

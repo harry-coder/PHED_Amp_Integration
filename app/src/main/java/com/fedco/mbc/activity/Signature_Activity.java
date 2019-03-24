@@ -32,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.fedco.mbc.R;
 import com.fedco.mbc.amigos.MainActivity;
 import com.fedco.mbc.authentication.PrinterSessionManager;
@@ -123,17 +124,17 @@ public class Signature_Activity extends Activity implements LogoutListaner {
         setContentView ( R.layout.signature );
 //----------------------------
         DIRECTORY = Environment.getExternalStorageDirectory ( ).getPath ( ) + "/MBC/Images/";
-        mContent = (LinearLayout) findViewById ( R.id.canvasLayout );
+        mContent = findViewById ( R.id.canvasLayout );
         mSignature = new signature ( getApplicationContext ( ), null );
         mSignature.setBackgroundColor ( Color.WHITE );
         // Dynamically generating Layout through java code
         mContent.addView ( mSignature, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT );
-        mClear = (Button) findViewById ( R.id.clear );
-        mGetSign = (Button) findViewById ( R.id.getsign );
-        mTextView = (TextView) findViewById ( R.id.textView_code );
+        mClear = findViewById ( R.id.clear );
+        mGetSign = findViewById ( R.id.getsign );
+        mTextView = findViewById ( R.id.textView_code );
 
         mGetSign.setEnabled ( true );
-        mCancel = (Button) findViewById ( R.id.cancel );
+        mCancel = findViewById ( R.id.cancel );
         view = mContent;
         appcomUtil = new UtilAppCommon ( );
         mGetSign.setOnClickListener ( onButtonClick );
@@ -142,7 +143,9 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
         ZipDesPath = Environment.getExternalStorageDirectory ( ) + "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( ) + ".zip";
         ZipDesPathdup = "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( );
-//        mTextView.setText("Signature is Compulsory" + "\n" + "Please sign here...");
+
+
+        //        mTextView.setText("Signature is Compulsory" + "\n" + "Please sign here...");
 
 //-----------------------------
 //
@@ -164,7 +167,11 @@ public class Signature_Activity extends Activity implements LogoutListaner {
         LicKey = session.retLicence ( );
 
         Structbilling.SBM_No = LicKey;
-        Structbilling.Meter_Reader_Name = session.retMRName ( );
+
+      //  Structbilling.Meter_Reader_Name = session.retMRName ( );
+
+        Structbilling.Meter_Reader_Name= com.fedco.mbc.activity.MainActivity.MRNME;
+
         Structbilling.Meter_Reader_ID = session.retMRID ( );
 //        Structbilling.Rbt_Date =
 //        Structbilling.Due_Date =
@@ -236,7 +243,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
             // set the custom dialog components - text, image and button
 
-            Button dialogButton = (Button) dialogAccount.findViewById ( R.id.dialogButtonACCOK );
+            Button dialogButton = dialogAccount.findViewById ( R.id.dialogButtonACCOK );
             GSBilling.getInstance ( ).setConsumptionchkhigh ( "  " );
             // if button is clicked, close the custom dialog
             /****DIALOUGE BOX BUTTON INTIALISATION AND EVENT ADDING****/
@@ -273,7 +280,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
                     dialogAccount.dismiss ( );
 //
-                    appCommon.nullyfimodelBill ( );
+                    UtilAppCommon.nullyfimodelBill ( );
                     Intent intent = new Intent ( getApplicationContext ( ), Billing.class );
                     startActivity ( intent );
                     overridePendingTransition ( R.anim.anim_slide_in_left,
@@ -339,7 +346,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                             dbHelper.insertIntoMPBillingTable ( );
                             dbHelper.insertSequence ( "BillNumber", billseq );
 
-                            appCommon.nullyfimodelBill ( );
+                            UtilAppCommon.nullyfimodelBill ( );
                             Toast.makeText ( Signature_Activity.this, "Data Stored", Toast.LENGTH_SHORT ).show ( );
                             Intent intent = new Intent ( getApplicationContext ( ), Billing.class );
                             startActivity ( intent );
@@ -481,6 +488,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                 pic_name = ucom.UniqueCode ( getApplicationContext ( ) ) + "_" + Structconsmas.LOC_CD
                         + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + ucom.billMonthConvert ( Structconsmas.Bill_Mon ) + "_sig";
                 Structbilling.User_Sig_Img = ucom.UniqueCode ( getApplicationContext ( ) ) + "_" + Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + ucom.billMonthConvert ( Structconsmas.Bill_Mon ) + "_sig.jpg";
+
                 StoredPath = DIRECTORY + pic_name + ".jpg";
                 mSignature.save ( view, StoredPath );
                 if (Home.Mflag.equals ( "Y" )) {
@@ -492,6 +500,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                     dbHelper4.insertIntoMPBillingTable ( );
 //                    dbHelper4.insertSequence("BillNumber", billseq);                    new TextFileClass(Signature_Activity.this).execute();
 
+                    new TextFileClass (Signature_Activity.this).execute();
                     Toast.makeText ( getApplicationContext ( ), "Welcome to metering", Toast.LENGTH_SHORT ).show ( );
 
                 } else {
@@ -601,7 +610,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
     private String unitPercentageChk() {
 
         double avg_Units = 0;
-        double unit_calculated = Double.valueOf ( Structbilling.O_BilledUnit_Actual );
+//          double unit_calculated = Double.valueOf ( Structbilling.O_BilledUnit_Actual );
 
 //        long m_noofdays = Structbilling.OLD_dateDuration+Structbilling.NEW_dateDuration;
         long m_noofdays = Structbilling.dateDuration;
@@ -976,6 +985,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                 SD2 = dbHelper2.getWritableDatabase ( );
 
                 String selquer = "SELECT * FROM TBL_BILLING WHERE Upload_Flag='N' ";//WHERE Upload_Flag='N'
+//                String selquer = "SELECT * FROM TBL_BILLING  ";//WHERE Upload_Flag='N'
                 Cursor curBillselect = SD2.rawQuery ( selquer, null );
                 String arrStr[] = null;
                 ArrayList <String> mylist = new ArrayList <String> ( );
@@ -992,6 +1002,11 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                         i = i + 1;
                         SimpleDateFormat df = new SimpleDateFormat ( "dd-MMM-yy" );
                         String formattedDate = df.format ( c.getTime ( ) );
+
+
+                        System.out.println ("This is the String of an image "+curBillselect.getString ( 48) );
+                        System.out.println ("This is the String of an image "+curBillselect.getString ( 49 ) );
+
                         String column_24 = String.valueOf ( Double.valueOf ( curBillselect.getString ( 24 ) ) + Double.valueOf ( curBillselect.getString ( 31 ) ) );
 
 
@@ -1030,7 +1045,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                                 curBillselect.getString ( 96 ) + "}" + curBillselect.getString ( 97 ) + "}" + curBillselect.getString ( 98 ) + "}" +
                                 curBillselect.getString ( 99 ) + "}" + curBillselect.getString ( 100 ) + "}" + curBillselect.getString ( 101 ) + "}" + curBillselect.getString ( 102 ) + "}" + curBillselect.getString ( 103 ) + "}" + curBillselect.getString ( 104 ) + "}" + curBillselect.getString ( 105 ) + "}" + curBillselect.getString ( 106 ) + "}" + curBillselect.getString ( 107 ) + "}" + curBillselect.getString ( 108 ) + "}" + curBillselect.getString ( 109 ) + "}" + curBillselect.getString ( 110 ) + "}" + curBillselect.getString ( 111 ) + "}" + curBillselect.getString ( 112 ) + "}" + curBillselect.getString ( 113 ) + "}" + curBillselect.getString ( 114 ) + "}" + curBillselect.getString ( 115 ) + "}" + curBillselect.getString ( 116 ) + "}" + curBillselect.getString ( 117 ) + "}" + curBillselect.getString ( 118 ) + "}" + curBillselect.getString ( 119 ) + "}" + curBillselect.getString ( 120 ) + "}" + curBillselect.getString ( 121 ) + "}" + curBillselect.getString ( 122 ) + "}" + curBillselect.getString ( 123 ) + "}" + curBillselect.getString ( 124 ) + "}" + curBillselect.getString ( 125 ) + "}" + curBillselect.getString ( 126 ) + "}" + curBillselect.getString ( 127 ) + "}" + curBillselect.getString ( 128 ) + "}" + curBillselect.getString ( 129 ) + "}" + curBillselect.getString ( 130 ) + "}" + curBillselect.getString ( 131 ) + "}" + curBillselect.getString ( 132 ) + "}" + curBillselect.getString ( 133 ) + "}" + curBillselect.getString ( 134 ) + "}" + curBillselect.getString ( 135 ) + "}" + curBillselect.getString ( 136 ) + "}" + curBillselect.getString ( 137 ) + "}" + curBillselect.getString ( 138 ) + "}" + curBillselect.getString ( 139 ) + "}" + curBillselect.getString ( 140 ) + "}" + curBillselect.getString ( 141 ) + "}" + curBillselect.getString ( 142 ) + "}" + curBillselect.getString ( 143 ) + "}" + curBillselect.getString ( 144 ) + "}" + curBillselect.getString ( 145 ) + "}" + curBillselect.getString ( 146 ) + "}" + curBillselect.getString ( 147 ) + "}" + curBillselect.getString ( 148 ) + "}" + curBillselect.getString ( 149 ) + "}" + curBillselect.getString ( 150 ) + "}" + curBillselect.getString ( 151 ) + "}" + curBillselect.getString ( 152 ) + "}" + curBillselect.getString ( 153 ) + "}" + curBillselect.getString ( 154 ) + "}" + curBillselect.getString ( 155 ) + "}" + curBillselect.getString ( 156 ) + "}" + curBillselect.getString ( 157 ) + "}" + curBillselect.getString ( 158 ) + "}" + curBillselect.getString ( 159 ) + "}" + curBillselect.getString ( 160 ) + "}" + curBillselect.getString ( 161 ) + "}" + curBillselect.getString ( 162 ) + "}" + curBillselect.getString ( 163 ) + "}" + curBillselect.getString ( 164 ) + "}" + curBillselect.getString ( 165 ) + "}" + curBillselect.getString ( 166 ) + "}" + curBillselect.getString ( 167 ) + "}" + curBillselect.getString ( 168 ) + "}" + curBillselect.getString ( 169 ) + "}" + curBillselect.getString ( 170 ) + "}" + curBillselect.getString ( 171 ) + "}" + curBillselect.getString ( 172 ) + "}" + curBillselect.getString ( 173 ) + "}" + curBillselect.getString ( 174 ) + "}" + curBillselect.getString ( 175 ) + "}" + curBillselect.getString ( 176 ) + "}" + curBillselect.getString ( 177 ) + "}" + curBillselect.getString ( 178 ) + "}" + curBillselect.getString ( 179 ) + "}" + curBillselect.getString ( 180 ) + "}" + curBillselect.getString ( 181 ) + "}" + curBillselect.getString ( 182 ) + "}" + curBillselect.getString ( 183 ) + "}" + curBillselect.getString ( 184 ) + "}" + curBillselect.getString ( 185 ) + "}" + curBillselect.getString ( 186 ) + "}" + curBillselect.getString ( 187 ) + "}" + curBillselect.getString ( 188 ) + "}" + curBillselect.getString ( 189 ) + "}" + curBillselect.getString ( 190 ) + "}" + curBillselect.getString ( 191 ) + "}" + curBillselect.getString ( 192 ) + "}" + curBillselect.getString ( 193 ) + "}" + curBillselect.getString ( 194 ) + "}" + curBillselect.getString ( 195 ) + "}" + curBillselect.getString ( 196 ) + "}" + curBillselect.getString ( 197 ) + "}" + curBillselect.getString ( 198 ) + "}" + curBillselect.getString ( 199 ) + "}" + curBillselect.getString ( 200 ) + "}" + curBillselect.getString ( 201 ) + "}" + curBillselect.getString ( 202 ) + "}" + curBillselect.getString ( 203 ) + "}" + curBillselect.getString ( 204 ) + "}" + curBillselect.getString ( 205 ) + "}" + curBillselect.getString ( 206 ) + "}" + curBillselect.getString ( 207 ) + "}" + curBillselect.getString ( 208 ) + "}" + curBillselect.getString ( 209 ) + "}" + curBillselect.getString ( 210 ) + "}" + curBillselect.getString ( 211 ) + "}" + curBillselect.getString ( 212 ) + "}" +
                                 curBillselect.getString ( 213 ) + "}" + curBillselect.getString ( 214 ) + "}" + curBillselect.getString ( 215 ) + "}" +
-                                curBillselect.getString ( 216 ) );
+                                curBillselect.getString ( 216 )  );
 
 
                         mylist1.add ( curBillselect.getString ( 60 ) + "$" + curBillselect.getString ( 0 ) + "$" + curBillselect.getString ( 5 ) + "$" + curBillselect.getString ( 61 ) + "$" + curBillselect.getString ( 11 ) + "$" + curBillselect.getString ( 62 ) + "$" +
@@ -1056,11 +1071,16 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
                         moveFile ( ZipSourcePath, curBillselect.getString ( 48 ), ZipCopyPath );
                         moveFile ( ZipSourcePath, curBillselect.getString ( 49 ), ZipCopyPath );
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 226), ZipCopyPath );
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 227), ZipCopyPath );
 
                         curBillselect.moveToNext ( );
                     }
 
                     generateNoteOnSD ( getApplicationContext ( ), "Meter.csv", mylist );
+
+
+
 //                    generateNoteOnSD(getApplicationContext(), "Meter1.csv", mylist1);
 //                    generatebackupNoteOnSD(getApplicationContext(), "mbc_Ob.csv", mylist);
 
@@ -1082,6 +1102,9 @@ public class Signature_Activity extends Activity implements LogoutListaner {
             }
             return null;
         }
+
+
+
 
         protected void onPostExecute() {
             progress.dismiss ( );
@@ -1169,6 +1192,8 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
     public void generateNoteOnSD(Context context, String sFileName, ArrayList sBody) {
         try {
+
+
             File root = new File ( Environment.getExternalStorageDirectory ( ), "MBC/Downloadsingular/" );
             if (!root.exists ( )) {
                 root.mkdirs ( );
@@ -1237,6 +1262,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
             String frt[] = new String[0];
 
             String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING WHERE Upload_Flag='N'";
+//            String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING";
             Cursor curBillImg = SD3.rawQuery ( serImgQwer, null );
             if (curBillImg != null && curBillImg.moveToFirst ( )) {
 
@@ -1245,7 +1271,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
                 mylistimagename.add ( curBillImg.getString ( 0 ) );
                 mylistimagename.add ( curBillImg.getString ( 1 ) );
-//                Log.e(getApplicationContext(), "SLPrintAct", "mtr_img" + curBillImg.getString(0) + "sig_img" + curBillImg.getString(1));            }
+//                Log.e( "SLPrintAct", "mtr_img" + curBillImg.getString(0) + "sig_img" + curBillImg.getString(1));            }
 
                 ArrayList <String> stringArrayList = new ArrayList <String> ( );
                 for (int j = 0; j < mylistimagename.size ( ); j++) {
@@ -1278,6 +1304,8 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                     // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
 //                Log.e(getApplicationContext(), "SLPrintAct", "going out " + GSBilling.getInstance().getFinalZipName() + ".zip");
                     int status = hfu.Send_Now ( fstrm );
+
+                    System.out.println ("This is the status code "+status );
                     if (status != 200) {
 //                    succsess = "1";
                         Signature_Activity.this.runOnUiThread ( new Runnable ( ) {
@@ -1311,8 +1339,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
                             @Override
                             public void run() {
-                                progress.dismiss ( );
-                                Toast.makeText ( Signature_Activity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG ).show ( );
+                                 Toast.makeText ( Signature_Activity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG ).show ( );
                                 Intent intent = new Intent ( Signature_Activity.this, BillingtypesActivity.class );
                                 //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 //  intent.putExtra("printtype", print_type);
@@ -1345,6 +1372,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                 Intent intent = new Intent ( Signature_Activity.this, BillingtypesActivity.class );
                 startActivity ( intent );
                 overridePendingTransition ( R.anim.anim_slide_in_left, R.anim.anim_slide_out_left );
+
 
             }
         }
@@ -1380,6 +1408,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                 android.util.Log.e("", ioe.getMessage());
             }
         }
+
         @Override
         public void onUserInteraction() {
             super.onUserInteraction();

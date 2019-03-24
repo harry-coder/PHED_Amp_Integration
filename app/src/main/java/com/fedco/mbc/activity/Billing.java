@@ -1,12 +1,14 @@
 package com.fedco.mbc.activity;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Debug;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ajts.androidmads.library.SQLiteToExcel;
 import com.fedco.mbc.R;
 import com.fedco.mbc.authentication.PrinterSessionManager;
 import com.fedco.mbc.authentication.SessionManager;
@@ -25,6 +28,7 @@ import com.fedco.mbc.service.BackgroundService;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.UtilAppCommon;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.util.HashMap;
 
@@ -52,6 +56,8 @@ public class Billing extends AppCompatActivity implements LogoutListaner {
     // int pendingcount = 300;
     int pendingcount =150;
 
+    ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +71,7 @@ public class Billing extends AppCompatActivity implements LogoutListaner {
             Log.e(getApplicationContext(), "Billing Act", "ActionBar Throwing null Pointer", npe);
         }
 
+        progressDialog=new ProgressDialog ( this );
 
         session = new SessionManager(getApplicationContext());
         printsession = new PrinterSessionManager(getApplicationContext());
@@ -81,9 +88,17 @@ public class Billing extends AppCompatActivity implements LogoutListaner {
         btnSummery = (Button) findViewById(R.id.buttonBilling4);
         HashMap<String, String> user = session.getUserDetails();
         // name
+        if(Home.isMeter){
+            btnBilling.setText("METER READING");
+
+        }
+
+/*
         if (Home.Mflag.equals("Y")){
             btnBilling.setText("METER READING");
         }
+*/
+
         String name = session.retLicence();
         // email
         String email = user.get(SessionManager.KEY_EMAIL);
@@ -381,12 +396,57 @@ public class Billing extends AppCompatActivity implements LogoutListaner {
                 finish();
                 overridePendingTransition(R.anim.anim_slide_in_right,
                         R.anim.anim_slide_out_right);
+                break;
 
-                return true;
+
+            case R.id.backup :{
+
+                takeBackupForSqlite ();
+                break;
+
+            }
+
+
+
 
         }
-        return super.onOptionsItemSelected(item);
+
+        return true;
+
     }
+
+    private void takeBackupForSqlite() {
+
+        String directory_path = Environment.getExternalStorageDirectory().getPath() + "/Backup/";
+        File file = new File(directory_path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        // Export SQLite DB as EXCEL FILE
+        SQLiteToExcel sqliteToExcel = new SQLiteToExcel(getApplicationContext(), "mydb.s3db", directory_path);
+        sqliteToExcel.exportSingleTable("TBL_BILLING","MeterReading.txt", new SQLiteToExcel.ExportListener() {
+            @Override
+            public void onStart() {
+
+                progressDialog.setMessage ( "Taking Backup" );
+                progressDialog.show ();
+            }
+
+            @Override
+            public void onCompleted(String filePath) {
+                Toast.makeText ( context, "Data Written Successfully", Toast.LENGTH_SHORT ).show ( );
+                progressDialog.dismiss ();
+            }
+
+            @Override
+            public void onError(Exception e) {
+
+                System.out.println ("Error came "+e );
+                progressDialog.dismiss ();
+            }
+        });
+    }
+
 
     public void LogoutUser() {
 

@@ -130,6 +130,7 @@ public class ConsumerSearchByName_Activity extends Activity implements LogoutLis
 
                             int posti = (position/8)*8;
                             String ConsNo =list.get(posti);
+
 //                            Toast.makeText(getApplicationContext(), list.get(pos).toString(), Toast.LENGTH_SHORT).show();
 //                          Toast.makeText(getApplicationContext(), v.getId(), Toast.LENGTH_SHORT).show();
 

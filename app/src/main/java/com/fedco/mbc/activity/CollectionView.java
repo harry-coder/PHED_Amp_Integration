@@ -19,15 +19,19 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fedco.mbc.CustomClasses.AmountClass;
 import com.fedco.mbc.R;
 import com.fedco.mbc.amigos.DuplicateCollectionPrint;
 import com.fedco.mbc.authentication.SessionManager;
@@ -41,11 +45,14 @@ import com.fedco.mbc.utils.UtilAppCommon;
 import com.fedco.mbc.utils.Utility;
 
 import java.lang.reflect.Method;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.fedco.mbc.activity.StartLocationAlert.REQUEST_CHECK_SETTINGS;
@@ -75,6 +82,8 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
     double longitude1 = 0.0;
     public static String reciept;
 
+    String outStandingAmount;
+
     LocationManager locationManager;
     StartLocationAlert startLocationAlert;
     Context mContext;
@@ -86,6 +95,8 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
     TextView txt1,txt2,valtxt1,valtxt2;
     private View mExclusiveEmptyView;
     HashMap<String,String> hashMap=new HashMap<>();
+
+    RecyclerView rv_amountContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,7 +122,13 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
         // String json=
 
 
-            inflateEditRow();
+          //  inflateEditRow();
+
+        rv_amountContainer= (RecyclerView) findViewById ( R.id.rv_amountContainer );
+        rv_amountContainer.setLayoutManager ( new LinearLayoutManager ( this ) );
+
+        rv_amountContainer.setAdapter ( new AmountAdapter ( this, com.fedco.mbc.activity.Collection.amountList ) );
+
 
 
         latitude = gps.getLatitude();
@@ -179,11 +196,21 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
             tvConno.setText(GSBilling.getInstance().ConsumerNO);
 //            tvPayby.setText(Structcollection.RBT_DATE);
             tvPayby.setText(GSBilling.getInstance().MeterNo);
-            tvAmntpay.setText(GSBilling.getInstance().ARREARS);
+
+
+
+            outStandingAmount=GSBilling.getInstance().ARREARS;
+
+
+
+            tvAmntpay.setText(internationAnotation ( outStandingAmount ));
+
+
             tvAftedd.setText( GSBilling.getInstance().CON_TYPE.toUpperCase());
             tvConname.setText(GSBilling.getInstance().CONS_NAME.toUpperCase());
             tvaddress.setText(GSBilling.getInstance().Addresses.toUpperCase());
             tvphone.setText(GSBilling.getInstance().MOBILENO);
+
 //            tvaftdd2.setText("" + Math.ceil(Double.valueOf(Structcollection.AMNT_AFT_DUE_DATE)));
             tvDiv.setText( GSBilling.getInstance().BSC.toUpperCase());
 //            tvSubdiv.setText(Structcollection.SUB_DIV);
@@ -265,7 +292,6 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
 
                 String consumerChk = "SELECT CON_NO FROM TBL_COLMASTER_MP";
                 Cursor todoCursor = sqLiteDatabaseCol.rawQuery(consumerChk, null);
-                System.out.println("Select Result : " + consumerChk);
 
                 if (todoCursor != null && todoCursor.moveToFirst()) {
                     do {
@@ -392,7 +418,7 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
                                     "com.android.settings",
                                     "com.android.settings.Settings$DataUsageSummaryActivity"));
                             startActivity(intent);
-                            System.out.println("NOT YUP");
+
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -651,7 +677,11 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
                     txt1.setId(mContainerView.getChildCount());
                     txt2.setId(mContainerView.getChildCount());
                     txt1.setText(pair.getKey());
-                    txt2.setText(pair.getValue());
+
+                    System.out.println ("This is the value "+pair.getValue() );
+
+                    txt2.setText(internationAnotation (pair.getValue()));
+
                     mExclusiveEmptyView = rowView;
                     mContainerView.addView(rowView, mContainerView.getChildCount() - 1);
                     //   System.out.println(pair.getKey() + " = " + pair.getValue());
@@ -682,6 +712,66 @@ public class CollectionView extends AppCompatActivity implements LogoutListaner 
             mBluetoothAdapter.enable ();
 
             Toast.makeText ( this, "Bluetooth Turned ON", Toast.LENGTH_SHORT ).show ( );
+        }
+    }
+
+
+    public String internationAnotation(String outStandingAmount){
+
+        return NumberFormat.getNumberInstance( Locale.US).format(Double.parseDouble(outStandingAmount));
+
+    }
+    class AmountAdapter extends RecyclerView.Adapter <AmountAdapter.AmountHolder> {
+
+        LayoutInflater inflater;
+        Context context;
+
+        ArrayList<AmountClass> amountList;
+
+        AmountAdapter(Context context,ArrayList<AmountClass>list) {
+            inflater = LayoutInflater.from ( context );
+            this.amountList=list;
+
+            this.context = context;
+        }
+
+        @Override
+        public AmountAdapter.AmountHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = inflater.inflate ( R.layout.table_row_layout, parent, false );
+
+            return new AmountAdapter.AmountHolder ( view );
+        }
+
+        @Override
+        public void onBindViewHolder(AmountAdapter.AmountHolder holder, int position) {
+
+            AmountClass amountClass=amountList.get ( position );
+            holder.tv_head.setText ( amountClass.getHeaed () );
+            holder.tv_amount.setText ( amountClass.getAmount () );
+
+
+
+        }
+
+        @Override
+        public int getItemCount() {
+
+            return amountList.size ( );
+        }
+
+        class AmountHolder extends RecyclerView.ViewHolder {
+
+            TextView tv_head,tv_amount;
+
+            AmountHolder(View itemView) {
+                super ( itemView );
+                tv_head=itemView.findViewById ( R.id.txt1 );
+                tv_amount=itemView.findViewById ( R.id.txt2 );
+
+
+            }
+
+
         }
     }
 }

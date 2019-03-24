@@ -34,6 +34,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fedco.mbc.CustomClasses.DayEndReport;
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.BillingtypesActivity;
 import com.fedco.mbc.activity.Collection;
@@ -41,6 +42,7 @@ import com.fedco.mbc.activity.CollectionView;
 import com.fedco.mbc.activity.CommonHttpConnection;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.activity.Home;
+import com.fedco.mbc.activity.MainActivity;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.collection.CollectiontypesActivity;
 import com.fedco.mbc.logging.Logger;
@@ -77,6 +79,8 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+
+import static com.fedco.mbc.activity.Collection.dayEndReport;
 
 public class MainActivityReceiptPrint  extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, QABTPAccessory {
     private static final String TAG = MainActivityCollectionPrint.class.getSimpleName();
@@ -118,6 +122,8 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
 
     private ProgressDialog progress;
     ArrayList<String> mylistimagename = new ArrayList<String>();
+
+    String cashNumber,cashAmount,chequeNumber,chequeAmount,ddNumber,ddAmount,totalAmount;
 
     //    String imgSrcPath        = Environment.getExternalStorageDirectory()
     //            + File.separator + "/MBC/Images/" + GSBilling.getInstance().getKEYNAME() + "_" + Structconsmas.Consumer_Number + "_mtr.jpg";
@@ -247,6 +253,60 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
 //        }
 
 
+
+        if(Collection.cashNumber==null){
+
+            cashNumber="0";
+        }
+        if(Collection.cashAmount==null){
+            cashAmount="0";
+
+        }
+        if(Collection.chequeNumber==null){
+
+            chequeNumber="0";
+        }
+        if(Collection.chequeAmount==null){
+
+            chequeAmount="0";
+        }
+        if(Collection.ddNumber==null){
+
+            ddNumber="0";
+        }
+        if(Collection.ddAmount==null){
+
+            ddAmount="0";
+        }
+        if(Collection.totalAmount==null){
+
+            totalAmount="0";
+        }
+
+
+       /* double cashNumber=Collection.cashNumber;
+        double cashAmount=Collection.cashAmount;
+
+        double chequeNumber=Collection.chequeNumber;
+        double chequeAmount=Collection.chequeAmount;
+
+        double ddNumber=Collection.ddNumber;
+        double ddAmount=Collection.ddAmount;
+
+        double totalCash=Collection.totalCash;
+        double totalAmount=Collection.totalAmount;
+
+
+        System.out.println ("CashNo. "+cashNumber );
+        System.out.println ("CashAmount "+cashAmount );
+        System.out.println ("ChequeNo. "+chequeNumber );
+        System.out.println ("ChequeAmount. "+chequeAmount );
+        System.out.println ("DD Number. "+ddNumber );
+        System.out.println ("DD Amount. "+ddAmount );
+        System.out.println ("Total Cash. "+totalCash );
+        System.out.println ("TotalAmount. "+totalAmount );
+*/
+
         this.ZipDesPathdup = "/MBC/" + key + "_col_" + GSBilling.getInstance().captureDatetime();
         this.ZipDesPath = Environment.getExternalStorageDirectory() + "/MBC/" + key + "_col_" + GSBilling.getInstance().captureDatetime() + ".zip";
 
@@ -275,6 +335,8 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
 //        dbHelper.insertIntoColmasTable();
 //        dbHelper.insertIntoColphedTable();
         dbHelper.insertSequence("ReceiptNumber", ser_key);
+
+
 
 
 //        if (typePay.equalsIgnoreCase("Prepaid")) {
@@ -344,22 +406,29 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
                     " Total Collection Receipt  " +  "\n" +
                     "-------------------------------  " + "\n" +
 //                            "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                    "Date:" + (String.format("%1$6s", Structcolmas.COL_DATE )) + "\n" +
-                    "Cashier Name:"+(String.format("%1$6s",  Structcolmas.MR_NAME)) + "\n" +
+                    "Date:" + (String.format("%1$6s", Collection.todayDate)) + "\n" +
+                    "Cashier Name:"+(String.format("%1$6s", MainActivity.MRNME )) + "\n" +
                     "Cash:" + "\n" +
-                    "Response:"+(String.format("%1$4s",Structcolmas.CASHCOUNT))+"\n"+
-                    "Amount(NGN):"+(String.format("%1$6s",Structcolmas.CASHAMOUNT))+"\n"+
+                    "Response:"+(String.format("%1$4s",Collection.cashNumber)+"\n"+
+                    "Amount(NGN):"+(String.format("%1$6s",MainActivityCollectionPrint.internationAnotation ( ""+Collection.cashAmount) )))+"\n"+
                     // "Account/Meter No:"+(String.format("%1$6s", GSBilling.getInstance().ConsumerNO)) + "\n" +
                     "Cheque:"+ "\n" +
-                    "Response:"+(String.format("%1$4s",Structcolmas.CHEQUECOUNT))+"\n"+
-                    "Amount(NGN):"+(String.format("%1$6s",Structcolmas.CHEQUEAMOUNT))+"\n"+
-                    "Pos:"+"\n" +
+                    "Response:"+(String.format("%1$4s",Collection.chequeNumber))+"\n"+
+                    "Amount(NGN):"+(String.format("%1$6s",MainActivityCollectionPrint.internationAnotation(""+Collection.chequeAmount)))+"\n"+
+                    /*"Pos:"+"\n" +
+*//*
                     "Response:"+(String.format("%1$4s",Structcolmas.POSCOUNT))+"\n"+
-                    "Amount(NGN):"+(String.format("%1$6s",Structcolmas.POSAMOUNT))+"\n"+
+                    "Amount(NGN):"+(String.format("%1$6s",MainActivityCollectionPrint.internationAnotation(Structcolmas.POSAMOUNT)))+"\n"+
+*//*
+                    "Response:"+(String.format("%1$4s","0"))+"\n"+
+                    "Amount(NGN):"+(String.format("%1$6s","0"))+"\n"+
+*/
                     "DD:"+ "\n" +
-                    "Response:"+(String.format("%1$4s",Structcolmas.DDCOUNT))+"\n"+
-                    "Amount(NGN):"+(String.format("%1$6s",Structcolmas.DDAMOUNT))+"\n"+
-                    "Total Amount:"+(String.format("%1$6s", Structcolmas.TOTALAMOUNT)) + "\n" +
+                    "Response:"+(String.format("%1$4s",Collection.ddNumber))+"\n"+
+                    "Amount(NGN):"+(String.format("%1$6s",MainActivityCollectionPrint.internationAnotation(Collection.ddAmount)))+"\n"+
+
+                    "Total Response:"+(String.format("%1$4s",Collection.totalCash))+"\n"+
+                    "Total Amount:"+(String.format("%1$6s", MainActivityCollectionPrint.internationAnotation(Collection.totalAmount))) + "\n" +
                     //  "Address:"+(String.format("%1$6s", address.trim())) + "\n" +
 //                            "Account Type: Prepaid"  + "\n" +
                     "Customer Care : 070022557433" +  "\n" ;
@@ -530,7 +599,7 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
     @Override
     public void onBluetoothDeviceFound(BluetoothDevice device) {
         int i = 0;
-        if (device.getName() != null && ((device.getName().contains("QA")) || (device.getName().contains("Dual-SPP")) ||(device.getName().contains("MHT-P5801"))|| (device.getName().contains("SP120E"))|| (device.getName().contains("SP120"))||(device.getName().contains("ESBAA0050"))||(device.getName().contains("QSPrinter")) ||(device.getName().contains("QSprinter"))|| (device.getName().contains("QuantumAeon")))) {
+        if (device.getName() != null && ((device.getName().contains("QA")) || (device.getName().contains("Dual-SPP")) ||(device.getName().contains("MHT-P5801"))|| (device.getName().contains("SP120E"))|| (device.getName().contains("XL-1880"))||(device.getName().contains("SP120"))||(device.getName().contains("ESBAA0050"))||(device.getName().contains("QSPrinter")) ||(device.getName().contains("QSprinter"))|| (device.getName().contains("QuantumAeon")))) {
             String dev_name = device.getName().trim();
             String dev_adrs = device.getAddress().trim();
             if (device.getBondState() == BluetoothDevice.BOND_BONDED) {
@@ -570,6 +639,8 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
     @Override
     public void onClientConnectionSuccess() {
         setLogText("===> Client Connection success !");
+
+
 
     }
 
@@ -1165,6 +1236,7 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
                 writerbuf.close();
 //                writer.append(sBody.get(i).toString());
 //                writer.append("\n");
+
             }
 
             writer.flush();
@@ -1451,6 +1523,7 @@ public class MainActivityReceiptPrint  extends Activity implements View.OnClickL
         SD5.execSQL(delStr);
         session.logoutUser();
         this.finish();
+
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

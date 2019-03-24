@@ -11,6 +11,8 @@ import com.splunk.mint.Mint;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.paperdb.Paper;
+
 public class GlobalPool extends Application{
 
 	private LogoutListaner logoutListaner;
@@ -29,6 +31,7 @@ public class GlobalPool extends Application{
 	public void onCreate(){
 		Mint.initAndStartSession(GlobalPool.this, "7c741295");
 		super.onCreate();
+		Paper.init(this);
 	}
 	/**
 	 * Set up a Bluetooth connection

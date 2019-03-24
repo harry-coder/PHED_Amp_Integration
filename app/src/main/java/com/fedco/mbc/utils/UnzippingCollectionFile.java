@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.fedco.mbc.activity.Collection;
 import com.fedco.mbc.activity.SDActivity;
 import com.fedco.mbc.sqlite.DB;
 
@@ -23,6 +24,8 @@ import java.util.List;
 import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+import io.paperdb.Paper;
 
 /**
  * Created by soubhagyarm on 16-02-2016.
@@ -42,10 +45,15 @@ public class UnzippingCollectionFile extends AsyncTask<String, Integer, String> 
     DB databasehelper;
     SQLiteDatabase SD;
     String line = "";
-    private ProgressDialog mpd;
+  //  private ProgressDialog mpd;
     // Progress Dialog
-    private CustomDialog pDialog;
+    //private CustomDialog pDialog;
 
+   // Context context;
+
+   public  UnzippingCollectionFile(Context context){
+      this.context= context;
+    }
     public void Decompress(String zipFile, String location) {
         _zipFile = zipFile;
         _location = location;
@@ -111,12 +119,12 @@ public class UnzippingCollectionFile extends AsyncTask<String, Integer, String> 
 //        pDialog = showDialog();
         //            pDialogFile= showDialogFile();
         Log.d("TAG", " is cancelled " + isCancelled());
-        mpd = new ProgressDialog(SDActivity.getsActivity());
+      /*  mpd = new ProgressDialog(SDActivity.getsActivity());
         mpd.setMessage("Please Wait for Few Seconds...");
         mpd.setCancelable(false);
         mpd.setCanceledOnTouchOutside(false);
         mpd.show();
-        super.onPreExecute();
+      */  super.onPreExecute();
 
     }
 
@@ -195,9 +203,11 @@ public class UnzippingCollectionFile extends AsyncTask<String, Integer, String> 
                         break;
                     case "Bank.csv":
 
+
+                        Paper.book ().write ( "isBankDetailsDownloaded","true" );
                         BufferedReader buffersecBank = new BufferedReader(file);
 
-                        databasehelper = new DB(SDActivity.getsActivity());
+                        databasehelper = new DB(context);
                         SD = databasehelper.getWritableDatabase();
                         SD.beginTransaction();
                         SD.execSQL("Delete from  TBL_BANK_MASTER");
@@ -217,7 +227,9 @@ public class UnzippingCollectionFile extends AsyncTask<String, Integer, String> 
 
                         BufferedReader buffersecPass = new BufferedReader(file);
 
-                        databasehelper = new DB(SDActivity.getsActivity());
+                        databasehelper = new DB( context);
+                       // databasehelper = new DB(SDActivity.getsActivity());
+
                         SD = databasehelper.getWritableDatabase();
                         SD.beginTransaction();
 
@@ -288,8 +300,11 @@ public class UnzippingCollectionFile extends AsyncTask<String, Integer, String> 
     @Override
     protected void onPostExecute(String file_url) {
 
-        Toast.makeText(SDActivity.getsActivity(), "Downloaded Successfully", Toast.LENGTH_LONG).show();
+
+        Toast.makeText(context, "Downloaded Successfully", Toast.LENGTH_LONG).show();
 //        pDialog.dismiss();
-        mpd.dismiss();
+      //  mpd.dismiss();
+
+
     }
 }

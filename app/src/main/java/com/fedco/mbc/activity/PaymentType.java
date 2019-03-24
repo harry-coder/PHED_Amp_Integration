@@ -239,7 +239,9 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
                 if (enteredString.startsWith("0")) {
                     Toast.makeText(PaymentType.this,"should not starts with zero(0)",Toast.LENGTH_SHORT).show();
                     if (enteredString.length() > 0) {
+
                         etCash.setText(enteredString.substring(1));
+
                     } else {
                         etCash.setText("");
                     }
@@ -430,6 +432,9 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
             @Override
             public void onClick(View v) {
 
+
+                System.out.println ("This is the Amount "+etCash.getText () );
+
 //                if (etMobNo.getText().toString().length() == 0) {
 //                    etMobNo.setText("0");
 ////                    etMobNo.setError("Can Not be Empty");
@@ -568,6 +573,8 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
                                         });
                                     } else {
                                         Structcolmas.AMOUNT = numberFormat.format(Double.parseDouble(etCash.getText().toString().replaceAll("^0+(?=\\d+$)","")));
+
+                                        System.out.println ("This is the amount stored "+Structcolmas.AMOUNT );
                                         Structcolmas.CHEQUE_NO = "";
                                         Structcolmas.CH_DATE = "";
                                         Structcolmas.BANK_NAME = "";
@@ -1758,6 +1765,8 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
                         bank_name_id_list.add(bank_name_id);
                         bank_name_list.add(bank_name);
 
+
+                        System.out.println ("This is bank name "+bank_name );
                     } while (bank_Name.moveToNext());
 
                     bank_name_id_list.add("100");
@@ -1957,13 +1966,15 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi_Testing/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://enservtest.fedco.co.in/MPSurvey/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://10.10.24.91:8080/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
-                HttpFileUpload hfu = new HttpFileUpload("http://dlenhance.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+              //  HttpFileUpload hfu = new HttpFileUpload("https://dlenhance.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+                HttpFileUpload hfu = new HttpFileUpload("http://dlenhanceuat.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://phedtest.fedco.co.in/phedapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 
                 // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
 //                Log.e(getApplicationContext(), "SLPrintAct", "going out " + GSBilling.getInstance().getFinalZipName() + ".zip");
                 int status = hfu.Send_Now(fstrm);
+                System.out.println ("This is the status "+status );
                 if (status != 200) {
 //                    succsess = "1";
                     PaymentType.this.runOnUiThread(new Runnable() {
@@ -2106,16 +2117,25 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
                         SD = dbHelper.getWritableDatabase();
                         try {
                             JSONArray rootJSON = new JSONArray(s);
+
+
                             for(int i=0; i < rootJSON.length(); i++) {
                                 JSONObject jsonobject = rootJSON.getJSONObject(i);
+
+                                System.out.println ("This is the json Payout Response "+jsonobject );
                                 String ReceiptNo = jsonobject.getString("ReceiptNo");
                                 String tokenDec =  jsonobject.getString("tokenDec");
                                 String ManualReceiptNo =jsonobject.getString("ManualReceiptNo");
                                 String PaymentDate = jsonobject.getString("PaymentDate");
                                 String unitsActual=jsonobject.getString("unitsActual");
                                 String Paymenttime=jsonobject.getString("PaymentTime");
+
                                 String walletbalance=jsonobject.getString("walletbalance");
+
+                                System.out.println ("This is the wallet balance "+walletbalance );
+
                                 String PayDtl =jsonobject.getString("PayDtl");
+                                String tariffIndex=jsonobject.getString ( "TARIFF_INDEX" );
 
                                 JSONArray innerJSON = new JSONArray(PayDtl);
                                 for(int j=0; j < innerJSON.length(); j++) {
@@ -2124,13 +2144,30 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
                                     String Query="insert into PaymentDetails values('"+ReceiptNo+"','"+tokenDec+"','"+unitsActual+"','"+ManualReceiptNo+"','"+PaymentDate+"','"+jsonobj.getString("HEAED")+"','"+jsonobj.getString("AMOUNT")+"')";
                                     SD.execSQL(Query);
                                 }
+
+
+                                System.out.println ("This is token no "+tokenDec );
+                                System.out.println ("This is token no "+ReceiptNo );
+                                System.out.println ("This is token no "+ManualReceiptNo );
+                                System.out.println ("This is token no "+unitsActual );
                                 GSBilling.getInstance().TokenNo= tokenDec;
                                 GSBilling.getInstance().RecieptNo = ReceiptNo;
                                 GSBilling.getInstance().MANRECP_NO = ManualReceiptNo;
                                 GSBilling.getInstance().punit = unitsActual;
+
+
+
+
                                 GSBilling.getInstance().Serverdate=  PaymentDate;
                                 GSBilling.getInstance().Servertime=  Paymenttime;
+
+                                System.out.println ("This is the payment type "+PaymentDate );
+                                System.out.println ("This is the payment type "+Paymenttime );
+
                                 GSBilling.getInstance().setWallet( walletbalance);
+
+                                GSBilling.getInstance().TARIFF_INDEX =tariffIndex;
+
                                 JSONObject jsonObject=new JSONObject();
                                 jsonObject.put("ReceiptNo", GSBilling.getInstance().RecieptNo);
 

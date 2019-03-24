@@ -15,16 +15,28 @@ android {
     defaultConfig {
         applicationId "com.fedco.mbc.phed"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 26
+        versionCode 6
+        versionName "1.5"
         multiDexEnabled true
 
     }
+
+    /*  //
+    signingConfigs{
+        key{
+            keyAlias 'phedkey'
+            keyPassword 'fvpl@123'
+            storeFile file('/Users/harpreetsingh/Desktop/PhedKeyStore/Untitled.keystore')
+            storePassword 'fvpl@123'
+        }
+    }*/
     buildTypes {
         release {
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            //  signingConfig signingConfigs.key
         }
     }
 
@@ -66,5 +78,10 @@ dependencies {
     implementation 'com.google.zxing:core:3.2.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.2.0@aar'
     implementation 'com.google.guava:guava:25.0-android'
+    implementation 'io.paperdb:paperdb:2.1'
+
+    implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
+
+    implementation files('libs/jxl.jar')
 
 }
