@@ -125,10 +125,11 @@ public class PictureActivity extends Activity {
         tv_next.setOnClickListener ( new View.OnClickListener ( ) {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent ( getApplicationContext ( ), Readinginput.class );
-                startActivity ( intent );
-                overridePendingTransition ( R.anim.anim_slide_in_left,
-                        R.anim.anim_slide_out_left );
+                    Intent intent = new Intent ( getApplicationContext ( ), Readinginput.class );
+                    startActivity ( intent );
+                    overridePendingTransition ( R.anim.anim_slide_in_left,
+                            R.anim.anim_slide_out_left );
+
             }
         } );
 
@@ -233,6 +234,8 @@ public class PictureActivity extends Activity {
                             Structconsmas.LOC_CD + "_" + Structconsmas.MAIN_CONS_LNK_NO + "_" + uac.billMonthConvert ( Structconsmas.Bill_Mon ) + "_mtrRead.jpg";
 
 
+                    System.out.println ("This is meter path "+Structbilling.User_MtrRead_Img );
+
                     im_readingImage.setImageBitmap ( bitmap );
 
                     isReadingPicture = false;
@@ -243,9 +246,6 @@ public class PictureActivity extends Activity {
                 } catch (IOException e) {
                     Logger.e ( this, "Image Storage", "", e );
                 }
-                System.out.println ( "Inside the picture " + imagePath );
-
-                System.out.println ( "This is the file path " + imagePath );
                 filePaths.add ( imagePath.toString ( ) );
 
 

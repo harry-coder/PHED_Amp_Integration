@@ -86,9 +86,9 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
     Activity mContext;
     StartLocationAlert startLocationAlert;
     String DIRECTORY;
-    String ZipSourcePath = Environment.getExternalStorageDirectory() + "/MBC/Images/";
-    String ZipCopyPath = Environment.getExternalStorageDirectory() + "/MBC/Downloadsingular/";
-    String Zip = Environment.getExternalStorageDirectory() + "/Notes/billing.csv";
+    String ZipSourcePath = Environment.getExternalStorageDirectory ( ) + "/MBC/Images/";
+    String ZipCopyPath = Environment.getExternalStorageDirectory ( ) + "/MBC/Downloadsingular/";
+    String Zip = Environment.getExternalStorageDirectory ( ) + "/Notes/billing.csv";
     String ZipDesPathdup;
     String signaturePathDes;
     String photoPathDes;
@@ -97,8 +97,8 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 
     float totlabill;
 
-  //  Button bt_cancel, bt_submit;
-    ArrayList<String> mylistimagename = new ArrayList<String>();
+    //  Button bt_cancel, bt_submit;
+    ArrayList <String> mylistimagename = new ArrayList <String> ( );
 
     ProgressDialog progress;
     String printer_catergory, printer_mfg, printer_roll, prev_pref, slot1;
@@ -110,18 +110,18 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
-        boolean isMeter=Home.isMeter;
+        boolean isMeter = Home.isMeter;
 
-        if(!isMeter){
+        if (!isMeter) {
             setContentView ( R.layout.activity_billing_view );
 
         } else {
-            setContentView ( R.layout.meter_read_summary);
+            setContentView ( R.layout.meter_read_summary );
 
         }
 
         ucom = new UtilAppCommon ( );
-        appcomUtil = new UtilAppCommon();
+        appcomUtil = new UtilAppCommon ( );
 
         try {
             getSupportActionBar ( ).setHomeAsUpIndicator ( R.drawable.back );
@@ -133,12 +133,12 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 
 //        TotalARR = Structconsmas.Pre_Financial_Yr_Arr + Structconsmas.Cur_Fiancial_Yr_Arr;
 //        TotalARR = 0f;
-        DIRECTORY = Environment.getExternalStorageDirectory().getPath() + "/MBC/Images/";
+        DIRECTORY = Environment.getExternalStorageDirectory ( ).getPath ( ) + "/MBC/Images/";
 
         ((GlobalPool) getApplication ( )).registerSessionListaner ( this );
         ((GlobalPool) getApplication ( )).startUserSession ( );
-        ZipDesPath = Environment.getExternalStorageDirectory() + "/MBC/" + appcomUtil.UniqueCode(getApplicationContext()) + GSBilling.getInstance().captureDatetime() + ".zip";
-        ZipDesPathdup = "/MBC/" + appcomUtil.UniqueCode(getApplicationContext()) + GSBilling.getInstance().captureDatetime();
+        ZipDesPath = Environment.getExternalStorageDirectory ( ) + "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( ) + ".zip";
+        ZipDesPathdup = "/MBC/" + appcomUtil.UniqueCode ( getApplicationContext ( ) ) + GSBilling.getInstance ( ).captureDatetime ( );
         // Session class instance
         session = new SessionManager ( getApplicationContext ( ) );
         gps = new GPSTracker ( BillingViewActivity.this );
@@ -256,8 +256,7 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 //        Structbilling.Bill_Month=DateBillmonth;
 
 
-
-        if(!isMeter) {
+        if (!isMeter) {
             tvConno.setText ( Structbilling.Cons_Number );
             tvBillMonth.setText ( Structconsmas.Bill_Mon );
             tvBillno.setText ( Structbilling.Bill_No );
@@ -267,7 +266,7 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
             tvPayby.setText ( Structconsmas.FIRST_CHQ_DUE_DATE );
 
 
-            tvAmntpay.setText (  Structbilling.O_Total_Bill );
+            tvAmntpay.setText ( Structbilling.O_Total_Bill );
 //        tvAmntpay.setText ("----");
             tvAftedd.setText ( String.format ( "%.2f", (Double.valueOf ( Structbilling.O_Total_Bill ) + (Double.valueOf ( Structbilling.O_Surcharge ))) ) );
 //        tvAftedd.setText("----");
@@ -303,24 +302,28 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 //        tvaftdd2.setText("----");  //Math.ceil(Structbilling.Amnt_Paidafter_Rbt_Date - Structbilling.House_Lck_Adju_Amnt - Structconsmas.SD_Interest_chngto_SD_AVAIL)));
 //        tvaftdd2.setText(Math.ceil(Structbilling.Amnt_Paidafter_Rbt_Date - Structbilling.House_Lck_Adju_Amnt - Structconsmas.SD_Interest_chngto_SD_AVAIL);  //;
             tvBillbasis.setText ( Structbilling.Bill_Basis );
-        }
-        else {
+        } else {
 
-            System.out.println ("This is the date "+Readinginput.readingDate );
+            System.out.println ( "This is the date " + Readinginput.readingDate );
             tvConno.setText ( Readinginput.consumerNo );
             tvBillMonth.setText ( Structconsmas.Bill_Mon );
             tvBillno.setText ( Structbilling.Bill_No );
             tvBilldate.setText ( Structbilling.Bill_Date );
+//            tvBilldate.setText ( Structconsmas.CUR_READ_DATE );
+
+
+            System.out.println ( "This is the reading date " + Structbilling.Bill_Date );
+            // System.out.println ("This is the reading date "+Structconsmas.Bill_Date );
             tvPayby.setText ( MeterState.selectedValue );
 
-            tvAmntpay.setText ( ""+Structbilling.Cur_Meter_Reading );
+            tvAmntpay.setText ( "" + Structbilling.Cur_Meter_Reading );
 //        tvAmntpay.setText ("----");
-            tvAftedd.setText (Structbilling.MOB_NO ) ;
+            tvAftedd.setText ( Structbilling.MOB_NO );
 //        tvAftedd.setText("----");
             tvConname.setText ( Structconsmas.Name );
             tvConadd.setText ( Structconsmas.H_NO + Structconsmas.MOH + Structconsmas.address1 + "" + Structconsmas.address2 );
 
-            System.out.println ("This is tariff Code "+Structbilling.Tariff_Code );
+            System.out.println ( "This is tariff Code " + Structbilling.Tariff_Code );
             tvTarrifcat.setText ( Readinginput.tariffCode );
             tvLoad.setText ( Structconsmas.Load.toString ( ) );
             switch (Structconsmas.Load_Type) {
@@ -342,13 +345,12 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
             tvConunits.setText ( String.valueOf ( Structbilling.Units_Consumed ) );
             tvArr2.setText ( Structbilling.O_Arrear_Demand.toString ( ) );
 
-            if(!TextUtils.isEmpty ( Structbilling.O_Total_Bill )){
+            if (!TextUtils.isEmpty ( Structbilling.O_Total_Bill )) {
                 totlabill = Float.parseFloat ( Structbilling.O_Total_Bill );
+            } else {
+                totlabill = 0;
             }
-            else{
-                totlabill=0;
-            }
-          //  float totlabill = Float.parseFloat ( Structbilling.O_Total_Bill ); //Structbilling.Amnt_Paidafter_Rbt_Date - Structbilling.House_Lck_Adju_Amnt - Structconsmas.SD_Interest_chngto_SD_AVAIL;
+            //  float totlabill = Float.parseFloat ( Structbilling.O_Total_Bill ); //Structbilling.Amnt_Paidafter_Rbt_Date - Structbilling.House_Lck_Adju_Amnt - Structconsmas.SD_Interest_chngto_SD_AVAIL;
             tvTotalamnt.setText ( "" + Structbilling.O_Total_Bill );
 
 //        tvTotalamnt.setText("----");
@@ -360,8 +362,6 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
             tvBillbasis.setText ( Structbilling.Bill_Basis );
 
         }
-
-
 
 
         Intent intent = new Intent ( "android.location.GPS_ENABLED_CHANGE" );
@@ -584,7 +584,7 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 //                    dbHelper4.insertSequence("DCNumber", dcSeq);
             //  dbHelper4.insertIntoBillingTable();
             dbHelper4.insertIntoMPBillingTable ( );
-            new TextFileClass(BillingViewActivity.this).execute();
+            new TextFileClass ( BillingViewActivity.this ).execute ( );
 //                    dbHelper4.insertSequence("BillNumber", billseq);                    new TextFileClass(Signature_Activity.this).execute();
 
             Toast.makeText ( getApplicationContext ( ), "Welcome to metering", Toast.LENGTH_SHORT ).show ( );
@@ -620,7 +620,8 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
         //recreate();
 
     }
-    private class TextFileClass extends AsyncTask<String, Void, Void> {
+
+    private class TextFileClass extends AsyncTask <String, Void, Void> {
 
         private final Context context;
 
@@ -632,173 +633,174 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
         }
 
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Please Wait..");
-            progress.show();
+            progress = new ProgressDialog ( this.context );
+            progress.setMessage ( "Please Wait.." );
+            progress.show ( );
         }
 
         @Override
         protected Void doInBackground(String... params) {
             try {
 
-                dbHelper2 = new DB(getApplicationContext());
-                SD2 = dbHelper2.getWritableDatabase();
+                dbHelper2 = new DB ( getApplicationContext ( ) );
+                SD2 = dbHelper2.getWritableDatabase ( );
 
                 String selquer = "SELECT * FROM TBL_BILLING WHERE Upload_Flag='N' ";//WHERE Upload_Flag='N'
-                Cursor curBillselect = SD2.rawQuery(selquer, null);
+                Cursor curBillselect = SD2.rawQuery ( selquer, null );
                 String arrStr[] = null;
-                ArrayList<String> mylist = new ArrayList<String>();
-                ArrayList<String> mylist1 = new ArrayList<String>();
+                ArrayList <String> mylist = new ArrayList <String> ( );
+                ArrayList <String> mylist1 = new ArrayList <String> ( );
 
 
-                if (curBillselect != null && curBillselect.moveToFirst()) {
+                if (curBillselect != null && curBillselect.moveToFirst ( )) {
                     int i = 0;
 
 //                    Log.e(getApplicationContext(), "SLPrintAct", "UpdateFLag to N : " + curBillselect.getString(0));
 
-                    while (curBillselect.isAfterLast() == false) {
-                        Calendar c = Calendar.getInstance();
-                        System.out.println("Current time => " + c.getTime());
+                    while (curBillselect.isAfterLast ( ) == false) {
+                        Calendar c = Calendar.getInstance ( );
+                        System.out.println ( "Current time => " + c.getTime ( ) );
                         i = i + 1;
-                        SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yy");
-                        String formattedDate = df.format(c.getTime());
-                        String column_24 = String.valueOf(Double.valueOf(curBillselect.getString(24)) + Double.valueOf(curBillselect.getString(31)));
+                        SimpleDateFormat df = new SimpleDateFormat ( "dd-MMM-yy" );
+                        String formattedDate = df.format ( c.getTime ( ) );
+                        String column_24 = String.valueOf ( Double.valueOf ( curBillselect.getString ( 24 ) ) + Double.valueOf ( curBillselect.getString ( 31 ) ) );
 
 
-                        mylist.add(curBillselect.getString(0) + "}" + curBillselect.getString(1) + "}" + curBillselect.getString(2) + "}" +
-                                curBillselect.getString(3) + "}" + curBillselect.getString(4) + "}" + curBillselect.getString(5) + "}" +
-                                curBillselect.getString(6) + "}" + curBillselect.getString(7) + "}" + curBillselect.getString(8) + "}" +
-                                curBillselect.getString(9) + "}" + curBillselect.getString(10) + "}" + curBillselect.getString(11) + "}" +
-                                curBillselect.getString(12) + "}" + curBillselect.getString(13) + "}" + curBillselect.getString(14) + "}" +
-                                curBillselect.getString(15) + "}" + curBillselect.getString(16) + "}" + curBillselect.getString(17) + "}" +
-                                curBillselect.getString(18) + "}" + curBillselect.getString(19) + "}" + curBillselect.getString(20) + "}" +
-                                curBillselect.getString(21) + "}" + curBillselect.getString(22) + "}" + curBillselect.getString(23) + "}" +
-                                curBillselect.getString(24) + "}" + curBillselect.getString(25) + "}" + curBillselect.getString(26) + "}" +
-                                curBillselect.getString(27) + "}" + curBillselect.getString(28) + "}" + curBillselect.getString(29) + "}" +
-                                curBillselect.getString(30) + "}" + curBillselect.getString(31) + "}" + curBillselect.getString(32) + "}" +
-                                curBillselect.getString(33) + "}" + curBillselect.getString(34) + "}" + curBillselect.getString(35) + "}" +
-                                curBillselect.getString(36) + "}" + curBillselect.getString(37) + "}" + curBillselect.getString(38) + "}" +
-                                curBillselect.getString(39) + "}" + curBillselect.getString(40) + "}" + curBillselect.getString(41) + "}" +
-                                curBillselect.getString(42) + "}" + curBillselect.getString(43) + "}" + curBillselect.getString(44) + "}" +
-                                curBillselect.getString(45) + "}" + curBillselect.getString(46) + "}" + curBillselect.getString(47) + "}" +
-                                curBillselect.getString(48) + "}" + curBillselect.getString(49) + "}" + curBillselect.getString(50) + "}" +
-                                curBillselect.getString(51) + "}" + curBillselect.getString(52) + "}" + curBillselect.getString(53) + "}" +
-                                curBillselect.getString(54) + "}" + curBillselect.getString(55) + "}" + curBillselect.getString(56) + "}" +
-                                curBillselect.getString(57) + "}" + curBillselect.getString(58) + "}" + curBillselect.getString(59) + "}" +
-                                curBillselect.getString(60) + "}" + curBillselect.getString(61) + "}" + curBillselect.getString(62) + "}" +
-                                curBillselect.getString(63) + "}" + curBillselect.getString(64) + "}" + curBillselect.getString(65) + "}" +
-                                curBillselect.getString(66) + "}" + curBillselect.getString(67) + "}" + curBillselect.getString(68) + "}" +
-                                curBillselect.getString(69) + "}" + curBillselect.getString(70) + "}" + curBillselect.getString(71) + "}" +
-                                curBillselect.getString(72) + "}" + curBillselect.getString(73) + "}" + curBillselect.getString(74) + "}" +
-                                curBillselect.getString(75) + "}" + curBillselect.getString(76) + "}" + curBillselect.getString(77) + "}" +
-                                curBillselect.getString(78) + "}" + curBillselect.getString(79) + "}" + curBillselect.getString(80) + "}" +
-                                curBillselect.getString(81) + "}" + curBillselect.getString(82) + "}" + curBillselect.getString(83) + "}" +
-                                curBillselect.getString(84) + "}" + curBillselect.getString(85) + "}" + curBillselect.getString(86) + "}" +
-                                curBillselect.getString(87) + "}" + curBillselect.getString(88) + "}" + curBillselect.getString(89) + "}" +
-                                curBillselect.getString(90) + "}" + curBillselect.getString(91) + "}" + curBillselect.getString(92) + "}" +
-                                curBillselect.getString(93) + "}" + curBillselect.getString(94) + "}" + curBillselect.getString(95) + "}" +
-                                curBillselect.getString(96) + "}" + curBillselect.getString(97) + "}" + curBillselect.getString(98) + "}" +
-                                curBillselect.getString(99) + "}" + curBillselect.getString(100) + "}" + curBillselect.getString(101) + "}" +
-                                curBillselect.getString(102) + "}" + curBillselect.getString(103) + "}" + curBillselect.getString(104) + "}" +
-                                curBillselect.getString(105) + "}" + curBillselect.getString(106) + "}" + curBillselect.getString(107) + "}" +
-                                curBillselect.getString(108) + "}" + curBillselect.getString(109) + "}" + curBillselect.getString(110) + "}" +
-                                curBillselect.getString(111) + "}" + curBillselect.getString(112) + "}" + curBillselect.getString(113) + "}" +
-                                curBillselect.getString(114) + "}" + curBillselect.getString(115) + "}" + curBillselect.getString(116) + "}" +
-                                curBillselect.getString(117) + "}" + curBillselect.getString(118) + "}" + curBillselect.getString(119) + "}" +
-                                curBillselect.getString(120) + "}" + curBillselect.getString(121) + "}" + curBillselect.getString(122) + "}" +
-                                curBillselect.getString(123) + "}" + curBillselect.getString(124) + "}" + curBillselect.getString(125) + "}" +
-                                curBillselect.getString(126) + "}" + curBillselect.getString(127) + "}" + curBillselect.getString(128) + "}" +
-                                curBillselect.getString(129) + "}" + curBillselect.getString(130) + "}" + curBillselect.getString(131) + "}" +
-                                curBillselect.getString(132) + "}" + curBillselect.getString(133) + "}" + curBillselect.getString(134) + "}" +
-                                curBillselect.getString(135) + "}" + curBillselect.getString(136) + "}" + curBillselect.getString(137) + "}" +
-                                curBillselect.getString(138) + "}" + curBillselect.getString(139) + "}" + curBillselect.getString(140) + "}" +
-                                curBillselect.getString(141) + "}" + curBillselect.getString(142) + "}" + curBillselect.getString(143) + "}" +
-                                curBillselect.getString(144) + "}" + curBillselect.getString(145) + "}" + curBillselect.getString(146) + "}" +
-                                curBillselect.getString(147) + "}" + curBillselect.getString(148) + "}" + curBillselect.getString(149) + "}" +
-                                curBillselect.getString(150) + "}" + curBillselect.getString(151) + "}" + curBillselect.getString(152) + "}" +
-                                curBillselect.getString(153) + "}" + curBillselect.getString(154) + "}" + curBillselect.getString(155) + "}" +
-                                curBillselect.getString(156) + "}" + curBillselect.getString(157) + "}" + curBillselect.getString(158) + "}" +
-                                curBillselect.getString(159) + "}" + curBillselect.getString(160) + "}" + curBillselect.getString(161) + "}" +
-                                curBillselect.getString(162) + "}" + curBillselect.getString(163) + "}" + curBillselect.getString(164) + "}" +
-                                curBillselect.getString(165) + "}" + curBillselect.getString(166) + "}" + curBillselect.getString(167) + "}" +
-                                curBillselect.getString(168) + "}" + curBillselect.getString(169) + "}" + curBillselect.getString(170) + "}" +
-                                curBillselect.getString(171) + "}" + curBillselect.getString(172) + "}" + curBillselect.getString(173) + "}" +
-                                curBillselect.getString(174) + "}" + curBillselect.getString(175) + "}" + curBillselect.getString(176) + "}" +
-                                curBillselect.getString(177) + "}" + curBillselect.getString(178) + "}" + curBillselect.getString(179) + "}" +
-                                curBillselect.getString(180) + "}" + curBillselect.getString(181) + "}" + curBillselect.getString(182) + "}" +
-                                curBillselect.getString(183) + "}" + curBillselect.getString(184) + "}" + curBillselect.getString(185) + "}" +
-                                curBillselect.getString(186) + "}" + curBillselect.getString(187) + "}" + curBillselect.getString(188) + "}" +
-                                curBillselect.getString(189) + "}" + curBillselect.getString(190) + "}" + curBillselect.getString(191) + "}" +
-                                curBillselect.getString(192) + "}" + curBillselect.getString(193) + "}" + curBillselect.getString(194) + "}" +
-                                curBillselect.getString(195) + "}" + curBillselect.getString(196) + "}" + curBillselect.getString(197) + "}" +
-                                curBillselect.getString(198) + "}" + curBillselect.getString(199) + "}" + curBillselect.getString(200) + "}" +
-                                curBillselect.getString(201) + "}" + curBillselect.getString(202) + "}" + curBillselect.getString(203) + "}" +
-                                curBillselect.getString(204) + "}" + curBillselect.getString(205) + "}" + curBillselect.getString(206) + "}" +
-                                curBillselect.getString(207) + "}" + curBillselect.getString(208) + "}" + curBillselect.getString(209) + "}" +
-                                curBillselect.getString(210) + "}" + curBillselect.getString(211)+ "}" + curBillselect.getString(212)+ "}" +
-                                curBillselect.getString(213)+ "}" + curBillselect.getString(214)+ "}" + curBillselect.getString(215)+ "}"+
-                                curBillselect.getString(216));
+                        mylist.add ( curBillselect.getString ( 0 ) + "}" + curBillselect.getString ( 1 ) + "}" + curBillselect.getString ( 2 ) + "}" +
+                                curBillselect.getString ( 3 ) + "}" + curBillselect.getString ( 4 ) + "}" + curBillselect.getString ( 5 ) + "}" +
+                                curBillselect.getString ( 6 ) + "}" + curBillselect.getString ( 7 ) + "}" + curBillselect.getString ( 8 ) + "}" +
+                                curBillselect.getString ( 9 ) + "}" + curBillselect.getString ( 10 ) + "}" + curBillselect.getString ( 11 ) + "}" +
+                                curBillselect.getString ( 12 ) + "}" + curBillselect.getString ( 13 ) + "}" + curBillselect.getString ( 14 ) + "}" +
+                                curBillselect.getString ( 15 ) + "}" + curBillselect.getString ( 16 ) + "}" + curBillselect.getString ( 17 ) + "}" +
+                                curBillselect.getString ( 18 ) + "}" + curBillselect.getString ( 19 ) + "}" + curBillselect.getString ( 20 ) + "}" +
+                                curBillselect.getString ( 21 ) + "}" + curBillselect.getString ( 22 ) + "}" + curBillselect.getString ( 23 ) + "}" +
+                                curBillselect.getString ( 24 ) + "}" + curBillselect.getString ( 25 ) + "}" + curBillselect.getString ( 26 ) + "}" +
+                                curBillselect.getString ( 27 ) + "}" + curBillselect.getString ( 28 ) + "}" + curBillselect.getString ( 29 ) + "}" +
+                                curBillselect.getString ( 30 ) + "}" + curBillselect.getString ( 31 ) + "}" + curBillselect.getString ( 32 ) + "}" +
+                                curBillselect.getString ( 33 ) + "}" + curBillselect.getString ( 34 ) + "}" + curBillselect.getString ( 35 ) + "}" +
+                                curBillselect.getString ( 36 ) + "}" + curBillselect.getString ( 37 ) + "}" + curBillselect.getString ( 38 ) + "}" +
+                                curBillselect.getString ( 39 ) + "}" + curBillselect.getString ( 40 ) + "}" + curBillselect.getString ( 41 ) + "}" +
+                                curBillselect.getString ( 42 ) + "}" + curBillselect.getString ( 43 ) + "}" + curBillselect.getString ( 44 ) + "}" +
+                                curBillselect.getString ( 45 ) + "}" + curBillselect.getString ( 46 ) + "}" + curBillselect.getString ( 47 ) + "}" +
+                                curBillselect.getString ( 48 ) + "}" + curBillselect.getString ( 49 ) + "}" + curBillselect.getString ( 50 ) + "}" +
+                                curBillselect.getString ( 51 ) + "}" + curBillselect.getString ( 52 ) + "}" + curBillselect.getString ( 53 ) + "}" +
+                                curBillselect.getString ( 54 ) + "}" + curBillselect.getString ( 55 ) + "}" + curBillselect.getString ( 56 ) + "}" +
+                                curBillselect.getString ( 57 ) + "}" + curBillselect.getString ( 58 ) + "}" + curBillselect.getString ( 59 ) + "}" +
+                                curBillselect.getString ( 60 ) + "}" + curBillselect.getString ( 61 ) + "}" + curBillselect.getString ( 62 ) + "}" +
+                                curBillselect.getString ( 63 ) + "}" + curBillselect.getString ( 64 ) + "}" + curBillselect.getString ( 65 ) + "}" +
+                                curBillselect.getString ( 66 ) + "}" + curBillselect.getString ( 67 ) + "}" + curBillselect.getString ( 68 ) + "}" +
+                                curBillselect.getString ( 69 ) + "}" + curBillselect.getString ( 70 ) + "}" + curBillselect.getString ( 71 ) + "}" +
+                                curBillselect.getString ( 72 ) + "}" + curBillselect.getString ( 73 ) + "}" + curBillselect.getString ( 74 ) + "}" +
+                                curBillselect.getString ( 75 ) + "}" + curBillselect.getString ( 76 ) + "}" + curBillselect.getString ( 77 ) + "}" +
+                                curBillselect.getString ( 78 ) + "}" + curBillselect.getString ( 79 ) + "}" + curBillselect.getString ( 80 ) + "}" +
+                                curBillselect.getString ( 81 ) + "}" + curBillselect.getString ( 82 ) + "}" + curBillselect.getString ( 83 ) + "}" +
+                                curBillselect.getString ( 84 ) + "}" + curBillselect.getString ( 85 ) + "}" + curBillselect.getString ( 86 ) + "}" +
+                                curBillselect.getString ( 87 ) + "}" + curBillselect.getString ( 88 ) + "}" + curBillselect.getString ( 89 ) + "}" +
+                                curBillselect.getString ( 90 ) + "}" + curBillselect.getString ( 91 ) + "}" + curBillselect.getString ( 92 ) + "}" +
+                                curBillselect.getString ( 93 ) + "}" + curBillselect.getString ( 94 ) + "}" + curBillselect.getString ( 95 ) + "}" +
+                                curBillselect.getString ( 96 ) + "}" + curBillselect.getString ( 97 ) + "}" + curBillselect.getString ( 98 ) + "}" +
+                                curBillselect.getString ( 99 ) + "}" + curBillselect.getString ( 100 ) + "}" + curBillselect.getString ( 101 ) + "}" +
+                                curBillselect.getString ( 102 ) + "}" + curBillselect.getString ( 103 ) + "}" + curBillselect.getString ( 104 ) + "}" +
+                                curBillselect.getString ( 105 ) + "}" + curBillselect.getString ( 106 ) + "}" + curBillselect.getString ( 107 ) + "}" +
+                                curBillselect.getString ( 108 ) + "}" + curBillselect.getString ( 109 ) + "}" + curBillselect.getString ( 110 ) + "}" +
+                                curBillselect.getString ( 111 ) + "}" + curBillselect.getString ( 112 ) + "}" + curBillselect.getString ( 113 ) + "}" +
+                                curBillselect.getString ( 114 ) + "}" + curBillselect.getString ( 115 ) + "}" + curBillselect.getString ( 116 ) + "}" +
+                                curBillselect.getString ( 117 ) + "}" + curBillselect.getString ( 118 ) + "}" + curBillselect.getString ( 119 ) + "}" +
+                                curBillselect.getString ( 120 ) + "}" + curBillselect.getString ( 121 ) + "}" + curBillselect.getString ( 122 ) + "}" +
+                                curBillselect.getString ( 123 ) + "}" + curBillselect.getString ( 124 ) + "}" + curBillselect.getString ( 125 ) + "}" +
+                                curBillselect.getString ( 126 ) + "}" + curBillselect.getString ( 127 ) + "}" + curBillselect.getString ( 128 ) + "}" +
+                                curBillselect.getString ( 129 ) + "}" + curBillselect.getString ( 130 ) + "}" + curBillselect.getString ( 131 ) + "}" +
+                                curBillselect.getString ( 132 ) + "}" + curBillselect.getString ( 133 ) + "}" + curBillselect.getString ( 134 ) + "}" +
+                                curBillselect.getString ( 135 ) + "}" + curBillselect.getString ( 136 ) + "}" + curBillselect.getString ( 137 ) + "}" +
+                                curBillselect.getString ( 138 ) + "}" + curBillselect.getString ( 139 ) + "}" + curBillselect.getString ( 140 ) + "}" +
+                                curBillselect.getString ( 141 ) + "}" + curBillselect.getString ( 142 ) + "}" + curBillselect.getString ( 143 ) + "}" +
+                                curBillselect.getString ( 144 ) + "}" + curBillselect.getString ( 145 ) + "}" + curBillselect.getString ( 146 ) + "}" +
+                                curBillselect.getString ( 147 ) + "}" + curBillselect.getString ( 148 ) + "}" + curBillselect.getString ( 149 ) + "}" +
+                                curBillselect.getString ( 150 ) + "}" + curBillselect.getString ( 151 ) + "}" + curBillselect.getString ( 152 ) + "}" +
+                                curBillselect.getString ( 153 ) + "}" + curBillselect.getString ( 154 ) + "}" + curBillselect.getString ( 155 ) + "}" +
+                                curBillselect.getString ( 156 ) + "}" + curBillselect.getString ( 157 ) + "}" + curBillselect.getString ( 158 ) + "}" +
+                                curBillselect.getString ( 159 ) + "}" + curBillselect.getString ( 160 ) + "}" + curBillselect.getString ( 161 ) + "}" +
+                                curBillselect.getString ( 162 ) + "}" + curBillselect.getString ( 163 ) + "}" + curBillselect.getString ( 164 ) + "}" +
+                                curBillselect.getString ( 165 ) + "}" + curBillselect.getString ( 166 ) + "}" + curBillselect.getString ( 167 ) + "}" +
+                                curBillselect.getString ( 168 ) + "}" + curBillselect.getString ( 169 ) + "}" + curBillselect.getString ( 170 ) + "}" +
+                                curBillselect.getString ( 171 ) + "}" + curBillselect.getString ( 172 ) + "}" + curBillselect.getString ( 173 ) + "}" +
+                                curBillselect.getString ( 174 ) + "}" + curBillselect.getString ( 175 ) + "}" + curBillselect.getString ( 176 ) + "}" +
+                                curBillselect.getString ( 177 ) + "}" + curBillselect.getString ( 178 ) + "}" + curBillselect.getString ( 179 ) + "}" +
+                                curBillselect.getString ( 180 ) + "}" + curBillselect.getString ( 181 ) + "}" + curBillselect.getString ( 182 ) + "}" +
+                                curBillselect.getString ( 183 ) + "}" + curBillselect.getString ( 184 ) + "}" + curBillselect.getString ( 185 ) + "}" +
+                                curBillselect.getString ( 186 ) + "}" + curBillselect.getString ( 187 ) + "}" + curBillselect.getString ( 188 ) + "}" +
+                                curBillselect.getString ( 189 ) + "}" + curBillselect.getString ( 190 ) + "}" + curBillselect.getString ( 191 ) + "}" +
+                                curBillselect.getString ( 192 ) + "}" + curBillselect.getString ( 193 ) + "}" + curBillselect.getString ( 194 ) + "}" +
+                                curBillselect.getString ( 195 ) + "}" + curBillselect.getString ( 196 ) + "}" + curBillselect.getString ( 197 ) + "}" +
+                                curBillselect.getString ( 198 ) + "}" + curBillselect.getString ( 199 ) + "}" + curBillselect.getString ( 200 ) + "}" +
+                                curBillselect.getString ( 201 ) + "}" + curBillselect.getString ( 202 ) + "}" + curBillselect.getString ( 203 ) + "}" +
+                                curBillselect.getString ( 204 ) + "}" + curBillselect.getString ( 205 ) + "}" + curBillselect.getString ( 206 ) + "}" +
+                                curBillselect.getString ( 207 ) + "}" + curBillselect.getString ( 208 ) + "}" + curBillselect.getString ( 209 ) + "}" +
+                                curBillselect.getString ( 210 ) + "}" + curBillselect.getString ( 211 ) + "}" + curBillselect.getString ( 212 ) + "}" +
+                                curBillselect.getString ( 213 ) + "}" + curBillselect.getString ( 214 ) + "}" + curBillselect.getString ( 215 ) + "}" +
+                                curBillselect.getString ( 216 ) );
 
 
-                        mylist1.add(curBillselect.getString(60) + "$" + curBillselect.getString(0) + "$" + curBillselect.getString(5) + "$" +
-                                curBillselect.getString(61) + "$" + curBillselect.getString(11) + "$" + curBillselect.getString(62) + "$" +
-                                curBillselect.getString(2) + "$" + i + "$" + curBillselect.getString(7) + "$" +
-                                curBillselect.getString(212) + "$" + curBillselect.getString(1) + "$" + formattedDate + "$" +
-                                curBillselect.getString(63) + "$" + curBillselect.getString(8) + "$" + curBillselect.getString(64) + "$" +
-                                curBillselect.getString(65) + "$" + curBillselect.getString(66) + "$" + curBillselect.getString(39) + "$" +
-                                curBillselect.getString(10) + "$" + curBillselect.getString(67) + "$" + curBillselect.getString(68) + "$" +
-                                curBillselect.getString(69) + "$" + curBillselect.getString(70) + "$" + curBillselect.getString(71) + "$" +
-                                curBillselect.getString(182) + "$" + curBillselect.getString(72) + "$" + curBillselect.getString(73) + "$" +
-                                column_24 + "$" + curBillselect.getString(74) + "$" + "0" + "$" + curBillselect.getString(75) + "$" +
-                                curBillselect.getString(76) + "$" + curBillselect.getString(27) + "$" + curBillselect.getString(77) + "$" +
-                                curBillselect.getString(26) + "$" + curBillselect.getString(78) + "$" + curBillselect.getString(79) + "$" +
-                                curBillselect.getString(80) + "$" + curBillselect.getString(81) + "$" + curBillselect.getString(82) + "$" +
-                                curBillselect.getString(201) + "$" + curBillselect.getString(83) + "$" + curBillselect.getString(179) + "$" +
-                                curBillselect.getString(85) + "$" + curBillselect.getString(86) + "$" + curBillselect.getString(169) + "$" +
-                                curBillselect.getString(87) + "$" + curBillselect.getString(88) + "$" + curBillselect.getString(89) + "$" +
-                                curBillselect.getString(90) + "$" + curBillselect.getString(91) + "$" + curBillselect.getString(92) + "$" +
-                                curBillselect.getString(93) + "$" + curBillselect.getString(94) + "$" + curBillselect.getString(95) + "$" +
-                                curBillselect.getString(96) + "$" + curBillselect.getString(97) + "$" + curBillselect.getString(98) + "$" +
-                                curBillselect.getString(99) + "$" + curBillselect.getString(178) + "$0$");
+                        mylist1.add ( curBillselect.getString ( 60 ) + "$" + curBillselect.getString ( 0 ) + "$" + curBillselect.getString ( 5 ) + "$" +
+                                curBillselect.getString ( 61 ) + "$" + curBillselect.getString ( 11 ) + "$" + curBillselect.getString ( 62 ) + "$" +
+                                curBillselect.getString ( 2 ) + "$" + i + "$" + curBillselect.getString ( 7 ) + "$" +
+                                curBillselect.getString ( 212 ) + "$" + curBillselect.getString ( 1 ) + "$" + formattedDate + "$" +
+                                curBillselect.getString ( 63 ) + "$" + curBillselect.getString ( 8 ) + "$" + curBillselect.getString ( 64 ) + "$" +
+                                curBillselect.getString ( 65 ) + "$" + curBillselect.getString ( 66 ) + "$" + curBillselect.getString ( 39 ) + "$" +
+                                curBillselect.getString ( 10 ) + "$" + curBillselect.getString ( 67 ) + "$" + curBillselect.getString ( 68 ) + "$" +
+                                curBillselect.getString ( 69 ) + "$" + curBillselect.getString ( 70 ) + "$" + curBillselect.getString ( 71 ) + "$" +
+                                curBillselect.getString ( 182 ) + "$" + curBillselect.getString ( 72 ) + "$" + curBillselect.getString ( 73 ) + "$" +
+                                column_24 + "$" + curBillselect.getString ( 74 ) + "$" + "0" + "$" + curBillselect.getString ( 75 ) + "$" +
+                                curBillselect.getString ( 76 ) + "$" + curBillselect.getString ( 27 ) + "$" + curBillselect.getString ( 77 ) + "$" +
+                                curBillselect.getString ( 26 ) + "$" + curBillselect.getString ( 78 ) + "$" + curBillselect.getString ( 79 ) + "$" +
+                                curBillselect.getString ( 80 ) + "$" + curBillselect.getString ( 81 ) + "$" + curBillselect.getString ( 82 ) + "$" +
+                                curBillselect.getString ( 201 ) + "$" + curBillselect.getString ( 83 ) + "$" + curBillselect.getString ( 179 ) + "$" +
+                                curBillselect.getString ( 85 ) + "$" + curBillselect.getString ( 86 ) + "$" + curBillselect.getString ( 169 ) + "$" +
+                                curBillselect.getString ( 87 ) + "$" + curBillselect.getString ( 88 ) + "$" + curBillselect.getString ( 89 ) + "$" +
+                                curBillselect.getString ( 90 ) + "$" + curBillselect.getString ( 91 ) + "$" + curBillselect.getString ( 92 ) + "$" +
+                                curBillselect.getString ( 93 ) + "$" + curBillselect.getString ( 94 ) + "$" + curBillselect.getString ( 95 ) + "$" +
+                                curBillselect.getString ( 96 ) + "$" + curBillselect.getString ( 97 ) + "$" + curBillselect.getString ( 98 ) + "$" +
+                                curBillselect.getString ( 99 ) + "$" + curBillselect.getString ( 178 ) + "$0$" );
 
 //                        mylistbck.add(curBillselect.getString(44)+ "|" +curBillselect.getString(50) );
 
-                        moveFile(ZipSourcePath, curBillselect.getString(48), ZipCopyPath);
-                        moveFile(ZipSourcePath, curBillselect.getString(49), ZipCopyPath);
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 48 ), ZipCopyPath );
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 49 ), ZipCopyPath );
 
-                        curBillselect.moveToNext();
+                        curBillselect.moveToNext ( );
                     }
 
-                    generateNoteOnSD(getApplicationContext(), "Meter.csv", mylist);
+                    generateNoteOnSD ( getApplicationContext ( ), "Meter.csv", mylist );
 //                    generateNoteOnSD(getApplicationContext(), "Meter1.csv", mylist1);
 //                    generatebackupNoteOnSD(getApplicationContext(), "mbc_Ob.csv", mylist);
 
                 }
 
-                BillingViewActivity.this.runOnUiThread(new Runnable() {
+                BillingViewActivity.this.runOnUiThread ( new Runnable ( ) {
 
                     @Override
                     public void run() {
-                        progress.dismiss();
-                        new PostClass(BillingViewActivity.this).execute();
+                        progress.dismiss ( );
+                        new PostClass ( BillingViewActivity.this ).execute ( );
                     }
-                });
+                } );
 
 
             } catch (NullPointerException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                e.printStackTrace ( );
             }
             return null;
         }
 
         protected void onPostExecute() {
-            progress.dismiss();
+            progress.dismiss ( );
 //            new PostClass(Signature_Activity.this).execute();
         }
 
     }
-    private class PostClass extends AsyncTask<String, Void, Boolean> {
+
+    private class PostClass extends AsyncTask <String, Void, Boolean> {
 
         private final Context context;
         public String succsess = null;
@@ -810,36 +812,36 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
         }
 
         protected void onPreExecute() {
-            progress = new ProgressDialog(this.context);
-            progress.setMessage("Sending Data...");
-            progress.show();
+            progress = new ProgressDialog ( this.context );
+            progress.setMessage ( "Sending Data..." );
+            progress.show ( );
 
-            dbHelper3 = new DB(getApplicationContext());
-            SD3 = dbHelper3.getWritableDatabase();
+            dbHelper3 = new DB ( getApplicationContext ( ) );
+            SD3 = dbHelper3.getWritableDatabase ( );
             String frt[] = new String[0];
 
             String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING WHERE Upload_Flag='N'";
-            Cursor curBillImg = SD3.rawQuery(serImgQwer, null);
-            if (curBillImg != null && curBillImg.moveToFirst()) {
+            Cursor curBillImg = SD3.rawQuery ( serImgQwer, null );
+            if (curBillImg != null && curBillImg.moveToFirst ( )) {
 
 //                Log.e(getApplicationContext(), "SLPrintAct", "Update Success");
 
 
-                mylistimagename.add(curBillImg.getString(0));
-                mylistimagename.add(curBillImg.getString(1));
+                mylistimagename.add ( curBillImg.getString ( 0 ) );
+                mylistimagename.add ( curBillImg.getString ( 1 ) );
 //                Log.e(getApplicationContext(), "SLPrintAct", "mtr_img" + curBillImg.getString(0) + "sig_img" + curBillImg.getString(1));
             }
 
-            ArrayList<String> stringArrayList = new ArrayList<String>();
-            for (int j = 0; j < mylistimagename.size(); j++) {
+            ArrayList <String> stringArrayList = new ArrayList <String> ( );
+            for (int j = 0; j < mylistimagename.size ( ); j++) {
 
-                stringArrayList.add(Environment.getExternalStorageDirectory() + "/MBC/" + mylistimagename.get(j)); //add to arraylist
+                stringArrayList.add ( Environment.getExternalStorageDirectory ( ) + "/MBC/" + mylistimagename.get ( j ) ); //add to arraylist
             }
-            String[] files = stringArrayList.toArray(new String[stringArrayList.size()]);
+            String[] files = stringArrayList.toArray ( new String[stringArrayList.size ( )] );
             String[] file = {Zip, signaturePathDes, photoPathDes};
 
-            zipFolder(ZipCopyPath, ZipDesPath);
-            GSBilling.getInstance().setFinalZipName(ZipDesPathdup);
+            zipFolder ( ZipCopyPath, ZipDesPath );
+            GSBilling.getInstance ( ).setFinalZipName ( ZipDesPathdup );
 
         }
 
@@ -848,65 +850,65 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
             try {
                 // Set your file path here
 //                System.out.println("FILENAME IS1 "+GSBilling.getInstance().getFinalZipName());
-                FileInputStream fstrm = new FileInputStream(Environment.getExternalStorageDirectory().toString() + GSBilling.getInstance().getFinalZipName() + ".zip");
+                FileInputStream fstrm = new FileInputStream ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
 //                Log.e(getApplicationContext(), "SLPrintAct", "FILENAME IS12 " + fstrm);
 
                 // Set your server page url (and the file title/description)
 
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi_Testing/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
-                HttpFileUpload hfu = new HttpFileUpload(URLS.DataComm.billUpload, "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+                HttpFileUpload hfu = new HttpFileUpload ( URLS.DataComm.billUpload, "" + GSBilling.getInstance ( ).getFinalZipName ( ), ".zip" );
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 
                 // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
 //                Log.e(getApplicationContext(), "SLPrintAct", "going out " + GSBilling.getInstance().getFinalZipName() + ".zip");
-                int status = hfu.Send_Now(fstrm);
+                int status = hfu.Send_Now ( fstrm );
                 if (status != 200) {
 //                    succsess = "1";
-                    BillingViewActivity.this.runOnUiThread(new Runnable() {
+                    BillingViewActivity.this.runOnUiThread ( new Runnable ( ) {
 
                         @Override
                         public void run() {
-                            progress.dismiss();
-                            Toast.makeText(BillingViewActivity.this, "Internaly Stored Due to No Connectivity", Toast.LENGTH_LONG).show();
+                            progress.dismiss ( );
+                            Toast.makeText ( BillingViewActivity.this, "Internaly Stored Due to No Connectivity", Toast.LENGTH_LONG ).show ( );
 
-                            Intent intent = new Intent(BillingViewActivity.this, BillingtypesActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            intent.putExtra("printtype", print_type);
-                            startActivity(intent);
-                            overridePendingTransition(R.anim.anim_slide_in_left,
-                                    R.anim.anim_slide_out_left);
+                            Intent intent = new Intent ( BillingViewActivity.this, BillingtypesActivity.class );
+                            intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                            intent.putExtra ( "printtype", print_type );
+                            startActivity ( intent );
+                            overridePendingTransition ( R.anim.anim_slide_in_left,
+                                    R.anim.anim_slide_out_left );
 
                         }
-                    });
+                    } );
 
 
                 } else {
 //                    succsess = "0";
-                    dbHelper2 = new DB(getApplicationContext());
-                    SD2 = dbHelper2.getWritableDatabase();
+                    dbHelper2 = new DB ( getApplicationContext ( ) );
+                    SD2 = dbHelper2.getWritableDatabase ( );
 
 //                        String updatequer = "UPDATE  TBL_BILLING  SET Upload_Flag = 'Y' WHERE  Cons_Number = '" + curBillselect.getString(0) + "' and  Bill_Month='" + curBillselect.getString(5) + "'";
                     String updatequer = "UPDATE  TBL_BILLING  SET Upload_Flag = 'Y'";
-                    Cursor curBillupdate = SD2.rawQuery(updatequer, null);
-                    if (curBillupdate != null && curBillupdate.moveToFirst()) {
+                    Cursor curBillupdate = SD2.rawQuery ( updatequer, null );
+                    if (curBillupdate != null && curBillupdate.moveToFirst ( )) {
 //                        Log.e(getApplicationContext(), "SLPrintAct", "Update Success");
                     }
-                    BillingViewActivity.this.runOnUiThread(new Runnable() {
+                    BillingViewActivity.this.runOnUiThread ( new Runnable ( ) {
 
                         @Override
                         public void run() {
-                            progress.dismiss();
-                            Toast.makeText(BillingViewActivity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(BillingViewActivity.this, BillingtypesActivity.class);
+                            progress.dismiss ( );
+                            Toast.makeText ( BillingViewActivity.this, " Successfully Uploaded to Server ", Toast.LENGTH_LONG ).show ( );
+                            Intent intent = new Intent ( BillingViewActivity.this, BillingtypesActivity.class );
                             //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             //  intent.putExtra("printtype", print_type);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.anim_slide_in_left,
-                                    R.anim.anim_slide_out_left);
+                            startActivity ( intent );
+                            finish ( );
+                            overridePendingTransition ( R.anim.anim_slide_in_left,
+                                    R.anim.anim_slide_out_left );
 
                         }
-                    });
+                    } );
 
 
                 }
@@ -916,7 +918,7 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
             } catch (Exception e) {
                 // Error: File not found
                 succsess = "0";
-                e.printStackTrace();
+                e.printStackTrace ( );
 //                return  false;
             }
 
@@ -925,90 +927,93 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
         }
 
         protected void onPostExecute() {
-            progress.dismiss();
-            new File(Environment.getExternalStorageDirectory().toString() + GSBilling.getInstance().getFinalZipName() + ".zip").delete();
-            Intent intent = new Intent(BillingViewActivity.this, BillingtypesActivity.class);
-            startActivity(intent);
-            overridePendingTransition(R.anim.anim_slide_in_left,
-                    R.anim.anim_slide_out_left);
+            progress.dismiss ( );
+            new File ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" ).delete ( );
+            Intent intent = new Intent ( BillingViewActivity.this, BillingtypesActivity.class );
+            startActivity ( intent );
+            overridePendingTransition ( R.anim.anim_slide_in_left,
+                    R.anim.anim_slide_out_left );
 
         }
     }
+
     public static void zipFolder(String inputFolderPath, String outZipPath) {
         try {
-            FileOutputStream fos = new FileOutputStream(outZipPath);
+            FileOutputStream fos = new FileOutputStream ( outZipPath );
 //            GSBilling.getInstance().setFinalZipName();
-            ZipOutputStream zos = new ZipOutputStream(fos);
-            File srcFile = new File(inputFolderPath);
-            File[] files = srcFile.listFiles();
-            android.util.Log.d("", "Zip directory: " + srcFile.getName());
+            ZipOutputStream zos = new ZipOutputStream ( fos );
+            File srcFile = new File ( inputFolderPath );
+            File[] files = srcFile.listFiles ( );
+            android.util.Log.d ( "", "Zip directory: " + srcFile.getName ( ) );
             for (int i = 0; i < files.length; i++) {
-                android.util.Log.d("", "Adding file: " + files[i].getName());
+                android.util.Log.d ( "", "Adding file: " + files[i].getName ( ) );
                 byte[] buffer = new byte[1024];
-                FileInputStream fis = new FileInputStream(files[i]);
-                zos.putNextEntry(new ZipEntry(files[i].getName()));
+                FileInputStream fis = new FileInputStream ( files[i] );
+                zos.putNextEntry ( new ZipEntry ( files[i].getName ( ) ) );
                 int length;
-                while ((length = fis.read(buffer)) > 0) {
-                    zos.write(buffer, 0, length);
+                while ((length = fis.read ( buffer )) > 0) {
+                    zos.write ( buffer, 0, length );
                 }
-                zos.closeEntry();
-                fis.close();
+                zos.closeEntry ( );
+                fis.close ( );
             }
-            System.out.println("helloooo" + srcFile.delete());
-            zos.close();
+            System.out.println ( "helloooo" + srcFile.delete ( ) );
+            zos.close ( );
         } catch (IOException ioe) {
-            android.util.Log.e("", ioe.getMessage());
+            android.util.Log.e ( "", ioe.getMessage ( ) );
         }
     }
+
     public void generateNoteOnSD(Context context, String sFileName, ArrayList sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "MBC/Downloadsingular/");
-            if (!root.exists()) {
-                root.mkdirs();
+            File root = new File ( Environment.getExternalStorageDirectory ( ), "MBC/Downloadsingular/" );
+            if (!root.exists ( )) {
+                root.mkdirs ( );
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            int length = sBody.size();
+            File gpxfile = new File ( root, sFileName );
+            FileWriter writer = new FileWriter ( gpxfile );
+            int length = sBody.size ( );
             for (int i = 0; i < length; i++) {
-                System.out.println("selqwer1234 " + sBody.get(i));
+                System.out.println ( "selqwer1234 " + sBody.get ( i ) );
 
-                writer.append(sBody.get(i).toString());
-                writer.append("\n");
+                writer.append ( sBody.get ( i ).toString ( ) );
+                writer.append ( "\n" );
             }
 
-            writer.flush();
-            writer.close();
+            writer.flush ( );
+            writer.close ( );
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 
     public void generatebackupNoteOnSD(Context context, String sFileName, ArrayList sBody) {
         try {
-            File root = new File(Environment.getExternalStorageDirectory(), "MBC/");
-            if (!root.exists()) {
-                root.mkdirs();
+            File root = new File ( Environment.getExternalStorageDirectory ( ), "MBC/" );
+            if (!root.exists ( )) {
+                root.mkdirs ( );
             }
-            File gpxfile = new File(root, sFileName);
-            FileWriter writer = new FileWriter(gpxfile);
-            int length = sBody.size();
+            File gpxfile = new File ( root, sFileName );
+            FileWriter writer = new FileWriter ( gpxfile );
+            int length = sBody.size ( );
             for (int i = 0; i < length; i++) {
-                System.out.println("selqwer1234 " + sBody.get(i));
-                BufferedWriter writerbuf = new BufferedWriter(new FileWriter(gpxfile, true));
-                writerbuf.write(sBody.get(i).toString());
-                writerbuf.close();
+                System.out.println ( "selqwer1234 " + sBody.get ( i ) );
+                BufferedWriter writerbuf = new BufferedWriter ( new FileWriter ( gpxfile, true ) );
+                writerbuf.write ( sBody.get ( i ).toString ( ) );
+                writerbuf.close ( );
 //                writer.append(sBody.get(i).toString());
 //                writer.append("\n");
             }
 
-            writer.flush();
-            writer.close();
+            writer.flush ( );
+            writer.close ( );
 
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
+
     private void moveFile(String inputPath, String inputFile, String outputPath) {
 
         InputStream in = null;
@@ -1016,26 +1021,26 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
         try {
 
             //create output directory if it doesn't exist
-            File dir = new File(outputPath);
-            if (!dir.exists()) {
-                dir.mkdirs();
+            File dir = new File ( outputPath );
+            if (!dir.exists ( )) {
+                dir.mkdirs ( );
             }
 
 
-            in = new FileInputStream(inputPath + inputFile);
-            out = new FileOutputStream(outputPath + inputFile);
+            in = new FileInputStream ( inputPath + inputFile );
+            out = new FileOutputStream ( outputPath + inputFile );
 
             byte[] buffer = new byte[1024];
             int read;
-            while ((read = in.read(buffer)) != -1) {
-                out.write(buffer, 0, read);
+            while ((read = in.read ( buffer )) != -1) {
+                out.write ( buffer, 0, read );
             }
-            in.close();
+            in.close ( );
             in = null;
 
             // write the output file
-            out.flush();
-            out.close();
+            out.flush ( );
+            out.close ( );
             out = null;
 
 ////             delete the original file
@@ -1043,9 +1048,9 @@ public class BillingViewActivity extends AppCompatActivity implements LogoutList
 
 
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace ( );
         }
     }
 }

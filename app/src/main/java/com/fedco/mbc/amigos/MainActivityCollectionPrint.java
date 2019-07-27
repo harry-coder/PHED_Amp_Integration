@@ -585,7 +585,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 
         System.out.println ( "This is the printer name " + printerName );
 
-        if (device.getName ( ) != null && ((device.getName ( ).contains ( "QA" )) || (device.getName ( ).contains ( "ESBAA0050" )) || (device.getName ( ).contains ( "MHT-P5801" )) || (device.getName ( ).contains ( "TM-P20_001644" )) || (device.getName ( ).contains ( "SP120E" )) || (device.getName ( ).contains ( "SP120" )) || (device.getName ( ).contains ( "XL-1880" )) || (device.getName ( ).contains ( "Dual-SPP" )) || (device.getName ( ).contains ( "QSPrinter" )) || (device.getName ( ).contains ( "QSprinter" )) || (device.getName ( ).contains ( "QuantumAeon" )))) {
+        if (device.getName ( ) != null && ((device.getName ( ).contains ( "QA" )) || (device.getName ( ).contains ( "ESBAA0050" )) || (device.getName ( ).contains ( "MHT-P5801" )) || (device.getName ( ).contains ( "TM-P20_001644" )) || (device.getName ( ).contains ( "SP120E" )) || (device.getName ( ).contains ( "SP120" )) || (device.getName ( ).contains ( "XL-1880" )) || (device.getName ( ).contains ( "Dual-SPP" )) || (device.getName ( ).contains ( "QSPrinter" )) || (device.getName ( ).contains ( "QSprinter" )) || (device.getName ( ).contains ( "QuantumAeon" ))|| (device.getName ( ).contains ( "MPT-II" )))) {
             String dev_name = device.getName ( ).trim ( );
             String dev_adrs = device.getAddress ( ).trim ( );
             if (device.getBondState ( ) == BluetoothDevice.BOND_BONDED) {

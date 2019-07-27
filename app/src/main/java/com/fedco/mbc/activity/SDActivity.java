@@ -421,12 +421,12 @@ public class SDActivity extends Activity implements LogoutListaner {
 
                     switch (keymap) {
                         case "billing":
+                            System.out.println ("Inside billing" );
 
                             File prevFile = new File(ZipImgLimitPath);
 //                            DeleteRecursive(prevFile);
 
                             new TextFileClass(SDActivity.this).execute();
-
                             break;
 
                         case "collection":
@@ -437,11 +437,11 @@ public class SDActivity extends Activity implements LogoutListaner {
 
                         case "metering":
 
+                            System.out.println ("Inside Metering" );
                             File prevFileMetre = new File(ZipImgLimitPathMeter);
                             DeleteRecursive(prevFileMetre);
 
                             new TextFileMeterClass(SDActivity.this).execute();
-
                             break;
                         case "survey":
 
@@ -987,9 +987,17 @@ public class SDActivity extends Activity implements LogoutListaner {
                                 curBillselect.getString(96)+ "$" + curBillselect.getString(97)+ "$" + curBillselect.getString(98)+ "$" +
                                 curBillselect.getString(99)+ "$" + curBillselect.getString(178) + "$0$" );
 
+
+                        System.out.println ("48 " +curBillselect.getString(48));
+                        System.out.println ("48 " +curBillselect.getString(49));
+                        System.out.println ("226 " +curBillselect.getString(226));
+                        System.out.println ("227 " +curBillselect.getString(227));
+
                         createfolder(ZipImgCountPath + "/" + name + GSBilling.getInstance().captureDate() + "_" + counter / globalcount);
                         moveFile(ZipSourcePath, curBillselect.getString(48), ZipImgCountPath + "/" + name + GSBilling.getInstance().captureDate() + "_" + counter / globalcount + "/");
                         moveFile(ZipSourcePath, curBillselect.getString(49), ZipImgCountPath + "/" + name + GSBilling.getInstance().captureDate() + "_" + counter / globalcount + "/");
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 226), ZipImgCountPath + "/" + name + GSBilling.getInstance().captureDate() + "_" + counter / globalcount + "/" );
+                        moveFile ( ZipSourcePath, curBillselect.getString ( 227), ZipImgCountPath + "/" + name + GSBilling.getInstance().captureDate() + "_" + counter / globalcount + "/" );
 
                         curBillselect.moveToNext();
 

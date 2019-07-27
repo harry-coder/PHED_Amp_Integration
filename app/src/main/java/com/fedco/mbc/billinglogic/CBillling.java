@@ -218,7 +218,8 @@ public class CBillling {
         TestInstaceCHK();
 
         System.out.println("derived mtr sta is" + dms + " curremt mtr read " + cmr + " current mtr stat " + cms);
-        Structbilling.Cur_Meter_Reading = Integer.parseInt(cmr);
+
+        Structbilling.Cur_Meter_Reading = (int) Double.parseDouble (cmr);
 
         System.out.println("READING CBILLING     " + cmr);
         System.out.println("READING CBILLING 2    " + Structbilling.Cur_Meter_Reading);
@@ -293,6 +294,8 @@ public class CBillling {
 
                     O_Actual_Unit = unit;
                     return unit;
+
+
 
                 }
 
@@ -419,7 +422,7 @@ public class CBillling {
 //                //O_Actual_Unit=unit;
 //                return unit;//(int)(O_Actual_Unit+O_Assessment_Unit);
                 System.out.println("prev meter reading units :::::  " + Structconsmas.Prev_Meter_Reading);
-                System.out.println("prev meter reading conditionm :::::  " + (Structconsmas.Prev_Meter_Reading < Integer.parseInt(cmr)));
+//                System.out.println("prev meter reading conditionm :::::  " + (Structconsmas.Prev_Meter_Reading < Integer.parseInt(cmr)));
                 Structbilling.Bill_Basis = "R";
                 Structbilling.RDG_TYP_CD = "0";
                 BILL_TYP_CD = "4";
@@ -434,7 +437,7 @@ public class CBillling {
                 }
                 O_Actual_Unit = unit;
                 return unit;
-            case "3"://Provosional --- Meterdefective --
+           /* case "3"://Provosional --- Meterdefective --
                 Structbilling.Bill_Basis = "E";
                 BILL_TYP_CD = "7";
                 Structbilling.MTR_STAT_TYP = "56";
@@ -459,7 +462,7 @@ public class CBillling {
                 // Structconsmas.Consump_of_Old_Meter=Integer.parseInt(Structconsmas.PREV_AVG_UNIT);
                 System.out.println("am in dms cal " + unit);
                 O_Actual_Unit = unit;
-                return unit;
+                return unit;*/
 //            case "8"://LDHF --- Nometer --
 //                Structbilling.Bill_Basis = "AVG";
 //                Structbilling.Cur_Meter_Reading = Structconsmas.Prev_Meter_Reading;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
+import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Log;
 
@@ -813,8 +814,15 @@ public class UtilAppCommon {
         // Structbilling.Cur_Meter_Reading 	  					 = Integer.parseInt(cb.curMeterRead);
         // Structbilling.Cur_Meter_Reading_Date  				 = cb.curMeterReadDate;
         Structbilling.Cur_Meter_Reading_Date = dateee;
-        Structbilling.MDI = Float.valueOf ( Structconsmas.CUR_MD );
-        // Structbilling.Cur_Meter_Stat 		  				 = cb.curMeterStatus;
+        if(TextUtils.isEmpty ( Structconsmas.CUR_MD )){
+            Structbilling.MDI = 0f;
+
+        }
+        else{
+            Structbilling.MDI = Float.valueOf ( Structconsmas.CUR_MD );
+
+        }
+         // Structbilling.Cur_Meter_Stat 		  				 = cb.curMeterStatus;
         Structbilling.Units_Consumed = (int) (cb.O_MTR_Consumtion);
         // Structbilling.Bill_Basis 			  				 = Double.parseDouble(doublecheck(curtariff.getString(15));
         // Structbilling.House_Lck_Adju_Amnt                     = 0f;

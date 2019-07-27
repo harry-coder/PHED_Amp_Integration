@@ -2153,7 +2153,10 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 
                 // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
                 Log.e ( getApplicationContext ( ), "SLPrintAct", "going out " + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
+
+                System.out.println ("File name "+ GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip");
                 int status = hfu.Send_Now ( fstrm );
+                System.out.println ("This is the status "+status );
                 if (status != 200) {
 //                    succsess = "1";
                     MainActivity.this.runOnUiThread ( new Runnable ( ) {

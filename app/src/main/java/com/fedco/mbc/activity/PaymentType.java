@@ -1967,7 +1967,8 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                HttpFileUpload hfu = new HttpFileUpload("http://enservtest.fedco.co.in/MPSurvey/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://10.10.24.91:8080/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
               //  HttpFileUpload hfu = new HttpFileUpload("https://dlenhance.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
-                HttpFileUpload hfu = new HttpFileUpload("http://dlenhanceuat.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+              //  HttpFileUpload hfu = new HttpFileUpload("http://dlenhance.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
+                HttpFileUpload hfu = new HttpFileUpload("https://dlenhanceuat.phed.com.ng/dlenhanceapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://phedtest.fedco.co.in/phedapi/Collection/UploadPrePaidFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 

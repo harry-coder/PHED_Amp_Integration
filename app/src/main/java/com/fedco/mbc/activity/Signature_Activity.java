@@ -491,7 +491,9 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 
                 StoredPath = DIRECTORY + pic_name + ".jpg";
                 mSignature.save ( view, StoredPath );
-                if (Home.Mflag.equals ( "Y" )) {
+               // if (Home.Mflag.equals ( "Y" )) {
+                if (Home.isMeter) {
+
 
                     dbHelper4 = new DB ( getApplicationContext ( ) );
                     SD4 = dbHelper4.getWritableDatabase ( );
@@ -512,6 +514,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                         startActivity ( intent );
                         overridePendingTransition ( R.anim.anim_slide_in_left,
                                 R.anim.anim_slide_out_left );
+                        System.out.println ("Inside first if" );
                     } else if (prev_pref.equalsIgnoreCase ( "0_1_0" ) || prev_pref.equalsIgnoreCase ( "0_1_1" )) {//IMP_REG
                         Toast.makeText ( Signature_Activity.this, "Under process", Toast.LENGTH_SHORT ).show ( );
                     } else if (prev_pref.equalsIgnoreCase ( "0_2_0" ) || prev_pref.equalsIgnoreCase ( "0_2_1" )) {
@@ -522,6 +525,8 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                         startActivity ( intent );
                         overridePendingTransition ( R.anim.anim_slide_in_left,
                                 R.anim.anim_slide_out_left );
+
+                        System.out.println ("Inside second if" );
                     } else {
                         Toast.makeText ( Signature_Activity.this, "Unable to find Printer", Toast.LENGTH_SHORT ).show ( );
                     }
@@ -1070,7 +1075,10 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 //                        mylistbck.add(curBillselect.getString(44)+ "|" +curBillselect.getString(50) );
 
                         moveFile ( ZipSourcePath, curBillselect.getString ( 48 ), ZipCopyPath );
-                        moveFile ( ZipSourcePath, curBillselect.getString ( 49 ), ZipCopyPath );
+
+
+
+                        moveFile ( ZipSourcePath, Structbilling.User_MtrRead_Img, ZipCopyPath );
                         moveFile ( ZipSourcePath, curBillselect.getString ( 226), ZipCopyPath );
                         moveFile ( ZipSourcePath, curBillselect.getString ( 227), ZipCopyPath );
 
@@ -1264,6 +1272,8 @@ public class Signature_Activity extends Activity implements LogoutListaner {
             String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING WHERE Upload_Flag='N'";
 //            String serImgQwer = "Select User_Mtr_Img,User_Sig_Img from TBL_BILLING";
             Cursor curBillImg = SD3.rawQuery ( serImgQwer, null );
+
+
             if (curBillImg != null && curBillImg.moveToFirst ( )) {
 
 //                Log.e(getApplicationContext(), "SLPrintAct", "Update Success");
@@ -1282,20 +1292,31 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                 String[] file = {Zip, signaturePathDes, photoPathDes};
 
                 zipFolder ( ZipCopyPath, ZipDesPath );
-                GSBilling.getInstance ( ).setFinalZipName ( ZipDesPathdup );
 
+                System.out.println ("This is the setter file name "+ZipDesPathdup );
+                GSBilling.getInstance ( ).setFinalZipName ( ZipDesPathdup );
             }
+
+          /*  zipFolder ( ZipCopyPath, ZipDesPath );
+
+            System.out.println ("This is the setter file name "+ZipDesPathdup );
+            GSBilling.getInstance ( ).setFinalZipName ( ZipDesPathdup );
+*/
         }
 
             @Override
             protected Boolean doInBackground (String...params){
                 try {
+                    System.out.println ("This is the name of the file "+GSBilling.getInstance ( ).getFinalZipName ( ) );
+
                     // Set your file path here
 //                System.out.println("FILENAME IS1 "+GSBilling.getInstance().getFinalZipName());
                     FileInputStream fstrm = new FileInputStream ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
 //                Log.e(getApplicationContext(), "SLPrintAct", "FILENAME IS12 " + fstrm);
 
                     // Set your server page url (and the file title/description)
+
+
 
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi_Testing/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
                     HttpFileUpload hfu = new HttpFileUpload ( URLS.DataComm.billUpload, "" + GSBilling.getInstance ( ).getFinalZipName ( ), ".zip" );

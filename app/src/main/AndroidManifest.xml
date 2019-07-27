@@ -169,6 +169,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
+            android:name=".activity.ReadingInputBilling"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
             android:name=".bluetoothprinting.PrintingMainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />

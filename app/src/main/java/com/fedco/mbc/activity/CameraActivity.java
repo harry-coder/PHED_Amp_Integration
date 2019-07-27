@@ -1340,8 +1340,19 @@ public class CameraActivity extends AppCompatActivity implements LogoutListaner 
                                             Structbilling.EMAIL_ID = email;
                                             getCCnBcodefromLOC_CD ( );
 
+
+                                            /*if(Home.isMeter){
+                                                startActivity ( new Intent ( CameraActivity.this,PictureActivity.class ) );
+
+                                            }
+                                            else {
+                                                startActivity ( new Intent ( CameraActivity.this,ReadingInputBilling.class ) );
+
+                                            }*/
                                             startActivity ( new Intent ( CameraActivity.this,PictureActivity.class ) );
-                                           // takePicture ( );
+
+
+                                            // takePicture ( );
                                           //  dialog.dismiss ( );
 
                                         }

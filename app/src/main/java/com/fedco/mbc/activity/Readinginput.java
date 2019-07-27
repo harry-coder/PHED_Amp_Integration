@@ -153,9 +153,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
     private ArrayList <String> results = new ArrayList <String> ( );
 
-    ArrayList<String > meterStatusList;
+    ArrayList <String> meterStatusList;
 
-    public static String consumerNo,readingDate,tariffCode;
+    public static String consumerNo, readingDate, tariffCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,9 +167,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         getSupportActionBar ( ).setTitle ( "Reading Input" );
         System.out.print ( Structconsmas.Consumer_Number + "---" + Structconsmas.Old_Consumer_Number + "---" + Structconsmas.Name + "---" + Structconsmas.address1 + "---" + Structconsmas.address2 + "---" + Structconsmas.Cycle + "---" + Structconsmas.Electrical_Address + "---" + Structconsmas.Route_Number + "---" + Structconsmas.Division_Name + "---" + Structconsmas.Sub_division_Name + "---" + Structconsmas.Section_Name + "---" + Structconsmas.Meter_S_No + "---" + Structconsmas.Meter_Type + "---" + Structconsmas.Meter_Phase + "---" + Structconsmas.Multiply_Factor + "---" + Structconsmas.Meter_Ownership + "---" + Structconsmas.Meter_Digits + "---" + Structconsmas.Category + "---" + Structconsmas.Tariff_Code + "---" + Structconsmas.Load + "---" + Structconsmas.Load_Type + "---" + Structconsmas.ED_Exemption + "---" + Structconsmas.Prev_Meter_Reading + "---" + Structconsmas.Prev_Meter_Reading_Date + "---" + Structconsmas.Prev_Meter_Status + "---" + Structconsmas.Meter_Status_Count + "---" + Structconsmas.Consump_of_Old_Meter + "---" + Structconsmas.Meter_Chng_Code + "---" + Structconsmas.New_Meter_Init_Reading + "---" + Structconsmas.misc_charges + "---" + Structconsmas.Sundry_Allow_EC + "---" + Structconsmas.Sundry_Allow_ED + "---" + Structconsmas.Sundry_Allow_MR + "---" + Structconsmas.Sundry_Allow_DPS + "---" + Structconsmas.Sundry_Charge_EC + "---" + Structconsmas.Sundry_Charge_ED + "---" + Structconsmas.Sundry_Charte_MR + "---" + Structconsmas.Sundry_Charge_DPS + "---" + Structconsmas.Pro_Energy_Chrg + "---" + Structconsmas.Pro_Electricity_Duty + "---" + Structconsmas.Pro_Units_Billed + "---" + Structconsmas.Units_Billed_LM + "---" + Structconsmas.Avg_Units + "---" + Structconsmas.Load_Factor_Units + "---" + Structconsmas.Last_Pay_Date + "---" + Structconsmas.Last_Pay_Receipt_Book_No + "---" + Structconsmas.Last_Pay_Receipt_No + "---" + Structconsmas.Last_Total_Pay_Paid + "---" + Structconsmas.Pre_Financial_Yr_Arr + "---" + Structconsmas.Cur_Fiancial_Yr_Arr + "---" + Structconsmas.SD_Interest_chngto_SD_AVAIL + "---" + Structconsmas.Bill_Mon + "---" + Structconsmas.New_Consumer_Flag + "---" + Structconsmas.Cheque_Boune_Flag + "---" + Structconsmas.Last_Cheque_Bounce_Date + "---" + Structconsmas.Consumer_Class + "---" + Structconsmas.Court_Stay_Amount + "---" + Structconsmas.Installment_Flag + "---" + Structconsmas.Round_Amount + "---" + Structconsmas.Flag_For_Billing_or_Collection + "---" + Structconsmas.Meter_Rent + "---" + Structconsmas.Last_Recorded_Max_Demand + "---" + Structconsmas.Delay_Payment_Surcharge + "---" + Structconsmas.Meter_Reader_ID + "---" + Structconsmas.Meter_Reader_Name + "---" + Structconsmas.Division_Code + "---" + Structconsmas.Sub_division_Code + "---" + Structconsmas.Section_Code );
 
-        consumerNo=Structconsmas.Consumer_Number;
-        readingDate=Structconsmas.Prev_Meter_Reading_Date;
-        tariffCode=Structconsmas.Tariff_Code;
+        consumerNo = Structconsmas.Consumer_Number;
+        readingDate = Structconsmas.Prev_Meter_Reading_Date;
+        tariffCode = Structconsmas.Tariff_Code;
 
 
         String curmeter = getIntent ( ).getStringExtra ( "Value" );
@@ -181,22 +181,23 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         Log.e ( getApplicationContext ( ), "MeterStatAct", "current meter status is : " + curmeterstatus + " posion is : " + curmeter );
         Log.e ( getApplicationContext ( ), "MeterStatAct", "Previos meter status is : " + Structconsmas.Prev_Meter_Status );
 
-        storeReasons ();
+        storeReasons ( );
 
         tv_readingDate = (TextView) findViewById ( R.id.tv_readingDate );
         tv_heading = (TextView) findViewById ( R.id.tv_heading );
 
-        rv_meterImages= (RecyclerView) findViewById ( R.id.rv_meterImages );
-        rv_meterImages.setLayoutManager ( new LinearLayoutManager ( this,LinearLayoutManager.HORIZONTAL ,false) );
+        rv_meterImages = (RecyclerView) findViewById ( R.id.rv_meterImages );
+        rv_meterImages.setLayoutManager ( new LinearLayoutManager ( this, LinearLayoutManager.HORIZONTAL, false ) );
 
-        rv_meterImages.setAdapter ( new ImageAdapter ( this,PictureActivity.filePaths ) );
+       if(Home.isMeter){
+           rv_meterImages.setAdapter ( new ImageAdapter ( this, PictureActivity.filePaths ) );
+       }
 
         sp_status = (Spinner) findViewById ( R.id.sp_status );
-        meterStatusList=new ArrayList <> (  );
+        meterStatusList = new ArrayList <> ( );
         meterStatusList.add ( "Normal" );
         meterStatusList.add ( "Meter Faulty" );
         meterStatusList.add ( "Reading Not Taken" );
-
         meterStatusList.add ( "Meter Missing" );
         meterStatusList.add ( "Meter OverFlow" );
         meterStatusList.add ( "Not Traceable" );
@@ -253,13 +254,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         tv_readingDate.setText ( Structbilling.Bill_Date );
 
 
-        System.out.println ("This is cons number "+Structbilling.Cons_Number );
-        System.out.println ("This is cons BillDate "+Structbilling.Bill_Date );
-        System.out.println ("This is cons tariffCode "+Structbilling.Tariff_Code );
+        //  new MeterMake ( Readinginput.this ).execute ( );
 
-      //  new MeterMake ( Readinginput.this ).execute ( );
-
-     //   new MeterStatus ( Readinginput.this ).execute ( );
+        //   new MeterStatus ( Readinginput.this ).execute ( );
 
         SimpleDateFormat sdf = new SimpleDateFormat ( "yyyyMMdd" );
         currentDateandTime = sdf.format ( new Date ( ) );
@@ -298,31 +295,33 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
             @Override
             public void onItemSelected(AdapterView <?> adapterView, View view, int i, long l) {
 
+                System.out.println ( "This is the position " + i );
                 switch (i) {
                     case 0://NORAML ACT(1)//MP NOARMAL
 
 
                         Structbilling.Reasons = "";
-                       // Intent intentnormal = new Intent ( getApplicationContext ( ), Readinginput.class );
+                        // Intent intentnormal = new Intent ( getApplicationContext ( ), Readinginput.class );
                         //  intentnormal.putExtra("Value", selectedValue);
                         //intent.putExtra("Position", 1);
                         GSBilling.getInstance ( ).setCurmeter ( 1 );
-                       // startActivity ( intentnormal );
+                        // startActivity ( intentnormal );
 
                        /* overridePendingTransition ( R.anim.anim_slide_in_left,
                                 R.anim.anim_slide_out_left );
 */
 
 
-                        setReasonAdapter ("Normal","NormalList"  );
+                        setReasonAdapter ( "Normal", "NormalList" );
 
 
+                        meterStatus = 1;
 
-                        meterStatus=1;
+                        GSBilling.getInstance ().setNormalReason ( 0 );
 
                         break;
                     case 1://// MP PFL
-                    {
+
 
                         GSBilling.getInstance ( ).setMaxDemand ( Double.parseDouble ( "0" ) );
                         GSBilling.getInstance ( ).setUnitMaxDemand ( "KW" );
@@ -349,60 +348,52 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                         calBill.curMeterStatus = 2;
                         calBill.derivedMeterStatus = "2";
 
-                        meterStatus=2;
+                        meterStatus = 2;
 
-                        Paper.book ( "MeterFaulty" ).write ( "FaultyList",meterFaultList () );
+                        Paper.book ( "MeterFaulty" ).write ( "FaultyList", meterFaultList ( ) );
 
-                        setReasonAdapter ("MeterFaulty","FaultyList"  );
+                        setReasonAdapter ( "MeterFaulty", "FaultyList" );
 
+                        GSBilling.getInstance ().setNormalReason ( 1 );
 
 
 //                Intent intent = new Intent(MeterState.this, BillingViewActivity.class);
 
                         break;
-                    }
+
 
                     case 2:// MP ACCESSED UNIT
-                    {
 
 
                         Structbilling.Reasons = "";
-                      //  Intent intentoverflow = new Intent ( getApplicationContext ( ), Readinginput.class );
+                        //  Intent intentoverflow = new Intent ( getApplicationContext ( ), Readinginput.class );
                         // intentoverflow.putExtra("Value", selectedValue);
                         //intent.putExtra("Position", 1);
-                        GSBilling.getInstance ( ).setCurmeter ( 1 );
+                        //   GSBilling.getInstance ( ).setCurmeter ( 1 );
+                        GSBilling.getInstance ( ).setCurmeter ( 3 );
+
                         //startActivity ( intentoverflow );
                         /*overridePendingTransition ( R.anim.anim_slide_in_left,
                                 R.anim.anim_slide_out_left );
 */
                         System.out.println ( "" + Structconsmas.Prev_Meter_Status );
 //
-                        meterStatus=1;
+                        meterStatus = 1;
 
 
-                        setReasonAdapter ("ReadingNotTaken","ReadingNotList"  );
+                        setReasonAdapter ( "ReadingNotTaken", "ReadingNotList" );
 
+                        GSBilling.getInstance ().setNormalReason ( 2 );
 
-                    }
-                    break;
-
-                    case 4://DIAL OVER ACT(2)
-
-
-                        Log.e ( getApplicationContext ( ), "MeterStatAct", "PrevMtrSt :" + Structconsmas.Prev_Meter_Status );
-                        Intent intent = new Intent ( getApplicationContext ( ), Readinginput.class );
-                        GSBilling.getInstance ( ).setCurmeter ( 1 );
-                        GSBilling.getInstance ( ).setMetOVERFLOW ( 1 );
-                        startActivity ( intent );
-                        overridePendingTransition ( R.anim.anim_slide_in_left,
-                                R.anim.anim_slide_out_left );
-
-
-                        meterStatus=1;
                         break;
+
+
+
                     case 3://METER DEFECTIVE/CHanged
 
-                        GSBilling.getInstance().setCurmeter(9);
+                        //  GSBilling.getInstance ( ).setCurmeter ( 9 );
+                        GSBilling.getInstance ( ).setCurmeter ( 4 );
+
                         GSBilling.getInstance ( ).setNormalReason ( 0 );
 
 /*
@@ -414,8 +405,92 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                         Structbilling.Derived_mtr_status = "4";
                         Structbilling.Cur_Meter_Stat = 4;
 
+                        GSBilling.getInstance ().setNormalReason ( 3 );
+
+                        setReasonAdapter ( "MeterMissing", "MeterMissingList" );
+
+
                         break;
 
+                    case 4://DIAL OVER ACT(2)
+
+
+                        Log.e ( getApplicationContext ( ), "MeterStatAct", "PrevMtrSt :" + Structconsmas.Prev_Meter_Status );
+                        //  Intent intent = new Intent ( getApplicationContext ( ), Readinginput.class );
+                        //  GSBilling.getInstance ( ).setCurmeter ( 1 );
+                        GSBilling.getInstance ( ).setCurmeter ( 5 );
+
+                        GSBilling.getInstance ( ).setMetOVERFLOW ( 1 );
+                        /*startActivity ( intent );
+                        overridePendingTransition ( R.anim.anim_slide_in_left,
+                                R.anim.anim_slide_out_left );
+*/
+
+                        meterStatus = 1;
+
+                        GSBilling.getInstance ().setNormalReason ( 4 );
+
+                        setReasonAdapter ( "MeterOverflow", "MeterOverflowList" );
+
+                        break;
+                    case 5:// MP ACCESSED UNIT
+
+
+                        Structbilling.Reasons = "";
+                        //  Intent intentoverflow = new Intent ( getApplicationContext ( ), Readinginput.class );
+                        // intentoverflow.putExtra("Value", selectedValue);
+                        //intent.putExtra("Position", 1);
+                        //   GSBilling.getInstance ( ).setCurmeter ( 1 );
+                        GSBilling.getInstance ( ).setCurmeter ( 6 );
+                        //startActivity ( intentoverflow );
+                        /*overridePendingTransition ( R.anim.anim_slide_in_left,
+                                R.anim.anim_slide_out_left );
+*/
+                        System.out.println ( "" + Structconsmas.Prev_Meter_Status );
+//
+                        meterStatus = 1;
+
+
+                        setReasonAdapter ( "NotTraceable", "NotTraceableList" );
+
+                        GSBilling.getInstance ().setNormalReason ( 5 );
+
+                        break;
+
+
+                    case 6:// MP ACCESSED UNIT
+
+
+                        Structbilling.Reasons = "";
+                        //  Intent intentoverflow = new Intent ( getApplicationContext ( ), Readinginput.class );
+                        // intentoverflow.putExtra("Value", selectedValue);
+                        //intent.putExtra("Position", 1);
+                        GSBilling.getInstance ( ).setCurmeter ( 7 );
+                        //startActivity ( intentoverflow );
+                        /*overridePendingTransition ( R.anim.anim_slide_in_left,
+                                R.anim.anim_slide_out_left );
+*/
+                        System.out.println ( "" + Structconsmas.Prev_Meter_Status );
+//
+                        meterStatus = 1;
+
+
+                        setReasonAdapter ( "PremiseLocked", "PremiseLockedList" );
+                        GSBilling.getInstance ().setNormalReason ( 6 );
+
+
+                        break;
+
+
+                }
+
+
+                if (i != 0) {
+
+                    etCR.setVisibility ( View.GONE );
+
+                } else {
+                    etCR.setVisibility ( View.VISIBLE );
 
                 }
             }
@@ -424,6 +499,8 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
             public void onNothingSelected(AdapterView <?> adapterView) {
 
             }
+
+
         } );
 
 
@@ -530,6 +607,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                         calBill.curMeterReadDate = DTime;
 //                        System.out.println("CUR READ DATE :" + Structconsmas.CUR_READ_DATE);
 
+                        //09071194894
                         switch (GSBilling.getInstance ( ).getCurmeter ( )) {
 
                             case 1:
@@ -593,8 +671,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                 } else {
 
                     System.out.println ( "This is the reading in second if" );
+                    System.out.println ( "Current meter " + GSBilling.getInstance ( ).getCurmeter ( ) );
 
-                    if (etCR.getText ( ).toString ( ).matches ( "" )) {
+                    if (etCR.getText ( ).toString ( ).matches ( "" ) && (GSBilling.getInstance ( ).getCurmeter ( ) == 1)) {
                         etCR.setError ( "Current Reading cannot be empty" );
                     } else {
 
@@ -942,6 +1021,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                         calBill.curMeterRead = curmeterreading;
                         calBill.curMeterReadDate = DTime;
                         System.out.println ( "CUR READ DATE :" + Structconsmas.CUR_READ_DATE );
+                        System.out.println ( "This is the readinf " + GSBilling.getInstance ( ).getCurmeter ( ) );
 
                         switch (GSBilling.getInstance ( ).getCurmeter ( )) {
 
@@ -954,17 +1034,23 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                                     showWarningDialog ( "Reading should be Greater than Previous Meter Reading!" );
 
                                     calBill.curMeterStatus = meterStatus;
-                                    calBill.derivedMeterStatus = ""+meterStatus;
+                                    calBill.derivedMeterStatus = "" + meterStatus;
 
-                                    Structbilling.Derived_mtr_status = ""+meterStatus;
+
+                                    Structbilling.Derived_mtr_status = "" + meterStatus;
                                     Structbilling.Cur_Meter_Stat = meterStatus;
 
-                                    System.out.println ("This is the meter Status "+meterStatus );
+                                    System.out.println ( "This is the meter Status " + meterStatus );
 
 
                                     calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
                                     calBill.unit = calculatedunit;
 
+
+                                    System.out.println ( "This is the date getting " + Structconsmas.CUR_READ_DATE );
+
+                                    calBill.CalculateBill ( );
+                                    ucom.copyResultsetToBillingClass ( calBill );
 
                                     //  dialogBox("Reading should be Greater than Previous Meter Reading!");
 
@@ -1002,6 +1088,101 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                                     }
                                 }
                                 break;
+
+
+                            case 2://ASSESSED UNIT CASE
+                            {
+
+                                System.out.println ( "Assessed 2" );
+                                calBill.curMeterStatus = 2;
+                                calBill.derivedMeterStatus = "2";
+
+                                Structbilling.Derived_mtr_status = "2";
+                                Structbilling.Cur_Meter_Stat = 2;
+
+                                // calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                // calBill.unit = calculatedunit;
+//                                if(higherConsumptionChk(calculatedunit)){
+//                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
+//                                            .setTitleText("Billing ERROR")
+//                                            .setContentText("Unit calculated is way too high!")
+//                                            .setConfirmText("OK!")
+//                                            .show();
+//                                }else{
+                                //  if (validate3PhData ( )) {
+
+                                //      calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
+
+                                //    if (ucom.consump_CHK ( )) {
+                                //      showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
+
+                                    new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
+                                            .setTitleText ( "Billing ERROR" )
+                                            .setContentText ( data_validate )
+                                            .setConfirmText ( "OK!" )
+                                            .show ( );
+                                }*/
+//                                }
+
+                            }
+                            case 3://ASSESSED UNIT CASE
+                            {
+
+                                System.out.println ( "Assessed 2" );
+                                calBill.curMeterStatus = 3;
+                                calBill.derivedMeterStatus = "3";
+
+                                Structbilling.Derived_mtr_status = "3";
+                                Structbilling.Cur_Meter_Stat = 3;
+
+                                // calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                // calBill.unit = calculatedunit;
+//                                if(higherConsumptionChk(calculatedunit)){
+//                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
+//                                            .setTitleText("Billing ERROR")
+//                                            .setContentText("Unit calculated is way too high!")
+//                                            .setConfirmText("OK!")
+//                                            .show();
+//                                }else{
+                                //  if (validate3PhData ( )) {
+
+                                //      calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
+
+                                //    if (ucom.consump_CHK ( )) {
+                                //      showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
+
+                                    new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
+                                            .setTitleText ( "Billing ERROR" )
+                                            .setContentText ( data_validate )
+                                            .setConfirmText ( "OK!" )
+                                            .show ( );
+                                }*/
+//                                }
+
+                            }
+                            break;
                             case 4://ASSESSED UNIT CASE
                             {
 
@@ -1012,8 +1193,8 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                                 Structbilling.Derived_mtr_status = "4";
                                 Structbilling.Cur_Meter_Stat = 4;
 
-                                calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
-                                calBill.unit = calculatedunit;
+                                //  calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                //calBill.unit = calculatedunit;
 //                                if(higherConsumptionChk(calculatedunit)){
 //                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
 //                                            .setTitleText("Billing ERROR")
@@ -1021,35 +1202,174 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 //                                            .setConfirmText("OK!")
 //                                            .show();
 //                                }else{
-                                if (validate3PhData ( )) {
+                                // if (validate3PhData ( )) {
 
-                                    calBill.CalculateBill ( );
-                                    ucom.copyResultsetToBillingClass ( calBill );
+                                //   calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
 
-                                    if (ucom.consump_CHK ( )) {
-                                        showWarningDialog ( "Consumption is very high" );
-                                        // dialogBox("Consumption is very high");
-                                    } else {
-                                        Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+                                // if (ucom.consump_CHK ( )) {
+                                //   showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
 
-                                        GSBilling.getInstance ( ).setNormalReason ( 1 );
-                                        startActivity ( intent );
-                                        overridePendingTransition ( R.anim.anim_slide_in_left,
-                                                R.anim.anim_slide_out_left );
-                                    }
-                                } else {
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
 
                                     new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
                                             .setTitleText ( "Billing ERROR" )
                                             .setContentText ( data_validate )
                                             .setConfirmText ( "OK!" )
                                             .show ( );
-                                }
+                                }*/
 //                                }
 
                             }
                             break;
-                            case 9://METER CHANGED  CASE
+
+                            case 5://ASSESSED UNIT CASE
+                            {
+
+                                System.out.println ( "Assessed 2" );
+                                calBill.curMeterStatus = 5;
+                                calBill.derivedMeterStatus = "5";
+
+                                Structbilling.Derived_mtr_status = "5";
+                                Structbilling.Cur_Meter_Stat = 5;
+
+                                // calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                // calBill.unit = calculatedunit;
+//                                if(higherConsumptionChk(calculatedunit)){
+//                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
+//                                            .setTitleText("Billing ERROR")
+//                                            .setContentText("Unit calculated is way too high!")
+//                                            .setConfirmText("OK!")
+//                                            .show();
+//                                }else{
+                                //  if (validate3PhData ( )) {
+
+                                //      calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
+
+                                //    if (ucom.consump_CHK ( )) {
+                                //      showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
+
+                                    new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
+                                            .setTitleText ( "Billing ERROR" )
+                                            .setContentText ( data_validate )
+                                            .setConfirmText ( "OK!" )
+                                            .show ( );
+                                }*/
+//                                }
+
+                            }
+                            case 6://ASSESSED UNIT CASE
+                            {
+
+                                System.out.println ( "Assessed 2" );
+                                calBill.curMeterStatus = 6;
+                                calBill.derivedMeterStatus = "6";
+
+                                Structbilling.Derived_mtr_status = "6";
+                                Structbilling.Cur_Meter_Stat = 6;
+
+                                // calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                // calBill.unit = calculatedunit;
+//                                if(higherConsumptionChk(calculatedunit)){
+//                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
+//                                            .setTitleText("Billing ERROR")
+//                                            .setContentText("Unit calculated is way too high!")
+//                                            .setConfirmText("OK!")
+//                                            .show();
+//                                }else{
+                                //  if (validate3PhData ( )) {
+
+                                //      calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
+
+                                //    if (ucom.consump_CHK ( )) {
+                                //      showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
+
+                                    new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
+                                            .setTitleText ( "Billing ERROR" )
+                                            .setContentText ( data_validate )
+                                            .setConfirmText ( "OK!" )
+                                            .show ( );
+                                }*/
+//                                }
+
+                            }
+                            case 7://ASSESSED UNIT CASE
+                            {
+
+                                System.out.println ( "Assessed 2" );
+                                calBill.curMeterStatus = 7;
+                                calBill.derivedMeterStatus = "7";
+
+                                Structbilling.Derived_mtr_status = "7";
+                                Structbilling.Cur_Meter_Stat = 7;
+
+                                // calculatedunit = calBill.Unitcalculation ( Structbilling.Derived_mtr_status, curmeterreading, Structbilling.Cur_Meter_Stat );
+                                // calBill.unit = calculatedunit;
+//                                if(higherConsumptionChk(calculatedunit)){
+//                                    new SweetAlertDialog(Readinginput.getRActivity(), SweetAlertDialog.WARNING_TYPE)
+//                                            .setTitleText("Billing ERROR")
+//                                            .setContentText("Unit calculated is way too high!")
+//                                            .setConfirmText("OK!")
+//                                            .show();
+//                                }else{
+                                //  if (validate3PhData ( )) {
+
+                                //      calBill.CalculateBill ( );
+                                ucom.copyResultsetToBillingClass ( calBill );
+
+                                //    if (ucom.consump_CHK ( )) {
+                                //      showWarningDialog ( "Consumption is very high" );
+                                // dialogBox("Consumption is very high");
+                                //} else {
+                                Intent intent = new Intent ( Readinginput.this, BillingViewActivity.class );
+
+                                GSBilling.getInstance ( ).setNormalReason ( 1 );
+                                startActivity ( intent );
+                                overridePendingTransition ( R.anim.anim_slide_in_left,
+                                        R.anim.anim_slide_out_left );
+                                //}
+                                /*} else {
+
+                                    new SweetAlertDialog ( Readinginput.getRActivity ( ), SweetAlertDialog.WARNING_TYPE )
+                                            .setTitleText ( "Billing ERROR" )
+                                            .setContentText ( data_validate )
+                                            .setConfirmText ( "OK!" )
+                                            .show ( );
+                                }*/
+//                                }
+
+                            }
+                            /*case 9://METER CHANGED  CASE
                             {
 
                                 System.out.println ( "Meter change 2" );
@@ -1115,7 +1435,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                                     }
                                 }
                             }
-                            break;
+                            System.out.println ( "This is reading " + GSBilling.getInstance ( ).getCurmeter ( ) );
+
+                            break;*/
                         }
                     }
                 }
@@ -1130,6 +1452,15 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
             public void onItemSelected(AdapterView <?> parent, View view,
                                        int position, long id) {
                 // TODO Auto-generated method stub
+
+
+                System.out.println ( "This is the reason " + parent.getItemAtPosition ( position ) );
+
+                //   GSBilling.getInstance ( )
+
+                Structbilling.Reasons = (String) parent.getItemAtPosition ( position );
+
+
 
 
 
@@ -2178,7 +2509,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
     public void showWarningDialog(String message) {
 
-        System.out.println ("Inside the dialog" );
+
         sweetAlertDialog = new SweetAlertDialog ( Readinginput.this, SweetAlertDialog.WARNING_TYPE );
         sweetAlertDialog.setTitleText ( message );
         sweetAlertDialog.setContentText ( "Do You Want To Continue? " );
@@ -2211,73 +2542,102 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
     }
 
 
+    public void storeReasons() {
 
-    public void storeReasons(){
 
-
-        Paper.book ( "Normal" ).write ( "NormalList",normalList () );
-        Paper.book ( "MeterFaulty" ).write ( "FaultyList",meterFaultList () );
-        Paper.book ( "ReadingNotTaken" ).write ( "ReadingNotList",readingNotTakenList () );
-
-    }
-
-    public ArrayList<String> normalList(){
-        ArrayList<String> list=new ArrayList <> (  );
-        list.add ( "Meter Normal");
-        list.add ( "self Shifting");
-        list.add ( "Previous Reading Wrong");
-        list.add ( "Serv used for Commer");
-        list.add ( "Ext. Unauthorisedly");
-        list.add ( "Service open to Sky");
-        list.add ( "Serv no Wrongly Painted");
-        list.add ( "Disc showing consmp");
-        list.add ( "Theft of Energy");
-         return list;
+        Paper.book ( "Normal" ).write ( "NormalList", normalList ( ) );
+        Paper.book ( "MeterFaulty" ).write ( "FaultyList", meterFaultList ( ) );
+        Paper.book ( "ReadingNotTaken" ).write ( "ReadingNotList", readingNotTakenList ( ) );
+        Paper.book ( "MeterMissing" ).write ( "MeterMissingList", meterMissingList ( ) );
+        Paper.book ( "MeterOverflow" ).write ( "MeterOverflowList", overflow ( ) );
+        Paper.book ( "NotTraceable" ).write ( "NotTraceableList", notTracable ( ) );
+        Paper.book ( "PremiseLocked" ).write ( "PremiseLockedList", premiseLocked ( ) );
 
     }
-    public ArrayList<String> meterFaultList(){
-        ArrayList<String> list=new ArrayList <> (  );
-        list.add ( " Meter Cripping Backward");
-        list.add ( "Counter Defective");
-        list.add ( "Meter Burnt");
-        list.add ( "Meter Stopped");
-        list.add ( "Meter Noisy");
-        list.add ( "Meter Not Gearing");
-        list.add ( "Meter Glass Broken");
-        list.add ( "Meter Sticky");
-        list.add ( " Meter Damaged");
-        list.add ( "Meter Seal Broken");
-        list.add ( "Dirty Glass");
-        list.add ( "Reading not Visible");
-        list.add ( "ELECTRONIC METER-DISP.CUT");
-        list.add ( "ELECTRONIC METER-NO DISP.");
 
+
+
+    public ArrayList<String> meterMissingList(){
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Meter Missing" );
         return list;
-
     }
-    public ArrayList<String> readingNotTakenList(){
-        ArrayList<String> list=new ArrayList <> (  );
-        list.add ( "Water Logging");
-        list.add ( "Meter fixed at Low Level");
-        list.add ( "Paper seal on Cupboard");
-        list.add ( "Meter Hanging");
-        list.add ( "Darkness");
-        list.add ( "Obstacle to take Reading");
-        list.add ( "Refused to obtain Reading");
-        list.add ( "Others No facility");
-        list.add ( "No Display as no Power");
-        list.add ( "Reading Not Taken  RNT");
 
+    public ArrayList<String> overflow(){
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Overflow" );
+        return list;
+    }
 
+    public ArrayList<String> notTracable(){
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Service Missing" );
+        list.add ( "No Trace Service" );
+        return list;
+    }
+    public ArrayList<String> premiseLocked(){
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Premise Locked" );
+        return list;
+    }
 
-
+    public ArrayList <String> normalList() {
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Meter Normal" );
+        list.add ( "self Shifting" );
+        list.add ( "Previous Reading Wrong" );
+        list.add ( "Serv used for Commer" );
+        list.add ( "Ext. Unauthorisedly" );
+        list.add ( "Service open to Sky" );
+        list.add ( "Serv no Wrongly Painted" );
+        list.add ( "Disc showing consmp" );
+        list.add ( "Theft of Energy" );
         return list;
 
     }
 
-    public void setReasonAdapter(String bookName,String listName){
+    public ArrayList <String> meterFaultList() {
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( " Meter Cripping Backward" );
+        list.add ( "Counter Defective" );
+        list.add ( "Meter Burnt" );
+        list.add ( "Meter Stopped" );
+        list.add ( "Meter Noisy" );
+        list.add ( "Meter Not Gearing" );
+        list.add ( "Meter Glass Broken" );
+        list.add ( "Meter Sticky" );
+        list.add ( " Meter Damaged" );
+        list.add ( "Meter Seal Broken" );
+        list.add ( "Dirty Glass" );
+        list.add ( "Reading not Visible" );
+        list.add ( "ELECTRONIC METER-DISP.CUT" );
+        list.add ( "ELECTRONIC METER-NO DISP." );
 
-        ArrayList<String> list=Paper.book (bookName).read ( listName );
+        return list;
+
+    }
+
+    public ArrayList <String> readingNotTakenList() {
+        ArrayList <String> list = new ArrayList <> ( );
+        list.add ( "Water Logging" );
+        list.add ( "Meter fixed at Low Level" );
+        list.add ( "Paper seal on Cupboard" );
+        list.add ( "Meter Hanging" );
+        list.add ( "Darkness" );
+        list.add ( "Obstacle to take Reading" );
+        list.add ( "Refused to obtain Reading" );
+        list.add ( "Others No facility" );
+        list.add ( "No Display as no Power" );
+        list.add ( "Reading Not Taken  RNT" );
+
+
+        return list;
+
+    }
+
+    public void setReasonAdapter(String bookName, String listName) {
+
+        ArrayList <String> list = Paper.book ( bookName ).read ( listName );
 
         metermake_adapter = new ArrayAdapter <String> (
                 getApplicationContext ( ), R.layout.custom_spinner, R.id.textView1, list );
@@ -2289,13 +2649,13 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
         LayoutInflater inflater;
         Context context;
-        ArrayList<String> imageList;
+        ArrayList <String> imageList;
 
 
-        ImageAdapter(Context context,ArrayList<String> list) {
+        ImageAdapter(Context context, ArrayList <String> list) {
             inflater = LayoutInflater.from ( context );
 
-            this.imageList=list;
+            this.imageList = list;
             this.context = context;
         }
 
@@ -2310,27 +2670,22 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         public void onBindViewHolder(ImageAdapter.ImageHolder holder, int position) {
 
 
-            System.out.println ("This is showed Images "+imageList.get ( position ) );
-            holder.im_image.setImageBitmap ( BitmapFactory.decodeFile ( imageList.get ( (imageList.size ()-1)-position) ) );
-            holder.tv_number.setText ( ""+position );
+            System.out.println ( "This is showed Images " + imageList.get ( position ) );
+            holder.im_image.setImageBitmap ( BitmapFactory.decodeFile ( imageList.get ( (imageList.size ( ) - 1) - position ) ) );
+            holder.tv_number.setText ( "" + position );
 
 
         }
 
         @Override
         public int getItemCount() {
-            if(imageList.size ()>3){
+            if (imageList.size ( ) > 3) {
                 return 3;
-            }
-            else{
-                return imageList.size ();
+            } else {
+                return imageList.size ( );
             }
 
         }
-
-
-
-
 
 
         class ImageHolder extends RecyclerView.ViewHolder {
@@ -2341,9 +2696,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
             ImageHolder(View itemView) {
                 super ( itemView );
-                tv_number=itemView.findViewById ( R.id.tv_number );
-                cv_container=itemView.findViewById ( R.id.cv_container );
-                im_image=itemView.findViewById ( R.id.im_image );
+                tv_number = itemView.findViewById ( R.id.tv_number );
+                cv_container = itemView.findViewById ( R.id.cv_container );
+                im_image = itemView.findViewById ( R.id.im_image );
 
                 cv_container.setOnClickListener ( new View.OnClickListener ( ) {
                     @Override
@@ -2356,8 +2711,6 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
             }
 
 
-
-
         }
     }
 
@@ -2366,11 +2719,11 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
 
         DialogBox dialogBox = new DialogBox ( context );
-     final Dialog   showAadharDialog = dialogBox.setRequestedDialog ( false, R.layout.aadhar_dialog );
+        final Dialog showAadharDialog = dialogBox.setRequestedDialog ( false, R.layout.aadhar_dialog );
 
         ImageView im_closeDialog = showAadharDialog.findViewById ( R.id.im_cancel );
         ImageView im_showAadharImage = showAadharDialog.findViewById ( R.id.im_aadharImage );
-      //  ProgressBar progressBar = showAadharDialog.findViewById ( R.id.pb_imageLoad );
+        //  ProgressBar progressBar = showAadharDialog.findViewById ( R.id.pb_imageLoad );
 
         im_showAadharImage.setImageBitmap ( BitmapFactory.decodeFile ( path ) );
 
@@ -2382,7 +2735,6 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         } );
 
         showAadharDialog.show ( );
-
 
 
     }
