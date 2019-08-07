@@ -1,22 +1,13 @@
 package com.fedco.mbc.activitymetering;
 
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,28 +17,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fedco.mbc.R;
-import com.fedco.mbc.activity.GSBilling;
-import com.fedco.mbc.activity.Home;
-import com.fedco.mbc.activity.MeterState;
-import com.fedco.mbc.bluetoothprinting.DuplicateBillPrint;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.fedco.mbc.R;
+import com.fedco.mbc.activity.Home;
 import com.fedco.mbc.logging.Logger;
-import com.fedco.mbc.model.Structbilling;
-import com.fedco.mbc.model.Structconsmas;
 import com.fedco.mbc.model.Structmetering;
 import com.fedco.mbc.model.Structmeterupload;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.UtilAppCommon;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

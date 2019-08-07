@@ -503,7 +503,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
 //                    dbHelper4.insertSequence("BillNumber", billseq);                    new TextFileClass(Signature_Activity.this).execute();
 
                     new TextFileClass (Signature_Activity.this).execute();
-                    Toast.makeText ( getApplicationContext ( ), "Welcome to metering", Toast.LENGTH_SHORT ).show ( );
+                  //  Toast.makeText ( getApplicationContext ( ), "Welcome to metering", Toast.LENGTH_SHORT ).show ( );
 
                 } else {
 
@@ -1423,7 +1423,7 @@ public class Signature_Activity extends Activity implements LogoutListaner {
                     zos.closeEntry();
                     fis.close();
                 }
-                System.out.println("helloooo" + srcFile.delete());
+
                 zos.close();
             } catch (IOException ioe) {
                 android.util.Log.e("", ioe.getMessage());

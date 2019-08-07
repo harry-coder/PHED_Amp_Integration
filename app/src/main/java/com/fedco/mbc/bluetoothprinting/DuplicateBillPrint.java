@@ -13,7 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.format.DateFormat;
 import android.util.Log;
 import android.widget.Button;
@@ -21,20 +21,26 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.fedco.mbc.CustomClasses.DuplicateReceiptPrint;
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.BillingtypesActivity;
 import com.fedco.mbc.activity.GSBilling;
+import com.fedco.mbc.amigos.MainActivityCollectionPrint;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.model.Structbilling;
 import com.fedco.mbc.model.Structconsmas;
 import com.fedco.mbc.model.Structtariff;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.UtilAppCommon;
+import com.google.zxing.WriterException;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -172,6 +178,8 @@ public class DuplicateBillPrint extends AppCompatActivity {
                 R.anim.anim_slide_out_left);
     }
 
+
+
     private class PrintProcess extends AsyncTask<String, Void, String> {
         /* displays the progress dialog until background task is completed*/
         private SimpleDateFormat simpleDateFormat;
@@ -291,158 +299,6 @@ public class DuplicateBillPrint extends AppCompatActivity {
                 }
             }
 
-//            String printtariif = (Structconsmas.Tariff_Code + "-" + (((Structconsmas.URBAN_FLG.equalsIgnoreCase("U")) ? Structtariff.Tariff_URBAN : Structtariff.Tariff_RURAL)));
-
-//            mSendMessage(
-//                    "<0x09>     MADHYA PRADESH" + "\n" +
-//                            "<0x09>     M.P.M.K.V.V.C.L" + "\n" +
-//                            "<0x09>    ELECTRICITY BILL" + "\n" +
-//                            "<0x09>-----------------------" + "\n" +
-//                            "<0x09> CUSTOMER CARE NUMBERS" + "\n" +
-//                            "<0x09>-----------------------" + "\n" +
-//                            "<0x09>    1800-233-1912" + "\n" +
-//                            //"<0x10> 0755-2551222" + "\n" +
-//                            "<0x09>-----------------------" + "\n" +
-//
-//                            "<0x09>BILL MONTH : " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-//                            "<0x09>BILL DATE  : " + (String.format("%1$6s", Structbilling.Bill_Date)) + "\n" +
-//                            "<0x09>BILL NO    : " + (String.format("%1$6s", Structbilling.Bill_No)) + "\n" +
-//                            "<0x09>BILL PERIOD: " + (String.format("%1$6s", Structbilling.Bill_Period)) + "\n" +
-//                            //  "<0x09>MACHINE NO : " + (String.format("%1$6s",Structbilling.SBM_No)) + "\n" +
-//                            //"<0x09>MR NAME: " + "\n" +
-//                            //"<0x09>" + (String.format("%1$6s",Structbilling.Meter_Reader_Name)) + "\n" +
-//                            //"<0x09>MR ID       : " + (String.format("%1$4s",Structbilling.Meter_Reader_ID)) + "\n" +
-//
-//                            "<0x09>-----------------------" + "\n" +
-//
-//                            "<0x09>DIVISION   : " + (String.format("%1$6s", "BHOPAL CITY")) + "\n" +
-//                            "<0x09>DC NAME    : " + (String.format("%1$6s", sectionName)) + "\n" +
-//                            "<0x09>GROUP/DAIRY NO     : " + (String.format("%1$8s", Structconsmas.Cycle)) + "/" + (String.format("%1$8s", Structconsmas.Route_Number)) + "\n" +
-//                            "<0x09>FDR DESC  : " + (String.format("%1$6s", Structconsmas.FDR_SHRT_DESC)) + "\n" +
-//                            "<0x09>POLE ID   : " + (String.format("%1$9s", Structconsmas.POLE_ID)) + "\n" +
-//                            "<0x09>ACC ID    : " + (String.format("%1$9s", Structconsmas.Consumer_Number)) + "\n" +
-//                            "<0x09>IVRS/SC NO: " + (String.format("%1$8s", Structconsmas.LOC_CD + "-" + Structconsmas.Consumer_Number)) + "\n" +
-////                    "<0x09>SUB-DIV    : " + Structconsmas.Sub_division_Name + "\n" +
-////                    "<0x09>SECTION    : " + Structconsmas.Section_Name + "\n" +
-//                            "<0x09>NAME      : " + (String.format("%1$6s", Structconsmas.Name)) + "\n" +
-//                            "<0x10>ADDRESS   : " + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", Structconsmas.address1 + Structconsmas.address2)) + "\n" +
-//                            "<0x09>-----------------------" + "\n" +
-//
-////                            "<0x09>TARIFF CATG  : " + (String.format("%1$8s",Structconsmas.Tariff_Code)) + "\n" +
-//                            "<0x09>TARIFF CATG  : " + (String.format("%1$8s", printtariif)) + "\n" +
-//                            "<0x09>LOAD         : " + (String.format("%1$8s", Structconsmas.Load)) + getLoadType() + "\n" +
-//                            "<0x09>SECURITY DEPS: " + (String.format("%1$8s", Structconsmas.TOT_SD_HELD)) + "\n" +
-//                            //   "<0x09>DAIRY NO     : " + (String.format("%1$8s",Structconsmas.Route_Number)) + "\n" +
-//                            "<0x09>MTR SL NO    : " + (String.format("%1$8s", Structconsmas.Meter_S_No)) + "\n" +
-////                        "<0x09>MTR OWNER    : " + (String.format("%1$6s",Structconsmas.Meter_Ownership)) + "\n" +
-////                        "<0x09>MAKE         : "  + "\n" +
-//                            "<0x09>MF           : " + (String.format("%1$8s", Structconsmas.MF)) + "\n" +
-//                            "<0x09>PHASE        : " + (String.format("%1$8s", Structconsmas.PHASE_CD)) + "\n" +
-//                            "<0x09>---------------------" + "\n" +
-//                            "<0x09>READING DATE :" + (String.format("%1$4s", Structbilling.Cur_Meter_Reading_Date)) + "\n" +
-//                            // "<0x09>PREV AVG UNIT: " + (String.format("%1$8s",Structconsmas.PREV_AVG_UNIT)) + "\n" +
-//                            "<0x09>READING STS  : " + (String.format("%1$8s", Structbilling.Bill_Basis)) + "\n" +
-////                    "<0x09>PRES.BL DATE :" + Structbilling.Bill_Date + "\n" +
-////                    "<0x09>PREV.BL DATE :" + Structconsmas.Prev_Meter_Reading_Date + "\n" +
-//                            "<0x09>PRES READING : " + (String.format("%1$8s", Structbilling.Cur_Meter_Reading)) + "\n" +
-//                            "<0x09>PREV READING : " + (String.format("%1$8s", Structconsmas.Prev_Meter_Reading)) + "\n" +
-//                            "<0x09>MD           : " + (String.format("%1$8s", mdValue)) + "\n" +
-//                            "<0x09>PF           : " + (String.format("%1$8s", pfValue)) + "\n" +
-//                            //  "<0x09>AVG UNITS    : " + (String.format("%1$8s",Structbilling.Units_Consumed)) + "\n" +
-//                            "<0x09>MTR CONSP    : " + (String.format("%1$8s", Structbilling.MTR_CONSMP)) + "\n" +
-//                            "<0x09>UNIT BILLED  : " + (String.format("%1$8s", Structbilling.O_BilledUnit_Actual)) + "\n" +
-//                            "<0x09>BILL TYPE    : " + (String.format("%1$8s", Structbilling.Bill_Basis)) + "\n" +
-//                            "<0x09>---------------------" + "\n" +
-//                            "<0x09>MIN CHARG    : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.MIN_CHRG))))) + "\n" +
-//                            "<0x09>FIXED CHARG  : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.FIXED_CHARGE))))) + "\n" +
-////                    "<0x09>Current Bill   " + "\n" +
-////                    "<0x09>---------------" + "\n" +
-////                    "<0x09>Current D.P.S :  " + (String.format("%.2f", Structconsmas.Delay_Payment_Surcharge)) + "\n" +
-////                    "<0x09>Fix/Mis Chg   :  " + (String.format("%.2f", Structbilling.Monthly_Min_Charg_DC)) + "\n" +
-//                            // "<0x09>EC1          : " + (String.format("%1$8s",(String.format("%.2f", Structbilling.Slab_1_EC)))) + "\n" +
-//                            //"<0x09>EC2          : " + (String.format("%1$8s",(String.format("%.2f", Structbilling.Slab_2_EC)))) + "\n" +
-//                            //"<0x09>EC3          : " + (String.format("%1$8s",(String.format("%.2f", Structbilling.Slab_3_EC)))) + "\n" +
-//                            //"<0x09>EC4          : " + (String.format("%1$8s",(String.format("%.2f", Structbilling.Slab_4_EC)))) + "\n" +
-//                            "<0x09>ENERGY CHRG  : " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Total_Energy_Charg)))) + "\n" +
-//                            "<0x09>FCA CHARG    : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_FCA))))) + "\n" +
-//                            "<0x09>---------------------" + "\n" +
-////                        "<0x09>FIX  CHARGE   :  " + (String.format("%1$6s",Structbilling.O_Total_Fixed_Charges)) + "\n" +
-//                            "<0x09>DUTY CHARGE  : " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Electricity_Duty_Charges)))) + "\n" +
-//                            "<0x09>METER RENT   : " + (String.format("%1$8s", (String.format("%.2f", Structbilling.Meter_Rent)))) + "\n" +
-//                            "<0x09>ADJ AMT      : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.Sundry_Allow_EC))))) + "\n" +
-//                            "<0x09>PANEL CHRG   : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_OverdrwalPenalty))))) + "\n" +
-//                            "<0x09>P.F CHRG     : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_PFPenalty))))) + "\n" +
-////                            "<0x09>P.F CHRG     : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf("0"))))) + "\n" + //JUGAD
-//                            "<0x09>TOD CHRG     : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(0))))) + "\n" +
-//                            "<0x09>SD BILLED    : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(UtilAppCommon.doublecheck(Structconsmas.SD_BILLED)))))) + "\n" +
-//                            "<0x09>OTHER CHRG   : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_welding_charges))))) + "\n" +
-//                            "<0x09>------------------" + "\n" +
-//                            "<0x09>SD INT       : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf("-"+Structconsmas.SD_INSTT_AMT))))) + "\n" +
-//                            "<0x09>LOCK CR      : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_LockCreditAmount))))) + "\n" +
-//                            "<0x09>EMP. REBATE  : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Employee_Incentive))))) + "\n" +
-//                            "<0x09>INCENTIVES   : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf("-"+Structbilling.Prinatable_Total_Incentives))))) + "\n" +
-//                            "<0x09>SUBSIDY      : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Total_Subsidy))))) + "\n" +
-//                            "<0x09>------------------" + "\n" +
-//                            "<0x09>CUR BILL AMT : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Current_Demand))))) + "\n" +
-//                            "<0x09>PREV ARREARS : " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structbilling.O_Arrear_Demand))))) + "\n" +
-//                            "<0x09>SURCHARGE ARS: " + (String.format("%1$8s", (String.format("%.2f", Float.valueOf(Structconsmas.SURCHARGE_ARREARS))))) + "\n" +
-//                            "<0x09>PREV BILL DIFF. AMT.: " + "\n" + (String.format("%1$8s", "0.00")) + "\n" +                                                                // No diff Amount
-//
-//                            // "<0x09>MSC CHARG    : " + (String.format("%1$8s",(String.format("%.2f", miscValue)))) + "\n" +
-//                            //"<0x09>INCENTIVES/PENALTIES : "  + "\n" + //+ (String.format("%1$6s",(String.format("%.2f", Float.valueOf(Structbilling.O_PFPenalty) + Float.valueOf(Structbilling.O_OverdrwalPenalty) -Float.valueOf(Structbilling.O_Total_Incentives))))) + "\n" +                  // doubt
-//                            //"<0x09> " + (String.format("%1$6s",(String.format("%.2f", Float.valueOf(Structbilling.O_PFPenalty) + Float.valueOf(Structbilling.O_OverdrwalPenalty) - Float.valueOf(Structbilling.O_Total_Incentives))))) + "\n" +                  // doubt
-//                            // doubt
-//                            //    "<0x09>SD ARREARS   : " + (String.format("%1$8s",(String.format("%.2f", Float.valueOf(Structconsmas.SD_ARREAR))))) + "\n" +
-//
-//
-//                            "<0x09>ROUND AMT    : " + (String.format("%1$8s", Structbilling.Round_Amnt)) + "\n" +
-////                    "<0x09>Upt(" + Structbilling.Due_Date + "):" + (String.format("%.2f", Structbilling.Amnt_bPaid_on_Rbt_Date)) + "\n" +
-////                    "<0x09>Aft(" + Structbilling.Due_Date.trim() + "):" + (String.format("%.2f", Structbilling.Amnt_Paidafter_Rbt_Date)) + "\n" +
-//                            //  "<0x09>TOT AMT      : " + (String.format("%1$8s",(String.format("%.2f", Float.valueOf(Math.round(Double.parseDouble(Structbilling.O_Total_Bill))))))) + "\n" +
-//                            "<0x10>PAYABLE BY DUE DT:" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" +
-//
-//                            "<0x09>DELAY PAY SURCHARG : " + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", Structbilling.O_Surcharge)) + "\n" +
-//                            "<0x09>PAYABLE AFTER DUE DT:" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", (String.format("%.2f", (float) Math.round((float) (Math.round(Double.valueOf(Structbilling.O_Total_Bill)) + Double.valueOf(Structbilling.O_Surcharge))))))) + "\n" +  // doubt
-//                            "<0x09>CHEQUE DUE DT      :" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", Structconsmas.FIRST_CHQ_DUE_DATE)) + "\n" +
-//                            "<0x09>CASH DUE DT        :" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", Structconsmas.FIRST_CASH_DUE_DATE)) + "\n" +
-//                            "<0x09>....................." + "\n" +
-//                            "<0x09>MACHINE NO : " + (String.format("%1$6s", Structbilling.SBM_No)) + "\n" +
-//                            "<0x09>MR NAME: " + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", Structbilling.Meter_Reader_Name)) + "\n" +
-//                            "<0x09>MR ID       : " + (String.format("%1$4s", Structbilling.Meter_Reader_ID)) + "\n" +
-//
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x10>          RECEIPT        " + "\n" +
-//                            "<0x09>BILL MONTH : " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" +
-//                            "<0x09>BILL DATE  : " + (String.format("%1$6s", Structbilling.Bill_Date)) + "\n" +
-//                            "<0x09>BILL NO    : " + (String.format("%1$6s", Structbilling.Bill_No)) + "\n" +
-//                            "<0x09>DIVISION   : " + (String.format("%1$6s", "BURHANPUR")) + "\n" +
-//                            "<0x09>DC NAME    : " + (String.format("%1$6s", sectionName)) + "\n" +
-//                            "<0x09>GROUP/DAIRY NO: " + (String.format("%1$8s", Structconsmas.Cycle)) + "/" + (String.format("%1$8s", Structconsmas.Route_Number)) + "\n" +
-//                            "<0x09>ACC ID/SC NO: " + (String.format("%1$9s", Structconsmas.Consumer_Number)) + "\n" +
-//                            "<0x09>IVRS    NO  : " + (String.format("%1$8s", Structconsmas.LOC_CD + "-" + Structconsmas.Consumer_Number)) + "\n" +
-////                    "<0x09>SUB-DIV    : " + Structconsmas.Sub_division_Name + "\n" +
-////                    "<0x09>SECTION    : " + Structconsmas.Section_Name + "\n" +
-//                            "<0x09>CONS NAME        : " + (String.format("%1$6s", Structconsmas.Name)) + "\n" +
-//                            "<0x09>PAYABLE BY DUE DT:" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" +
-//                            "<0x09>PAYABLE AFTER DUE DT:" + "\n" +
-//                            "<0x09>" + (String.format("%1$6s", (String.format("%.2f", (float) Math.round((float) (Math.round(Double.valueOf(Structbilling.O_Total_Bill)) + Double.valueOf(Structbilling.O_Surcharge))))))) + "\n" + // doubt
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n" +
-//                            "<0x09>" + " " + "\n");     // doubt
             if (Structconsmas.Name.length() < 23 && address.length() < 23) {
                 mSendMessage("<0x09>" + "    " + "\n" +
                         "<0x09>" + "    " + "\n" +
@@ -1178,6 +1034,7 @@ public class DuplicateBillPrint extends AppCompatActivity {
 //            }
             return "Executed";
         }
+
 
         @Override
         protected void onPostExecute(String result) {

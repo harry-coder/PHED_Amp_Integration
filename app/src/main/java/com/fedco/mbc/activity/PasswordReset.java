@@ -21,8 +21,7 @@ import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.Editable;
 import android.util.JsonReader;
 import android.util.Log;
@@ -37,6 +36,8 @@ import android.widget.RadioGroup;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.amigos.MainActivityCollectionPrint;

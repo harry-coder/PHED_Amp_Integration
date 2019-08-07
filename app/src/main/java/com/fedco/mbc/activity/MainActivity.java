@@ -7,11 +7,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -22,11 +23,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,6 +34,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.printermodule.PrintClass;
 import com.fedco.mbc.R;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.model.Structbilling;
@@ -50,7 +52,9 @@ import com.splunk.mint.Mint;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -60,13 +64,12 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.HashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.paperdb.Paper;
 
-public class MainActivity extends RootActivity  {
+public class MainActivity extends Activity {
 
     Button btnExit, btnLogin;
     EditText etdName, etdPass;
@@ -101,6 +104,8 @@ public class MainActivity extends RootActivity  {
     StartLocationAlert startLocationAlert;
     UtilAppCommon ucom;
 
+
+
     @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +131,7 @@ public class MainActivity extends RootActivity  {
         telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         codeIMEI = telephonyManager.getDeviceId();
         Structbilling.Reasons = "0";
+
 
         //code change by manas  20.06.2018
 
@@ -209,6 +215,19 @@ public class MainActivity extends RootActivity  {
         });
 //        sessionKeyAdd();
 //        addIfSession();
+
+
+       /* String model="AMP";
+        System.out.println ( Build.MODEL );
+        System.out.println ( Build.MANUFACTURER );
+        System.out.println ( Build.DEVICE );
+        System.out.println ( Build.PRODUCT );
+        System.out.println ( Build.BRAND );
+        System.out.println ( Build.ID );*/
+
+    //    System.out.println ( model.contains ( Build.MODEL ));
+      //  System.out.println ( Build.MODEL.contains ( model ));
+
     }
 
 

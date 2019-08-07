@@ -6,8 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.Collection;

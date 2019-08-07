@@ -1,7 +1,6 @@
 package com.fedco.mbc.activitymetering;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,29 +8,24 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fedco.mbc.R;
-import com.fedco.mbc.activity.PrintSelection;
 import com.fedco.mbc.logging.Logger;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.UtilAppCommon;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class NSCReport extends Activity {
 

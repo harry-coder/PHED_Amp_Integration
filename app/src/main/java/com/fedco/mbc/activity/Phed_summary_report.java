@@ -5,17 +5,14 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.opengl.Visibility;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
-import android.support.design.widget.FloatingActionButton;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -35,10 +32,10 @@ import com.fedco.mbc.R;
 import com.fedco.mbc.amigos.DuplicateCollectionPrint;
 import com.fedco.mbc.amigos.MainActivityCollectionPrint;
 import com.fedco.mbc.logging.Logger;
-import com.fedco.mbc.model.Structcolmas;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.URLS;
 import com.fedco.mbc.utils.UtilAppCommon;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,7 +57,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import io.paperdb.Paper;
 
 import static android.app.AlertDialog.Builder;

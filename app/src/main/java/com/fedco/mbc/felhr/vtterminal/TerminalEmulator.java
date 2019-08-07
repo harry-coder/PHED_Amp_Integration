@@ -1,7 +1,6 @@
 package com.fedco.mbc.felhr.vtterminal;
 
 import android.annotation.SuppressLint;
-import android.support.v4.view.MotionEventCompat;
 import android.util.Log;
 import com.fedco.mbc.felhr.encodings.EncodingBuffer;
 import com.fedco.mbc.felhr.usbserial.FTDISerialDevice;

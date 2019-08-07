@@ -18,8 +18,10 @@ import android.os.Debug;
 import android.os.Environment;
 import android.os.StrictMode;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;

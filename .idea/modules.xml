@@ -3,7 +3,10 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PHEDTESTApp.iml" filepath="$PROJECT_DIR$/PHEDTESTApp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ampsource-debug/ampsource-debug.iml" filepath="$PROJECT_DIR$/ampsource-debug/ampsource-debug.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/poslib-device-debug/poslib-device-debug.iml" filepath="$PROJECT_DIR$/poslib-device-debug/poslib-device-debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/printermodule-debug/printermodule-debug.iml" filepath="$PROJECT_DIR$/printermodule-debug/printermodule-debug.iml" />
     </modules>
   </component>
 </project>

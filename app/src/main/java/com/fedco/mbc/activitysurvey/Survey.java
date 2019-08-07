@@ -6,20 +6,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.Home;
 import com.fedco.mbc.activity.SDActivity;
-
-import com.fedco.mbc.activitymetering.SummeryFilter;
 import com.fedco.mbc.authentication.PrinterSessionManager;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.logging.Logger;

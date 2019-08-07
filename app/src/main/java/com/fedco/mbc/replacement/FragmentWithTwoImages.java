@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -20,6 +20,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.fragment.app.Fragment;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.model.StructMeterReplacment;
@@ -79,23 +81,23 @@ public class FragmentWithTwoImages extends Fragment {
     }
 
 
-    private void showDatePicker() {
+    /*private void showDatePicker() {
         DatePickerFragment date = new DatePickerFragment();
-        /**
+        *//**
          * Set Up Current Date Into dialog
-         */
+         *//*
         Calendar calender = Calendar.getInstance();
         Bundle args = new Bundle();
         args.putInt("year", calender.get(Calendar.YEAR));
         args.putInt("month", calender.get(Calendar.MONTH));
         args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
         date.setArguments(args);
-        /**
+        *//**
          * Set Call back to capture selected date
-         */
+         *//*
         date.setCallBack(ondate);
         date.show(getFragmentManager(), "Date Picker");
-    }
+    }*/
 
     DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
 

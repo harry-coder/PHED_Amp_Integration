@@ -1,7 +1,8 @@
 package com.fedco.mbc.felhr.encodings;
 
-import android.support.v4.media.TransportMediator;
-import android.support.v4.view.MotionEventCompat;
+
+
+import androidx.core.view.MotionEventCompat;
 
 abstract class SingleByteCharset {
     private int[] charMap;
@@ -17,10 +18,10 @@ abstract class SingleByteCharset {
     }
 
     public byte[] convertToUTF8(int codepoint) {
-        if (codepoint <= TransportMediator.KEYCODE_MEDIA_PAUSE) {
+       /* if (codepoint <= TransportMediator.KEYCODE_MEDIA_PAUSE) {
             return new byte[]{(byte) codepoint};
         }
-        byte[] utf8Data;
+       */ byte[] utf8Data;
         int utf8Value;
         int i;
         byte low;

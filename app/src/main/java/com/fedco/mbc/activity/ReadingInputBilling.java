@@ -18,11 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
 
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.text.InputFilter;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -40,6 +36,11 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedco.mbc.CustomClasses.DialogBox;
 import com.fedco.mbc.R;
@@ -60,6 +61,7 @@ import com.fedco.mbc.utils.InputFilterMinMax;
 import com.fedco.mbc.utils.UtilAppCommon;
 import com.fedco.mbc.utils.Utility;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;

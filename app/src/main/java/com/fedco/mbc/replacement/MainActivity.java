@@ -3,17 +3,19 @@ package com.fedco.mbc.replacement;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.ToxicBakery.viewpager.transforms.RotateUpTransformer;
 import com.fedco.mbc.R;
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Meter Replacement");
 
         ViewPager vpPager = (ViewPager) findViewById(R.id.vpPager);
-        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager ());
         vpPager.setAdapter(adapterViewPager);
         vpPager.setPageTransformer(true, new RotateUpTransformer());
         // vpPager.setPadding(5,5,5,5);

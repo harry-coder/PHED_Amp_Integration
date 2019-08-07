@@ -3,10 +3,11 @@ package com.fedco.mbc.meter_selection.fragment;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.res.TypedArray;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.View;
+
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.Readinginput;
@@ -14,6 +15,7 @@ import com.fedco.mbc.meter_selection.StartMeterReading;
 import com.fedco.mbc.meter_selection.adapter.MakeGridAdapter;
 import com.fedco.mbc.meter_selection.model.MakePojo;
 import com.fedco.mbc.meter_selection.model.ModelPojo;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
 
@@ -36,7 +38,7 @@ public class BottomSheetFragment extends BottomSheetDialogFragment {
         dialog.setContentView(contentView);
 
         makeRecyclerView = (RecyclerView) contentView.findViewById(R.id.rv_make_grid);
-        makeRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        makeRecyclerView.setLayoutManager(new GridLayoutManager (getActivity(), 3));
         makeRecyclerView.setAdapter(new MakeGridAdapter(getMakeAndModel(), new MakeGridAdapter.MakeClick() {
             @Override
             public void onMakeClick(MakePojo makePojo, String model_number) {

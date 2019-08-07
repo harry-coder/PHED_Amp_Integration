@@ -12,21 +12,20 @@ import android.graphics.Paint;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.cardview.widget.CardView;
+import androidx.core.content.FileProvider;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fedco.mbc.BuildConfig;
 import com.fedco.mbc.R;
-import com.fedco.mbc.billinglogic.CBillling;
 import com.fedco.mbc.logging.Logger;
 import com.fedco.mbc.model.Structbilling;
 import com.fedco.mbc.model.Structconsmas;
-import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.GPSTracker;
 import com.fedco.mbc.utils.UtilAppCommon;
 import com.fedco.mbc.utils.Utility;
@@ -36,10 +35,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Stack;
 
 public class PictureActivity extends Activity {
 

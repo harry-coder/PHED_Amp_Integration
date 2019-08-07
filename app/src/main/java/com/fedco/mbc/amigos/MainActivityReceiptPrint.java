@@ -6,12 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,9 +20,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.support.v4.view.MotionEventCompat;
+import androidx.core.view.MotionEventCompat;
 import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
 import android.text.format.DateFormat;
 import android.view.KeyEvent;
 import android.view.View;
@@ -34,11 +31,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.fedco.mbc.CustomClasses.DayEndReport;
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.BillingtypesActivity;
 import com.fedco.mbc.activity.Collection;
-import com.fedco.mbc.activity.CollectionView;
 import com.fedco.mbc.activity.CommonHttpConnection;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.activity.Home;
@@ -46,7 +41,6 @@ import com.fedco.mbc.activity.MainActivity;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.collection.CollectiontypesActivity;
 import com.fedco.mbc.logging.Logger;
-import com.fedco.mbc.model.Structbilling;
 import com.fedco.mbc.model.Structcollection;
 import com.fedco.mbc.model.Structcolmas;
 import com.fedco.mbc.model.Structconsmas;
@@ -54,7 +48,6 @@ import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.HttpFileUpload;
 import com.fedco.mbc.utils.URLS;
 import com.fedco.mbc.utils.UtilAppCommon;
-import com.fedco.mbc.utils.Words;
 import com.qps.btgenie.BluetoothManager;
 import com.qps.btgenie.QABTPAccessory;
 
@@ -69,7 +62,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,8 +71,6 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static com.fedco.mbc.activity.Collection.dayEndReport;
 
 public class MainActivityReceiptPrint  extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, QABTPAccessory {
     private static final String TAG = MainActivityCollectionPrint.class.getSimpleName();

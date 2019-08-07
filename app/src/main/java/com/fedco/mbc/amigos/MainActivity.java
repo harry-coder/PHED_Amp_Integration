@@ -17,12 +17,13 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.support.v4.view.MotionEventCompat;
+import androidx.core.view.MotionEventCompat;
 import android.text.format.DateFormat;
-import android.util.Log;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -31,8 +32,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.printermodule.PrintClass;
+import com.fedco.mbc.CustomClasses.DuplicateReceiptPrint;
 import com.fedco.mbc.R;
+import com.fedco.mbc.activity.Billing;
 import com.fedco.mbc.activity.BillingtypesActivity;
+import com.fedco.mbc.activity.Collection;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.logging.Logger;
@@ -53,6 +58,7 @@ import com.qps.btgenie.BluetoothManager;
 import com.qps.btgenie.QABTPAccessory;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -68,6 +74,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -171,6 +178,8 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_main_amigo );
+
+        System.out.println ("This is mainActivity" );
 //        tv_Print = (TextView)findViewById(R.id.tv_print);
         btpObject = BluetoothManager.getInstance ( this, MainActivity.this );
         sharedPreferences = this.getSharedPreferences ( "QABTprefs", 0 );
@@ -760,57 +769,60 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
         dbHelper4.insertSequence ( "BillNumber", billseq );
 
 
-        System.out.println ("This is Cashier Name "+Structbilling.Meter_Reader_Name );
-        test = " " + "\n" +
-                "  ELECTRICITY BILL     " + "\n" +
-                "----------------------" + "\n" +
+        System.out.println ( "This is Cashier Name " + Structbilling.Meter_Reader_Name );
+
+        System.out.println (Build.MODEL.contains ( "AMP" ) );
+        if (!Build.MODEL.contains ( "AMP" )) {
+            test = " " + "\n" +
+                    "  ELECTRICITY BILL     " + "\n" +
+                    "----------------------" + "\n" +
 //                    "DC NAME:"+(String.format("%1$6s",(Structconsmas.Zone_Code))) + "\n" +
-                "VERSION:" + (String.format ( "%1$6s", Structbilling.VER_CODE )) + "\n" +
-                "ACC.NO. :" + (String.format ( "%1$6s", Structbilling.Cons_Number )) + "\n" +
-                "DATE: " + (String.format ( "%1$6s", Structbilling.Bill_Date )) + (String.format ( "%1$6s", Structbilling.Bill_Time )) + "\n" +
+                    "VERSION:" + (String.format ( "%1$6s", Structbilling.VER_CODE )) + "\n" +
+                    "ACC.NO. :" + (String.format ( "%1$6s", Structbilling.Cons_Number )) + "\n" +
+                    "DATE: " + (String.format ( "%1$6s", Structbilling.Bill_Date )) + (String.format ( "%1$6s", Structbilling.Bill_Time )) + "\n" +
 //                    "MRU/GROUP:"+(String.format("%1$6s",Structconsmas.MRU)) + "\n" +
 //                    "BP NO:"+(String.format("%1$6s",Structbilling.Cons_Number)) + "\n" +
 //                   p "LNO:"+(String.format("%1$6s",Structconsmas.Old_Consmumer_Number))+ "\n" +
 //                    "L.PAY.DATE:"+(String.format("%1$6s",formatDate(Structconsmas.Last_Payment_Date))) + "\n" +
-                "---------------------" + "\n" +
-                "NAME  &  SUPPLY ADDRESS:       " + "\n" +
-                "" + String.format ( "%1$6s", Structconsmas.Name ) + "\n" +
-                "" + String.format ( "%1$8s", Structconsmas.address1 )  +
-                "" + String.format ( "%1$4s", Structconsmas.address2 ) + "\n" +
+                    "---------------------" + "\n" +
+                    "NAME  &  SUPPLY ADDRESS:       " + "\n" +
+                    "" + String.format ( "%1$6s", Structconsmas.Name ) + "\n" +
+                    "" + String.format ( "%1$8s", Structconsmas.address1 ) +
+                    "" + String.format ( "%1$4s", Structconsmas.address2 ) + "\n" +
 //                    ""+String.format("%1$4s", Structconsmas.Addrress3 ) + "\n" +
 //                    "OFF.PH NO:"+String.format("%1$6s",Structconsmas.Office_Phone) + "\n" +
 //                    "CIN:"+(String.format("%1$6s",Structconsmas.Consumer_Index_Number)) + "\n" +
 //                    "TARIF:"+String.format("%1$6s",Structconsmas.rate_category_for_analogic_use) + "\n" +
 //                    "USAGE:"+(String.format("%1$6s",Structconsmas.Purpose)) + "\n" +
-                //  "SAN LOAD :"+String.format("%1$6s", Structconsmas.Load) + "\n" +
+                    //  "SAN LOAD :"+String.format("%1$6s", Structconsmas.Load) + "\n" +
 
-                "IBC:" + String.format ( "%1$6s", Structconsmas.Section_Name ) + "\n" +
-                "BSC:" + String.format ( "%1$6s", Structconsmas.MOH ) + "\n" +
+                    "IBC:" + String.format ( "%1$6s", Structconsmas.Section_Name ) + "\n" +
+                    "BSC:" + String.format ( "%1$6s", Structconsmas.MOH ) + "\n" +
 
-                "TARIF Code:" + String.format ( "%1$6s", Structconsmas.Tariff_Code ) + "\n" +
+                    "TARIF Code:" + String.format ( "%1$6s", Structconsmas.Tariff_Code ) + "\n" +
 
-                "SAN LOAD  :" + "\n" +
+                    "SAN LOAD  :" + "\n" +
 
 //                    "S.D.HELD :"+(String.format("%1$6s",Structconsmas.SD_Held)) + "\n" +
 //                    "MTR NO   :"+String.format("%1$6s", Structconsmas.Meter_S_No) + "\n" +
 //                    "AVG UNIT:"+String.format("%1$4s",Structconsmas.Average_Unit_for_Defective)+" MF:"+String.format("%1$4s",Structconsmas.KWH_MF) + "\n" +
-                "---------------------" + "\n" +
-                "CUR    :" + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat + "\n" +
-                "PRV    :" + Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status + "\n" +
+                    "---------------------" + "\n" +
+                    "CUR    :" + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat + "\n" +
+                    "PRV    :" + Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status + "\n" +
 
 //                    "CUR:"+String.format("%1$4s",Structbilling.Cur_Meter_Reading+" /"+ appcomUtil.getBillMonth(Structconsmas.Bill_Mon)+"-"+getBillYear(Structconsmas.Bill_Year)+" /"+Structbilling.RDG_TYP_CD) + "\n" +
 //                    "PRV:"+String.format("%1$4s",Structconsmas.Meter_Reading_Previous_KWH+" /"+Structconsmas.Bill_Mon+"-" +Structconsmas.Bill_Year+" /"+Structconsmas.Meter_Status) +"\n" +
 
-                // "UNITS:"+Structbilling.Units_Consumed + "\n" +
-                "UNITS  :" + Structbilling.Units_Consumed + " KWH" + "\n" +
+                    // "UNITS:"+Structbilling.Units_Consumed + "\n" +
+                    "UNITS  :" + Structbilling.Units_Consumed + " KWH" + "\n" +
 
 //                    "P FACT:"+(String.format("%1$4s",Structbilling.Avrg_PF))+" R.M.D:"+(String.format("%1$4s",Structbilling.MDI))+ "\n" +
-                "BILL BASIS:     " + Structbilling.Bill_Basis + "\n" +
-                "---------------------" + "\n" +
+                    "BILL BASIS:     " + Structbilling.Bill_Basis + "\n" +
+                    "---------------------" + "\n" +
 //                    "FIXED CHG    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Total_Energy_Charg))) + "\n" +
-                "ENERGY CHG       :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Total_Energy_Charg ) ) ) ) + "\n" +
-                // "VAT         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Electricity_Duty_Charges))) + "\n" +
-                "VAT(5%)          :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Electricity_Duty_Charges ) ) ) ) + "\n" +
+                    "ENERGY CHG       :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Total_Energy_Charg ) ) ) ) + "\n" +
+                    // "VAT         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Electricity_Duty_Charges))) + "\n" +
+                    "VAT(5%)          :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Electricity_Duty_Charges ) ) ) ) + "\n" +
 
 //                    "CESS         :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.CESS))) + "\n" +
 //                    "M.RENT       :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.Meter_Rent))) + "\n" +
@@ -824,33 +836,99 @@ public class MainActivity extends Activity implements View.OnClickListener, Adap
 //                    "VCA CHARGES  :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.VCA_Charge ))) + "\n" +
 //                    "TOTAL BILL   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.O_Current_Demand))) + "\n" +
 //                    "SD ARREAR    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.SD_Arrear))) + "\n" +
-                "PREV.ARREARS     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.O_Arrear_Demand ) ) ) ) + "\n" +
+                    "PREV.ARREARS     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.O_Arrear_Demand ) ) ) ) + "\n" +
 //                    "SCBG.ARREARS :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structconsmas.Sucharge_Arrears ))) + "\n" +
 //                    "ADJ.AMOUNT   :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Round_Off_amount)) ) + "\n" +
-                "-----------------------" + "\n" +
-                //"TOTAL AMOUNT      :"+String.format("%1$8s",String.format("%.2f",MainActivityCollectionPrint.internationAnotation(String.valueOf(Structbilling.Amnt_Paidafter_Rbt_Date)))) + "\n" +
-                "TOTAL AMOUNT     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) ) ) ) + "\n" +
+                    "-----------------------" + "\n" +
+                    //"TOTAL AMOUNT      :"+String.format("%1$8s",String.format("%.2f",MainActivityCollectionPrint.internationAnotation(String.valueOf(Structbilling.Amnt_Paidafter_Rbt_Date)))) + "\n" +
+                    "TOTAL AMOUNT     :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) ) ) ) + "\n" +
 
-                "---------------------" + "\n" +
+                    "---------------------" + "\n" +
 //                            "PAY TOTAL DUE NOW    :"+String.format("%1$8s",String.format("%.2f",Double.valueOf(Structbilling.Cur_Bill_Total))) + "\n" +
 //                    "DUE DT BY CHQ:"+String.format("%1$8s", Structbilling.cheque_due_date ) + "\n" +
-                "LAST PAY DATE    :" + String.format ( "%1$8s", (Structconsmas.LAST_ACT_BILL_MON) ) + "\n" +
-                "LAST PAID AMOUNT :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structconsmas.LAST_MONTH_AV ) ) ) ) + "\n" +
+                    "LAST PAY DATE    :" + String.format ( "%1$8s", (Structconsmas.LAST_ACT_BILL_MON) ) + "\n" +
+                    "LAST PAID AMOUNT :" + String.format ( "%1$8s", String.format ( "%1$6s", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structconsmas.LAST_MONTH_AV ) ) ) ) + "\n" +
 //                    "DUE DT BY CASH:"+String.format("%1$5s", Structbilling.cash_due_date) + "\n" +
-                "READER NAME      :" + String.format ( "%1$6s", com.fedco.mbc.activity.MainActivity.MRNME ) + "\n" +
+                    "READER NAME      :" + String.format ( "%1$6s", com.fedco.mbc.activity.MainActivity.MRNME ) + "\n" +
+
+
+                    //  "READER NAME       :"+String.format("%1$6s",Structbilling.Meter_Reader_Name) + "\n" +
+
+                    "Customer Care    :" + "070022557433" + "\n" +
+
+                    "---------------------" + "\n";
+
+            test2 = "    " + "\n" +
+                    "    " + "\n";
+
+            Log.e ( getApplicationContext ( ), "Find", " ME " + test );
+        }
+        else {
+            try {
+                System.out.println ("Inside Pos" );
+                printForPos ();
+            } catch (WriterException e) {
+                e.printStackTrace ( );
+            }
+        }
+    }
+
+
+    public void printForPos() throws WriterException {
+        LinkedHashMap <String, String> printMap = new LinkedHashMap <> (  ) ;
 
 
 
-                //  "READER NAME       :"+String.format("%1$6s",Structbilling.Meter_Reader_Name) + "\n" +
 
-                "Customer Care    :" + "070022557433" + "\n" +
+            printMap.put ( "VERSION", Structbilling.VER_CODE );
+            printMap.put ( "ACC.NO.", Structbilling.Cons_Number );
+            printMap.put ( "NAME", Structconsmas.Name );
+            printMap.put ( "SUPPLY ADDRESS:", Structconsmas.Name+ "" +Structconsmas.address1 +""+ Structconsmas.address2 );
+            printMap.put ( "IBC", Structconsmas.Section_Name );
+            printMap.put ( "BSC", Structconsmas.MOH );
+            printMap.put ( "TARIFF CODE", Structconsmas.Tariff_Code );
+            printMap.put ( "SAN LOAD", "");
+            printMap.put ( "CUR", + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat );
+            printMap.put ( "PRV", Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status  );
 
-                "---------------------" + "\n";
+            printMap.put ( "UNITS", ""+Structbilling.Units_Consumed+ " KWH" );
+            printMap.put ( "BILL BASIS", Structbilling.Bill_Basis );
 
-        test2 = "    " + "\n" +
-                "    " + "\n";
 
-        Log.e ( getApplicationContext ( ), "Find", " ME " + test );
+                printMap.put ( "ENERGY CHG", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Total_Energy_Charg ) )  );
+                printMap.put ( "VAT(5%) ", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Electricity_Duty_Charges ) ) );
+                printMap.put ( "PREV.ARREARS", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.O_Arrear_Demand ) ) );
+                printMap.put ( "TOTAL AMOUNT", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) ) );
+
+
+
+            printMap.put ( "LAST PAY DATE", Structconsmas.LAST_ACT_BILL_MON );
+
+
+
+            printMap.put ( "LAST PAID AMOUNT", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structconsmas.LAST_MONTH_AV ) ) );
+            printMap.put ( "READER NAME", com.fedco.mbc.activity.MainActivity.MRNME );
+            printMap.put ( "CustomerCare", "070022557433" );
+
+
+
+
+
+        sendValuesToPrinter ( printMap,String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) );
+    }
+
+    public void sendValuesToPrinter(HashMap <String, String> map, String amount) {
+
+        System.out.println ("Printing here" );
+        Bitmap bmp = BitmapFactory.decodeResource ( getResources ( ), R.drawable.phedlogo );
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
+        bmp.compress ( Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream );
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray ( );
+        String encoded = Base64.encodeToString ( byteArray, Base64.DEFAULT );
+
+        startActivity ( new Intent ( this, Billing.class ) );
+        PrintClass.printReceipt ( this, map, amount, "Approved", "PHED", encoded );
     }
 
     private String printables(String PTR) {

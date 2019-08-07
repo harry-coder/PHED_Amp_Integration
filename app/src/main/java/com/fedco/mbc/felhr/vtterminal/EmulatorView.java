@@ -1,7 +1,6 @@
 package com.fedco.mbc.felhr.vtterminal;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
@@ -24,7 +22,6 @@ import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 //import com.felhr.droidterm.C0107R;
-import com.fedco.mbc.felhr.constant.Command;
 import com.fedco.mbc.felhr.droidterm.TerminalFragment;
 import java.io.File;
 import java.io.FileOutputStream;

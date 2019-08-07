@@ -1,8 +1,10 @@
 package com.fedco.mbc.bluetoothprinting;
 
-import android.app.Application;
 import android.content.Context;
-import android.support.multidex.MultiDex;
+
+
+import androidx.multidex.MultiDex;
+import androidx.multidex.MultiDexApplication;
 
 import com.fedco.mbc.activity.LogoutListaner;
 import com.fedco.mbc.bluetoothprinting.bluetooth.BluetoothComm;
@@ -11,9 +13,10 @@ import com.splunk.mint.Mint;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import AmpEmvL2Android.AMPDevice;
 import io.paperdb.Paper;
 
-public class GlobalPool extends Application{
+public class GlobalPool extends MultiDexApplication {
 
 	private LogoutListaner logoutListaner;
 	protected Timer timer;
@@ -27,11 +30,20 @@ public class GlobalPool extends Application{
 		MultiDex.install(this);
 	}
 
+	static  {
+		System.loadLibrary("AMPEMVL2");
+		System.loadLibrary("AmpEmvL2AndroidIF");
+	}
+
 	@Override
 	public void onCreate(){
 		Mint.initAndStartSession(GlobalPool.this, "7c741295");
 		super.onCreate();
 		Paper.init(this);
+
+
+
+		AMPDevice.initializeDevice(this);
 	}
 	/**
 	 * Set up a Bluetooth connection

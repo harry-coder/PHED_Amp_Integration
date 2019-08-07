@@ -11,7 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,11 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fedco.mbc.R;
-import com.fedco.mbc.activity.CameraActivity;
-import com.fedco.mbc.activity.ConsumerSearchByAddressActivity;
-import com.fedco.mbc.activity.ConsumerSearchByMeterActivity;
-import com.fedco.mbc.activity.ConsumerSearchByName_Activity;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.logging.Logger;

@@ -2,30 +2,19 @@ package com.fedco.mbc.activity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.GradientDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Process;
-
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,17 +22,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.fedco.mbc.CustomClasses.DialogBox;
 import com.fedco.mbc.R;
-import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.billinglogic.CBillling;
 import com.fedco.mbc.bluetoothprinting.GlobalPool;
 import com.fedco.mbc.logging.Log4jHelper;
@@ -60,6 +51,7 @@ import com.fedco.mbc.utils.InputFilterMinMax;
 import com.fedco.mbc.utils.UtilAppCommon;
 import com.fedco.mbc.utils.Utility;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -70,7 +62,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,7 +69,6 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.Stack;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -160,7 +150,9 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
+
         setContentView ( R.layout.activity_readinginput );
+        System.out.println ("Reading Input Activity" );
         configureLog4j ( );
         RActivity = this;
         getSupportActionBar ( ).setHomeAsUpIndicator ( R.drawable.back );
@@ -178,22 +170,22 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         ((GlobalPool) getApplication ( )).registerSessionListaner ( this );
         ((GlobalPool) getApplication ( )).startUserSession ( );
 
-        Log.e ( getApplicationContext ( ), "MeterStatAct", "current meter status is : " + curmeterstatus + " posion is : " + curmeter );
-        Log.e ( getApplicationContext ( ), "MeterStatAct", "Previos meter status is : " + Structconsmas.Prev_Meter_Status );
+        Logger.e ( getApplicationContext ( ), "MeterStatAct", "current meter status is : " + curmeterstatus + " posion is : " + curmeter );
+        Logger.e ( getApplicationContext ( ), "MeterStatAct", "Previos meter status is : " + Structconsmas.Prev_Meter_Status );
 
         storeReasons ( );
 
-        tv_readingDate = (TextView) findViewById ( R.id.tv_readingDate );
-        tv_heading = (TextView) findViewById ( R.id.tv_heading );
+        tv_readingDate = findViewById ( R.id.tv_readingDate );
+        tv_heading = findViewById ( R.id.tv_heading );
 
-        rv_meterImages = (RecyclerView) findViewById ( R.id.rv_meterImages );
+        rv_meterImages = findViewById ( R.id.rv_meterImages );
         rv_meterImages.setLayoutManager ( new LinearLayoutManager ( this, LinearLayoutManager.HORIZONTAL, false ) );
 
-       if(Home.isMeter){
+      // if(Home.isMeter){
            rv_meterImages.setAdapter ( new ImageAdapter ( this, PictureActivity.filePaths ) );
-       }
+       //}
 
-        sp_status = (Spinner) findViewById ( R.id.sp_status );
+        sp_status = findViewById ( R.id.sp_status );
         meterStatusList = new ArrayList <> ( );
         meterStatusList.add ( "Normal" );
         meterStatusList.add ( "Meter Faulty" );
@@ -208,15 +200,15 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         sp_status.setAdapter ( meterStatusAdapter );
 
 //        tvDMS = (TextView) findViewById(R.id.TextViewDMSValues);
-        tv_meter_number = (TextView) findViewById ( R.id.tv_meter_number );
-        tv_md_value = (EditText) findViewById ( R.id.tv_md_value );
-        tvName = (TextView) findViewById ( R.id.TextViewRINameValue );
-        tvMS = (TextView) findViewById ( R.id.TextViewRIPsValues );
-        etCR = (EditText) findViewById ( R.id.TextViewRICrValue );
+        tv_meter_number = findViewById ( R.id.tv_meter_number );
+        tv_md_value = findViewById ( R.id.tv_md_value );
+        tvName = findViewById ( R.id.TextViewRINameValue );
+        tvMS = findViewById ( R.id.TextViewRIPsValues );
+        etCR = findViewById ( R.id.TextViewRICrValue );
 //        etMD = (EditText) findViewById(R.id.TextViewRIMdValue);
-        etPF = (EditText) findViewById ( R.id.TextViewRIPfValue );
-        spinnerMeterMfg = (Spinner) findViewById ( R.id.spinnerMeterMfg );
-        spinnerReason = (Spinner) findViewById ( R.id.TextViewRRemValue );
+        etPF = findViewById ( R.id.TextViewRIPfValue );
+        spinnerMeterMfg = findViewById ( R.id.spinnerMeterMfg );
+        spinnerReason = findViewById ( R.id.TextViewRRemValue );
         tv_meter_number.setText ( Structconsmas.Meter_S_No );
         etPF.setFilters ( new InputFilter[]{new InputFilterMinMax ( 0.0f, 1f ), new InputFilter.LengthFilter ( 4 )} );
 //        etPF.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(etPF,1,2)});
@@ -224,10 +216,10 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
 //        etPF.setFilters(new InputFilter[] {new DecimalDigitsInputFilter(etPF,1,2)});
 //        pfUnit  = (Spinner) findViewById(R.id.TextViewRIMdUnitValue); //TextViewRIMdUnitValue
-        mdUnits = (Spinner) findViewById ( R.id.TextViewRIMdUnitValue );
-        btnContread = (Button) findViewById ( R.id.ButtonContreading );
-        btnTakeread = (Button) findViewById ( R.id.ButtonTakereading );
-        btn_send_log_to_server = (Button) findViewById ( R.id.btn_send_log_to_server );
+        mdUnits = findViewById ( R.id.TextViewRIMdUnitValue );
+        btnContread = findViewById ( R.id.ButtonContreading );
+        btnTakeread = findViewById ( R.id.ButtonTakereading );
+        btn_send_log_to_server = findViewById ( R.id.btn_send_log_to_server );
 
         spinnerMeterMfg.setVisibility ( View.INVISIBLE );
         btnTakeread.setVisibility ( View.GONE );
@@ -244,11 +236,11 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         SD = dbHelper.getWritableDatabase ( );
 
 
-        sp_reasons = (Spinner) findViewById ( R.id.spr_reasons );
+        sp_reasons = findViewById ( R.id.spr_reasons );
 
 
-        metermakeid_list = new ArrayList <String> ( );
-        metermake_list = new ArrayList <String> ( );
+        metermakeid_list = new ArrayList <> ( );
+        metermake_list = new ArrayList <> ( );
 
 
         tv_readingDate.setText ( Structbilling.Bill_Date );
@@ -261,8 +253,8 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
         SimpleDateFormat sdf = new SimpleDateFormat ( "yyyyMMdd" );
         currentDateandTime = sdf.format ( new Date ( ) );
 
-        Log.e ( getApplicationContext ( ), "MeterStatAct", "prev meter Date   " + Structconsmas.Prev_Meter_Reading_Date );
-        Log.e ( getApplicationContext ( ), "MeterStatAct", "current Date   " + currentDateandTime );
+        Logger.e ( getApplicationContext ( ), "MeterStatAct", "prev meter Date   " + Structconsmas.Prev_Meter_Reading_Date );
+        Logger.e ( getApplicationContext ( ), "MeterStatAct", "current Date   " + currentDateandTime );
 
         String ret = "select DERIVEDMETERSTATUS from TBL_DERIVEDMETERSTATUSCODE Where PREVIOUSMETERSTATUSCODE='" + Structconsmas.Prev_Meter_Status.trim ( ) + "' and CURRENTMETERSTATUSCODE='" + curmeterstatus + "'";
 
@@ -415,7 +407,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                     case 4://DIAL OVER ACT(2)
 
 
-                        Log.e ( getApplicationContext ( ), "MeterStatAct", "PrevMtrSt :" + Structconsmas.Prev_Meter_Status );
+                        Logger.e ( getApplicationContext ( ), "MeterStatAct", "PrevMtrSt :" + Structconsmas.Prev_Meter_Status );
                         //  Intent intent = new Intent ( getApplicationContext ( ), Readinginput.class );
                         //  GSBilling.getInstance ( ).setCurmeter ( 1 );
                         GSBilling.getInstance ( ).setCurmeter ( 5 );
@@ -509,11 +501,6 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
             public void onClick(View v) {
                 /****Chechiong if Edit Text is Empty ****/
 
-/*
-                Paper.book ( "Normal" ).destroy ();
-                Paper.book ( "MeterFaulty" ).destroy ();
-                Paper.book ( "ReadingNotTaken" ).destroy ();
-*/
 
                 if (GSBilling.getInstance ( ).getMetOVERFLOW ( ) == 1) {
 
@@ -2178,11 +2165,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                 FileInputStream fileInputStream = new FileInputStream ( GSBilling.getInstance ( ).getUploadZipToServer ( ) );
                 HttpFileUpload httpFileUpload = new HttpFileUpload ( "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "", destinationPath );
                 int status = httpFileUpload.Send_Now ( fileInputStream );
-                if (status != 200) {
-                    return false;
-                } else {
-                    return true;
-                }
+                return status == 200;
             } catch (Exception e) {
                 e.printStackTrace ( );
             }
@@ -2346,7 +2329,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                     if (c.moveToFirst ( )) {
                         do {
                             String status = c.getString ( c.getColumnIndex ( "STATUS" ) );
-                            Log.e ( getApplicationContext ( ), "MeterStateAct", "STATSUS IS " + status );
+                            Logger.e ( getApplicationContext ( ), "MeterStateAct", "STATSUS IS " + status );
 //                        int age = c.getInt(c.getColumnIndex("Age"));
 
                             System.out.println ( "This is status1 " + status );
@@ -2358,7 +2341,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                     }
                 }
             } catch (SQLiteException se) {
-                Log.e ( getApplicationContext ( ), "MeterStatAct", "Could not create or Open the database" );
+                Logger.e ( getApplicationContext ( ), "MeterStatAct", "Could not create or Open the database" );
             } finally {
 //            if (newDB != null)
 //                newDB.execSQL("DELETE FROM " + tableName);

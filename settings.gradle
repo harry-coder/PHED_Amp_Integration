@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':ampsource-debug', ':poslib-device-debug', ':printermodule-debug'

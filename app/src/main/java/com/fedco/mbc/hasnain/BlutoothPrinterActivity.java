@@ -16,8 +16,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -33,9 +32,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.fedco.mbc.R;
 
-public class BlutoothPrinterActivity extends ActionBarActivity {
+public class BlutoothPrinterActivity extends AppCompatActivity {
     // Debugging
     private static final String TAG = "BluetoothChat";
     private static final boolean D = true;

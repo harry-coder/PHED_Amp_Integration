@@ -2,8 +2,7 @@ package com.fedco.mbc.meter_selection.adapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.meter_selection.model.MakePojo;
@@ -109,7 +111,7 @@ public class MakeGridAdapter extends RecyclerView.Adapter<MakeGridAdapter.MakeVi
             ((TextView) dialog.findViewById(R.id.tv_title)).setText("Select "+makePojo.getMakeName()+" model");
 
             RecyclerView recyclerView = (RecyclerView) dialog.findViewById(R.id.rv_model);
-            recyclerView.setLayoutManager(new LinearLayoutManager(dialog.getContext()));
+            recyclerView.setLayoutManager(new LinearLayoutManager (dialog.getContext()));
             recyclerView.setAdapter(new ModelAdapter(makePojo.getModelPojoArrayList(), new ModelAdapter.ModelClick() {
                 @Override
                 public void onModelClick(ModelPojo modelPojo) {

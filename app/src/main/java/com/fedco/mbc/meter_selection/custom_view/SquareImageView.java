@@ -1,8 +1,10 @@
 package com.fedco.mbc.meter_selection.custom_view;
 
 import android.content.Context;
-import android.support.v7.widget.AppCompatImageView;
+
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatImageView;
 
 /**
  * Created by Hasnain on 29-Nov-17.

@@ -6,13 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothDevice;
-import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,16 +17,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.printservice.PrintService;
-import android.support.annotation.NonNull;
-import android.support.v4.view.MotionEventCompat;
+
+import androidx.core.view.MotionEventCompat;
+
 import android.telephony.TelephonyManager;
-import android.telephony.gsm.GsmCellLocation;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,24 +36,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.printermodule.PrintClass;
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.BillingtypesActivity;
 import com.fedco.mbc.activity.Collection;
-import com.fedco.mbc.activity.CollectionView;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.activity.Home;
 import com.fedco.mbc.authentication.SessionManager;
 import com.fedco.mbc.collection.CollectiontypesActivity;
-import com.fedco.mbc.logging.Log;
 import com.fedco.mbc.logging.Logger;
-import com.fedco.mbc.model.Structbilling;
 import com.fedco.mbc.model.Structcollection;
 import com.fedco.mbc.model.Structcolmas;
 import com.fedco.mbc.model.Structconsmas;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.HttpFileUpload;
 import com.fedco.mbc.utils.UtilAppCommon;
-import com.fedco.mbc.utils.Words;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -64,6 +59,7 @@ import com.qps.btgenie.BluetoothManager;
 import com.qps.btgenie.QABTPAccessory;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -74,20 +70,18 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 
 public class MainActivityCollectionPrint extends Activity implements View.OnClickListener, AdapterView.OnItemSelectedListener, QABTPAccessory {
@@ -167,8 +161,10 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
     String strDate;
     String key, username, codeIMEI;
 
-
+    Cursor paymentcursor;
     TelephonyManager telephonyManager;
+
+    boolean posTesting = true;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -290,12 +286,13 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
         dbHelper = new DB ( getApplicationContext ( ) );
         SD = dbHelper.getWritableDatabase ( );
         String paymentquery = "select HEAD,AMOUNT from PaymentDetails where ReceiptNo='" + GSBilling.getInstance ( ).RecieptNo + "' and tokenDec='" + GSBilling.getInstance ( ).TokenNo + "' and  ManualReceiptNo='" + GSBilling.getInstance ( ).MANRECP_NO + "'";
-        Cursor paymentcursor = SD.rawQuery ( paymentquery, null );
+        paymentcursor = SD.rawQuery ( paymentquery, null );
         String innerstate = "";
 
 
-        System.out.println ( "This is the Handler Name " + Structcolmas.MR_NAME );
-        if (typePay.equalsIgnoreCase ( "Prepaid" )) {
+        if (!Build.MODEL.contains ( "AMP" )) {
+
+            if (typePay.equalsIgnoreCase ( "Prepaid" )) {
 //                    test = " " + "    MADHYA PRADESH    " + "\n" +
 //                            " " + "    M.P.M.K.V.V.C.L   " + "\n" +
 //                            " " + "**********************" + "\n" +
@@ -354,60 +351,60 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 //                            "DEVICE ID   :" + Structcolmas.DEV_ID + "\n" +
 //                            " " + "     " + "\n" +
 //                            " " + "     " + "\n";
-            test = "    " + "\n" +
-                    "    " + "\n" +
-                    "  Port Harcourt Electricity   " + "\n" +
-                    "     Distribution Company " + "\n" +
-                    "-------------------------------    " +
-                    "     Payment Receipt  " + "\n" +
-                    "-------------------------------  " + "\n" +
+                test = "    " + "\n" +
+                        "    " + "\n" +
+                        "  Port Harcourt Electricity   " + "\n" +
+                        "     Distribution Company " + "\n" +
+                        "-------------------------------    " +
+                        "     Payment Receipt  " + "\n" +
+                        "-------------------------------  " + "\n" +
 //                            "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                    "" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime )) + "\n" +
-                    "Account:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).ConsumerNO )) + "\n" +
-                    "Meter No:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).MeterNo )) + "\n" +
-                    // "Account/Meter No:"+(String.format("%1$6s", GSBilling.getInstance().ConsumerNO)) + "\n" +
-                    "Name:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CONS_NAME.trim ( ) )) + "\n" +
-                    "Address:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Addresses.trim ( ) )) + "\n" +
+                        "" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime )) + "\n" +
+                        "Account:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).ConsumerNO )) + "\n" +
+                        "Meter No:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).MeterNo )) + "\n" +
+                        // "Account/Meter No:"+(String.format("%1$6s", GSBilling.getInstance().ConsumerNO)) + "\n" +
+                        "Name:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CONS_NAME.trim ( ) )) + "\n" +
+                        "Address:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Addresses.trim ( ) )) + "\n" +
 
-                    "IBC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).IBC.trim ( ) )) + "\n" +
-                    "BSC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).BSC.trim ( ) )) + "\n" +
+                        "IBC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).IBC.trim ( ) )) + "\n" +
+                        "BSC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).BSC.trim ( ) )) + "\n" +
 
-                    "Tariff Code:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFFCODE )) + "\n" +
-                    "Tariff Rate:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_RATE )) + "\n" +
-                    "Tariff Index:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_INDEX )) + "\n" +
+                        "Tariff Code:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFFCODE )) + "\n" +
+                        "Tariff Rate:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_RATE )) + "\n" +
+                        "Tariff Index:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_INDEX )) + "\n" +
 //                            "Account Type: Prepaid"  + "\n" +
-                    "TRANSACTION DETAILS" + "\n" +
-                    "Account Type: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).CON_TYPE )) + "\n" +
-                    "Payment Type:" + typeMode + "\n";
-            if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
-                test = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
-                        "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
-                        "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
-                        "SUBJECT TO CLEARANCE" + "\n";
-            }
-            test = test + "Amount (NGN):" + (String.format ( "%1$6s", (internationAnotation ( Structcolmas.AMOUNT )) )) + "\n";
-            if (paymentcursor.getCount ( ) > 0) {
-                paymentcursor.moveToNext ( );
-                while (!paymentcursor.isAfterLast ( )) {
-
-                    String header = paymentcursor.getString ( 0 );
-                    String amount = paymentcursor.getString ( 1 );
-                    innerstate = innerstate + (String.format ( "%1$6s", header + ": " + internationAnotation ( amount ) )) + "\n";
-
-                    paymentcursor.moveToNext ( );
+                        "TRANSACTION DETAILS" + "\n" +
+                        "Account Type: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).CON_TYPE )) + "\n" +
+                        "Payment Type:" + typeMode + "\n";
+                if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
+                    test = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
+                            "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
+                            "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
+                            "SUBJECT TO CLEARANCE" + "\n";
                 }
-                test += innerstate;
-            }
+                test = test + "Amount (NGN):" + (String.format ( "%1$6s", (internationAnotation ( Structcolmas.AMOUNT )) )) + "\n";
+                if (paymentcursor.getCount ( ) > 0) {
+                    paymentcursor.moveToNext ( );
+                    while (!paymentcursor.isAfterLast ( )) {
+
+                        String header = paymentcursor.getString ( 0 );
+                        String amount = paymentcursor.getString ( 1 );
+                        innerstate = innerstate + (String.format ( "%1$6s", header + ": " + internationAnotation ( amount ) )) + "\n";
+
+                        paymentcursor.moveToNext ( );
+                    }
+                    test += innerstate;
+                }
 
 
-            test = test + "Units:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).punit )) + "\n" +
-                    "Token: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).TokenNo )) + "\n" +
-                    "eReceipt: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).RecieptNo )) + "\n" +
+                test = test + "Units:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).punit )) + "\n" +
+                        "Token: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).TokenNo )) + "\n" +
+                        "eReceipt: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).RecieptNo )) + "\n" +
 
-                    "Handled by :" + (String.format ( "%1$4s", GSBilling.getInstance ( ).MRNAME )) + "\n" +
+                        "Handled by :" + (String.format ( "%1$4s", GSBilling.getInstance ( ).MRNAME )) + "\n" +
 
 
-                    "Customer Care : 070022557433" + "\n";
+                        "Customer Care : 070022557433" + "\n";
 
 //                } else if (typePay.equalsIgnoreCase("CHEQUE")) {
 //                    test = "    " + "\n" +
@@ -451,44 +448,151 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 //                            "Token: " +(String.format("%1$6s", GSBilling.getInstance().TokenNo)) + "\n" +
 //                            "Handled by :"+(String.format("%1$4s", Structcolmas.MR_NAME)) + "\n" ;
 
-        } else {
-            test = "    " + "\n" +
-                    "    " + "\n" +
-                    "  Port Harcourt Electricity  " + "\n" +
-                    "     Distribution Company " + "\n" +
-                    "-------------------------------    " +
-                    "     Payment Receipt  " + "\n" +
-                    "-------------------------------  " + "\n" +
+            } else {
+                test = "    " + "\n" +
+                        "    " + "\n" +
+                        "  Port Harcourt Electricity  " + "\n" +
+                        "     Distribution Company " + "\n" +
+                        "-------------------------------    " +
+                        "     Payment Receipt  " + "\n" +
+                        "-------------------------------  " + "\n" +
 //                            "     " + (String.format("%1$6s", getBillMonth(Structconsmas.Bill_Mon))) + "\n" + //201706
-                    "" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime )) + "\n" +
-                    "Account:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).ConsumerNO )) + "\n" +
-                    "Meter No:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).MeterNo )) + "\n" +
-                    "Name:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CONS_NAME.trim ( ) )) + "\n" +
-                    "Address:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Addresses.trim ( ) )) + "\n" +
-                    "IBC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).IBC.trim ( ) )) + "\n" +
-                    "BSC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).BSC.trim ( ) )) + "\n" +
+                        "" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime )) + "\n" +
+                        "Account:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).ConsumerNO )) + "\n" +
+                        "Meter No:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).MeterNo )) + "\n" +
+                        "Name:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CONS_NAME.trim ( ) )) + "\n" +
+                        "Address:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).Addresses.trim ( ) )) + "\n" +
+                        "IBC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).IBC.trim ( ) )) + "\n" +
+                        "BSC:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).BSC.trim ( ) )) + "\n" +
 
-                    "Tariff Code:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFFCODE )) + "\n" +
-                    "Tariff Rate:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_RATE )) + "\n" +
-                    "TRANSACTION DETAILS" + "\n" +
-                    "Account Type:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CON_TYPE )) + "\n" +
-                    "Payment Type:" + typeMode + "\n" +
-                    "Paid Against:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).INCIDENT_TYPE )) + "\n";
-            if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
-                test = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
-                        "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
-                        "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
-                        "SUBJECT TO CLEARANCE" + "\n";
-            }
-            test = test + "Amount (NGN):" + (String.format ( "%1$6s", (internationAnotation ( Structcolmas.AMOUNT )) )) + "\n" +
+                        "Tariff Code:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFFCODE )) + "\n" +
+                        "Tariff Rate:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).TARIFF_RATE )) + "\n" +
+                        "TRANSACTION DETAILS" + "\n" +
+                        "Account Type:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).CON_TYPE )) + "\n" +
+                        "Payment Type:" + typeMode + "\n" +
+                        "Paid Against:" + (String.format ( "%1$6s", GSBilling.getInstance ( ).INCIDENT_TYPE )) + "\n";
+                if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
+                    test = test + "Cheque Date :" + Structcolmas.CH_DATE + "\n" +
+                            "Cheque No.  :" + Structcolmas.CHEQUE_NO + "\n" +
+                            "Bank Name   :" + Structcolmas.BANK_NAME + "\n" +
+                            "SUBJECT TO CLEARANCE" + "\n";
+                }
+                test = test + "Amount (NGN):" + (String.format ( "%1$6s", (internationAnotation ( Structcolmas.AMOUNT )) )) + "\n" +
 //                            "Units:" + (String.format("%1$6s", GSBilling.getInstance().punit)) +  "\n" +
-                    "eReceipt: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).RecieptNo )) + "\n" +
-                    "Status: Successful" + "\n" +
-                    "Handled by :" + (String.format ( "%1$4s", GSBilling.getInstance ( ).MRNAME )) + "\n" +
-                    "Customer Care : 070022557433" + "\n";
+                        "eReceipt: " + (String.format ( "%1$6s", GSBilling.getInstance ( ).RecieptNo )) + "\n" +
+                        "Status: Successful" + "\n" +
+                        "Handled by :" + (String.format ( "%1$4s", GSBilling.getInstance ( ).MRNAME )) + "\n" +
+                        "Customer Care : 070022557433" + "\n";
+            }
+            test2 = "    " + "\n" +
+                    "    " + "\n";
+        } else {
+            printForPos ( );
         }
-        test2 = "    " + "\n" +
-                "    " + "\n";
+    }
+
+
+    public void printForPos() {
+        LinkedHashMap <String, String> printMap = new LinkedHashMap <> ( );
+
+        if (typePay.equalsIgnoreCase ( "Prepaid" )) {
+            printMap.put ( "Date", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
+            printMap.put ( "Account", GSBilling.getInstance ( ).ConsumerNO );
+            printMap.put ( "Meter", GSBilling.getInstance ( ).MeterNo );
+            printMap.put ( "Customer Name", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
+            printMap.put ( "Address", GSBilling.getInstance ( ).Addresses.trim ( ) );
+            printMap.put ( "Ibc", GSBilling.getInstance ( ).IBC.trim ( ) );
+            printMap.put ( "Bsc", GSBilling.getInstance ( ).BSC.trim ( ) );
+            printMap.put ( "Tariff Code", GSBilling.getInstance ( ).TARIFFCODE );
+            printMap.put ( "Tariff Rate", GSBilling.getInstance ( ).TARIFF_RATE );
+            printMap.put ( "Tariff Index", GSBilling.getInstance ( ).TARIFF_INDEX );
+            printMap.put ( "TRANSACTIONAL DETAILS", "" );
+
+            printMap.put ( "Account Type", GSBilling.getInstance ( ).CON_TYPE );
+            printMap.put ( "Payment Type", typeMode );
+
+
+            if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
+                printMap.put ( "Cheque Date", Structcolmas.CH_DATE );
+                printMap.put ( "Cheque No", Structcolmas.CHEQUE_NO );
+                printMap.put ( "Bank Name", Structcolmas.BANK_NAME );
+                printMap.put ( "SUBJECT TO CLEARANCE", "" );
+
+
+            }
+
+            printMap.put ( "Amount", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
+
+            if (paymentcursor.getCount ( ) > 0) {
+                paymentcursor.moveToNext ( );
+                while (!paymentcursor.isAfterLast ( )) {
+
+                    String header = paymentcursor.getString ( 0 );
+                    String amount = paymentcursor.getString ( 1 );
+
+                    printMap.put ( "" + header, internationAnotation ( amount ) );
+                    paymentcursor.moveToNext ( );
+                }
+
+            }
+
+
+            printMap.put ( "Units", GSBilling.getInstance ( ).punit );
+            printMap.put ( "Token", GSBilling.getInstance ( ).TokenNo );
+            printMap.put ( "eReceipt", GSBilling.getInstance ( ).RecieptNo );
+            printMap.put ( "Reader Name", GSBilling.getInstance ( ).MRNAME );
+            printMap.put ( "Customer Care", "070022557433" );
+
+
+        } else {
+
+            printMap.put ( "Date", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
+            printMap.put ( "Account", GSBilling.getInstance ( ).ConsumerNO );
+            printMap.put ( "Meter", GSBilling.getInstance ( ).MeterNo );
+            printMap.put ( "Customer Name", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
+            printMap.put ( "Address", GSBilling.getInstance ( ).Addresses.trim ( ) );
+            printMap.put ( "Ibc", GSBilling.getInstance ( ).IBC.trim ( ) );
+            printMap.put ( "Bsc", GSBilling.getInstance ( ).BSC.trim ( ) );
+            printMap.put ( "Tariff Code", GSBilling.getInstance ( ).TARIFFCODE );
+            printMap.put ( "Tariff Rate", GSBilling.getInstance ( ).TARIFF_RATE );
+            printMap.put ( "TRANSACTIONAL DETAILS", "" );
+
+            printMap.put ( "Account Type", GSBilling.getInstance ( ).CON_TYPE );
+            printMap.put ( "Payment Type", typeMode );
+            printMap.put ( "Payment Against", GSBilling.getInstance ( ).INCIDENT_TYPE );
+
+
+            if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
+                printMap.put ( "ChequeDate", Structcolmas.CH_DATE );
+                printMap.put ( "ChequeNo", Structcolmas.CHEQUE_NO );
+                printMap.put ( "BankName", Structcolmas.BANK_NAME );
+                printMap.put ( "SUBJECT TO CLEARANCE", "" );
+
+            }
+
+            printMap.put ( "Amount", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
+            printMap.put ( "eReceipt", GSBilling.getInstance ( ).RecieptNo );
+            printMap.put ( "MRName", GSBilling.getInstance ( ).MRNAME );
+            printMap.put ( "Customer Care", "070022557433" );
+        }
+
+
+        sendValuesToPrinter ( printMap, Structcolmas.AMOUNT );
+        // PrintClass.printReceipt ( this, printMap, Structcolmas.AMOUNT, "Approved", "PHED", bmp.toString () );
+
+    }
+
+    public void sendValuesToPrinter(HashMap <String, String> map, String amount) {
+        Bitmap bmp = BitmapFactory.decodeResource ( getResources ( ), R.drawable.phedlogo );
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
+        bmp.compress ( Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream );
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray ( );
+        String encoded = Base64.encodeToString ( byteArray, Base64.DEFAULT );
+        System.out.println ( map );
+
+        startActivity ( new Intent ( this, Collection.class ) );
+        PrintClass.printReceipt ( this, map, amount, "Approved", "PHED", encoded );
     }
 
     private String dotSeparate(String value) {
@@ -583,9 +687,10 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
         int i = 0;
         printerName = device.getName ( );
 
+
         System.out.println ( "This is the printer name " + printerName );
 
-        if (device.getName ( ) != null && ((device.getName ( ).contains ( "QA" )) || (device.getName ( ).contains ( "ESBAA0050" )) || (device.getName ( ).contains ( "MHT-P5801" )) || (device.getName ( ).contains ( "TM-P20_001644" )) || (device.getName ( ).contains ( "SP120E" )) || (device.getName ( ).contains ( "SP120" )) || (device.getName ( ).contains ( "XL-1880" )) || (device.getName ( ).contains ( "Dual-SPP" )) || (device.getName ( ).contains ( "QSPrinter" )) || (device.getName ( ).contains ( "QSprinter" )) || (device.getName ( ).contains ( "QuantumAeon" ))|| (device.getName ( ).contains ( "MPT-II" )))) {
+        if (device.getName ( ) != null && ((device.getName ( ).contains ( "QA" )) || (device.getName ( ).contains ( "ESBAA0050" )) || (device.getName ( ).contains ( "MHT-P5801" )) || (device.getName ( ).contains ( "TM-P20_001644" )) || (device.getName ( ).contains ( "SP120E" )) || (device.getName ( ).contains ( "SP120" )) || (device.getName ( ).contains ( "XL-1880" )) || (device.getName ( ).contains ( "Dual-SPP" )) || (device.getName ( ).contains ( "QSPrinter" )) || (device.getName ( ).contains ( "QSprinter" )) || (device.getName ( ).contains ( "QuantumAeon" )) || (device.getName ( ).contains ( "MPT-II" )))) {
             String dev_name = device.getName ( ).trim ( );
             String dev_adrs = device.getAddress ( ).trim ( );
             if (device.getBondState ( ) == BluetoothDevice.BOND_BONDED) {
@@ -907,7 +1012,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                 if (test.length ( ) > 100) {
                     printPhoto ( );
                     btpObject.sendMessage ( test );
-                    if(printerName!=null){
+                    if (printerName != null) {
                         if (printerName.equalsIgnoreCase ( "SP120E" )) {
                             String strl = (GSBilling.getInstance ( ).ConsumerNO + "," + GSBilling.getInstance ( ).MeterNo + "," + Structcolmas.AMOUNT + "," + GSBilling.getInstance ( ).RecieptNo);
                             Bitmap btt = textToImage ( strl, 500, 500 );

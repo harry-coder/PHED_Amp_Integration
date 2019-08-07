@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -21,10 +21,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
 
 import com.fedco.mbc.R;
-import com.fedco.mbc.activitysurvey.PoleSurvey;
 import com.fedco.mbc.model.StructMeterReplacment;
 import com.fedco.mbc.model.Structconsmas;
 import com.fedco.mbc.sqlite.DB;
@@ -87,7 +87,7 @@ public class FragmentWithOneImage extends Fragment {
     }
 
 
-    private void showDatePicker() {
+   /* private void showDatePicker() {
         DatePickerFragment date = new DatePickerFragment();
         Calendar calender = Calendar.getInstance();
 
@@ -99,7 +99,7 @@ public class FragmentWithOneImage extends Fragment {
 
         date.setCallBack(ondate);
         date.show(getFragmentManager(), "Date Picker");
-    }
+    }*/
 
     DatePickerDialog.OnDateSetListener ondate = new DatePickerDialog.OnDateSetListener() {
 

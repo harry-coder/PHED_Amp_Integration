@@ -1,33 +1,21 @@
 package com.fedco.mbc.activitymetering;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Debug;
-import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.fedco.mbc.R;
-import com.fedco.mbc.activity.MeterChangeReportActivity;
-import com.fedco.mbc.activity.NewConsumerReportActivity;
-import com.fedco.mbc.activity.PrintSelection;
-import com.fedco.mbc.activity.UnbilledConsumerReportActivity;
 import com.fedco.mbc.logging.Logger;
 import com.fedco.mbc.sqlite.DB;
 import com.fedco.mbc.utils.UtilAppCommon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Report extends Activity {
 

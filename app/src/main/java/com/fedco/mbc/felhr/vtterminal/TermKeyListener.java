@@ -1,6 +1,6 @@
 package com.fedco.mbc.felhr.vtterminal;
 
-import android.support.v4.media.TransportMediator;
+//import android.support.v4.media.TransportMediator;
 import android.view.KeyEvent;
 
 public class TermKeyListener {
@@ -124,7 +124,7 @@ public class TermKeyListener {
                 result = 13;
                 break;
             case 67:
-                result = TransportMediator.KEYCODE_MEDIA_PAUSE;
+               // result = TransportMediator.KEYCODE_MEDIA_PAUSE;
                 break;
             default:
                 int i2;

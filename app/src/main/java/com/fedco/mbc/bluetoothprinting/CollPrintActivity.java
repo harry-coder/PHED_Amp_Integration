@@ -11,7 +11,7 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Button;
@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.activity.Collection;

@@ -13,7 +13,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
+
 import android.text.InputType;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.fedco.mbc.R;
 import com.fedco.mbc.authentication.SessionManager;

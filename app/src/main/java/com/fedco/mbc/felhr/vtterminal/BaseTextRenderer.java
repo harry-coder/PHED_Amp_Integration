@@ -1,7 +1,7 @@
 package com.fedco.mbc.felhr.vtterminal;
 
-import android.support.v4.internal.view.SupportMenu;
-import android.support.v4.view.InputDeviceCompat;
+import androidx.core.internal.view.SupportMenu;
+import androidx.core.view.InputDeviceCompat;
 
 
 abstract class BaseTextRenderer implements TextRenderer {

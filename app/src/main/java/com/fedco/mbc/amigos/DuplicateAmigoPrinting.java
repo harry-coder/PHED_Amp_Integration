@@ -20,8 +20,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Debug;
 import android.os.Environment;
-import android.support.v4.view.MotionEventCompat;
+import androidx.core.view.MotionEventCompat;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -30,8 +31,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.printermodule.PrintClass;
+import com.fedco.mbc.CustomClasses.DuplicateReceiptPrint;
 import com.fedco.mbc.R;
+import com.fedco.mbc.activity.Billing;
 import com.fedco.mbc.activity.BillingtypesActivity;
+import com.fedco.mbc.activity.Collection;
 import com.fedco.mbc.activity.GSBilling;
 import com.fedco.mbc.activity.MainActivity;
 import com.fedco.mbc.authentication.SessionManager;
@@ -52,6 +57,7 @@ import com.qps.btgenie.BluetoothManager;
 import com.qps.btgenie.QABTPAccessory;
 
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -67,6 +73,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -367,7 +374,7 @@ public class DuplicateAmigoPrinting extends Activity implements View.OnClickList
             sectionName = Structconsmas.Section_Name;
         }
 
-        switch (Structconsmas.PICK_REGION) {
+     /*   switch (Structconsmas.PICK_REGION) {
 
             case "10"://bhopal
                 if (Structconsmas.Name.length() < 23 && address.length() < 23) {
@@ -800,7 +807,7 @@ public class DuplicateAmigoPrinting extends Activity implements View.OnClickList
                     test2 = "    " + "\n" +
                             "    " + "\n";
 
-                   /* test = "    " + "\n" +
+                   *//* test = "    " + "\n" +
                             "  ELECTRICITY BILL     " + "\n" +
                             "----------------------" + "\n" +
                             "VERSION:" +(String.format("%1$6s",Structbilling.VER_CODE))+ "\n" +
@@ -824,7 +831,7 @@ public class DuplicateAmigoPrinting extends Activity implements View.OnClickList
                             "PREV.ARREARS :"+ (String.format("%1$10s", (String.format("%.2f", Float.valueOf(Structbilling.O_Arrear_Demand) )))) + "\n" +
 
                             "TOTAL AMOUNT   :" + (String.format("%1$10s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" +
-                            " " + " " + "\n";*/
+                            " " + " " + "\n";*//*
 
                 } else {
 
@@ -916,7 +923,7 @@ public class DuplicateAmigoPrinting extends Activity implements View.OnClickList
 
                     test2 = "    " + "\n" +
                             "    " + "\n";
-                   /* test = "    " + "\n" +
+                   *//* test = "    " + "\n" +
                             "  ELECTRICITY BILL     " + "\n" +
                             "----------------------" + "\n" +
                             "VERSION:" +(String.format("%1$6s",Structbilling.VER_CODE))+ "\n" +
@@ -938,14 +945,73 @@ public class DuplicateAmigoPrinting extends Activity implements View.OnClickList
                             "VAT         :" + (String.format("%1$10s", (String.format("%.2f", Float.valueOf(Structbilling.O_ElectricityDutyCharges))))) + "\n" +
                             "PREV.ARREARS :"+ (String.format("%1$10s", (String.format("%.2f", Float.valueOf(Structbilling.O_Arrear_Demand) )))) + "\n" +
                             "TOTAL AMOUNT   :" + (String.format("%1$10s", (String.format("%.2f", Float.valueOf(Math.round(Double.valueOf(Structbilling.O_Total_Bill))))))) + "\n" +
-                            " " + " " + "\n";*/
+                            " " + " " + "\n";*//*
                 }
                 break;
         }
-
+*/
         Log.e(getApplicationContext(),"Find Duplcaite"," ME "+test);
 
+        try {
+            printForPos ();
+        } catch (WriterException e) {
+            e.printStackTrace ( );
+        }
+
     }
+
+    public void printForPos() throws WriterException {
+        LinkedHashMap <String, String> printMap = new LinkedHashMap <> (  ) ;
+        printMap.put ( "VERSION", Structbilling.VER_CODE );
+        printMap.put ( "ACC.NO.", Structbilling.Cons_Number );
+        printMap.put ( "DATE.", Structbilling.Bill_Date +" " +Structbilling.Bill_Time  );
+
+        printMap.put ( "NAME", Structconsmas.Name );
+        printMap.put ( "SUPPLY ADDRESS:", Structconsmas.Name+ "" +Structconsmas.address1 +""+ Structconsmas.address2 );
+        printMap.put ( "IBC", Structconsmas.Section_Name );
+        printMap.put ( "BSC", Structconsmas.MOH );
+        printMap.put ( "TARIFF CODE", Structconsmas.Tariff_Code );
+        printMap.put ( "SAN LOAD","" );
+        printMap.put ( "CUR", + Structbilling.Cur_Meter_Reading + " " + Structbilling.Bill_Date + " " + Structbilling.Cur_Meter_Stat );
+        printMap.put ( "PRV", Structconsmas.Prev_Meter_Reading + " " + Structconsmas.Prev_Meter_Reading_Date + " " + Structconsmas.Prev_Meter_Status  );
+        printMap.put ( "UNITS", ""+Structbilling.Units_Consumed+ " KWH" );
+        printMap.put ( "BILL BASIS", Structbilling.Bill_Basis );
+        printMap.put ( "ENERGY CHG", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Total_Energy_Charg ) )  );
+        printMap.put ( "VAT(5%) ", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Electricity_Duty_Charges ) ) );
+        printMap.put ( "PREV.ARREARS", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.O_Arrear_Demand ) ) );
+        printMap.put ( "TOTAL AMOUNT", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) ) );
+
+
+
+        printMap.put ( "LAST PAY DATE", Structconsmas.LAST_ACT_BILL_MON );
+
+
+
+        printMap.put ( "LAST PAID AMOUNT", MainActivityCollectionPrint.internationAnotation ( String.valueOf ( Structconsmas.LAST_MONTH_AV ) ) );
+        printMap.put ( "READER NAME", com.fedco.mbc.activity.MainActivity.MRNME );
+        printMap.put ( "CustomerCare", "070022557433" );
+
+
+
+
+
+        sendValuesToPrinter ( printMap,String.valueOf ( Structbilling.Amnt_Paidafter_Rbt_Date ) );
+    }
+
+    public void sendValuesToPrinter(HashMap <String, String> map, String amount) {
+
+        System.out.println ("Printing here" );
+        Bitmap bmp = BitmapFactory.decodeResource ( getResources ( ), R.drawable.phedlogo );
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream ( );
+        bmp.compress ( Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream );
+
+        byte[] byteArray = byteArrayOutputStream.toByteArray ( );
+        String encoded = Base64.encodeToString ( byteArray, Base64.DEFAULT );
+
+        startActivity ( new Intent ( this, Billing.class ) );
+        PrintClass.printReceipt ( this, map, amount, "Approved", "PHED", encoded );
+    }
+
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

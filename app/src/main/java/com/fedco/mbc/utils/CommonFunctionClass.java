@@ -1,6 +1,8 @@
 package com.fedco.mbc.utils;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.RequiresApi;
+
 public class CommonFunctionClass {
     private static final String[] specialNames = {
             "",
