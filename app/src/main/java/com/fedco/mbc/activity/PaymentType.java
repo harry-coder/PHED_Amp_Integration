@@ -1,5 +1,6 @@
 package com.fedco.mbc.activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -17,7 +18,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 
-import android.telephony.gsm.GsmCellLocation;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -37,19 +37,19 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.fedco.mbc.CustomClasses.ReceiptModel;
 import com.fedco.mbc.R;
 import com.fedco.mbc.amigos.MainActivityCollectionPrint;
 import com.fedco.mbc.authentication.SessionManager;
-import com.fedco.mbc.bluetoothprinting.CollPrintActivity;
 import com.fedco.mbc.bluetoothprinting.GlobalPool;
-import com.fedco.mbc.collection.CollectiontypesActivity;
-import com.fedco.mbc.model.Structbilling;
 import com.fedco.mbc.model.Structcollection;
 import com.fedco.mbc.model.Structcolmas;
 import com.fedco.mbc.sqlite.DB;
+import com.fedco.mbc.utils.CardUtils;
 import com.fedco.mbc.utils.CommonFunctionClass;
 import com.fedco.mbc.utils.DecimalDigitsInputFilter;
 import com.fedco.mbc.utils.GPSTracker;
@@ -62,7 +62,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -70,7 +69,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -91,10 +89,6 @@ import java.util.zip.ZipOutputStream;
 import javax.net.ssl.HttpsURLConnection;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static com.google.android.gms.analytics.internal.zzy.G;
-import static com.google.android.gms.analytics.internal.zzy.e;
-import static com.google.android.gms.analytics.internal.zzy.s;
 
 public class PaymentType extends AppCompatActivity implements LogoutListaner {
 
@@ -150,10 +144,21 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
     private static final String[] path = {"Bill", "Arrears", "Burnt Meter Replacement Fee", "Bypass", "Conn Fee (JEA)", "Conn Fee (Zone)", "Fixed Fee Correction", "Loss Of Revenue", "Meter Maintenance Fee Correction", "Preload", "Reconnection Fee", "Final Bill", "Security Deposit", "Meter Replacement Payment"};
     String strDate, strtime, strBillMonth;
 
+    String amount;
+    String transactionStatus ;
+    String transactionReason ;
+    String pan ;
+    String rrn ;
+    String terminalId;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_payment_type );
+
+       // savedInstanceState.setClassLoader(getClass().getClassLoader());
+
         session = new SessionManager ( getApplicationContext ( ) );
         utillComn = new UtilAppCommon ( );
         GSBilling.getInstance ( ).setPayType ( "CASH" );
@@ -436,17 +441,17 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
             public void onClick(View v) {
 
 
-                System.out.println ( "This is the Amount " + etCash.getText ( ) );
+
 
 //                if (etMobNo.getText().toString().length() == 0) {
 //                    etMobNo.setText("0");
 ////                    etMobNo.setError("Can Not be Empty");
 ////                    Toast.makeText(PaymentType.this, "Mobile Number Cannot Be Empty", Toast.LENGTH_SHORT).show();
 //                }
-                if (etCash.getText ( ).toString ( ).length ( ) == 0) {
-                    etCash.setError ( "Cash Field Cannot be empty" );
-                    Toast.makeText ( PaymentType.this, "Cash Field Cannot be empty", Toast.LENGTH_SHORT ).show ( );
-                }
+                    if (etCash.getText ( ).toString ( ).length ( ) == 0) {
+                        etCash.setError ( "Cash Field Cannot be empty" );
+                        Toast.makeText ( PaymentType.this, "Cash Field Cannot be empty", Toast.LENGTH_SHORT ).show ( );
+                    }
 //                else if (etChekNo.getText().toString().length() == 0 && etChekNo.getText().toString().length() < 6) {
 //                    etChekNo.setError("Cheque No Can not be Empty");
 //                    Toast.makeText(PaymentType.this, "Cheque No Can not be Empty", Toast.LENGTH_SHORT).show();
@@ -462,9 +467,9 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                    etMobNo.setError("Please Enter a valid Mobile no");
 //                    Toast.makeText(PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT).show();
 //                }
-                else if (spinner_BankName.equals ( "" ) || spinner_BankName.equals ( "null" )) {
-                    Toast.makeText ( PaymentType.this, "Please download master bank", Toast.LENGTH_SHORT ).show ( );
-                } else {
+                    else if (spinner_BankName.equals ( "" ) || spinner_BankName.equals ( "null" )) {
+                        Toast.makeText ( PaymentType.this, "Please download master bank", Toast.LENGTH_SHORT ).show ( );
+                    } else {
 //                    CommonFunctionClass commonFunctionClass=new CommonFunctionClass();
 //                    LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //                    View customView =null;
@@ -493,253 +498,253 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //
 //                        }
 //                    });
-                    Structcolmas.MOB_NO = etMobNo.getText ( ).toString ( ).trim ( );
+                        Structcolmas.MOB_NO = etMobNo.getText ( ).toString ( ).trim ( );
 //                    Structcolmas.MOB_NO = GSBilling.getInstance().MOBILENO.trim();
 
-                    if (!Structcolmas.SESSION_KEY.isEmpty ( ) && Structcolmas.SESSION_KEY != null) {
-                        Structcolmas.SESSION_KEY = Structcolmas.SESSION_KEY;
-                    } else {
-                        UtilAppCommon appCommon = new UtilAppCommon ( );
-                        Structcolmas.SESSION_KEY = String.valueOf ( appCommon.findSequence ( getApplicationContext
-                                ( ), "SessionNo" ) );
-                    }
+                        if (!Structcolmas.SESSION_KEY.isEmpty ( ) && Structcolmas.SESSION_KEY != null) {
+                            Structcolmas.SESSION_KEY = Structcolmas.SESSION_KEY;
+                        } else {
+                            UtilAppCommon appCommon = new UtilAppCommon ( );
+                            Structcolmas.SESSION_KEY = String.valueOf ( appCommon.findSequence ( getApplicationContext
+                                    ( ), "SessionNo" ) );
+                        }
 
-                    dbHelper = new DB ( PaymentType.this );
-                    SD = dbHelper.getWritableDatabase ( );
+                        dbHelper = new DB ( PaymentType.this );
+                        SD = dbHelper.getWritableDatabase ( );
 
-                    String strPref = "SELECT PRINTER_PREF FROM USER_MASTER";
-                    Log.e ( "Sequence", "update " + strPref );
+                        String strPref = "SELECT PRINTER_PREF FROM USER_MASTER";
+                        Log.e ( "Sequence", "update " + strPref );
 
-                    Cursor getPref = SD.rawQuery ( strPref, null );
+                        Cursor getPref = SD.rawQuery ( strPref, null );
 
-                    if (getPref != null && getPref.moveToFirst ( )) {
+                        if (getPref != null && getPref.moveToFirst ( )) {
 
-                        prev_pref = getPref.getString ( 0 );
+                            prev_pref = getPref.getString ( 0 );
 
-                        printer_catergory = prev_pref.split ( "_" )[0];
-                        printer_mfg = prev_pref.split ( "_" )[1];
-                        printer_roll = prev_pref.split ( "_" )[2];
+                            printer_catergory = prev_pref.split ( "_" )[0];
+                            printer_mfg = prev_pref.split ( "_" )[1];
+                            printer_roll = prev_pref.split ( "_" )[2];
 
-                        GSBilling.getInstance ( ).setPrinter_catergory ( printer_catergory );
-                        GSBilling.getInstance ( ).setPrinter_mfg ( printer_mfg );
-                        GSBilling.getInstance ( ).setPrinter_roll ( printer_roll );
+                            GSBilling.getInstance ( ).setPrinter_catergory ( printer_catergory );
+                            GSBilling.getInstance ( ).setPrinter_mfg ( printer_mfg );
+                            GSBilling.getInstance ( ).setPrinter_roll ( printer_roll );
 
-                    }
+                        }
 
-                    try {
-                        String Datetime;
-                        Float cashET = Float.valueOf ( etCash.getText ( ).toString ( ) );
-                        //	CBillling cb=new CBillling();
-                        Calendar c = Calendar.getInstance ( );
-                        SimpleDateFormat dateformat = new SimpleDateFormat ( "HHmmss" );
-                        SimpleDateFormat month_date = new SimpleDateFormat ( "MMMM-yy" );
-                        SimpleDateFormat date = new SimpleDateFormat ( "dd-MM-yyyy" );
-                        String month_name = month_date.format ( c.getTime ( ) );
-                        String dateee = date.format ( c.getTime ( ) );
-                        Datetime = dateformat.format ( c.getTime ( ) );
-                        Structcolmas.COL_DATE = Datetime;
-                        Structcolmas.PYMNT_MODE = paymentmode;
-                        Structcolmas.MR_ID = "";
-                        Structcolmas.MAIN_LINK_CONS_NO = Structcollection.IVRS_NO;
-                        Structcolmas.LOC_CD = Structcollection.LOC_CD;
+                        try {
+                            String Datetime;
+                            Float cashET = Float.valueOf ( etCash.getText ( ).toString ( ) );
+                            //	CBillling cb=new CBillling();
+                            Calendar c = Calendar.getInstance ( );
+                            SimpleDateFormat dateformat = new SimpleDateFormat ( "HHmmss" );
+                            SimpleDateFormat month_date = new SimpleDateFormat ( "MMMM-yy" );
+                            SimpleDateFormat date = new SimpleDateFormat ( "dd-MM-yyyy" );
+                            String month_name = month_date.format ( c.getTime ( ) );
+                            String dateee = date.format ( c.getTime ( ) );
+                            Datetime = dateformat.format ( c.getTime ( ) );
+                            Structcolmas.COL_DATE = Datetime;
+                            Structcolmas.PYMNT_MODE = paymentmode;
+                            Structcolmas.MR_ID = "";
+                            Structcolmas.MAIN_LINK_CONS_NO = Structcollection.IVRS_NO;
+                            Structcolmas.LOC_CD = Structcollection.LOC_CD;
 
-                        switch (paymentmode) {
+                            switch (paymentmode) {
 
-                            case "C": {
-                                if (etCash.getText ( ).toString ( ).equals ( null )) {
-                                    etCash.setError ( "Cash Field Cannot Be Empty" );
-                                    Toast.makeText ( PaymentType.this, "Cash Field Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
-                                    etMobNo.setError ( "Please Enter a Valid Mobile no" );
-                                    Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
-                                } else {
-                                    if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" )) {
+                                case "C": {
+                                    if (etCash.getText ( ).toString ( ).equals ( null )) {
+                                        etCash.setError ( "Cash Field Cannot Be Empty" );
+                                        Toast.makeText ( PaymentType.this, "Cash Field Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
+                                        etMobNo.setError ( "Please Enter a Valid Mobile no" );
+                                        Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
+                                    } else {
+                                        if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" )) {
 //                                        etCash.setError("Minimum Collection Amount cannot be NGN.0");
 //                                        Toast.makeText(PaymentType.this, "Minimum Collection Amount cannot be NGN.0", Toast.LENGTH_SHORT).show();
-                                        sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
-                                        sDialog.setTitleText ( "Error" );
-                                        sDialog.setContentText ( "wallet amount is less for collection" );
-                                        sDialog.show ( );
-                                        sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation ( );
+                                            sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
+                                            sDialog.setTitleText ( "Error" );
+                                            sDialog.setContentText ( "wallet amount is less for collection" );
+                                            sDialog.show ( );
+                                            sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation ( );
 //                                                Intent intent = new Intent(PaymentType.this, Collection.class);
 //                                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                                                startActivity(intent);
 //                                                overridePendingTransition(R.anim.anim_slide_in_left,
 //                                                        R.anim.anim_slide_out_left);
 
-                                            }
-                                        } );
-                                    } else {
-                                        Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
+                                                }
+                                            } );
+                                        } else {
+                                            Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
 
-                                        System.out.println ( "This is the amount stored " + Structcolmas.AMOUNT );
-                                        Structcolmas.CHEQUE_NO = "";
-                                        Structcolmas.CH_DATE = "";
-                                        Structcolmas.BANK_NAME = "";
+                                            System.out.println ( "This is the amount stored " + Structcolmas.AMOUNT );
+                                            Structcolmas.CHEQUE_NO = "";
+                                            Structcolmas.CH_DATE = "";
+                                            Structcolmas.BANK_NAME = "";
 //                                        etCash.setText(etCash.toString().replaceAll("^0+(?=\\d+$)",""));
-                                        String str = spinner_indcident.getSelectedItem ( ).toString ( );
-                                        if (str.equals ( "Arrears" )) {
+                                            String str = spinner_indcident.getSelectedItem ( ).toString ( );
+                                            if (str.equals ( "Arrears" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "1";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
+                                                GSBilling.getInstance ( ).Payment_type = "1";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
 
-                                        }
-                                        if (str.equals ( "Burnt Meter Replacement Fee" )) {
+                                            }
+                                            if (str.equals ( "Burnt Meter Replacement Fee" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "2";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "2";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
 
-                                        }
-
-
-                                        if (str.equals ( "Bypass" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "3";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (JEA)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "4";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (Zone)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "5";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
-
-                                        }
-                                        if (str.equals ( "Fixed Fee Correction" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "6";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
-
-                                        }
+                                            }
 
 
-                                        if (str.equals ( "Loss Of Revenue" )) {
+                                            if (str.equals ( "Bypass" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "7";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
+                                                GSBilling.getInstance ( ).Payment_type = "3";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
 
-                                        }
-                                        if (str.equals ( "Meter Maintenance Fee Correction" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (JEA)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "8";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
+                                                GSBilling.getInstance ( ).Payment_type = "4";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
 
-                                        }
-                                        if (str.equals ( "Preload" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (Zone)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "9";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
+                                                GSBilling.getInstance ( ).Payment_type = "5";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
 
-                                        }
-                                        if (str.equals ( "Reconnection Fee" )) {
+                                            }
+                                            if (str.equals ( "Fixed Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "10";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "6";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Final Bill" )) {
+                                            }
 
-                                            GSBilling.getInstance ( ).Payment_type = "11";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
 
-                                        }
-                                        if (str.equals ( "Security Deposit" )) {
+                                            if (str.equals ( "Loss Of Revenue" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "12";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+                                                GSBilling.getInstance ( ).Payment_type = "7";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
 
-                                        }
-                                        if (str.equals ( "Meter Replacement Payment" )) {
+                                            }
+                                            if (str.equals ( "Meter Maintenance Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "13";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+                                                GSBilling.getInstance ( ).Payment_type = "8";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Bill" )) {
+                                            }
+                                            if (str.equals ( "Preload" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "14";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+                                                GSBilling.getInstance ( ).Payment_type = "9";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
 
-                                        }
+                                            }
+                                            if (str.equals ( "Reconnection Fee" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "10";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+
+                                            }
+                                            if (str.equals ( "Final Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "11";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
+
+                                            }
+                                            if (str.equals ( "Security Deposit" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "12";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+
+                                            }
+                                            if (str.equals ( "Meter Replacement Payment" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "13";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+
+                                            }
+                                            if (str.equals ( "Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "14";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+
+                                            }
 //                                        GSBilling.getInstance().Payment_type =spinner_indcident.getSelectedItem().toString();
 //                                        etMobNo.setText(GSBilling.getInstance().MOBILENO);
 //                                        GSBilling.getInstance().Payment_type = Integer.toString( spinner_indcident.getItemAtPosition());
-                                        // Structcolmas.PYMNT_MODE = "Cash";
-                                        String typePay = "CASH";
-                                        CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
-                                        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
-                                        View customView = null;
-                                        int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-                                        switch (screenSize) {
-                                            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            default:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                        }
+                                            // Structcolmas.PYMNT_MODE = "Cash";
+                                            String typePay = "CASH";
+                                            CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
+                                            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+                                            View customView = null;
+                                            int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+                                            switch (screenSize) {
+                                                case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                default:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                            }
 //                    customView = layoutInflater.inflate(R.layout.number_dialogue, null);
-                                        TextView txtamount = customView.findViewById ( R.id.amounttxt );
-                                        TextView txtview = customView.findViewById ( R.id.txt_amount );
-                                        Button btnno = customView.findViewById ( R.id.btn_no );
-                                        Button btnyes = customView.findViewById ( R.id.btn_yes );
-                                        double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
+                                            TextView txtamount = customView.findViewById ( R.id.amounttxt );
+                                            TextView txtview = customView.findViewById ( R.id.txt_amount );
+                                            Button btnno = customView.findViewById ( R.id.btn_no );
+                                            Button btnyes = customView.findViewById ( R.id.btn_yes );
+                                            double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
 //                                        CommonFunctionClass obj = new NumberToWord();
 
-                                        String Num = numberFormat.format ( Number );
-                                        String wordFormat = "";
-                                        if (Num.contains ( "." )) {
-                                            String[] arr = Num.split ( "\\." );
-                                            Long[] intArr = new Long[2];
-                                            intArr[0] = Long.parseLong ( arr[0] ); // 1
-                                            intArr[1] = Long.parseLong ( arr[1] );
-                                            String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
-                                            String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
-                                            wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
-                                        }
-                                        txtamount.setText ( wordFormat );
-                                        txtview.setText ( Num );
-                                        AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
-                                        // this is set the view from XML inside AlertDialog
-                                        alert.setView ( customView );
-                                        final AlertDialog dialog = alert.create ( );
-                                        dialog.show ( );
-
-                                        btnno.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
-
-                                                dialog.cancel ( );
+                                            String Num = numberFormat.format ( Number );
+                                            String wordFormat = "";
+                                            if (Num.contains ( "." )) {
+                                                String[] arr = Num.split ( "\\." );
+                                                Long[] intArr = new Long[2];
+                                                intArr[0] = Long.parseLong ( arr[0] ); // 1
+                                                intArr[1] = Long.parseLong ( arr[1] );
+                                                String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
+                                                String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
+                                                wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
                                             }
-                                        } );
-                                        btnyes.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
-                                                dialog.cancel ( );
+                                            txtamount.setText ( wordFormat );
+                                            txtview.setText ( Num );
+                                            AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
+                                            // this is set the view from XML inside AlertDialog
+                                            alert.setView ( customView );
+                                            final AlertDialog dialog = alert.create ( );
+                                            dialog.show ( );
 
-                                                new TextFileClass ( PaymentType.this ).execute ( );
+                                            btnno.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                            }
-                                        } );
+                                                    dialog.cancel ( );
+                                                }
+                                            } );
+                                            btnyes.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.cancel ( );
+                                                    makeCardPayment ( etCash.getText().toString ());
+                                                 //   new TextFileClass ( PaymentType.this ).execute ( );
+
+                                                }
+                                            } );
 
 //                                        new TextFileClass(PaymentType.this).execute();
 //                                        if (prev_pref.equalsIgnoreCase("0_0_0") || prev_pref.equalsIgnoreCase("0_0_1")) {//IMP_AMI
@@ -768,221 +773,221 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                                        } else {
 //                                            Toast.makeText(PaymentType.this, "Unable to find Printer", Toast.LENGTH_SHORT).show();
 //                                        }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                            case "Q": {
-                                if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
-                                    etCash.setError ( "Amount Can Not Be Empty" );
-                                    Toast.makeText ( PaymentType.this, "Amount Can not be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if (etChekNo.getText ( ).toString ( ).length ( ) == 0 && etChekNo.getText ( ).toString ( ).length ( ) < 6) {
-                                    etChekNo.setError ( "Cheque No Can Not Be Empty" );
-                                    Toast.makeText ( PaymentType.this, "Cheque No Can not be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if (spinner_BankName.getAdapter ( ).getCount ( ) < 1) {
-                                    Toast.makeText ( PaymentType.this, "please download master bank details", Toast.LENGTH_SHORT ).show ( );
-                                } else if (spinner_BankName.getSelectedItem ( ).toString ( ).equalsIgnoreCase ( "Select Bank Name" )) {
-                                    Toast.makeText ( PaymentType.this, "Please Select Bank Name", Toast.LENGTH_SHORT ).show ( );
-                                } else if (str_bank_name.length ( ) == 0) {
-                                    Toast.makeText ( getApplicationContext ( ), "Bank Name Can not be Empty", Toast.LENGTH_SHORT ).show ( );
+                                break;
+                                case "Q": {
+                                    if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
+                                        etCash.setError ( "Amount Can Not Be Empty" );
+                                        Toast.makeText ( PaymentType.this, "Amount Can not be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (etChekNo.getText ( ).toString ( ).length ( ) == 0 && etChekNo.getText ( ).toString ( ).length ( ) < 6) {
+                                        etChekNo.setError ( "Cheque No Can Not Be Empty" );
+                                        Toast.makeText ( PaymentType.this, "Cheque No Can not be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (spinner_BankName.getAdapter ( ).getCount ( ) < 1) {
+                                        Toast.makeText ( PaymentType.this, "please download master bank details", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (spinner_BankName.getSelectedItem ( ).toString ( ).equalsIgnoreCase ( "Select Bank Name" )) {
+                                        Toast.makeText ( PaymentType.this, "Please Select Bank Name", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (str_bank_name.length ( ) == 0) {
+                                        Toast.makeText ( getApplicationContext ( ), "Bank Name Can not be Empty", Toast.LENGTH_SHORT ).show ( );
 //                                    etBankName.setError("Bank Name Can not be Empty");
-                                } else if (al_banksize > 1 && al_banksize < (bank_name_list.size ( ) - 1)) {
-                                    etBankName.setVisibility ( View.VISIBLE );
-                                } else if (etChekDate.getText ( ).toString ( ).length ( ) == 0) {
-                                    etChekDate.setError ( "Choose a Proper Date" );
-                                    Toast.makeText ( getApplicationContext ( ), "Choose a Proper Date", Toast.LENGTH_SHORT ).show ( );
-                                } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
-                                    etMobNo.setError ( "Please Enter a valid Mobile No" );
-                                    Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
-                                } else {
-                                    if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
+                                    } else if (al_banksize > 1 && al_banksize < (bank_name_list.size ( ) - 1)) {
+                                        etBankName.setVisibility ( View.VISIBLE );
+                                    } else if (etChekDate.getText ( ).toString ( ).length ( ) == 0) {
+                                        etChekDate.setError ( "Choose a Proper Date" );
+                                        Toast.makeText ( getApplicationContext ( ), "Choose a Proper Date", Toast.LENGTH_SHORT ).show ( );
+                                    } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
+                                        etMobNo.setError ( "Please Enter a valid Mobile No" );
+                                        Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
+                                    } else {
+                                        if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
 //                                        etCash.setError("Minimum Collection Amount cannot be NGN.0");
 //                                        Toast.makeText(getApplicationContext(), "Minimum Collection Amount cannot be NGN.0", Toast.LENGTH_SHORT).show();
 //                                        etCash.requestFocus();
-                                        sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
-                                        sDialog.setTitleText ( "Error" );
-                                        sDialog.setContentText ( "wallet amount is less for collection" );
-                                        sDialog.show ( );
-                                        sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation ( );
-                                                Intent intent = new Intent ( PaymentType.this, Collection.class );
-                                                intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                                                startActivity ( intent );
-                                                overridePendingTransition ( R.anim.anim_slide_in_left,
-                                                        R.anim.anim_slide_out_left );
+                                            sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
+                                            sDialog.setTitleText ( "Error" );
+                                            sDialog.setContentText ( "wallet amount is less for collection" );
+                                            sDialog.show ( );
+                                            sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation ( );
+                                                    Intent intent = new Intent ( PaymentType.this, Collection.class );
+                                                    intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                                                    startActivity ( intent );
+                                                    overridePendingTransition ( R.anim.anim_slide_in_left,
+                                                            R.anim.anim_slide_out_left );
+
+                                                }
+                                            } );
+                                        } else {
+                                            if (etBankName.getText ( ).toString ( ) != null && !etBankName.getText ( ).toString ( ).isEmpty ( )) {
+                                                str_bank_name = etBankName.getText ( ).toString ( );
+                                            }
+                                            Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
+                                            Structcolmas.CHEQUE_NO = etChekNo.getText ( ).toString ( );
+                                            Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
+                                            Structcolmas.BANK_NAME = str_bank_name;
+                                            String str = spinner_indcident.getSelectedItem ( ).toString ( );
+                                            if (str.equals ( "Arrears" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "1";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
 
                                             }
-                                        } );
-                                    } else {
-                                        if (etBankName.getText ( ).toString ( ) != null && !etBankName.getText ( ).toString ( ).isEmpty ( )) {
-                                            str_bank_name = etBankName.getText ( ).toString ( );
-                                        }
-                                        Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
-                                        Structcolmas.CHEQUE_NO = etChekNo.getText ( ).toString ( );
-                                        Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
-                                        Structcolmas.BANK_NAME = str_bank_name;
-                                        String str = spinner_indcident.getSelectedItem ( ).toString ( );
-                                        if (str.equals ( "Arrears" )) {
+                                            if (str.equals ( "Burnt Meter Replacement Fee" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "1";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
+                                                GSBilling.getInstance ( ).Payment_type = "2";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
 
-                                        }
-                                        if (str.equals ( "Burnt Meter Replacement Fee" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "2";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
-
-                                        }
+                                            }
 
 
-                                        if (str.equals ( "Bypass" )) {
+                                            if (str.equals ( "Bypass" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "3";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
+                                                GSBilling.getInstance ( ).Payment_type = "3";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
 
-                                        }
-                                        if (str.equals ( "Conn Fee (JEA)" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (JEA)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "4";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
+                                                GSBilling.getInstance ( ).Payment_type = "4";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
 
-                                        }
-                                        if (str.equals ( "Conn Fee (Zone)" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (Zone)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "5";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
+                                                GSBilling.getInstance ( ).Payment_type = "5";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
 
-                                        }
-                                        if (str.equals ( "Fixed Fee Correction" )) {
+                                            }
+                                            if (str.equals ( "Fixed Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "6";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
+                                                GSBilling.getInstance ( ).Payment_type = "6";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
 
-                                        }
+                                            }
 
 
-                                        if (str.equals ( "Loss Of Revenue" )) {
+                                            if (str.equals ( "Loss Of Revenue" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "7";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
+                                                GSBilling.getInstance ( ).Payment_type = "7";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
 
-                                        }
-                                        if (str.equals ( "Meter Maintenance Fee Correction" )) {
+                                            }
+                                            if (str.equals ( "Meter Maintenance Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "8";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
+                                                GSBilling.getInstance ( ).Payment_type = "8";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Preload" )) {
+                                            }
+                                            if (str.equals ( "Preload" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "9";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
+                                                GSBilling.getInstance ( ).Payment_type = "9";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
 
-                                        }
-                                        if (str.equals ( "Reconnection Fee" )) {
+                                            }
+                                            if (str.equals ( "Reconnection Fee" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "10";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "10";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
 
-                                        }
-                                        if (str.equals ( "Final Bill" )) {
+                                            }
+                                            if (str.equals ( "Final Bill" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "11";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
+                                                GSBilling.getInstance ( ).Payment_type = "11";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
 
-                                        }
-                                        if (str.equals ( "Security Deposit" )) {
+                                            }
+                                            if (str.equals ( "Security Deposit" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "12";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+                                                GSBilling.getInstance ( ).Payment_type = "12";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
 
-                                        }
-                                        if (str.equals ( "Meter Replacement Payment" )) {
+                                            }
+                                            if (str.equals ( "Meter Replacement Payment" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "13";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+                                                GSBilling.getInstance ( ).Payment_type = "13";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
 
-                                        }
-                                        if (str.equals ( "Bill" )) {
+                                            }
+                                            if (str.equals ( "Bill" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "14";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+                                                GSBilling.getInstance ( ).Payment_type = "14";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
 
-                                        }
+                                            }
 //                                        GSBilling.getInstance().Payment_type =spinner_indcident.getSelectedItem().toString();
 //                                        etMobNo.setText(GSBilling.getInstance().MOBILENO);
-                                        // Structcolmas.PYMNT_MODE = "Cheque";
-                                        String typePay = "CHEQUE";
-                                        CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
-                                        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
-                                        View customView = null;
-                                        int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-                                        switch (screenSize) {
-                                            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            default:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                        }
+                                            // Structcolmas.PYMNT_MODE = "Cheque";
+                                            String typePay = "CHEQUE";
+                                            CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
+                                            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+                                            View customView = null;
+                                            int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+                                            switch (screenSize) {
+                                                case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                default:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                            }
 //                                        customView = layoutInflater.inflate(R.layout.number_dialogue, null);
-                                        TextView txtamount = customView.findViewById ( R.id.amounttxt );
-                                        Button btnno = customView.findViewById ( R.id.btn_no );
-                                        TextView txtview = customView.findViewById ( R.id.txt_amount );
-                                        Button btnyes = customView.findViewById ( R.id.btn_yes );
-                                        double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
+                                            TextView txtamount = customView.findViewById ( R.id.amounttxt );
+                                            Button btnno = customView.findViewById ( R.id.btn_no );
+                                            TextView txtview = customView.findViewById ( R.id.txt_amount );
+                                            Button btnyes = customView.findViewById ( R.id.btn_yes );
+                                            double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
 //                                        CommonFunctionClass obj = new NumberToWord();
 
-                                        String Num = numberFormat.format ( Number );
-                                        String wordFormat = "";
-                                        if (Num.contains ( "." )) {
-                                            String[] arr = Num.split ( "\\." );
-                                            Long[] intArr = new Long[2];
-                                            intArr[0] = Long.parseLong ( arr[0] ); // 1
-                                            intArr[1] = Long.parseLong ( arr[1] );
-                                            String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
-                                            String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
-                                            wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
-                                        }
-                                        txtamount.setText ( wordFormat );
-                                        txtview.setText ( Num );
+                                            String Num = numberFormat.format ( Number );
+                                            String wordFormat = "";
+                                            if (Num.contains ( "." )) {
+                                                String[] arr = Num.split ( "\\." );
+                                                Long[] intArr = new Long[2];
+                                                intArr[0] = Long.parseLong ( arr[0] ); // 1
+                                                intArr[1] = Long.parseLong ( arr[1] );
+                                                String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
+                                                String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
+                                                wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
+                                            }
+                                            txtamount.setText ( wordFormat );
+                                            txtview.setText ( Num );
 //                                        txtamount.setText(commonFunctionClass.convert(Integer.parseInt(etCash.getText().toString())).toString());
-                                        AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
-                                        // this is set the view from XML inside AlertDialog
-                                        alert.setView ( customView );
-                                        final AlertDialog dialog = alert.create ( );
-                                        dialog.show ( );
+                                            AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
+                                            // this is set the view from XML inside AlertDialog
+                                            alert.setView ( customView );
+                                            final AlertDialog dialog = alert.create ( );
+                                            dialog.show ( );
 
-                                        btnno.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
+                                            btnno.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                                dialog.cancel ( );
-                                            }
-                                        } );
-                                        btnyes.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
-                                                dialog.cancel ( );
+                                                    dialog.cancel ( );
+                                                }
+                                            } );
+                                            btnyes.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.cancel ( );
+                                                    makeCardPayment ( etCash.getText().toString ());
+                                                   // new TextFileClass ( PaymentType.this ).execute ( );
 
-                                                new TextFileClass ( PaymentType.this ).execute ( );
-
-                                            }
-                                        } );
+                                                }
+                                            } );
 //                                        new TextFileClass(PaymentType.this).execute();
 //                                        if (prev_pref.equalsIgnoreCase("0_0_0") || prev_pref.equalsIgnoreCase("0_0_1")) {//IMP_AMI
 //
@@ -1011,218 +1016,219 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                                        } else {
 //                                            Toast.makeText(PaymentType.this, "Unable to find Printer", Toast.LENGTH_SHORT).show();
 //                                        }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                            case "D": {
-                                if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
-                                    etCash.setError ( "Amount Can Not Be Empty" );
-                                    Toast.makeText ( getApplicationContext ( ), "Amount Can not be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if (etdemanddraft.getText ( ).toString ( ).length ( ) == 0 && etdemanddraft.getText ( ).toString ( ).length ( ) < 26) {
-                                    etDD.setError ( "DD  No Cannot Be Empty" );
-                                    Toast.makeText ( getApplicationContext ( ), "DD  No Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if (spinner_BankName.getSelectedItem ( ).toString ( ).equalsIgnoreCase ( "Select Bank Name" )) {
-                                    Toast.makeText ( getApplicationContext ( ), "Please Select Bank Name", Toast.LENGTH_SHORT ).show ( );
-                                } else if (str_bank_name.length ( ) == 0) {
-                                    Toast.makeText ( getApplicationContext ( ), "Bank Name Can Not Be Empty", Toast.LENGTH_SHORT ).show ( );
+                                break;
+                                case "D": {
+                                    if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
+                                        etCash.setError ( "Amount Can Not Be Empty" );
+                                        Toast.makeText ( getApplicationContext ( ), "Amount Can not be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (etdemanddraft.getText ( ).toString ( ).length ( ) == 0 && etdemanddraft.getText ( ).toString ( ).length ( ) < 26) {
+                                        etDD.setError ( "DD  No Cannot Be Empty" );
+                                        Toast.makeText ( getApplicationContext ( ), "DD  No Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (spinner_BankName.getSelectedItem ( ).toString ( ).equalsIgnoreCase ( "Select Bank Name" )) {
+                                        Toast.makeText ( getApplicationContext ( ), "Please Select Bank Name", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (str_bank_name.length ( ) == 0) {
+                                        Toast.makeText ( getApplicationContext ( ), "Bank Name Can Not Be Empty", Toast.LENGTH_SHORT ).show ( );
 //                                    etBankName.setError("Bank Name Can not be Empty");
-                                } else if (al_banksize > 1 && al_banksize < (bank_name_list.size ( ) - 1)) {
-                                    etBankName.setVisibility ( View.VISIBLE );
-                                } else if (etChekDate.getText ( ).toString ( ).length ( ) == 0) {
-                                    etChekDate.setError ( "Choose a Proper Date" );
-                                    Toast.makeText ( getApplicationContext ( ), "Choose a Proper Date", Toast.LENGTH_SHORT ).show ( );
-                                } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
-                                    etMobNo.setError ( "Please Enter a valid Mobile No" );
-                                    Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
-                                } else {
-                                    if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
+                                    } else if (al_banksize > 1 && al_banksize < (bank_name_list.size ( ) - 1)) {
+                                        etBankName.setVisibility ( View.VISIBLE );
+                                    } else if (etChekDate.getText ( ).toString ( ).length ( ) == 0) {
+                                        etChekDate.setError ( "Choose a Proper Date" );
+                                        Toast.makeText ( getApplicationContext ( ), "Choose a Proper Date", Toast.LENGTH_SHORT ).show ( );
+                                    } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
+                                        etMobNo.setError ( "Please Enter a valid Mobile No" );
+                                        Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
+                                    } else {
+                                        if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
 //                                        etCash.setError("Minimum Collection Amount cannot be NGN.0");
 //                                        Toast.makeText(getApplicationContext(), "Minimum Collection Amount cannot be NGN.0", Toast.LENGTH_SHORT).show();
-                                        sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
-                                        sDialog.setTitleText ( "Error" );
-                                        sDialog.setContentText ( "wallet amount is less for collection" );
-                                        sDialog.show ( );
-                                        sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation ( );
-                                                Intent intent = new Intent ( PaymentType.this, Collection.class );
-                                                intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                                                startActivity ( intent );
-                                                overridePendingTransition ( R.anim.anim_slide_in_left,
-                                                        R.anim.anim_slide_out_left );
+                                            sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
+                                            sDialog.setTitleText ( "Error" );
+                                            sDialog.setContentText ( "wallet amount is less for collection" );
+                                            sDialog.show ( );
+                                            sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation ( );
+                                                    Intent intent = new Intent ( PaymentType.this, Collection.class );
+                                                    intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                                                    startActivity ( intent );
+                                                    overridePendingTransition ( R.anim.anim_slide_in_left,
+                                                            R.anim.anim_slide_out_left );
 
-                                            }
-                                        } );
-                                    } else {
+                                                }
+                                            } );
+                                        } else {
 //                                        if (etBankName.getText().toString() != null && !etBankName.getText().toString().isEmpty()) {
 //                                            str_bank_name = etBankName.getText().toString();
 //                                        }
-                                        Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
-                                        Structcolmas.CHEQUE_NO = etdemanddraft.getText ( ).toString ( );
-                                        Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
-                                        Structcolmas.BANK_NAME = str_bank_name;
-                                        String str = spinner_indcident.getSelectedItem ( ).toString ( );
-                                        if (str.equals ( "Arrears" )) {
+                                            Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
+                                            Structcolmas.CHEQUE_NO = etdemanddraft.getText ( ).toString ( );
+                                            Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
+                                            Structcolmas.BANK_NAME = str_bank_name;
+                                            String str = spinner_indcident.getSelectedItem ( ).toString ( );
+                                            if (str.equals ( "Arrears" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "1";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
+                                                GSBilling.getInstance ( ).Payment_type = "1";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
 
-                                        }
-                                        if (str.equals ( "Burnt Meter Replacement Fee" )) {
+                                            }
+                                            if (str.equals ( "Burnt Meter Replacement Fee" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "2";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "2";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
 
-                                        }
-
-
-                                        if (str.equals ( "Bypass" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "3";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (JEA)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "4";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (Zone)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "5";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
-
-                                        }
-                                        if (str.equals ( "Fixed Fee Correction" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "6";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
-
-                                        }
+                                            }
 
 
-                                        if (str.equals ( "Loss Of Revenue" )) {
+                                            if (str.equals ( "Bypass" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "7";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
+                                                GSBilling.getInstance ( ).Payment_type = "3";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
 
-                                        }
-                                        if (str.equals ( "Meter Maintenance Fee Correction" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (JEA)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "8";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
+                                                GSBilling.getInstance ( ).Payment_type = "4";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
 
-                                        }
-                                        if (str.equals ( "Preload" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (Zone)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "9";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
+                                                GSBilling.getInstance ( ).Payment_type = "5";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
 
-                                        }
-                                        if (str.equals ( "Reconnection Fee" )) {
+                                            }
+                                            if (str.equals ( "Fixed Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "10";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "6";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Final Bill" )) {
+                                            }
 
-                                            GSBilling.getInstance ( ).Payment_type = "11";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
 
-                                        }
-                                        if (str.equals ( "Security Deposit" )) {
+                                            if (str.equals ( "Loss Of Revenue" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "12";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+                                                GSBilling.getInstance ( ).Payment_type = "7";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
 
-                                        }
-                                        if (str.equals ( "Meter Replacement Payment" )) {
+                                            }
+                                            if (str.equals ( "Meter Maintenance Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "13";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+                                                GSBilling.getInstance ( ).Payment_type = "8";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Bill" )) {
+                                            }
+                                            if (str.equals ( "Preload" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "14";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+                                                GSBilling.getInstance ( ).Payment_type = "9";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
 
-                                        }
+                                            }
+                                            if (str.equals ( "Reconnection Fee" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "10";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+
+                                            }
+                                            if (str.equals ( "Final Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "11";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
+
+                                            }
+                                            if (str.equals ( "Security Deposit" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "12";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+
+                                            }
+                                            if (str.equals ( "Meter Replacement Payment" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "13";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+
+                                            }
+                                            if (str.equals ( "Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "14";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+
+                                            }
 
 //                                        GSBilling.getInstance().Payment_type =spinner_indcident.getSelectedItem().toString();
 //                                        etMobNo.setText(GSBilling.getInstance().MOBILENO);
-                                        String typePay = "DD";
-                                        CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
-                                        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
-                                        View customView = null;
-                                        int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-                                        switch (screenSize) {
-                                            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            default:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                        }
+                                            String typePay = "DD";
+                                            CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
+                                            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+                                            View customView = null;
+                                            int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+                                            switch (screenSize) {
+                                                case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                default:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                            }
 //                                        customView = layoutInflater.inflate(R.layout.number_dialogue, null);
-                                        TextView txtamount = customView.findViewById ( R.id.amounttxt );
-                                        TextView txtview = customView.findViewById ( R.id.txt_amount );
-                                        Button btnno = customView.findViewById ( R.id.btn_no );
-                                        Button btnyes = customView.findViewById ( R.id.btn_yes );
-                                        double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
+                                            TextView txtamount = customView.findViewById ( R.id.amounttxt );
+                                            TextView txtview = customView.findViewById ( R.id.txt_amount );
+                                            Button btnno = customView.findViewById ( R.id.btn_no );
+                                            Button btnyes = customView.findViewById ( R.id.btn_yes );
+                                            double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
 //                                        CommonFunctionClass obj = new NumberToWord();
 
-                                        String Num = numberFormat.format ( Number );
-                                        String wordFormat = "";
-                                        if (Num.contains ( "." )) {
-                                            String[] arr = Num.split ( "\\." );
-                                            Long[] intArr = new Long[2];
-                                            intArr[0] = Long.parseLong ( arr[0] ); // 1
-                                            intArr[1] = Long.parseLong ( arr[1] );
-                                            String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
-                                            String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
-                                            wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
-                                        }
-                                        txtamount.setText ( wordFormat );
-                                        txtview.setText ( Num );
+                                            String Num = numberFormat.format ( Number );
+                                            String wordFormat = "";
+                                            if (Num.contains ( "." )) {
+                                                String[] arr = Num.split ( "\\." );
+                                                Long[] intArr = new Long[2];
+                                                intArr[0] = Long.parseLong ( arr[0] ); // 1
+                                                intArr[1] = Long.parseLong ( arr[1] );
+                                                String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
+                                                String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
+                                                wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
+                                            }
+                                            txtamount.setText ( wordFormat );
+                                            txtview.setText ( Num );
 //                                        txtamount.setText(commonFunctionClass.convert(Integer.parseInt(etCash.getText().toString())).toString());
-                                        AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
-                                        // this is set the view from XML inside AlertDialog
-                                        alert.setView ( customView );
-                                        final AlertDialog dialog = alert.create ( );
-                                        dialog.show ( );
+                                            AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
+                                            // this is set the view from XML inside AlertDialog
+                                            alert.setView ( customView );
+                                            final AlertDialog dialog = alert.create ( );
+                                            dialog.show ( );
 
-                                        btnno.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
+                                            btnno.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                                dialog.cancel ( );
-                                            }
-                                        } );
-                                        btnyes.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
-                                                dialog.cancel ( );
+                                                    dialog.cancel ( );
+                                                }
+                                            } );
+                                            btnyes.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
+                                                    dialog.cancel ( );
 
-                                                new TextFileClass ( PaymentType.this ).execute ( );
+                                                    makeCardPayment ( etCash.getText().toString ());
+                                                    //new TextFileClass ( PaymentType.this ).execute ( );
 
-                                            }
-                                        } );
+                                                }
+                                            } );
 
 //                                        new TextFileClass(PaymentType.this).execute();
 //                                        if (prev_pref.equalsIgnoreCase("0_0_0") || prev_pref.equalsIgnoreCase("0_0_1")) {//IMP_AMI
@@ -1252,17 +1258,17 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                                        } else {
 //                                            Toast.makeText(PaymentType.this, "Unable to find Printer", Toast.LENGTH_SHORT).show();
 //                                        }
+                                        }
                                     }
                                 }
-                            }
-                            break;
-                            case "P": {
-                                if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
-                                    etCash.setError ( "Amount Can Not Be Empty" );
-                                    Toast.makeText ( getApplicationContext ( ), "Amount Can Not Be Empty", Toast.LENGTH_SHORT ).show ( );
-                                } else if (etDD.getText ( ).toString ( ).length ( ) == 0 && etDD.getText ( ).toString ( ).length ( ) < 26) {
-                                    etDD.setError ( "pos receipt No Cannot be Empty" );
-                                    Toast.makeText ( getApplicationContext ( ), "pos receipt No Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
+                                break;
+                                case "P": {
+                                    if (etCash.getText ( ).toString ( ).equalsIgnoreCase ( "" )) {
+                                        etCash.setError ( "Amount Can Not Be Empty" );
+                                        Toast.makeText ( getApplicationContext ( ), "Amount Can Not Be Empty", Toast.LENGTH_SHORT ).show ( );
+                                    } else if (etDD.getText ( ).toString ( ).length ( ) == 0 && etDD.getText ( ).toString ( ).length ( ) < 26) {
+                                        etDD.setError ( "pos receipt No Cannot be Empty" );
+                                        Toast.makeText ( getApplicationContext ( ), "pos receipt No Cannot Be Empty", Toast.LENGTH_SHORT ).show ( );
 //                                } else if (spinner_BankName.getSelectedItem().toString().equalsIgnoreCase("Select Bank Name")) {
 //                                    Toast.makeText(getApplicationContext(), "Please Select Bank Name", Toast.LENGTH_SHORT).show();
 //                                } else if (str_bank_name.toString().length() == 0) {
@@ -1273,198 +1279,199 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                                } else if (etChekDate.getText().toString().length() == 0) {
 //                                    etChekDate.setError("Choose a Proper Date");
 //                                    Toast.makeText(getApplicationContext(), "Choose a Proper Date", Toast.LENGTH_SHORT).show();
-                                } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
-                                    etMobNo.setError ( "Please Enter a valid Mobile No" );
-                                    Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
-                                } else {
-                                    if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
+                                    } else if ((etMobNo.getText ( ).toString ( ).length ( ) == 0 || etMobNo.getText ( ).toString ( ).length ( ) < 11) || (etMobNo.getText ( ).toString ( )).equals ( "99999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "09999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00999999999" ) || (etMobNo.getText ( ).toString ( )).equals ( "00000000000" )) {
+                                        etMobNo.setError ( "Please Enter a valid Mobile No" );
+                                        Toast.makeText ( PaymentType.this, "Please Enter a Valid Mobile Number", Toast.LENGTH_SHORT ).show ( );
+                                    } else {
+                                        if ((cashET > Float.parseFloat ( GSBilling.getInstance ( ).Wallet )) && (GSBilling.getInstance ( ).Agent.equalsIgnoreCase ( "1" ))) {
 //                                        etCash.setError("Minimum Collection Amount cannot be NGN.0");
 //                                        Toast.makeText(getApplicationContext(), "Minimum Collection Amount cannot be NGN.0", Toast.LENGTH_SHORT).show();
-                                        sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
-                                        sDialog.setTitleText ( "Error" );
-                                        sDialog.setContentText ( "Wallet amount is less for collection" );
-                                        sDialog.show ( );
-                                        sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
-                                            @Override
-                                            public void onClick(SweetAlertDialog sDialog) {
-                                                sDialog.dismissWithAnimation ( );
-                                                Intent intent = new Intent ( PaymentType.this, Collection.class );
-                                                intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
-                                                startActivity ( intent );
-                                                overridePendingTransition ( R.anim.anim_slide_in_left,
-                                                        R.anim.anim_slide_out_left );
+                                            sDialog = new SweetAlertDialog ( PaymentType.this, SweetAlertDialog.ERROR_TYPE );
+                                            sDialog.setTitleText ( "Error" );
+                                            sDialog.setContentText ( "Wallet amount is less for collection" );
+                                            sDialog.show ( );
+                                            sDialog.setConfirmClickListener ( new SweetAlertDialog.OnSweetClickListener ( ) {
+                                                @Override
+                                                public void onClick(SweetAlertDialog sDialog) {
+                                                    sDialog.dismissWithAnimation ( );
+                                                    Intent intent = new Intent ( PaymentType.this, Collection.class );
+                                                    intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK );
+                                                    startActivity ( intent );
+                                                    overridePendingTransition ( R.anim.anim_slide_in_left,
+                                                            R.anim.anim_slide_out_left );
 
-                                            }
-                                        } );
-                                    } else {
+                                                }
+                                            } );
+                                        } else {
 //                                        if (etBankName.getText().toString() != null && !etBankName.getText().toString().isEmpty()) {
 //                                            str_bank_name = etBankName.getText().toString();
 //                                        }
-                                        Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
-                                        Structcolmas.CHEQUE_NO = etDD.getText ( ).toString ( );
-                                        Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
-                                        Structcolmas.BANK_NAME = str_bank_name;
-                                        String str = spinner_indcident.getSelectedItem ( ).toString ( );
-                                        if (str.equals ( "Arrears" )) {
+                                            Structcolmas.AMOUNT = numberFormat.format ( Double.parseDouble ( etCash.getText ( ).toString ( ).replaceAll ( "^0+(?=\\d+$)", "" ) ) );
+                                            Structcolmas.CHEQUE_NO = etDD.getText ( ).toString ( );
+                                            Structcolmas.CH_DATE = etChekDate.getText ( ).toString ( );
+                                            Structcolmas.BANK_NAME = str_bank_name;
+                                            String str = spinner_indcident.getSelectedItem ( ).toString ( );
+                                            if (str.equals ( "Arrears" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "1";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
+                                                GSBilling.getInstance ( ).Payment_type = "1";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Arrears";
 
-                                        }
-                                        if (str.equals ( "Burnt Meter Replacement Fee" )) {
+                                            }
+                                            if (str.equals ( "Burnt Meter Replacement Fee" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "2";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "2";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Burnt Meter Replacement Fee";
 
-                                        }
-
-
-                                        if (str.equals ( "Bypass" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "3";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (JEA)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "4";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
-
-                                        }
-                                        if (str.equals ( "Conn Fee (Zone)" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "5";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
-
-                                        }
-                                        if (str.equals ( "Fixed Fee Correction" )) {
-
-                                            GSBilling.getInstance ( ).Payment_type = "6";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
-
-                                        }
+                                            }
 
 
-                                        if (str.equals ( "Loss Of Revenue" )) {
+                                            if (str.equals ( "Bypass" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "7";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
+                                                GSBilling.getInstance ( ).Payment_type = "3";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bypass";
 
-                                        }
-                                        if (str.equals ( "Meter Maintenance Fee Correction" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (JEA)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "8";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
+                                                GSBilling.getInstance ( ).Payment_type = "4";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (JEA)";
 
-                                        }
-                                        if (str.equals ( "Preload" )) {
+                                            }
+                                            if (str.equals ( "Conn Fee (Zone)" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "9";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
+                                                GSBilling.getInstance ( ).Payment_type = "5";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Conn Fee (Zone)";
 
-                                        }
-                                        if (str.equals ( "Reconnection Fee" )) {
+                                            }
+                                            if (str.equals ( "Fixed Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "10";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+                                                GSBilling.getInstance ( ).Payment_type = "6";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Fixed Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Final Bill" )) {
+                                            }
 
-                                            GSBilling.getInstance ( ).Payment_type = "11";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
 
-                                        }
-                                        if (str.equals ( "Security Deposit" )) {
+                                            if (str.equals ( "Loss Of Revenue" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "12";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+                                                GSBilling.getInstance ( ).Payment_type = "7";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Loss Of Revenue";
 
-                                        }
-                                        if (str.equals ( "Meter Replacement Payment" )) {
+                                            }
+                                            if (str.equals ( "Meter Maintenance Fee Correction" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "13";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+                                                GSBilling.getInstance ( ).Payment_type = "8";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Maintenance Fee Correction";
 
-                                        }
-                                        if (str.equals ( "Bill" )) {
+                                            }
+                                            if (str.equals ( "Preload" )) {
 
-                                            GSBilling.getInstance ( ).Payment_type = "14";
-                                            GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+                                                GSBilling.getInstance ( ).Payment_type = "9";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Preload";
 
-                                        }
+                                            }
+                                            if (str.equals ( "Reconnection Fee" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "10";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Reconnection Fee";
+
+                                            }
+                                            if (str.equals ( "Final Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "11";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Final Bill";
+
+                                            }
+                                            if (str.equals ( "Security Deposit" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "12";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Security Deposit";
+
+                                            }
+                                            if (str.equals ( "Meter Replacement Payment" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "13";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Meter Replacement Payment";
+
+                                            }
+                                            if (str.equals ( "Bill" )) {
+
+                                                GSBilling.getInstance ( ).Payment_type = "14";
+                                                GSBilling.getInstance ( ).INCIDENT_TYPE = "Bill";
+
+                                            }
 
 //                                        GSBilling.getInstance().Payment_type =spinner_indcident.getSelectedItem().toString();
 //                                        etMobNo.setText(GSBilling.getInstance().MOBILENO);
-                                        String typePay = "POS";
-                                        CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
-                                        LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
-                                        View customView = null;
-                                        int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
-                                        switch (screenSize) {
-                                            case Configuration.SCREENLAYOUT_SIZE_XLARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_LARGE:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            case Configuration.SCREENLAYOUT_SIZE_SMALL:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                                break;
-                                            default:
-                                                customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
-                                        }
+                                            String typePay = "POS";
+                                            CommonFunctionClass commonFunctionClass = new CommonFunctionClass ( );
+                                            LayoutInflater layoutInflater = (LayoutInflater) getApplicationContext ( ).getSystemService ( Context.LAYOUT_INFLATER_SERVICE );
+                                            View customView = null;
+                                            int screenSize = getResources ( ).getConfiguration ( ).screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+                                            switch (screenSize) {
+                                                case Configuration.SCREENLAYOUT_SIZE_XLARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_UNDEFINED:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                                    break;
+                                                default:
+                                                    customView = layoutInflater.inflate ( R.layout.number_dialogue, null );
+                                            }
 //                                        customView = layoutInflater.inflate(R.layout.number_dialogue, null);
-                                        TextView txtamount = customView.findViewById ( R.id.amounttxt );
-                                        TextView txtview = customView.findViewById ( R.id.txt_amount );
-                                        Button btnno = customView.findViewById ( R.id.btn_no );
-                                        Button btnyes = customView.findViewById ( R.id.btn_yes );
-                                        double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
+                                            TextView txtamount = customView.findViewById ( R.id.amounttxt );
+                                            TextView txtview = customView.findViewById ( R.id.txt_amount );
+                                            Button btnno = customView.findViewById ( R.id.btn_no );
+                                            Button btnyes = customView.findViewById ( R.id.btn_yes );
+                                            double Number = Double.parseDouble ( etCash.getText ( ).toString ( ) );
 //                                        CommonFunctionClass obj = new NumberToWord();
 
-                                        String Num = numberFormat.format ( Number );
-                                        String wordFormat = "";
-                                        if (Num.contains ( "." )) {
-                                            String[] arr = Num.split ( "\\." );
-                                            Long[] intArr = new Long[2];
-                                            intArr[0] = Long.parseLong ( arr[0] ); // 1
-                                            intArr[1] = Long.parseLong ( arr[1] );
-                                            String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
-                                            String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
-                                            wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
-                                        }
-                                        txtamount.setText ( wordFormat );
-                                        txtview.setText ( Num );
+                                            String Num = numberFormat.format ( Number );
+                                            String wordFormat = "";
+                                            if (Num.contains ( "." )) {
+                                                String[] arr = Num.split ( "\\." );
+                                                Long[] intArr = new Long[2];
+                                                intArr[0] = Long.parseLong ( arr[0] ); // 1
+                                                intArr[1] = Long.parseLong ( arr[1] );
+                                                String str1 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[0] ) ) );
+                                                String str2 = commonFunctionClass.convert ( Integer.parseInt ( String.valueOf ( intArr[1] ) ) );
+                                                wordFormat = str1 + "  Naira and " + str2 + " Kobo only";
+                                            }
+                                            txtamount.setText ( wordFormat );
+                                            txtview.setText ( Num );
 //                                        txtamount.setText(commonFunctionClass.convert(Integer.parseInt(etCash.getText().toString())).toString());
-                                        AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
-                                        // this is set the view from XML inside AlertDialog
-                                        alert.setView ( customView );
-                                        final AlertDialog dialog = alert.create ( );
-                                        dialog.show ( );
+                                            AlertDialog.Builder alert = new AlertDialog.Builder ( PaymentType.this );
+                                            // this is set the view from XML inside AlertDialog
+                                            alert.setView ( customView );
+                                            final AlertDialog dialog = alert.create ( );
+                                            dialog.show ( );
 
-                                        btnno.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
+                                            btnno.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                                dialog.cancel ( );
-                                            }
-                                        } );
-                                        btnyes.setOnClickListener ( new View.OnClickListener ( ) {
-                                            @Override
-                                            public void onClick(View v) {
+                                                    dialog.cancel ( );
+                                                }
+                                            } );
+                                            btnyes.setOnClickListener ( new View.OnClickListener ( ) {
+                                                @Override
+                                                public void onClick(View v) {
 
-                                                dialog.cancel ( );
+                                                    dialog.cancel ( );
 
-                                                new TextFileClass ( PaymentType.this ).execute ( );
+                                                    makeCardPayment ( etCash.getText().toString ());
+                                                   // new TextFileClass ( PaymentType.this ).execute ( );
 
-                                            }
-                                        } );
+                                                }
+                                            } );
 
 //                                        new TextFileClass(PaymentType.this).execute();
 //                                        if (prev_pref.equalsIgnoreCase("0_0_0") || prev_pref.equalsIgnoreCase("0_0_1")) {//IMP_AMI
@@ -1494,26 +1501,101 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                                        } else {
 //                                            Toast.makeText(PaymentType.this, "Unable to find Printer", Toast.LENGTH_SHORT).show();
 //                                        }
+                                        }
                                     }
+                                    break;
                                 }
-                                break;
+                                default:
+                                    Toast.makeText ( PaymentType.this, "Select Payment Type ", Toast.LENGTH_SHORT ).show ( );
                             }
-                            default:
-                                Toast.makeText ( PaymentType.this, "Select Payment Type ", Toast.LENGTH_SHORT ).show ( );
-                        }
 
-                    } catch (NumberFormatException e) {
-                        Toast.makeText ( PaymentType.this, "All Fields Mandatory", Toast.LENGTH_SHORT ).show ( );
-                    }
+                        } catch (NumberFormatException e) {
+                            Toast.makeText ( PaymentType.this, "All Fields Mandatory", Toast.LENGTH_SHORT ).show ( );
+                        }
 
 //                    etMobNo.setText(GSBilling.getInstance().MOBILENO);
 
-                }
+                    }
 //                Toast.makeText(PaymentType.this, "Payment Type is : " + GSBilling.getInstance().getPayType(), Toast.LENGTH_SHORT).show();
-            }
+                }
+
+
         } );
+
     }
 
+    public void makeCardPayment(String amount){
+
+        DecimalFormat decimalFormat=new DecimalFormat ( "#.00" );
+       String collectionAmount= decimalFormat.format ( Double.parseDouble ( amount ) );
+
+
+
+
+      //  System.out.println ("Amount "+collectionAmount+"0" );
+
+      //  System.out.println ( xx );
+
+        String additionalAmount="0.0";
+        String transactionId=System.currentTimeMillis ()+""+MainActivity.MRID;
+
+        System.out.println ("Transaction id "+transactionId );
+
+       // 2677
+        Intent intent=new Intent (  );
+        intent.putExtra( CardUtils.TRANSACTION_AMOUNT,collectionAmount);
+        intent.putExtra(CardUtils.TRANSACTION_ADDITIONAL_AMOUNT,additionalAmount);
+        intent.putExtra(CardUtils.TRANSACTION_ID,transactionId);
+
+        intent.setComponent ( new ComponentName(CardUtils.PACKAGE_NAME, CardUtils.CLASS_DETAILS));
+
+
+        if (getPackageManager ().resolveActivity(intent, 0) != null) {
+            startActivityForResult(intent ,CardUtils.REQUESTCODE);
+        } else {
+            Toast.makeText(this, "You Currently do not an App to back this action", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode == Activity.RESULT_CANCELED){
+
+            return;
+        } else if (resultCode == Activity.RESULT_OK && requestCode == CardUtils.REQUESTCODE){
+            if (data != null) {
+
+                System.out.println ("RequestCode "+requestCode );
+                System.out.println ("ResultCode "+resultCode );
+                Toast.makeText ( PaymentType.this, "RequestCode "+requestCode+ " " +resultCode, Toast.LENGTH_SHORT ).show ( );
+
+
+
+                 amount= data.getStringExtra(CardUtils.AMOUNT);
+                 transactionStatus =data.getStringExtra(CardUtils.TRANSACTION_STATUS);
+                 transactionReason = data.getStringExtra(CardUtils.TRANSACTION_STATUS_REASON);
+                 pan = data.getStringExtra(CardUtils.PAN);
+                 rrn = data.getStringExtra(CardUtils.RRN);
+                 terminalId = data.getStringExtra(CardUtils.TERMINAL_ID);
+
+                System.out.println ("Amount "+amount );
+                System.out.println ("trans1 "+transactionStatus );
+                System.out.println ("trans2 "+transactionReason );
+
+                if(transactionStatus.equalsIgnoreCase ( "approved" )){
+                     new TextFileClass ( PaymentType.this ).execute ( );
+                }
+                else{
+                    Toast.makeText ( PaymentType.this, ""+transactionStatus, Toast.LENGTH_SHORT ).show ( );
+                }
+
+
+            }
+
+        }
+
+
+    }
 
     @Override
     protected Dialog onCreateDialog(int id) {
@@ -2213,6 +2295,11 @@ public class PaymentType extends AppCompatActivity implements LogoutListaner {
 //                    }
                     progress.dismiss ( );
                     Intent intent = new Intent ( getApplicationContext ( ), MainActivityCollectionPrint.class );
+                    intent.putExtra ( CardUtils.PAN ,pan);
+                    intent.putExtra ( CardUtils.RRN ,rrn);
+                    intent.putExtra ( CardUtils.AMOUNT,amount );
+                    intent.putExtra ( CardUtils.TERMINAL_ID,terminalId );
+                    intent.putExtra ( CardUtils.TRANSACTION_STATUS, transactionStatus);
                     startActivity ( intent );
                     overridePendingTransition ( R.anim.anim_slide_in_left,
                             R.anim.anim_slide_out_left );

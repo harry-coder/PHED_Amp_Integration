@@ -49,6 +49,7 @@ import com.fedco.mbc.model.Structcollection;
 import com.fedco.mbc.model.Structcolmas;
 import com.fedco.mbc.model.Structconsmas;
 import com.fedco.mbc.sqlite.DB;
+import com.fedco.mbc.utils.CardUtils;
 import com.fedco.mbc.utils.HttpFileUpload;
 import com.fedco.mbc.utils.UtilAppCommon;
 import com.google.zxing.BarcodeFormat;
@@ -70,6 +71,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -164,7 +166,12 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
     Cursor paymentcursor;
     TelephonyManager telephonyManager;
 
-    boolean posTesting = true;
+    String amount;
+    String transactionStatus ;
+    String transactionReason ;
+    String pan ;
+    String rrn ;
+    String terminalId;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -177,9 +184,16 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
         Mac = sharedPreferences.getString ( "BTDeviceMac", "NA" );
 //        new TextFileClass(MainActivityCollectionPrint.this).execute();
 
-        mLogTxt = (TextView) findViewById ( R.id.log_txt );
 
-        devListSpinner = (Spinner) findViewById ( R.id.device_listspinner );
+        pan=getIntent ().getStringExtra ( CardUtils.PAN );
+        rrn=getIntent ().getStringExtra ( CardUtils.RRN );
+        amount=getIntent ().getStringExtra ( CardUtils.AMOUNT );
+        terminalId=getIntent ().getStringExtra ( CardUtils.TERMINAL_ID );
+        transactionStatus=getIntent ().getStringExtra ( CardUtils.TRANSACTION_STATUS );
+
+        mLogTxt = findViewById ( R.id.log_txt );
+
+        devListSpinner = findViewById ( R.id.device_listspinner );
         devListSpinner.setOnItemSelectedListener ( this );
         spinAdapter = new ArrayAdapter <String> ( this, android.R.layout.simple_spinner_item );
         spinAdapter.setDropDownViewResource ( android.R.layout.simple_spinner_dropdown_item );
@@ -221,7 +235,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 
         SimpleDateFormat formatter = new SimpleDateFormat ( "dd MMMM yyyy" );
         String billMonth = formatter.format ( date );
-        String str[] = billMonth.split ( " " );
+        String[] str = billMonth.split ( " " );
         String month = str[1].substring ( 0, 3 );
         String year = str[2].substring ( 2 );
         strBillMonth = month + "-" + year;
@@ -495,33 +509,35 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
     public void printForPos() {
         LinkedHashMap <String, String> printMap = new LinkedHashMap <> ( );
 
-        if (typePay.equalsIgnoreCase ( "Prepaid" )) {
-            printMap.put ( "Date", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
-            printMap.put ( "Account", GSBilling.getInstance ( ).ConsumerNO );
-            printMap.put ( "Meter", GSBilling.getInstance ( ).MeterNo );
-            printMap.put ( "Customer Name", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
-            printMap.put ( "Address", GSBilling.getInstance ( ).Addresses.trim ( ) );
-            printMap.put ( "Ibc", GSBilling.getInstance ( ).IBC.trim ( ) );
-            printMap.put ( "Bsc", GSBilling.getInstance ( ).BSC.trim ( ) );
-            printMap.put ( "Tariff Code", GSBilling.getInstance ( ).TARIFFCODE );
-            printMap.put ( "Tariff Rate", GSBilling.getInstance ( ).TARIFF_RATE );
-            printMap.put ( "Tariff Index", GSBilling.getInstance ( ).TARIFF_INDEX );
+        if (typePay.equalsIgnoreCase ( "PREPAID" )) {
+            printMap.put ( "DATE", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
+            printMap.put ( "ACCOUNT", GSBilling.getInstance ( ).ConsumerNO );
+            printMap.put ( "METER", GSBilling.getInstance ( ).MeterNo );
+            printMap.put ( "CUSTOMER NAME", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
+            printMap.put ( "ADDRESS", GSBilling.getInstance ( ).Addresses.trim ( ) );
+            printMap.put ( "IBC", GSBilling.getInstance ( ).IBC.trim ( ) );
+            printMap.put ( "BSC", GSBilling.getInstance ( ).BSC.trim ( ) );
+            printMap.put ( "TARIFF CODE", GSBilling.getInstance ( ).TARIFFCODE );
+            printMap.put ( "TARIFF RATE", GSBilling.getInstance ( ).TARIFF_RATE );
+            printMap.put ( "TARIFF INDEX", GSBilling.getInstance ( ).TARIFF_INDEX );
             printMap.put ( "TRANSACTIONAL DETAILS", "" );
 
-            printMap.put ( "Account Type", GSBilling.getInstance ( ).CON_TYPE );
-            printMap.put ( "Payment Type", typeMode );
+            printMap.put ( "ACCOUNT TYPE", GSBilling.getInstance ( ).CON_TYPE );
+            printMap.put ( "PAYMENT TYPE", typeMode );
+
+
 
 
             if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
-                printMap.put ( "Cheque Date", Structcolmas.CH_DATE );
-                printMap.put ( "Cheque No", Structcolmas.CHEQUE_NO );
-                printMap.put ( "Bank Name", Structcolmas.BANK_NAME );
+                printMap.put ( "CHEQUE DATE", Structcolmas.CH_DATE );
+                printMap.put ( "CHEQUE NO", Structcolmas.CHEQUE_NO );
+                printMap.put ( "BANK NAME", Structcolmas.BANK_NAME );
                 printMap.put ( "SUBJECT TO CLEARANCE", "" );
 
 
             }
 
-            printMap.put ( "Amount", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
+            printMap.put ( "AMOUNT", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
 
             if (paymentcursor.getCount ( ) > 0) {
                 paymentcursor.moveToNext ( );
@@ -537,47 +553,59 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
             }
 
 
-            printMap.put ( "Units", GSBilling.getInstance ( ).punit );
-            printMap.put ( "Token", GSBilling.getInstance ( ).TokenNo );
-            printMap.put ( "eReceipt", GSBilling.getInstance ( ).RecieptNo );
-            printMap.put ( "Reader Name", GSBilling.getInstance ( ).MRNAME );
-            printMap.put ( "Customer Care", "070022557433" );
+            printMap.put ( "UNITS", GSBilling.getInstance ( ).punit );
+            printMap.put ( "TOKEN", GSBilling.getInstance ( ).TokenNo );
+            printMap.put ( "ERECEIPT", GSBilling.getInstance ( ).RecieptNo );
+            printMap.put ( "READER NAME", GSBilling.getInstance ( ).MRNAME );
+            printMap.put ( "CARD DETAILS","" );
+            printMap.put ( "PAN",pan );
+            printMap.put ( "RRN",rrn );
+            printMap.put ( "TERMINAL ID",terminalId );
+
+
+            printMap.put ( "CUSTOMER CARE", "070022557433" );
 
 
         } else {
 
-            printMap.put ( "Date", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
-            printMap.put ( "Account", GSBilling.getInstance ( ).ConsumerNO );
-            printMap.put ( "Meter", GSBilling.getInstance ( ).MeterNo );
-            printMap.put ( "Customer Name", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
-            printMap.put ( "Address", GSBilling.getInstance ( ).Addresses.trim ( ) );
-            printMap.put ( "Ibc", GSBilling.getInstance ( ).IBC.trim ( ) );
-            printMap.put ( "Bsc", GSBilling.getInstance ( ).BSC.trim ( ) );
-            printMap.put ( "Tariff Code", GSBilling.getInstance ( ).TARIFFCODE );
-            printMap.put ( "Tariff Rate", GSBilling.getInstance ( ).TARIFF_RATE );
+            printMap.put ( "DATE", GSBilling.getInstance ( ).Serverdate + "  " + GSBilling.getInstance ( ).Servertime );
+            printMap.put ( "ACCOUNT", GSBilling.getInstance ( ).ConsumerNO );
+            printMap.put ( "METER", GSBilling.getInstance ( ).MeterNo );
+            printMap.put ( "CUSTOMER NAME", GSBilling.getInstance ( ).CONS_NAME.trim ( ) );
+            printMap.put ( "ADDRESS", GSBilling.getInstance ( ).Addresses.trim ( ) );
+            printMap.put ( "IBC", GSBilling.getInstance ( ).IBC.trim ( ) );
+            printMap.put ( "BSC", GSBilling.getInstance ( ).BSC.trim ( ) );
+            printMap.put ( "TARIFF CODE", GSBilling.getInstance ( ).TARIFFCODE );
+            printMap.put ( "TARIFF RATE", GSBilling.getInstance ( ).TARIFF_RATE );
             printMap.put ( "TRANSACTIONAL DETAILS", "" );
 
-            printMap.put ( "Account Type", GSBilling.getInstance ( ).CON_TYPE );
-            printMap.put ( "Payment Type", typeMode );
-            printMap.put ( "Payment Against", GSBilling.getInstance ( ).INCIDENT_TYPE );
+            printMap.put ( "ACCOUNT TYPE", GSBilling.getInstance ( ).CON_TYPE );
+            printMap.put ( "PAYMENT TYPE", typeMode );
+            printMap.put ( "PAYMENT AGAINST", GSBilling.getInstance ( ).INCIDENT_TYPE );
 
 
             if (Structcolmas.PYMNT_MODE.equalsIgnoreCase ( "Q" )) {
-                printMap.put ( "ChequeDate", Structcolmas.CH_DATE );
-                printMap.put ( "ChequeNo", Structcolmas.CHEQUE_NO );
-                printMap.put ( "BankName", Structcolmas.BANK_NAME );
+                printMap.put ( "CHEQUE DATE", Structcolmas.CH_DATE );
+                printMap.put ( "CHEQUE NO", Structcolmas.CHEQUE_NO );
+                printMap.put ( "BANK NAME", Structcolmas.BANK_NAME );
                 printMap.put ( "SUBJECT TO CLEARANCE", "" );
+
 
             }
 
-            printMap.put ( "Amount", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
-            printMap.put ( "eReceipt", GSBilling.getInstance ( ).RecieptNo );
-            printMap.put ( "MRName", GSBilling.getInstance ( ).MRNAME );
-            printMap.put ( "Customer Care", "070022557433" );
+            printMap.put ( "AMOUNT", MainActivityCollectionPrint.internationAnotation ( Structcolmas.AMOUNT ) );
+            printMap.put ( "ERECEIPT", GSBilling.getInstance ( ).RecieptNo );
+            printMap.put ( "READER NAME", GSBilling.getInstance ( ).MRNAME );
+
+            printMap.put ( "Card Details","" );
+            printMap.put ( "PAN",pan );
+            printMap.put ( "RRN",rrn );
+            printMap.put ( "TERMINAL ID",terminalId );
+            printMap.put ( "CUSTOMER CARE", "070022557433" );
         }
 
 
-        sendValuesToPrinter ( printMap, Structcolmas.AMOUNT );
+        sendValuesToPrinter ( printMap, amount );
         // PrintClass.printReceipt ( this, printMap, Structcolmas.AMOUNT, "Approved", "PHED", bmp.toString () );
 
     }
@@ -589,10 +617,9 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 
         byte[] byteArray = byteArrayOutputStream.toByteArray ( );
         String encoded = Base64.encodeToString ( byteArray, Base64.DEFAULT );
-        System.out.println ( map );
 
         startActivity ( new Intent ( this, Collection.class ) );
-        PrintClass.printReceipt ( this, map, amount, "Approved", "PHED", encoded );
+        PrintClass.printReceipt ( this, map, amount, transactionStatus, "PHED", encoded );
     }
 
     private String dotSeparate(String value) {
@@ -700,7 +727,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                     setLogText ( "===> Device detected : " + device.getAddress ( ) );
                 }
                 for (int x = 0; x < spinAdapter.getCount ( ); x++) {
-                    String tmp = spinAdapter.getItem ( x ).toString ( );
+                    String tmp = spinAdapter.getItem ( x );
                     if (tmp.equalsIgnoreCase ( dev_adrs )) {
                         i++;
                     }
@@ -785,23 +812,19 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
             if (s.length ( ) < 2) {
                 sBuffer.append ( '0' );
             }
-            sBuffer.append ( new StringBuilder ( String.valueOf ( s ) ).append ( " " ).toString ( ) );
+            sBuffer.append ( new StringBuilder ( s ).append ( " " ).toString ( ) );
         }
         return sBuffer;
     }
 
     public void printQrcodeSP() {
         byte[] btdata = null;
-        try {
-            btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_CENTER );
+        btpObject.sendMessage ( PrinterCommands.ESC_ALIGN_CENTER );
 //            btdata = GSBilling.getInstance().ConsumerNO.getBytes("ASCII");
-            btdata = (GSBilling.getInstance ( ).ConsumerNO + "," + GSBilling.getInstance ( ).MeterNo + "," + Structcolmas.AMOUNT + "," + GSBilling.getInstance ( ).RecieptNo).getBytes ( "ASCII" );
+        btdata = (GSBilling.getInstance ( ).ConsumerNO + "," + GSBilling.getInstance ( ).MeterNo + "," + Structcolmas.AMOUNT + "," + GSBilling.getInstance ( ).RecieptNo).getBytes ( StandardCharsets.US_ASCII );
 //            btdata = "12345".toString().getBytes("ASCII");
 
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace ( );
-        }
-        String strdata = this.bytesToString ( btdata ).toString ( );
+        String strdata = bytesToString ( btdata ).toString ( );
         short datalen = (short) (strdata.length ( ) + 3);
         byte pL = (byte) (datalen & MotionEventCompat.ACTION_MASK);
         byte pH = (byte) (datalen >> 8);
@@ -961,7 +984,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
         BitMatrix bitMatrix;
         Bitmap bitmap = null;
         try {
-            bitMatrix = new MultiFormatWriter ( ).encode ( text, BarcodeFormat.DATA_MATRIX.QR_CODE, width, height, null );
+            bitMatrix = new MultiFormatWriter ( ).encode ( text, BarcodeFormat.QR_CODE, width, height, null );
             int bitMatrixWidth = bitMatrix.getWidth ( );
             int bitMatrixHeight = bitMatrix.getHeight ( );
             int[] pixels = new int[bitMatrixWidth * bitMatrixHeight];
@@ -1089,8 +1112,8 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                         sDialog.dismissWithAnimation ( );
 
                         UtilAppCommon ucom = new UtilAppCommon ( );
-                        ucom.nullyfimodelCon ( );
-                        ucom.nullyfimodelBill ( );
+                        UtilAppCommon.nullyfimodelCon ( );
+                        UtilAppCommon.nullyfimodelBill ( );
 
                         if (isMobileDataEnabled ( )) {
 
@@ -1128,8 +1151,8 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                         sDialog.dismissWithAnimation ( );
 
                         UtilAppCommon ucom = new UtilAppCommon ( );
-                        ucom.nullyfimodelCon ( );
-                        ucom.nullyfimodelBill ( );
+                        UtilAppCommon.nullyfimodelCon ( );
+                        UtilAppCommon.nullyfimodelBill ( );
 
                         if (isMobileDataEnabled ( )) {
 
@@ -1193,7 +1216,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                 String selquer = "SELECT * FROM TBL_COLMASTER_MP WHERE Upload_Flag='N' ";//WHERE Upload_Flag='N'
                 Cursor curColselect = SD2.rawQuery ( selquer, null );
 
-                String arrStr[] = null;
+                String[] arrStr = null;
                 ArrayList <String> mylist = new ArrayList <String> ( );
 
 
@@ -1333,7 +1356,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 
 
         } catch (Exception e) {
-            Log.e ( getApplicationContext ( ), "SLPrintAct", "tag" + e.getMessage ( ) );
+            Logger.e ( getApplicationContext ( ), "SLPrintAct", "tag" + e.getMessage ( ) );
         }
     }
 
@@ -1463,7 +1486,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                 // Set your file path here
 //                System.out.println("FILENAME IS1 "+GSBilling.getInstance().getFinalZipName());
                 FileInputStream fstrm = new FileInputStream ( Environment.getExternalStorageDirectory ( ).toString ( ) + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
-                Log.e ( getApplicationContext ( ), "SLPrintAct", "FILENAME IS12 " + fstrm );
+                Logger.e ( getApplicationContext ( ), "SLPrintAct", "FILENAME IS12 " + fstrm );
 
                 // Set your server page url (and the file title/description)
 
@@ -1476,7 +1499,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
 //                HttpFileUpload hfu = new HttpFileUpload("http://enserv.feedbackinfra.com/Webapi/api/UploadFile/UploadFiles", "" + GSBilling.getInstance().getFinalZipName(), ".zip");
 
                 // Log.e(getApplicationContext(), "http://enservmp.fedco.co.in/MPSurvey/api/UploadFile/UploadSurveyFiles", "" + GSBilling.getInstance().getFinalZipName()+".zip");
-                Log.e ( getApplicationContext ( ), "SLPrintAct", "going out " + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
+                Logger.e ( getApplicationContext ( ), "SLPrintAct", "going out " + GSBilling.getInstance ( ).getFinalZipName ( ) + ".zip" );
                 int status = hfu.Send_Now ( fstrm );
                 if (status != 200) {
 //                    succsess = "1";
@@ -1509,7 +1532,7 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
                     String updatequer = "UPDATE  TBL_COLMASTER_MP  SET Upload_Flag = 'Y'";
                     Cursor curBillupdate = SD2.rawQuery ( updatequer, null );
                     if (curBillupdate != null && curBillupdate.moveToFirst ( )) {
-                        Log.e ( getApplicationContext ( ), "SLPrintAct", "Update Success" );
+                        Logger.e ( getApplicationContext ( ), "SLPrintAct", "Update Success" );
                     }
 
                     MainActivityCollectionPrint.this.runOnUiThread ( new Runnable ( ) {
@@ -1573,19 +1596,19 @@ public class MainActivityCollectionPrint extends Activity implements View.OnClic
     }
 
     void DeleteRecursive(File dir) {
-        Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETEPREVIOUS TOP" + dir.getPath ( ) );
+        Logger.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETEPREVIOUS TOP" + dir.getPath ( ) );
         if (dir.isDirectory ( )) {
             String[] children = dir.list ( );
             for (int i = 0; i < children.length; i++) {
                 File temp = new File ( dir, children[i] );
                 if (temp.isDirectory ( )) {
-                    Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Recursive Call" + temp.getPath ( ) );
+                    Logger.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Recursive Call" + temp.getPath ( ) );
                     DeleteRecursive ( temp );
                 } else {
-                    Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Delete File" + temp.getPath ( ) );
+                    Logger.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive Delete File" + temp.getPath ( ) );
                     boolean b = temp.delete ( );
                     if (b == false) {
-                        Log.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETE FAIL" );
+                        Logger.e ( getApplicationContext ( ), "SLPrintAct", "DeleteRecursive DELETE FAIL" );
                     }
                 }
             }

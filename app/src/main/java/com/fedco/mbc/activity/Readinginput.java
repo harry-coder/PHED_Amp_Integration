@@ -297,6 +297,8 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
                         //  intentnormal.putExtra("Value", selectedValue);
                         //intent.putExtra("Position", 1);
                         GSBilling.getInstance ( ).setCurmeter ( 1 );
+
+
                         // startActivity ( intentnormal );
 
                        /* overridePendingTransition ( R.anim.anim_slide_in_left,
@@ -313,6 +315,7 @@ public class Readinginput extends AppCompatActivity implements StartMeterReading
 
                         break;
                     case 1://// MP PFL
+
 
 
                         GSBilling.getInstance ( ).setMaxDemand ( Double.parseDouble ( "0" ) );
